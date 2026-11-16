@@ -1,0 +1,21 @@
+// Joke of the day: one joke a day, the same all day for everyone. The page may read the database and the
+// clock, and nothing else.
+
+db.open("data/jokes.db") | unwrap
+db.migrate("migrations")
+
+// Today's joke: the day's number decides, so it's the same all day.
+fn todays(n: int) -> int with time = date.days_between("2026-01-01", date.today()) % n + 1
+
+route GET / with db, time {
+    let n = db.one("select count(*) as n from jokes").n
+    let j = db.one("select text from jokes where id = ?", todays(n))
+    <html>
+        <head><title>Joke of the day</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>😂 Joke of the day</h1><p.day>{date.today()}</p><blockquote>{j.text}</blockquote>
+        </main></body>
+    </html>
+}
+
+route GET /static/*path = files("public", path)

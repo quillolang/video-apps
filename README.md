@@ -40,6 +40,7 @@ Quillo: https://quillolang.org
 | [32-dates](32-dates) | Dates and Time Zones in Quillo: New Year's Midnight Around the World | Midnight around the world: New Year's midnight in nine cities, in the order it arrives, shown in a time zone you pick and counted down live. date.at, date.to_zone, date.format and date.ms, with every() for the clock and a ?at= time machine. |
 | [33-regex](33-regex) | Text and Regular Expressions in Quillo: A Username Checker | Pick a handle: a sign-up that checks a username against its rules as you type (re.test), makes a web address from a post's title (normalize, re.replace, lower), and finds the hashtags in a bio (re.find_all). All of it runs in the browser. |
 | [34-http](34-http) | Calling Other Servers in Quillo: A Weather Dashboard That Copes | Sky watch: a weather dashboard that asks another server with http.get, caching answers for 30 seconds and giving up after 2, and shows what went wrong when a city is slow, unknown, or the whole service is down. weather.qwe is the pretend weather service it asks: run it with quillo run weather.qwe --port 8081. |
+| [35-effects](35-effects) | Bug Hunt: Effects in Quillo (What Your Page Is Allowed to Do) | Joke of the day: one joke a day, the same all day, from SQLite. Its page is declared with db, time, so it may use the database and the clock and nothing else. The video starts from a teammate's version whose helpers pick at random, post to a stats site and write a file, and fixes each one. |
 
 ## Shorts
 
