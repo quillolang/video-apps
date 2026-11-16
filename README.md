@@ -20,3 +20,9 @@ Quillo: https://quillolang.org
 | [11-project-structure](11-project-structure) | Project Structure in Quillo: One File to Many, use and import | A plant care list, split the way bigger programs are: main.qwe lists the parts, lib/ holds the helpers and server fns, ui/ the views and components, migrations/ the tables, data/ the database and public/ the files served as they are. |
 | [12-state-let](12-state-let) | State vs let in Quillo: What Changes, What Follows, What's Shared | A tip splitter: what you change is state, what follows from it is let, and a top-level let on the server holds the tips paid, shared by every visitor until a restart. |
 | [13-databases](13-databases) | Databases in Quillo: Migrations, Queries, Transactions and Live Pages | A team kudos board in SQLite: tables from migrations, queries with ? and :name values, rows checked against a record type, a unique name said plainly with db.error_kind, kudos given in a transaction that's all or nothing, and a board that follows the database live. |
+
+## Shorts
+
+| Folder | Short | The app |
+|---|---|---|
+| [01-counter](shorts/01-counter) | A click counter in 12 lines of Quillo | A click counter: a component with its own state, and a route that puts it on a page. One file, 12 lines. |
