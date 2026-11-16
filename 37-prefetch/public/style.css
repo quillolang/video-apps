@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    background: #f6f1e7;
+    color: #2b2620;
+    font: 18px/1.6 Georgia, serif;
+}
+
+main {
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem;
+}
+
+.brand {
+    margin: 0 0 1rem;
+    font: 700 1.05rem system-ui, sans-serif;
+}
+
+a {
+    color: #7a3e1d;
+}
+
+.brand a {
+    text-decoration: none;
+}
+
+.rooms {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rooms li {
+    margin-bottom: .5rem;
+    padding: .7rem 1rem;
+    background: #fffaf0;
+    border: 1px solid #e4d6bd;
+    border-radius: 12px;
+    font-size: 1.15rem;
+}
+
+h1 {
+    margin: 0 0 .3rem;
+    font-size: 1.7rem;
+}
+
+.likes,
+.next {
+    font-family: system-ui, sans-serif;
+}
+
+.likes a {
+    margin-left: .4rem;
+    padding: .15rem .7rem;
+    background: #fde2e4;
+    border-radius: 99px;
+    text-decoration: none;
+}

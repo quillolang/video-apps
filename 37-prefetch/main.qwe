@@ -1,0 +1,39 @@
+// The Museum of Tiny Things: rooms that are slow to put together, and links that open before you click.
+
+let rooms = [
+    { name: "The Button Room", thing: "🔘", note: "Four hundred buttons, none of them sewn on." },
+    { name: "The Thimble Hall", thing: "🪡", note: "A thimble from every country that has one." },
+    { name: "The Pebble Gallery", thing: "🪨", note: "Pebbles, sorted by how smooth they are." },
+    { name: "The Key Vault", thing: "🗝️", note: "Keys to doors that no longer exist." },
+]
+let likes = [0, 0, 0, 0]
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><p.brand><a href="/">🏛️ The Museum of Tiny Things</a></p>{children}</main></body>
+</html>
+
+route GET / = <Page title="The Museum of Tiny Things">
+    <ul.rooms>{for [i, r] in enumerate(rooms) => <li><a href={`/room/${i}`}>{r.thing} {r.name}</a></li>}</ul>
+</Page>
+
+// A room takes a while to put together, like a page that asks a slow database.
+route GET /room/:i(int) {
+    let r = rooms[i] ?? reply 404 "No such room"
+    sleep(400)
+    let next = (i + 1) % count(rooms)
+    <Page title={r.name}>
+        <h1>{r.thing} {r.name}</h1>
+        <p>{r.note}</p>
+        <p.likes>❤️ {likes[i]} <a href={`/room/${i}/like`}>Like</a></p>
+        <p.next><a href={`/room/${next}`}>Next room: {rooms[next].name} →</a></p>
+    </Page>
+}
+
+// A like, written as a link: a GET that changes something. Pointing at it doesn't count.
+route GET /room/:i(int)/like {
+    likes = set(likes, i, likes[i] + 1)
+    redirect(`/room/${i}`)
+}
+
+route GET /static/*path = files("public", path)
