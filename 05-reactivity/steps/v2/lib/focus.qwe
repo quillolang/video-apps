@@ -1,0 +1,7 @@
+// A clock face for the timer.
+
+// Pure, so the server and the browser both use it: 1499 seconds is "24:59".
+fn clock(seconds: int) -> str {
+    let s = seconds % 60
+    `${floor(seconds / 60)}:${s < 10 ? "0" : ""}${s}`
+}

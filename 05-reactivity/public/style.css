@@ -1,0 +1,21 @@
+/* The focus board's look: a calm header, three cards, and a bigger timer in focus mode. */
+body { margin: 0; font: 18px/1.5 system-ui, sans-serif; color: #1f2430; background: #eef1f7; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: #1f2a44; color: #eef3ff; }
+header h1 { margin: 0; font-size: 1.6rem; }
+main { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1.5rem 2rem; }
+.card { background: #fff; border-radius: 1rem; padding: 1.1rem 1.3rem; border: 1px solid #dde3ee; }
+.clock { margin: 0 0 .6rem; font: 700 3rem/1 ui-monospace, monospace; letter-spacing: -.02em; }
+.big { grid-column: 1 / -1; text-align: center; background: #1f2a44; color: #eef3ff; border-color: #1f2a44; }
+.big .clock { font-size: 5.5rem; }
+.progress { margin: 0; font-weight: 700; }
+ul { list-style: none; padding: 0; margin: .5rem 0; }
+li { padding: .2rem 0; }
+form { display: flex; gap: .5rem; }
+input[placeholder] { flex: 1; font: inherit; padding: .35rem .6rem; border: 1px solid #c9d1e0; border-radius: .5rem; }
+button { font: inherit; font-weight: 600; border: 0; border-radius: .6rem; padding: .35rem .9rem; background: #dfe5f1; color: #1f2430; cursor: pointer; }
+.switch { background: #34405e; color: #eef3ff; }
+.switch.on { background: #f2b84b; color: #1f2430; }
+.sessions { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; }
+.sessions p { margin: 0; }
+.sessions b { font-size: 1.4rem; }
+button + button { margin-left: .4rem; }

@@ -1,0 +1,15 @@
+// The server side of the board: today's focus sessions, and a clock face for the timer.
+
+// Pure, so the server and the browser both use it: 1499 seconds is "24:59".
+fn clock(seconds: int) -> str {
+    let s = seconds % 60
+    `${floor(seconds / 60)}:${s < 10 ? "0" : ""}${s}`
+}
+
+server fn sessions_today() -> int with db =
+    db.one("select count(*) as n from sessions where date(at) = date('now')").n
+
+server fn log_session() -> int with db {
+    db.exec("insert into sessions default values")
+    sessions_today()
+}

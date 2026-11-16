@@ -1,0 +1,20 @@
+// A focus board: component state, page state and live server state, side by side.
+
+use ui/board.qwe
+
+route GET / =
+    <html>
+        <head>
+            <title>Focus board</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <header><h1>Focus board</h1></header>
+            <main>
+                <Timer minutes={25}/>
+                <Checklist/>
+            </main>
+        </body>
+    </html>
+
+route GET /static/*path = files("public", path)

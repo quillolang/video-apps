@@ -1,0 +1,51 @@
+// The focus board: a timer and a checklist, and a focus switch they both follow.
+
+use lib/focus.qwe
+
+// Page state: one value for this page, shared by every component on it.
+state focus = false
+
+// The switch in the header: it changes the page state.
+component FocusSwitch() {
+    <button.switch class={focus && "on"} @click={() => { focus = !focus }}>
+        {focus ? "Focus mode: on" : "Focus mode: off"}
+    </button>
+}
+
+// A timer: its own state, a label made from it, and a tick while it runs.
+component Timer(minutes: int = 25) {
+    state left = minutes * 60
+    state running = false
+    let label = clock(left)
+    if running && left > 0 { every(1000, () => { left -= 1 }) }
+    <section.card class={focus && "big"}>
+        <p.clock>{label}</p>
+        <button @click={() => { running = !running }}>{running ? "Pause" : "Start"}</button>
+        <button @click={() => {
+            running = false
+            left = minutes * 60
+        }}>Reset</button>
+    </section>
+}
+
+// A checklist: a list in state, changed by making a new list, never in place.
+component Checklist() {
+    state tasks = [{ text: "Read chapter 3", done: false }, { text: "Write the summary", done: false }]
+    state draft = ""
+    let done = count(tasks, (t) => t.done)
+    let shown = focus ? filter(tasks, (t) => !t.done) : tasks
+    let toggle = (task) => { tasks = map(tasks, (t) => t == task ? { ...t, done: !t.done } : t) }
+    <section.card>
+        <p.progress>{done} of {len(tasks)} done</p>
+        <ul>{for t in shown => <li key={t.text}>
+            <label><input type="checkbox" checked={t.done} @change={() => toggle(t)}/> {t.text}</label>
+        </li>}</ul>
+        <form @submit={() => {
+            if trim(draft) != "" { tasks = tasks | push({ text: trim(draft), done: false }) }
+            draft = ""
+        }}>
+            <input bind:value={draft} placeholder="Add a task"/>
+            <button>Add</button>
+        </form>
+    </section>
+}
