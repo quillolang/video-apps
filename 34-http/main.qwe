@@ -1,0 +1,30 @@
+// Sky watch: a weather dashboard that asks another server, and copes when it's slow, missing or down.
+
+let sky = env("SKY_URL", "http://127.0.0.1:8081")
+let cities = ["lisbon", "oslo", "tokyo", "lima", "london", "atlantis"]
+let icons = { sunny: "☀️", snow: "❄️", rain: "🌧️", cloudy: "☁️" }
+
+// One city's forecast, or an error value that says what went wrong.
+fn forecast(city: str) -> map ! str {
+    let r = http.get(`${sky}/forecast/${city}`, {}, { cache: 30, timeout: 2 })?
+    if r.status == 404 { return err("No forecast for this city") }
+    if !r.ok { return err(`The sky service answered ${r.status}`) }
+    r.json
+}
+
+fn title(city: str) -> str = upper(slice(city, 0, 1)) + slice(city, 1)
+
+// A card for a city: its weather, or what went wrong.
+view Card(city: str) = match forecast(city) {
+    { temp: int as t, sky: str as s, wind: int as w } =>
+        <div.card><b>{title(city)}</b><span.icon>{get(icons, s) ?? "🌈"}</span>
+            <span.temp>{t}°</span><small>{s}, wind {w} km/h</small></div>
+    f => <div.card.bad><b>{title(city)}</b><span.icon>🛰️</span><small>{f.error}</small></div>
+}
+
+route GET / = <html>
+    <head><title>Sky watch</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🌤️ Sky watch</h1><div.cards>{for c in cities => <Card city={c}/>}</div></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

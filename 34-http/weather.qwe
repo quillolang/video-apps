@@ -1,0 +1,21 @@
+// Sky API: a pretend weather service to try the dashboard against. Run it on its own:
+//   quillo run weather.qwe --port 8081
+// It knows five cities, answers London slowly, and knows nothing of Atlantis.
+
+let skies = {
+    lisbon: { temp: 21, sky: "sunny", wind: 12 },
+    oslo: { temp: -3, sky: "snow", wind: 20 },
+    tokyo: { temp: 14, sky: "rain", wind: 8 },
+    lima: { temp: 18, sky: "cloudy", wind: 5 },
+    london: { temp: 9, sky: "rain", wind: 25 },
+}
+let asked = 0
+
+route GET /forecast/:city {
+    asked += 1
+    print("asked for", city, "- question", asked)
+    if city == "london" { sleep(3000) }
+    let s = get(skies, city)
+    if s == null { reply 404 { error: `no forecast for ${city}` } }
+    { city, ...s }
+}

@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    background: linear-gradient(#cfe8ff, #eef6ff);
+    color: #18324d;
+    font: 17px/1.5 system-ui, sans-serif;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .8rem;
+    text-align: center;
+    color: #1f5f99;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .7rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .7rem .5rem;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(30, 80, 140, .12);
+    text-align: center;
+}
+
+.card .icon {
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.card .temp {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.card small {
+    color: #5a7590;
+    overflow-wrap: anywhere;
+}
+
+.card.bad {
+    background: #fff4f2;
+}
+
+.card.bad small {
+    color: #b0413a;
+}
