@@ -1,0 +1,18 @@
+// A café's menu, put together from views and components.
+
+use lib/menu.qwe
+use ui/layout.qwe
+use ui/menu.qwe
+
+route GET / =
+    <Page title="Café Quillo">
+        <Header title="Café Quillo">
+            <p.hours>Open every day, 8 to 4</p>
+            <CartBadge/>
+        </Header>
+        <main>
+            {for item in MENU => <MenuItem key={item.id} {item}/>}
+        </main>
+    </Page>
+
+route GET /static/*path = files("public", path)

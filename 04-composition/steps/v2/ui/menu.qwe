@@ -1,0 +1,21 @@
+// The menu's components: they keep state, and run in the browser.
+
+use lib/menu.qwe
+use ui/layout.qwe
+
+// A number with − and + buttons. It tells its parent about a change with on_change.
+component Stepper(value: int, on_change: fn) {
+    <span.stepper>
+        <button @click={() => on_change(max([1, value - 1]))}>−</button>
+        <b>{value}</b>
+        <button @click={() => on_change(value + 1)}>+</button>
+    </span>
+}
+
+component MenuItem(item: Item) {
+    state qty = 1
+    <Card title={item.name} note={item.about}>
+        <p.price>{dollars(item.cents * qty)}</p>
+        <Stepper value={qty} on_change={(n) => { qty = n }}/>
+    </Card>
+}

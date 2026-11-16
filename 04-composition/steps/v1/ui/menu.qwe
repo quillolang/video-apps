@@ -1,0 +1,16 @@
+// The menu's components: they keep state, and run in the browser.
+
+use lib/menu.qwe
+use ui/layout.qwe
+
+component MenuItem(item: Item) {
+    state qty = 1
+    <Card title={item.name} note={item.about}>
+        <p.price>{dollars(item.cents * qty)}</p>
+        <span.stepper>
+            <button @click={() => { qty = max([1, qty - 1]) }}>−</button>
+            <b>{qty}</b>
+            <button @click={() => { qty += 1 }}>+</button>
+        </span>
+    </Card>
+}

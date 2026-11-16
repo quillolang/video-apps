@@ -1,0 +1,23 @@
+// The page's frame and its pieces: views, made on the server, with no state.
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>{children}</body>
+    </html>
+
+view Header(title: str, children) =
+    <header>
+        <h1>{title}</h1>
+        {children}
+    </header>
+
+view Card(title: str, children, note: str = "") =
+    <article.card>
+        <h2>{title}</h2>
+        {note != "" && <p.note>{note}</p>}
+        {children}
+    </article>

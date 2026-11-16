@@ -1,0 +1,12 @@
+// The menu: what the café sells, and how a price is shown.
+
+type Item = { id: str, name: str, about: str, cents: int }
+
+let MENU = [
+    Item({ id: "latte", name: "Latte", about: "Espresso and steamed milk", cents: 450 }),
+    Item({ id: "tea", name: "Green tea", about: "A pot for one", cents: 300 }),
+    Item({ id: "cake", name: "Lemon cake", about: "Baked this morning", cents: 375 }),
+]
+
+// Pure, so the server and the browser both use it.
+fn dollars(cents: int) -> str = `$${format_number(cents / 100, "en-US", 2)}`

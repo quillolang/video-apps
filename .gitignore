@@ -1,0 +1,6 @@
+*.db
+*.db-wal
+*.db-shm
+.quillo/
+.env
+.DS_Store

@@ -1,0 +1,45 @@
+// A live message wall in one file: the database, the server and the page.
+db.open("wall.db")
+db.migrate("migrations")
+
+type Message = { id: int, text: str }
+
+// A server fn runs on the server; the browser calls it like any function.
+server fn messages() -> list<Message> with db =
+    db.query("select id, text from messages order by id desc limit 20")
+
+server fn post(text: str) -> bool ! str with db {
+    let t = trim(text)
+    if t == "" { return err("say something first") }
+    db.exec("insert into messages (text) values (?)", t)?
+    true
+}
+
+// Rendered on the server, then run in the browser.
+component Wall() {
+    state items = live(messages)
+    state draft = ""
+    state problem = null
+    <section>
+        <form @submit={() => {
+            let r = post(draft)
+            if is_err(r) {
+                problem = r.error
+            } else {
+                draft = ""
+                problem = null
+            }
+        }}>
+            <input bind:value={draft} placeholder="Say hi"/>
+            <button>Post</button>
+        </form>
+        {problem && <p.problem>{problem}</p>}
+        <ul>{for m in items ?? [] => <li key={m.id}>{m.text}</li>}</ul>
+    </section>
+}
+
+route GET / =
+    <html><body style="font: 20px system-ui; margin: 2rem">
+        <h1>The wall</h1>
+        <Wall/>
+    </body></html>

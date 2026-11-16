@@ -1,0 +1,21 @@
+// Notes on the server: the record, and the server functions the page calls.
+
+type Note = { id: int, title: str, body: str }
+
+server fn list_notes() -> list<Note> with db =
+    db.query("select id, title, body from notes order by id desc")
+
+// What the user typed, checked: a title is needed, and both have a limit.
+fn clean(title: str, body: str) -> map ! str {
+    let t = trim(title)
+    if t == "" { return err("a note needs a title") }
+    if len(t) > 80 { return err("keep the title under 80 characters") }
+    if len(body) > 2000 { return err("keep the note under 2,000 characters") }
+    { title: t, body: trim(body) }
+}
+
+server fn add_note(title: str, body: str) -> bool ! str with db {
+    let n = clean(title, body)?
+    db.exec("insert into notes (title, body) values (?, ?)", n.title, n.body)?
+    true
+}

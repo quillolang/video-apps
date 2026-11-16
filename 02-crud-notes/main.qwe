@@ -1,0 +1,24 @@
+// A notes app: add, read, edit and delete notes, live in every open tab.
+
+db.open("notes.db")
+db.migrate("migrations")
+
+use lib/notes.qwe
+use ui/notes.qwe
+
+route GET / =
+    <html>
+        <head>
+            <title>Notes</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <h1>Notes</h1>
+            <Notes/>
+        </body>
+    </html>
+
+route GET /static/*path = files("public", path)
+
+// The same notes as JSON, for other programs.
+route GET /api/notes = list_notes()

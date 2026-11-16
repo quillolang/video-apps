@@ -1,0 +1,32 @@
+// <Notes>: made on the server, then run in the browser. It adds notes
+// with the server functions in lib/notes.qwe, and live() keeps every open tab up to date.
+
+use lib/notes.qwe
+
+component Notes() {
+    state notes = live(list_notes)
+    state title = ""
+    state body = ""
+    state problem = null
+    <section>
+        <form @submit={() => {
+            let r = add_note(title, body)
+            if is_err(r) {
+                problem = r.error
+            } else {
+                title = ""
+                body = ""
+                problem = null
+            }
+        }}>
+            <input bind:value={title} placeholder="Title"/>
+            <textarea bind:value={body} placeholder="Write something…" rows="3"></textarea>
+            <button>Add note</button>
+        </form>
+        {problem && <p.problem>{problem}</p>}
+        <ul>{for n in notes ?? [] => <li key={n.id}>
+            <h3>{n.title}</h3>
+            <p>{n.body}</p>
+        </li>}</ul>
+    </section>
+}

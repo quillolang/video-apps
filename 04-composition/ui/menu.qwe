@@ -1,0 +1,33 @@
+// The menu's components: they keep state, and run in the browser.
+
+use lib/menu.qwe
+use ui/layout.qwe
+
+// What's in the order: one list per page, shared by every component on it.
+state cart = []
+
+// A number with − and + buttons. It tells its parent about a change with on_change.
+component Stepper(value: int, on_change: fn) {
+    <span.stepper>
+        <button @click={() => on_change(max([1, value - 1]))}>−</button>
+        <b>{value}</b>
+        <button @click={() => on_change(value + 1)}>+</button>
+    </span>
+}
+
+component MenuItem(item: Item) {
+    state qty = 1
+    let add = () => { cart = push(cart, { name: item.name, qty, cents: item.cents * qty }) }
+    <Card title={item.name} note={item.about}>
+        <p.price>{dollars(item.cents * qty)}</p>
+        <Stepper value={qty} on_change={(n) => { qty = n }}/>
+        <button.add @click={add}>Add to order</button>
+    </Card>
+}
+
+// The order so far, in the header: how many, and the total.
+component CartBadge() {
+    let count = sum(map(cart, (x) => x.qty))
+    let total = sum(map(cart, (x) => x.cents))
+    <p.badge>{count == 0 ? "Nothing ordered yet" : `${count} in your order · ${dollars(total)}`}</p>
+}
