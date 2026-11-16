@@ -1,0 +1,53 @@
+// Memory: twelve cards, six pairs. Flip two at a time; a pair stays face up. The game is one component.
+
+let faces = ["🦊", "🐙", "🦉", "🐢", "🦋", "🍄"]
+
+// Two of each face, in a random order.
+fn deal() -> list<str> with random = flatten(map(faces, (f) => [f, f])) | sort_by((_) => random())
+
+component Memory() {
+    state cards = deal()
+    state open = []          // the cards face up that are not a pair (yet)
+    state found = []         // the faces found
+    state moves = 0
+    state seconds = 0
+    state best = null
+
+    let done = count(found) == count(faces)
+    let shown = (i) => contains(open, i) || contains(found, cards[i])
+
+    // The clock runs from the first move until the last pair.
+    if moves > 0 && !done { every(1000, () => { seconds += 1 }) }
+
+    let flip = (i) => {
+        if count(open) == 2 || shown(i) { return }
+        open = open | push(i)
+        if count(open) == 2 {
+            moves += 1
+            if cards[open[0]] == cards[i] {
+                found = found | push(cards[i])
+                open = []
+                if count(found) == count(faces) { best = best == null ? moves : min([best, moves]) }
+            } else {
+                run_after(700, () => { open = [] })
+            }
+        }
+    }
+
+    let again = () => { cards = deal(); open = []; found = []; moves = 0; seconds = 0 }
+
+    <section>
+        <p.stats>{moves} {moves == 1 ? "move" : "moves"} · {seconds} s{best != null ? ` · best: ${best}` : ""}</p>
+        <div.grid>{for i in range(count(cards)) =>
+            <button class={shown(i) ? "card up" : "card"} @click={() => flip(i)}>{shown(i) && cards[i]}</button>}
+        </div>
+        {done && <p.win>🎉 All six pairs in {moves} moves! <button @click={again}>Play again</button></p>}
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Memory</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🧠 Memory</h1><Memory/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
