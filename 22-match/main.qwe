@@ -1,0 +1,69 @@
+// Rock, paper, scissors against a sneaky computer, refereed with match.
+
+type Move = "rock" | "paper" | "scissors"
+
+fn emoji(m: Move) -> str = match m {
+    "rock" => "✊"
+    "paper" => "✋"
+    "scissors" => "✌️"
+}
+
+// Who wins a round: a match on the pair.
+fn winner(you: Move, cpu: Move) -> str = match [you, cpu] {
+    [a, b] if a == b => "draw"
+    ["rock", "scissors"] | ["paper", "rock"] | ["scissors", "paper"] => "you"
+    _ => "cpu"
+}
+
+// The computer plays whatever beats your last move.
+fn sneaky(rounds: list) -> Move = match rounds {
+    [{ you: "rock" }, ..] => "paper"
+    [{ you: "paper" }, ..] => "scissors"
+    _ => "rock"
+}
+
+// What the referee shouts, from the newest round back.
+fn shout(rounds: list) -> str = match rounds {
+    [] => "Pick a move!"
+    [{ won: "you" }, { won: "you" }, { won: "you" }, ..] => "Three in a row! 🔥"
+    [{ won: "draw" }, ..] => "A draw! Go again!"
+    [{ won: "you" }, ..] => "You win this round!"
+    _ => "The computer takes it."
+}
+
+// The match: first to three.
+fn verdict(score: map) -> str = match score {
+    { you: 3 } => "You win the match! 🏆"
+    { cpu: 3 } => "The computer wins. Rematch?"
+    { you: int as y, cpu: int as c } => `First to three · ${y}–${c}`
+}
+
+fn play(you: Move, cpu: Move) = { you, cpu, won: winner(you, cpu) }
+
+component Game() {
+    state rounds = []
+    let score = { you: count(rounds, (r) => r.won == "you"), cpu: count(rounds, (r) => r.won == "cpu") }
+    let over = score.you == 3 || score.cpu == 3
+
+    <section.game>
+        <p.shout>{shout(rounds)}</p>
+        <p.moves>
+            {for m in ["rock", "paper", "scissors"] =>
+                <button disabled={over} @click={() => rounds = [play(m, sneaky(rounds)), ...rounds]}>
+                    {emoji(m)}
+                </button>}
+        </p>
+        <p.verdict>{verdict(score)}</p>
+        <ol.rounds>
+            {for r in rounds => <li class={r.won}>{emoji(r.you)} vs {emoji(r.cpu)}</li>}
+        </ol>
+        {over && <button.again @click={() => rounds = []}>Play again</button>}
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Rock paper referee</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Rock paper referee</h1><Game/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

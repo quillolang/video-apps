@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    background: #fff4d6;
+    color: #2b2240;
+    font: 18px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.4rem 1.25rem;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 .8rem;
+    color: #e4572e;
+    font-size: 2rem;
+}
+
+.game {
+    padding: 1.2rem;
+    background: #fff;
+    border: 3px solid #2b2240;
+    border-radius: 18px;
+    box-shadow: 6px 6px 0 #2b2240;
+}
+
+.shout {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.moves {
+    display: flex;
+    justify-content: center;
+    gap: .8rem;
+}
+
+.moves button {
+    width: 5.2rem;
+    height: 5.2rem;
+    font-size: 2.6rem;
+    background: #ffd166;
+    border: 3px solid #2b2240;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.moves button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+.verdict {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #5b4e7a;
+}
+
+.rounds {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1.4rem;
+}
+
+.rounds li {
+    margin: .25rem auto;
+    width: 12rem;
+    border-radius: 99px;
+}
+
+.rounds .you {
+    background: #c8f2d4;
+}
+
+.rounds .cpu {
+    background: #ffd0c7;
+}
+
+.rounds .draw {
+    background: #e6e1f2;
+}
+
+.again {
+    margin-top: .8rem;
+    padding: .55rem 1.2rem;
+    font: 700 1rem system-ui, sans-serif;
+    color: #fff;
+    background: #e4572e;
+    border: 0;
+    border-radius: 99px;
+    cursor: pointer;
+}
