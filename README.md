@@ -45,6 +45,7 @@ Quillo: https://quillolang.org
 | [37-prefetch](37-prefetch) | Prefetching in Quillo: Pages That Open Before You Click | The Museum of Tiny Things: rooms that take 400 ms to put together, and links that open before they're clicked. Quillo fetches a linked page as soon as it's pointed at; a fetch that would change something (the like link) is refused until the real click. |
 | [38-validation](38-validation) | Form Validation in Quillo: One Set of Rules, Browser and Server | Adopt a pet: one set of rules, written once as plain functions, that gives hints in the browser as you type and has the last word on the server. A record for the shape, a typed server fn that runs the same rules again, and a check only the server can make (that pet already has a home). |
 | [39-checking](39-checking) | Bug Hunt: Ten Mistakes, One Command (quillo check) | The little library: three books to borrow and return. The video starts from a version with ten mistakes, most of them JavaScript habits, and fixes each one quillo check finds. That version is in bug-hunt/: run sh get-quillo.sh once, then cd bug-hunt and ../.quillo/bin/quillo check, and see how many you spot first. main.qwe is the fixed program. |
+| [40-speedrun](40-speedrun) | Speedrun: a To-Do App in 2:12 (Quillo, any%) | A to-do list kept in a database: add, tick, delete, three tabs and clear done. Written against the clock from quillo new --minimal, in four files: the table, the server fns (lib/todos.qwe), the component (ui/todos.qwe) and the page. |
 
 ## Shorts
 

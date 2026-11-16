@@ -1,0 +1,16 @@
+// A to-do app, written against the clock: its database, its parts and its routes.
+
+db.open("todos.db")
+db.migrate("migrations")
+
+import lib/todos.qwe use all_todos
+import ui/page.qwe use Page
+import ui/todos.qwe use Todos
+
+route GET / =
+    <Page title="To do">
+        <h1>To do</h1>
+        <Todos initial={all_todos()}/>
+    </Page>
+
+route GET /static/*path = files("public", path)

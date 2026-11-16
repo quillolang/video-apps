@@ -1,0 +1,31 @@
+// The to-do list on the server: the record, the query, and the server fns the page calls.
+
+type Todo = { id: int, text: str, done: int }
+
+// How many are left: pure, so the browser uses it too.
+fn left(todos: list<Todo>) -> int = todos | count((t) => t.done == 0)
+
+fn all_todos() -> list<Todo> with db =
+    db.query(sql`select id, text, done from todos order by id`)
+
+server fn add(text: str) -> list<Todo> ! str with db {
+    let t = trim(text)
+    if t == "" { return err("Type something first") }
+    db.exec("insert into todos (text) values (?)", t)?
+    all_todos()
+}
+
+server fn toggle(id: int) -> list<Todo> with db {
+    db.exec("update todos set done = 1 - done where id = ?", id)
+    all_todos()
+}
+
+server fn delete_todo(id: int) -> list<Todo> with db {
+    db.exec("delete from todos where id = ?", id)
+    all_todos()
+}
+
+server fn clear_done() -> list<Todo> with db {
+    db.exec("delete from todos where done = 1")
+    all_todos()
+}
