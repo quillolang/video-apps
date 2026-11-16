@@ -1,0 +1,82 @@
+// Bid for Good: a charity's silent auction. Every page follows the bids it shows, live.
+
+db.open("data/auction.db") | unwrap
+db.migrate("migrations")
+
+// Every item, with its best bid. It reads the bids table, so any bid wakes it.
+server fn all_items() -> list = db.query("
+    select i.id, i.name, i.start, max(b.amount) as best, count(b.id) as bids
+    from items i left join bids b on b.item = i.id
+    group by i.id order by i.id")
+
+// One item and its bids. It follows its own topic, and nothing else.
+server fn one_item(id: int) -> map {
+    watch(`item:${id}`)
+    unwatched(() => {
+        let it = db.one("select id, name, start from items where id = ?", id)
+        { ...it, bids: db.query("select who, amount from bids where item = ? order by amount desc", id) }
+    })
+}
+
+// A bid: more than the best so far, or an error that says how much.
+server fn bid(id: int, who: str, amount: int) -> int ! str {
+    let it = db.one("select start, (select max(amount) from bids where item = ?) as best
+        from items where id = ?", id, id)
+    let floor = it.best ?? it.start
+    if amount <= floor { return err(`Bid more than $${floor}`) }
+    db.exec("insert into bids (item, who, amount) values (?, ?, ?)", id, who, amount)?
+    publish(`item:${id}`)
+    amount
+}
+
+fn usd(n: int) -> str = `$${n}`
+
+component Board() {
+    state items = live(all_items)
+    <ul.board>
+        {for it in items =>
+            <li key={it.id}>
+                <a href={`/item/${it.id}`}>{it.name}</a>
+                <b>{usd(it.best ?? it.start)}</b> <small>{it.bids} bids</small>
+            </li>}
+    </ul>
+}
+
+component Item(id: int) {
+    state it = live(one_item, id)
+    state who = ""
+    state amount = ""
+    state problem = null
+    let lead = first(it.bids)
+    let mine = who != "" && any(it.bids, (b) => b.who == who)
+    let note = problem ?? (mine ? (lead.who == who ? "🎉 You're winning!" : "😬 You've been outbid!") : null)
+
+    let go = () => {
+        let r = bid(id, who, int(amount) ?? 0)
+        problem = is_err(r) ? `⚠️ ${r.error}` : null
+        amount = ""
+    }
+
+    <section.item>
+        <h2>{it.name}</h2>
+        <p.best>Best bid: <b>{usd((lead ?? { amount: it.start }).amount)}</b></p>
+        <ol.bids>{for b in it.bids => <li>{b.who} <b>{usd(b.amount)}</b></li>}</ol>
+        <p.bid>
+            <input bind:value={who} placeholder="Your name"/>
+            <input bind:value={amount} placeholder="$" inputmode="numeric"/>
+            <button @click={go}>Bid</button>
+        </p>
+        {note != null && <p.note>{note}</p>}
+    </section>
+}
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1><a href="/">Bid for Good</a></h1>{children}</main></body>
+</html>
+
+route GET / = <Page title="Bid for Good"><Board/></Page>
+
+route GET /item/:id(int) = <Page title="Bid for Good"><Item id={id}/></Page>
+
+route GET /static/*path = files("public", path)

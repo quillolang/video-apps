@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    background: #f4efe6;
+    color: #2a2320;
+    font: 17px/1.5 Georgia, serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .8rem;
+    font-size: 1.9rem;
+    text-align: center;
+}
+
+h1 a {
+    color: #8c2f39;
+    text-decoration: none;
+}
+
+.board,
+.bids {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.board li {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+    margin-bottom: .6rem;
+    padding: .8rem 1rem;
+    background: #fff;
+    border: 1px solid #e3d8c6;
+    border-radius: 12px;
+}
+
+.board a {
+    flex: 1;
+    color: #2a2320;
+}
+
+.board b,
+.best b {
+    color: #8c2f39;
+    font: 700 1.15rem system-ui, sans-serif;
+}
+
+.board small {
+    color: #8a7d70;
+    font: .85rem system-ui, sans-serif;
+}
+
+.item {
+    padding: 1rem 1.1rem;
+    background: #fff;
+    border: 1px solid #e3d8c6;
+    border-radius: 14px;
+}
+
+.item h2 {
+    margin: 0 0 .2rem;
+    font-size: 1.35rem;
+}
+
+.best {
+    margin: 0 0 .5rem;
+}
+
+.bids li {
+    display: flex;
+    justify-content: space-between;
+    padding: .25rem 0;
+    border-bottom: 1px dashed #e3d8c6;
+    font-family: system-ui, sans-serif;
+}
+
+.bid {
+    display: flex;
+    gap: .5rem;
+    margin: .8rem 0 0;
+}
+
+.bid input {
+    flex: 1;
+    min-width: 0;
+    padding: .45rem .6rem;
+    font: 16px system-ui, sans-serif;
+    border: 1px solid #d6c8b2;
+    border-radius: 8px;
+}
+
+.bid button {
+    padding: .45rem 1.1rem;
+    font: 700 16px system-ui, sans-serif;
+    color: #fff;
+    background: #8c2f39;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.note {
+    margin: .6rem 0 0;
+    font-family: system-ui, sans-serif;
+}
