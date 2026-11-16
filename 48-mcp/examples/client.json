@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "recipes": { "command": "quillo", "args": ["mcp", "/home/you/recipe-box/main.qwe"] }
+  }
+}

@@ -53,6 +53,7 @@ Quillo: https://quillolang.org
 | [45-monitoring](45-monitoring) | The Case of the Broken Pizza Order: Logs, Request IDs and Metrics in Quillo | Slice: pizza by the slice, the bill split between you and your friends. Run it with ./run.sh --log json --metrics, and read its log with grep '^{' and jq. This is the fixed version; the video finds its bug in the log. |
 | [46-memory](46-memory) | Build a Memory Game in One Quillo Component | Memory: twelve cards, six pairs, flip two at a time. The whole game is one component: its state, its clicks, a clock with every, and run_after to turn a miss back over. |
 | [47-chat](47-chat) | A Chat App in One File: Sessions, a Database and Live Channels in Quillo | Campfire: a chat in one file. Your name lives in the session (a signed cookie), the messages in SQLite, and new ones travel live on a channel; whoever sits down gets the last fifty messages from the database. |
+| [48-mcp](48-mcp) | Tools for AI Clients: a Recipe Box Your AI Can Use (fn mcp in Quillo) | The recipe box: a page for people, and two tools for an AI client (fn mcp find_recipes and add_recipe). quillo mcp main.qwe serves the tools on stdio; examples/calls.jsonl holds an AI client's messages, and examples/client.json the lines that tell a client to start it. |
 
 ## Shorts
 

@@ -1,0 +1,37 @@
+//! The recipe box of one kitchen.
+//! Use find_recipes before add_recipe, so a recipe is not written twice.
+
+// The recipe box: a page for people, and two tools for an AI client.
+
+db.open("data/recipes.db") | unwrap
+db.migrate("migrations")
+
+type Recipe = { name: str, minutes: int, ingredients: list<str> }
+
+fn as_recipe(row: map) -> Recipe =
+    Recipe({ name: row.name, minutes: row.minutes, ingredients: split(row.ingredients, "\n") })
+
+/// Recipes that use an ingredient, quickest first.
+fn mcp find_recipes(ingredient: str) -> list<Recipe> with db {
+    let like = `%${lower(trim(ingredient))}%`
+    db.query("select name, minutes, ingredients from recipes where lower(ingredients) like ? order by minutes",
+        like) | map(as_recipe)
+}
+
+/// Adds a recipe to the box, and gives its number.
+fn mcp add_recipe(name: str, minutes: int, ingredients: list<str>) -> int with db {
+    if trim(name) == "" || count(ingredients) == 0 { return err("a recipe needs a name and ingredients") }
+    db.one("insert into recipes (name, minutes, ingredients) values (?, ?, ?) returning id",
+        trim(name), minutes, join(ingredients, "\n")).id
+}
+
+route GET / with db = <html>
+    <head><title>Recipe box</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main>
+        <h1>🍳 Recipe box</h1>
+        <ul>{for r in db.query(sql`select name, minutes, ingredients from recipes order by id`) | map(as_recipe) =>
+            <li><b>{r.name}</b> <small>{r.minutes} min</small><p>{join(r.ingredients, " · ")}</p></li>}</ul>
+    </main></body>
+</html>
+
+route GET /static/*path = files("public", path)
