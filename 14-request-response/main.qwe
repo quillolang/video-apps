@@ -1,0 +1,41 @@
+// Snippets: a tiny API, to see what a request holds, and each kind of answer a route can give.
+
+let snippets = [{ id: 1, text: "Hello, Quillo" }]
+
+// What came in: the request, as JSON.
+route ANY /echo = {
+    method: request.method,
+    path: request.path,
+    query: request.query,
+    form: request.form,
+    json: request.json,
+    agent: request.headers["user-agent"],
+}
+
+// Text, HTML and JSON: the value decides.
+route GET /hello ? { name: str = "world" } = `Hello, ${name}!`
+
+route GET / = <html><body><h1>Snippets</h1><p>{len(snippets)} saved</p></body></html>
+
+route GET /api/snippets = respond(200, snippets, { etag: `"v${len(snippets)}"` })
+
+// A status of its own, and headers: 201 Created, and where the new one lives.
+route POST /api/snippets { json: { text: str } } {
+    let s = { id: len(snippets) + 1, text }
+    snippets = snippets | push(s)
+    respond(201, s, { location: `/api/snippets/${s.id}` })
+}
+
+// Nothing to say: null is 204 No Content.
+route DELETE /api/snippets/:id(int) {
+    snippets = snippets | filter((s) => s.id != id)
+    null
+}
+
+route GET /old = redirect("/", 301)
+
+route GET /oops = err("The snippet jar is empty.")
+
+// Any content type: a download, with a file name.
+route GET /snippets.csv = respond(200, join(for s in snippets => `${s.id},${s.text}`, "\n"),
+    { "content-type": "text/csv", "content-disposition": "attachment; filename=snippets.csv" })
