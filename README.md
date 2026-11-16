@@ -41,6 +41,7 @@ Quillo: https://quillolang.org
 | [33-regex](33-regex) | Text and Regular Expressions in Quillo: A Username Checker | Pick a handle: a sign-up that checks a username against its rules as you type (re.test), makes a web address from a post's title (normalize, re.replace, lower), and finds the hashtags in a bio (re.find_all). All of it runs in the browser. |
 | [34-http](34-http) | Calling Other Servers in Quillo: A Weather Dashboard That Copes | Sky watch: a weather dashboard that asks another server with http.get, caching answers for 30 seconds and giving up after 2, and shows what went wrong when a city is slow, unknown, or the whole service is down. weather.qwe is the pretend weather service it asks: run it with quillo run weather.qwe --port 8081. |
 | [35-effects](35-effects) | Bug Hunt: Effects in Quillo (What Your Page Is Allowed to Do) | Joke of the day: one joke a day, the same all day, from SQLite. Its page is declared with db, time, so it may use the database and the clock and nothing else. The video starts from a teammate's version whose helpers pick at random, post to a stats site and write a file, and fixes each one. |
+| [36-concurrency](36-concurrency) | Concurrency in Quillo: 100 Tickets, 300 Fans, No Seat Sold Twice | Gig tickets: 100 seats and a rush of buyers, and not one seat sold twice. Paying is a wait; after it, the program looks again and takes a seat with no wait in between, since one handler runs at a time between waits. The video also shows a version that writes back a count read before the wait, and oversells. |
 
 ## Shorts
 

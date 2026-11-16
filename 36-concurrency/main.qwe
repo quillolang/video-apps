@@ -1,0 +1,56 @@
+// Gig tickets: 100 seats, and a rush of fans. Not one seat sold twice.
+
+let left = 100
+let sold = 0
+
+// Paying takes a moment, like a call to a payment provider: a wait, while other fans are served.
+fn pay(fan: str) -> bool {
+    sleep(20)
+    true
+}
+
+// A seat: pay first. Then, with no wait in between, look again and take one.
+fn take_seat(fan: str) -> str ! str {
+    if left == 0 { return err("Sold out") }
+    pay(fan)
+    if left == 0 { return err("Sold out while you paid: refunded") }
+    left -= 1
+    sold += 1
+    `Seat ${sold} is yours, ${fan}!`
+}
+
+server fn buy(fan: str) -> str ! str = take_seat(fan)
+server fn seats() -> int = left
+
+route POST /buy ? { fan: str = "a fan" } = match take_seat(fan) {
+    str as s => s
+    e => reply 409 e.error
+}
+
+route GET /count = `${sold} sold, ${left} left`
+
+component Box() {
+    state free = live(seats)
+    state name = ""
+    state said = ""
+    let go = () => {
+        let r = buy(name)
+        said = is_err(r) ? `😢 ${r.error}` : `🎟️ ${r}`
+    }
+
+    <section.box>
+        <p.left><b>{free}</b> seats left</p>
+        <p.buy>
+            <input bind:value={name} placeholder="Your name"/>
+            <button @click={go}>Buy</button>
+        </p>
+        <p.said>{said}</p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Gig tickets</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🎸 The Quillos, live</h1><Box/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
