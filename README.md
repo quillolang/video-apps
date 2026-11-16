@@ -56,6 +56,7 @@ Quillo: https://quillolang.org
 | [48-mcp](48-mcp) | Tools for AI Clients: a Recipe Box Your AI Can Use (fn mcp in Quillo) | The recipe box: a page for people, and two tools for an AI client (fn mcp find_recipes and add_recipe). quillo mcp main.qwe serves the tools on stdio; examples/calls.jsonl holds an AI client's messages, and examples/client.json the lines that tell a client to start it. |
 | [49-translations](49-translations) | Hello, Hola, こんにちは: Translating a Quillo App (with Plurals) | The Little Card Shop, in English, Spanish and Japanese: translations("locales"), t() with plural forms in the page and in a component, the language a browser asks for, and a choice of language kept in a cookie. locales/ja.json leaves out the sale line on purpose: it falls back to English. |
 | [50-passwords](50-passwords) | Bug Hunt: Passwords Done Right (and the Tempting Fix That Isn't) | Seed Swap: a garden club's sign-up and log-in, with passwords kept the right way: crypto.hash_password (salted Argon2id) and crypto.verify_password, one message for a wrong email or password, and the same work whether or not the member exists. The video starts from a version that keeps them in plain text, then tries SHA-256. |
+| [51-signed-links](51-signed-links) | Signed Links: Party Invites Nobody Can Forge (crypto.hmac in Quillo) | Garden party invites nobody can forge: each link carries the guest's name, the last day it works, and an HMAC signature made with a key only the server knows (INVITE_KEY). Open /host for the links. |
 
 ## Shorts
 

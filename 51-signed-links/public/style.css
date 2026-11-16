@@ -1,0 +1,16 @@
+/* The garden party: sunflower yellow on leafy green. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #2d3a1f; background: #f3f7e4; }
+main { max-width: 500px; margin: 0 auto; padding: 24px 16px; }
+h1 { margin: 0 0 14px; font: 700 32px Georgia, serif; color: #4b6b1f; }
+.guests { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.guests li { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 10px 14px; box-shadow: 0 2px 8px rgba(75, 107, 31, .12); }
+.guests b { width: 70px; }
+.guests a { color: #b07c00; font-weight: 600; }
+.guests span { margin-left: auto; color: #7d8a6a; font-size: 15px; }
+.yes, .no { background: #fff; border-radius: 14px; padding: 16px; font-size: 20px; box-shadow: 0 2px 8px rgba(75, 107, 31, .12); }
+.yes { border-left: 6px solid #f2b705; }
+.no { border-left: 6px solid #c0392b; color: #8a2a20; }
+form { display: flex; gap: 10px; }
+button { font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 9px 16px; background: #4b6b1f; color: #fff; cursor: pointer; }
+button[value=no] { background: #fff; color: #4b6b1f; border: 2px solid #c9d6a8; }

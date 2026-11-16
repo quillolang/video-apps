@@ -1,0 +1,53 @@
+// Garden party invites nobody can forge: each link carries a signature, made with a key only the server knows.
+
+let key = env("INVITE_KEY") ?? "only-for-trying-it-out"     // on a real server, INVITE_KEY is set
+let guests = ["Ada", "Grace", "Linus"]
+let answers = {}
+
+type Answer = "yes" | "no"
+
+// An invite's signature: the guest's name and the last day it works, signed with the key.
+fn sign(name: str, until: str) -> str = crypto.hmac(key, `${name}|${until}`)
+
+fn link(name: str, until: str) -> str = `/invite?${url_encode({ name, until, sig: sign(name, until) })}`
+
+// Whether an invite is the real thing: compared in constant time, so timing gives nothing away.
+fn real(name: str, until: str, sig: str) -> bool = crypto.equal(sig, sign(name, until))
+
+view Page(children) =
+    <html>
+        <head><title>Garden party</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🌻 Garden party</h1>{children}</main></body>
+    </html>
+
+// The host's page: a link for each guest, good for a week.
+route GET /host with time {
+    let until = date.add_days(date.today(), 7)
+    <Page>
+        <ul.guests>{for g in guests =>
+            <li><b>{g}</b> <a href={link(g, until)}>invite</a> <span>{answers[g] ?? "no answer yet"}</span></li>}
+        </ul>
+    </Page>
+}
+
+route GET /invite ? { name: str, until: str, sig: str } with time {
+    if !real(name, until, sig) { reply 403 <Page><p.no>🚫 That's not a real invite.</p></Page> }
+    if date.today() > until { reply 410 <Page><p.no>⌛ This invite ran out on {until}.</p></Page> }
+    <Page>
+        <p.yes>{name}, you're invited! Saturday, in the garden.</p>
+        <form method="post" action="/rsvp">
+            <input type="hidden" name="name" value={name}/><input type="hidden" name="until" value={until}/>
+            <input type="hidden" name="sig" value={sig}/>
+            <button name="answer" value="yes">I'll be there</button>
+            <button name="answer" value="no">Can't make it</button>
+        </form>
+    </Page>
+}
+
+route POST /rsvp { form: { name: str, until: str, sig: str, answer: Answer } } {
+    if !real(name, until, sig) { reply 403 <Page><p.no>🚫 That's not a real invite.</p></Page> }
+    answers = set(answers, name, answer)
+    <Page><p.yes>{answer == "yes" ? "See you on Saturday" : "Maybe next time"}, {name}!</p></Page>
+}
+
+route GET /static/*path = files("public", path)
