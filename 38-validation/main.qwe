@@ -1,0 +1,84 @@
+// Adopt a pet: one set of rules, giving hints as you type in the browser and having the last word on the server.
+
+// What an application is.
+type Application = {
+    name: str,
+    email: str,
+    pet: "Biscuit" | "Mochi" | "Sir Hops",
+    home: "flat" | "house" = "flat",
+    garden: bool = false,
+    age: int,
+}
+
+// A problem: which field, and what's wrong. Rules give a list of them; none means all is well.
+fn problem(field: str, message: str) -> list = [{ field, message }]
+fn when(cond: bool, problems: list) -> list = cond ? problems : []
+
+fn is_email(s: str) -> bool = re.test(s, "^[^@ ]+@[^@ ]+\\.[^@ ]+$")
+
+// The rules: plain functions, so they run in the browser and on the server alike.
+fn check(a: map) -> list =
+    when(trim(a.name ?? "") == "", problem("name", "Your name, please"))
+    + when(!is_email(a.email ?? ""), problem("email", "Not an email address"))
+    + when((a.age ?? 0) < 18, problem("age", "Adopters are 18 or older"))
+    + when(a.pet == "Biscuit" && !(a.garden ?? false), problem("pet", "Biscuit is a big dog: he needs a garden"))
+
+let adopted = []
+
+// The server's say: the same shape, the same rules, then what only the server knows.
+server fn adopt(input: Application) -> Application ! list {
+    let problems = check(input)
+    if count(problems) > 0 { return err(problems) }
+    if contains(adopted, input.pet) { return err(problem("pet", `${input.pet} already has a home`)) }
+    adopted = adopted | push(input.pet)
+    input
+}
+
+fn message_for(problems: list, field: str) = (find(problems, (p) => p.field == field) ?? {}).message
+
+component Form() {
+    state name = ""
+    state email = ""
+    state pet = "Mochi"
+    state garden = false
+    state age = null
+    state tried = false
+    state sent = null
+    state from_server = []
+    state done = null
+
+    let draft = Application({ name, email, pet, garden, age: age ?? 0 })
+    let mine = is_err(draft) ? problem("", draft.error) : check(draft)
+    let problems = mine + (sent == draft ? from_server : [])
+    let hint = (field) => tried ? message_for(problems, field) : null
+
+    let send = () => {
+        tried = true
+        if count(mine) == 0 {
+            let r = adopt(draft)
+            sent = draft
+            if is_err(r) { from_server = r.error } else { from_server = []; done = r }
+        }
+    }
+
+    <section.form>
+        <label>Your name <input bind:value={name}/></label><p.hint>{hint("name")}</p>
+        <label>Email <input bind:value={email}/></label><p.hint>{hint("email")}</p>
+        <label>Age <input type="number" bind:value={age}/></label><p.hint>{hint("age")}</p>
+        <label>Pet
+            <select bind:value={pet}>
+                <option>Biscuit</option><option>Mochi</option><option>Sir Hops</option>
+            </select>
+        </label>
+        <label.tick><input type="checkbox" bind:checked={garden}/> I have a garden</label><p.hint>{hint("pet")}</p>
+        <button @click={send}>Adopt</button>
+        {done && <p.done>🏡 {done.pet} is going home with {done.name}!</p>}
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Adopt a pet</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🐾 Adopt a pet</h1><Form/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

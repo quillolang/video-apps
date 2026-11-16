@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    background: #eef6f1;
+    color: #1f3329;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 28rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .7rem;
+    text-align: center;
+    color: #2f7d57;
+}
+
+.form {
+    padding: 1rem 1.1rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(30, 90, 60, .12);
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #4f6b5d;
+}
+
+label input:not([type=checkbox]),
+label select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: .15rem;
+    padding: .4rem .6rem;
+    font: 16px system-ui, sans-serif;
+    border: 2px solid #cfe5d8;
+    border-radius: 9px;
+}
+
+label.tick {
+    margin-top: .5rem;
+    font-weight: 600;
+}
+
+.hint {
+    min-height: 1.2em;
+    margin: .1rem 0 .4rem;
+    font-size: .85rem;
+    color: #c0392b;
+}
+
+button {
+    width: 100%;
+    margin-top: .2rem;
+    padding: .55rem;
+    font: 800 17px system-ui, sans-serif;
+    color: #fff;
+    background: #2f7d57;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.done {
+    margin: .7rem 0 0;
+    padding: .5rem .7rem;
+    background: #e6f6ec;
+    color: #1d6b43;
+    font-weight: 700;
+    border-radius: 10px;
+}
