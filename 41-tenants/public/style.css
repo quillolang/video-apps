@@ -1,0 +1,27 @@
+/* A bakery's shelf: warm paper, a card per bread. The signup page shares it. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #3b2a1e; background: #fbf3e6; }
+main { max-width: 520px; margin: 0 auto; padding: 24px 18px; }
+h1 { margin: 0 0 4px; font: 700 32px/1.2 Georgia, "Times New Roman", serif; color: #7a3e12; }
+.where { margin: 0 0 16px; font: 14px ui-monospace, Menlo, monospace; color: #a0785a; }
+.breads { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
+.breads li { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 12px; padding: 10px 12px; box-shadow: 0 2px 10px rgba(122, 62, 18, .1); }
+.breads li b { font-weight: 600; }
+.price { color: #7a3e12; font-weight: 600; }
+.price::before { content: "$"; }
+.breads small { flex: 1; color: #8c7462; }
+.breads li.out { opacity: .55; }
+.breads form { margin: 0; }
+button { font: inherit; font-size: 15px; font-weight: 600; border: 0; border-radius: 9px; padding: 7px 12px; cursor: pointer; background: #c8641e; color: #fff; }
+button:disabled { background: #d9c8b8; cursor: default; }
+.bake { display: flex; gap: 8px; }
+.bake input:first-child { flex: 1; }
+.bake input:nth-child(2) { width: 80px; }
+input { font: inherit; padding: 8px 11px; border: 2px solid #ead7c3; border-radius: 10px; background: #fff; outline: none; min-width: 0; }
+input:focus { border-color: #c8641e; }
+.signup { display: grid; gap: 12px; margin-top: 16px; background: #fff; padding: 18px; border-radius: 14px; box-shadow: 0 2px 10px rgba(122, 62, 18, .1); }
+.signup label { display: grid; gap: 4px; font-size: 14px; font-weight: 600; color: #8c7462; }
+.signup span { display: flex; align-items: center; gap: 6px; font: 15px ui-monospace, Menlo, monospace; color: #3b2a1e; }
+.signup span input { flex: 1; }
+.problem { margin: 12px 0 0; padding: 9px 14px; border-radius: 10px; background: #fde8e4; color: #b3261e; font-weight: 600; }
+a { color: #c8641e; font-weight: 600; }

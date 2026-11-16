@@ -1,0 +1,76 @@
+// Two bakeries, one app: each bakery is a tenant, picked by the host, with a database of its own.
+
+tenant_from("localhost")          // crumbs.localhost is the bakery "crumbs"
+db.open("data/{tenant}.db")       // a SQLite file for each bakery
+db.migrate()                      // migrations/, run in each new bakery's database
+
+type Bread = { id: int, name: str, price: str, stock: int }
+
+view Page(title: str, children) =
+    <html>
+        <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+// At plain localhost there is no bakery: a form to open one.
+view Signup(problem: str = "") =
+    <Page title="Open a bakery">
+        <h1>🧁 Open a bakery</h1>
+        <form.signup method="post" action="/open">
+            <label>Address <span><input name="name" placeholder="crumbs" required/>.localhost</span></label>
+            <label>Name <input name="title" placeholder="Crumbs & Co." required/></label>
+            <button>Open my bakery</button>
+        </form>
+        {problem != "" && <p.problem>{problem}</p>}
+    </Page>
+
+route POST /open { form: { name: str, title: str } } {
+    if name == "www" { reply 409 <Signup problem="That name is taken"/> }
+    let made = new_tenant(name, () => db.exec("insert into bakery (title) values (?)", trim(title)))
+    if is_err(made) { reply 409 <Signup problem="That name is taken"/> }
+    redirect(`http://${name}.${request.headers.host}/`)
+}
+
+fn bakery_name() -> str with db = db.one("select title from bakery").title
+fn breads() -> list<Bread> with db = db.query(sql`select id, name, price, stock from breads order by id`)
+
+view Shelf(b: Bread) =
+    <li class={b.stock == 0 ? "out" : ""}>
+        <b>{b.name}</b> <span.price>{b.price}</span>
+        <small>{b.stock == 0 ? "sold out" : `${b.stock} left`}</small>
+        <form method="post" action={`/sell/${b.id}`}><button disabled={b.stock == 0}>Sell one</button></form>
+    </li>
+
+// A host can name any bakery: one that was never opened gets a page that says so.
+view NoBakery(name: str) =
+    <Page title="No bakery here">
+        <h1>🤷 No bakery here</h1>
+        <p>Nobody has opened <b>{name}</b> yet. <a href="http://localhost:8080/">Open it?</a></p>
+    </Page>
+
+route GET / with db {
+    if tenant() == null { reply 200 <Signup/> }
+    if !db.tenant_exists(tenant()) { reply 404 <NoBakery name={tenant()}/> }
+    <Page title={bakery_name()}>
+        <h1>🥐 {bakery_name()}</h1>
+        <p.where>{tenant()}.localhost · data/{tenant()}.db</p>
+        <ul.breads>{for b in breads() => <Shelf b={b}/>}</ul>
+        <form.bake method="post" action="/bake">
+            <input name="name" placeholder="Something new" required/>
+            <input name="price" placeholder="3.50" required/>
+            <button>Bake twelve</button>
+        </form>
+    </Page>
+}
+
+route POST /bake { form: { name: str, price: str } } with db {
+    db.exec("insert into breads (name, price) values (?, ?)", trim(name), trim(price))
+    redirect("/")
+}
+
+route POST /sell/:id(int) with db {
+    db.exec("update breads set stock = stock - 1 where id = ? and stock > 0", id)
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)
