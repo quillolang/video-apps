@@ -21,6 +21,7 @@ Quillo: https://quillolang.org
 | [12-state-let](12-state-let) | State vs let in Quillo: What Changes, What Follows, What's Shared | A tip splitter: what you change is state, what follows from it is let, and a top-level let on the server holds the tips paid, shared by every visitor until a restart. |
 | [13-databases](13-databases) | Databases in Quillo: Migrations, Queries, Transactions and Live Pages | A team kudos board in SQLite: tables from migrations, queries with ? and :name values, rows checked against a record type, a unique name said plainly with db.error_kind, kudos given in a transaction that's all or nothing, and a board that follows the database live. |
 | [14-request-response](14-request-response) | Request and Response in Quillo: What Comes In, What Goes Out | Snippets, a tiny API: one route that echoes what a request holds, and routes that answer with text, HTML, JSON with an etag (and a 304), 201 with a location, 204, a 301 redirect, and an error value's 500. |
+| [15-components](15-components) | Components from quillolang.org: 877 Ready-Made UI Components | Café feedback, made with components downloaded from quillolang.org/components: Rating as a form field and as a read-only summary, Alert for the thanks, and theme.qwe's variables to restyle them all. |
 
 ## Shorts
 

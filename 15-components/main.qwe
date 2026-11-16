@@ -1,0 +1,44 @@
+// Café feedback: a form and a summary, made with components from quillolang.org/components.
+
+db.open("data/feedback.db") | unwrap
+db.migrate("migrations")
+
+import ui/theme.qwe use theme_css
+use ui/rating.qwe
+use ui/alert.qwe
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <style>{theme_css}</style>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body class="ui-root"><main>{children}</main></body>
+    </html>
+
+fn summary() -> map with db = db.one("select count(*) as n, coalesce(avg(stars), 0.0) as avg from reviews")
+
+route GET / {
+    let s = summary()
+    <Page title="Café feedback">
+        <h1>How was your visit?</h1>
+        <Rating value={s.avg} readonly={true} count={s.n}/>
+        <form method="post" action="/review">
+            <Rating name="stars" label="Your rating" required={true}
+                    labels={["Awful", "Poor", "OK", "Good", "Great"]}/>
+            <label>Anything else? <input name="note"/></label>
+            <button>Send</button>
+        </form>
+    </Page>
+}
+
+route POST /review { form: { stars: int, note: str = "" } } {
+    db.exec("insert into reviews (stars, note) values (?, ?)", stars, note)
+    <Page title="Thanks">
+        <Alert tone="success" title="Thank you!">Your {stars}-star review is in.</Alert>
+        <p><a href="/">Back to the café</a></p>
+    </Page>
+}
+
+route GET /static/*path = files("public", path)

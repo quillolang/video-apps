@@ -1,0 +1,55 @@
+:root {
+    --ui-accent: #9a4a12;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .4rem;
+}
+
+form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.4rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius);
+    background: var(--ui-surface);
+}
+
+label {
+    display: grid;
+    gap: .3rem;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+input[name=note] {
+    font: inherit;
+    padding: .45rem .65rem;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-sm);
+    background: var(--ui-bg);
+    color: var(--ui-fg);
+}
+
+button {
+    justify-self: start;
+    font: inherit;
+    font-weight: 600;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    padding: .45rem 1.2rem;
+    background: var(--ui-accent);
+    color: var(--ui-accent-fg);
+    cursor: pointer;
+}
+
+a {
+    color: var(--ui-accent);
+}
