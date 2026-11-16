@@ -1,0 +1,56 @@
+// Midnight around the world: when New Year's comes to each city, counted down live.
+
+let cities = [
+    { name: "Kiritimati", zone: "Pacific/Kiritimati", flag: "🇰🇮" },
+    { name: "Auckland", zone: "Pacific/Auckland", flag: "🇳🇿" },
+    { name: "Sydney", zone: "Australia/Sydney", flag: "🇦🇺" },
+    { name: "Tokyo", zone: "Asia/Tokyo", flag: "🇯🇵" },
+    { name: "Mumbai", zone: "Asia/Kolkata", flag: "🇮🇳" },
+    { name: "London", zone: "Europe/London", flag: "🇬🇧" },
+    { name: "New York", zone: "America/New_York", flag: "🇺🇸" },
+    { name: "Honolulu", zone: "Pacific/Honolulu", flag: "🇺🇸" },
+    { name: "Pago Pago", zone: "Pacific/Pago_Pago", flag: "🇦🇸" },
+]
+let homes = ["America/Los_Angeles", "Europe/London", "Asia/Tokyo"]
+
+// Midnight on New Year's Day, where the city is: a date-time with that zone's offset.
+fn midnight(zone: str) -> str = date.at("2027-01-01", "00:00", zone)
+
+// Milliseconds as days, hours, minutes and seconds: "45d 06:12:09".
+fn two(n: int) -> str = slice(`0${n}`, -2)
+fn left(ms: int) -> str {
+    let s = floor(ms / 1000)
+    `${floor(s / 86400)}d ${two(floor(s / 3600) % 24)}:${two(floor(s / 60) % 60)}:${two(s % 60)}`
+}
+
+// at: a time machine for trying it, "2026-12-31T11:30:00Z"; the clock starts there.
+component Countdown(at: str) {
+    state home = "America/Los_Angeles"
+    state shift = at == "" ? 0 : date.ms(at) - now()
+    state clock = now()
+    every(1000, () => { clock = now() })
+    let t = clock + shift
+    let order = cities | sort_by((c) => date.ms(midnight(c.zone)))
+
+    <section.countdown>
+        <p.home>Times in <select bind:value={home}>{for z in homes => <option value={z}>{z}</option>}</select></p>
+        <ol.cities>
+            {for c in order {
+                let m = midnight(c.zone)
+                let ms = date.ms(m) - t
+                <li class={ms <= 0 && "done"}>
+                    <span.flag>{c.flag}</span> <b>{c.name}</b>
+                    <small>{date.format(date.to_zone(m, home), "ddd D MMM, HH:mm")}</small>
+                    <span.left>{ms <= 0 ? "🎉 Happy New Year!" : left(ms)}</span>
+                </li>
+            }}
+        </ol>
+    </section>
+}
+
+route GET / ? { at: str = "" } = <html>
+    <head><title>Midnight around the world</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🎆 Midnight around the world</h1><Countdown at={at}/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

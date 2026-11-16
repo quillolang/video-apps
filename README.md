@@ -37,6 +37,7 @@ Quillo: https://quillolang.org
 | [29-jobs](29-jobs) | Scheduled Jobs in Quillo: Houseplants That Ask for Water | Plant Pal: houseplants that ask for water. A job on a schedule finds the thirsty ones and leaves a note, pages follow the plants live, and a clock on the page counts down to the next check with every. |
 | [30-uploads](30-uploads) | File Uploads in Quillo: Build a Pet Photo Wall | Pet wall: visitors upload photos of their pets with a multipart form. The route checks the kind and size again, saves each file under a name it makes with save_upload, keeps the captions in SQLite, and serves the photos with files(). |
 | [31-markdown](31-markdown) | A Blog from Markdown Files in Quillo: The Pancake Diaries | The Pancake Diaries: a blog whose posts are Markdown files. Each post is read on every request and made HTML with markdown() inside the blog's own page; the about page is a whole page from markdown_page(); only posts on the list are served. |
+| [32-dates](32-dates) | Dates and Time Zones in Quillo: New Year's Midnight Around the World | Midnight around the world: New Year's midnight in nine cities, in the order it arrives, shown in a time zone you pick and counted down live. date.at, date.to_zone, date.format and date.ms, with every() for the clock and a ?at= time machine. |
 
 ## Shorts
 

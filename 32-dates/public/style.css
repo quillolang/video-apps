@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    background: #0c0a24;
+    color: #ecebff;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 54rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .6rem;
+    text-align: center;
+    font-size: 1.7rem;
+    color: #ffd76b;
+}
+
+.home {
+    margin: 0 0 .6rem;
+    text-align: center;
+    color: #a9a6e0;
+}
+
+.home select {
+    font: inherit;
+    color: #ecebff;
+    background: #1c1846;
+    border: 1px solid #39338a;
+    border-radius: 8px;
+    padding: .2rem .4rem;
+}
+
+.cities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .4rem .6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cities li {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    grid-template-areas: "flag name left" "flag when left";
+    align-items: center;
+    column-gap: .6rem;
+    padding: .35rem .8rem;
+    background: #17143c;
+    border-radius: 10px;
+}
+
+.flag {
+    grid-area: flag;
+    font-size: 1.5rem;
+}
+
+.cities b {
+    grid-area: name;
+}
+
+.cities small {
+    grid-area: when;
+    color: #a9a6e0;
+}
+
+.left {
+    grid-area: left;
+    font: 700 1.05rem ui-monospace, Menlo, monospace;
+    color: #7ee8fa;
+}
+
+.cities li.done {
+    background: #3a2a10;
+}
+
+.cities li.done .left {
+    color: #ffd76b;
+    font-family: system-ui, sans-serif;
+}
