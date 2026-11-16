@@ -52,6 +52,7 @@ Quillo: https://quillolang.org
 | [44-api-docs](44-api-docs) | API Docs for Free: quillo docs and OpenAPI | Plant care: a small JSON API for the office plants, and a docs page made from its own OpenAPI description. Run it with ./run.sh --describe and open /docs; quillo docs main.qwe prints the same description. |
 | [45-monitoring](45-monitoring) | The Case of the Broken Pizza Order: Logs, Request IDs and Metrics in Quillo | Slice: pizza by the slice, the bill split between you and your friends. Run it with ./run.sh --log json --metrics, and read its log with grep '^{' and jq. This is the fixed version; the video finds its bug in the log. |
 | [46-memory](46-memory) | Build a Memory Game in One Quillo Component | Memory: twelve cards, six pairs, flip two at a time. The whole game is one component: its state, its clicks, a clock with every, and run_after to turn a miss back over. |
+| [47-chat](47-chat) | A Chat App in One File: Sessions, a Database and Live Channels in Quillo | Campfire: a chat in one file. Your name lives in the session (a signed cookie), the messages in SQLite, and new ones travel live on a channel; whoever sits down gets the last fifty messages from the database. |
 
 ## Shorts
 

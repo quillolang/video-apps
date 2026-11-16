@@ -1,0 +1,83 @@
+// Campfire: a chat in one file. Your name lives in the session, the messages in a database, and new ones
+// travel live on a channel.
+
+db.open("data/campfire.db") | unwrap
+db.exec("create table if not exists messages (id integer primary key, name text not null, text text not null)")
+
+// The last fifty messages, oldest first.
+fn recent() -> list with db =
+    db.query(sql`select name, text from messages order by id desc limit 50`) | reverse()
+
+// What pages say on the campfire channel: kept, then sent to everyone there.
+channel.on("campfire", (msg, peer) => {
+    let text = trim(msg.text ?? "")
+    if text == "" || len(text) > 300 { return }
+    db.exec("insert into messages (name, text) values (?, ?)", peer.session.name, text)
+    channel.broadcast("campfire", { t: "said", name: peer.session.name, text })
+}, {
+    join: (peer) => {
+        if peer.session.name == null { return false }          // only people who sat down
+        channel.send("campfire", peer, { t: "history", lines: recent() })
+        channel.broadcast("campfire", { t: "came", name: peer.session.name })
+        true
+    },
+    leave: (peer) => channel.broadcast("campfire", { t: "went", name: peer.session.name }),
+})
+
+// A line: someone's message (yours in its own colour), or a note from the fire.
+view Line(l: map, me: str) =
+    <li class={l.name == "" ? "note" : l.name == me ? "me" : ""}>{l.name != "" && <b>{l.name}</b>} {l.text}</li>
+
+component Fire(me: str) {
+    state lines = []
+    state draft = ""
+    let note = (text) => { lines = lines | push({ name: "", text }) }
+    let hear = (m) => match m {
+        { t: "history", lines: list as l } => { lines = l }
+        { t: "said", name: str as n, text: str as x } => { lines = lines | push({ name: n, text: x }) }
+        { t: "came", name: str as n } => note(`🔥 ${n} sat down by the fire`)
+        { t: "went", name: str as n } => note(`🌙 ${n} went to bed`)
+        _ => null
+    }
+    let room = channel.open("campfire", hear)
+
+    <section.fire>
+        <ul.lines>{for l in lines => <Line l={l} me={me}/>}</ul>
+        <form @submit={() => { room.send({ text: draft }); draft = "" }}>
+            <input bind:value={draft} placeholder="Say something" autofocus/><button>Send</button>
+        </form>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Campfire</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🏕️ Campfire</h1>{children}</main></body>
+    </html>
+
+route GET / {
+    let me = session().name
+    if me == null {
+        reply 200 <Page>
+            <form.sit method="post" action="/sit">
+                <input name="name" placeholder="Your name" required/><button>Sit down</button>
+            </form>
+        </Page>
+    }
+    <Page>
+        <form.who method="post" action="/leave">By the fire as <b>{me}</b> <button>Go to bed</button></form>
+        <Fire me={me}/>
+    </Page>
+}
+
+route POST /sit { form: { name: str } } {
+    set_session({ name: trim(name) })
+    redirect("/")
+}
+
+route POST /leave {
+    end_session()
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)
