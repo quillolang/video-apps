@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    background: #fff7c2;
+    color: #3b2f0b;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .7rem;
+    color: #e0a100;
+    text-align: center;
+    font-size: 2.1rem;
+}
+
+.till {
+    padding: 1rem 1.1rem;
+    background: #fff;
+    border: 3px solid #f2c200;
+    border-radius: 18px;
+    box-shadow: 0 6px 0 #f2c200;
+}
+
+.menu {
+    display: flex;
+    gap: .5rem;
+    margin: 0 0 .7rem;
+}
+
+.menu button {
+    flex: 1;
+    padding: .5rem .3rem;
+    font: 700 15px system-ui, sans-serif;
+    color: #3b2f0b;
+    background: #ffe259;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.menu small {
+    display: block;
+    font-weight: 500;
+    color: #7a6512;
+}
+
+.order {
+    margin: 0 0 .4rem;
+    padding: 0;
+    list-style: none;
+    min-height: 1.5rem;
+}
+
+.order li,
+.line,
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: .15rem 0;
+}
+
+.order li {
+    color: #6b5a1c;
+}
+
+.line {
+    border-top: 1px dashed #e9d98a;
+}
+
+.total {
+    font-size: 1.25rem;
+    font-weight: 800;
+    border-top: 2px solid #3b2f0b;
+}
+
+.split {
+    margin: .6rem 0;
+    color: #6b5a1c;
+}
+
+.split button {
+    width: 1.8rem;
+    font: 700 15px system-ui, sans-serif;
+    background: #fff3b0;
+    border: 1px solid #e9d98a;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.split b {
+    display: inline-block;
+    min-width: 1.6rem;
+    text-align: center;
+    color: #3b2f0b;
+}
+
+.actions {
+    display: flex;
+    gap: .5rem;
+    margin: 0 0 .6rem;
+}
+
+.actions button {
+    padding: .5rem 1.1rem;
+    font: 700 16px system-ui, sans-serif;
+    background: #f4f1e4;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.actions .sell {
+    flex: 1;
+    color: #fff;
+    background: #2f9e44;
+}
+
+.day {
+    margin: 0;
+    text-align: center;
+    color: #6b5a1c;
+}

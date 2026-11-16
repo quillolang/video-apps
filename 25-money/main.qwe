@@ -1,0 +1,66 @@
+// Lemon Aid: a lemonade stand's till, in exact decimals and money that never loses a cent.
+
+let menu = [
+    { name: "Lemonade", price: 2.50m },
+    { name: "Pink lemonade", price: 2.75m },
+    { name: "Cookie", price: 1.20m },
+]
+let tax_rate = 0.0825m
+let takings = money.zero("USD")
+
+fn usd(x: dec) -> map = money.of(x, "USD")
+fn show(m: map) -> str = money.format(m, "en-US")
+
+// The bill: the prices added up, tax rounded to the cent, and the total.
+fn bill(items: list) -> map {
+    let subtotal = usd(items | reduce(0.00m, (t, i) => t + i.price))
+    let tax = money.mul(subtotal, tax_rate, "half_up")
+    { subtotal, tax, total: subtotal + tax }
+}
+
+// A sale, by the items' names: the prices are the server's own, never the page's.
+server fn sell(names: list) -> map {
+    let items = names | map((n) => find(menu, (i) => i.name == n)) | filter((i) => i != null)
+    takings = takings + bill(items).total
+    takings
+}
+
+server fn today() -> map = takings
+
+component Till() {
+    state order = []
+    state friends = 1
+    state day = live(today)
+    let b = bill(order)
+    let shares = money.allocate(b.total, friends)
+
+    <section.till>
+        <p.menu>
+            {for i in menu =>
+                <button @click={() => order = order | push(i)}>
+                    {i.name} <small>{show(usd(i.price))}</small>
+                </button>}
+        </p>
+        <ul.order>{for i in order => <li>{i.name} <span>{show(usd(i.price))}</span></li>}</ul>
+        <p.line>Subtotal <b>{show(b.subtotal)}</b></p>
+        <p.line>Tax, 8.25% <b>{show(b.tax)}</b></p>
+        <p.total>Total <b>{show(b.total)}</b></p>
+        <p.split>
+            Split <button @click={() => friends = max([1, friends - 1])}>−</button>
+            <b>{friends}</b>
+            <button @click={() => friends += 1}>+</button> ways: {join(map(shares, show), " + ")}
+        </p>
+        <p.actions>
+            <button.sell @click={() => { day = sell(map(order, (i) => i.name)); order = [] }}>Sell</button>
+            <button @click={() => order = []}>Clear</button>
+        </p>
+        <p.day>Today's takings: <b>{show(day)}</b></p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Lemon Aid</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🍋 Lemon Aid</h1><Till/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
