@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    background: #10162b;
+    color: #eef1ff;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .6rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #ff7aa8;
+}
+
+.stage {
+    position: relative;
+    height: 15rem;
+    overflow: hidden;
+    background: linear-gradient(#24305e, #1a2246);
+    border-radius: 16px;
+}
+
+.talk {
+    margin: 0;
+    padding: 1.1rem 1rem;
+    text-align: center;
+    color: #aab3e6;
+}
+
+.talk b {
+    display: block;
+    margin-top: .3rem;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.fly {
+    position: absolute;
+    bottom: -.4rem;
+    font-size: 2.8rem;
+    animation: rise 3.2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(.6);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-13rem) scale(1.3);
+        opacity: 0;
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: .5rem;
+    margin: .8rem 0 .4rem;
+}
+
+.buttons button {
+    flex: 1;
+    padding: .45rem 0;
+    font-size: 1.6rem;
+    background: #24305e;
+    color: #eef1ff;
+    border: 1px solid #3a4785;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.buttons small {
+    font-size: .95rem;
+    color: #aab3e6;
+}
+
+.watching {
+    margin: 0;
+    text-align: center;
+    color: #aab3e6;
+}

@@ -31,6 +31,7 @@ Quillo: https://quillolang.org
 | [23-errors](23-errors) | Bug Hunt: Errors as Values in Quillo (a Vending Machine) | Snack-o-matic, a vending machine where every failure is a value: no such slot, sold out, not enough money. The video starts from a broken copy with two bugs (an error that isn't text, and a dropped error that sells crisps for 50¢) and fixes them; this is the fixed one. |
 | [24-pipes](24-pipes) | Lists and Maps Without Mutation in Quillo: An Arcade High-Score Table | Comet Catcher high scores: a leaderboard built with pipes (group_by, values, map, sort_by), medals from a match, and new scores added with plays = plays | push(...), since nothing in Quillo changes in place. |
 | [25-money](25-money) | Money in Quillo: A Lemonade Stand Till That Never Loses a Cent | Lemon Aid, a lemonade stand's till: prices as exact decimals, tax rounded to the cent with money.mul, a bill split between friends with money.allocate so no cent is lost or made, and sales priced by the server's own menu. |
+| [26-channels](26-channels) | Real Time with Channels in Quillo: A Live Emoji Reaction Wall | Cheers!, a talk's live reaction wall: tap an emoji and it floats up on every open page. The server counts with channel.on and channel.broadcast, join and leave keep a count of who's watching, and each page listens with channel.open. |
 
 ## Shorts
 

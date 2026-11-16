@@ -1,0 +1,63 @@
+// Cheers! A talk's live reaction wall: tap an emoji, and it floats up on every open page.
+
+let emojis = ["👏", "😂", "🔥", "❤️"]
+let counts = { "👏": 0, "😂": 0, "🔥": 0, "❤️": 0 }
+let watching = 0
+
+// What pages send: an emoji. Count it, and tell every page.
+channel.on("cheers", (msg, peer) => {
+    if contains(emojis, msg.emoji) {
+        counts = set(counts, msg.emoji, get(counts, msg.emoji) + 1)
+        channel.broadcast("cheers", { t: "cheer", emoji: msg.emoji, counts })
+    }
+}, {
+    join: (peer) => {
+        watching += 1
+        channel.broadcast("cheers", { t: "watching", watching })
+        channel.send("cheers", peer, { t: "counts", counts })
+        true
+    },
+    leave: (peer) => {
+        watching -= 1
+        channel.broadcast("cheers", { t: "watching", watching })
+    },
+})
+
+component Wall() {
+    state flying = []
+    state shown = {}
+    state people = 0
+    state next = 0
+
+    let hear = (m) => match m {
+        { t: "cheer", emoji: str as e, counts: map as c } => {
+            shown = c
+            let all = flying | push({ id: next, emoji: e, x: random_int(8, 88) })
+            flying = drop(all, max([0, count(all) - 14]))
+            next += 1
+        }
+        { t: "counts", counts: map as c } => { shown = c }
+        { t: "watching", watching: int as n } => { people = n }
+        _ => null
+    }
+    let room = channel.open("cheers", hear)
+
+    <section.wall>
+        <div.stage>
+            <p.talk>Ada's lightning talk<br/><b>Why I write my apps in one file</b></p>
+            {for f in flying => <span.fly key={f.id} style={`left: ${f.x}%`}>{f.emoji}</span>}
+        </div>
+        <p.buttons>
+            {for e in emojis =>
+                <button @click={() => room.send({ emoji: e })}>{e} <small>{get(shown, e) ?? 0}</small></button>}
+        </p>
+        <p.watching>👀 {people} watching</p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Cheers!</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Cheers!</h1><Wall/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
