@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    background: #fdf6ee;
+    color: #3a2a1f;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .8rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #c4612f;
+}
+
+form {
+    display: flex;
+    gap: .5rem;
+    margin: 0 0 1rem;
+    padding: .7rem;
+    background: #fff;
+    border: 1px solid #f0dcc8;
+    border-radius: 14px;
+}
+
+form input[name=caption] {
+    flex: 1;
+    min-width: 0;
+    padding: .45rem .6rem;
+    font: inherit;
+    border: 1px solid #e6cdb4;
+    border-radius: 8px;
+}
+
+form input[type=file] {
+    width: 12rem;
+    font-size: .85rem;
+}
+
+form button {
+    padding: .45rem 1rem;
+    font: 700 16px system-ui, sans-serif;
+    color: #fff;
+    background: #c4612f;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .7rem;
+}
+
+figure {
+    margin: 0;
+    padding: .4rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(120, 70, 30, .12);
+}
+
+figure img {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+}
+
+figcaption {
+    padding: .3rem 0 0;
+    text-align: center;
+    font-weight: 600;
+}

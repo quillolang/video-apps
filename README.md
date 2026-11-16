@@ -35,6 +35,7 @@ Quillo: https://quillolang.org
 | [27-live](27-live) | Live Data in Quillo, Deeper: A Silent Auction with Watch and Publish | Bid for Good, a charity's silent auction: a board that follows every bid with live(all_items), item pages that follow only their own item with live(one_item, id), watch and unwatched, and bids that publish the item's topic. |
 | [28-streaming](28-streaming) | Streaming in Quillo: A Rocket Countdown with Server-Sent Events | Mission Control: a crew briefing that types itself out, streamed word by word with stream, and a launch countdown sent as Server-Sent Events with events, read on the page with receive. |
 | [29-jobs](29-jobs) | Scheduled Jobs in Quillo: Houseplants That Ask for Water | Plant Pal: houseplants that ask for water. A job on a schedule finds the thirsty ones and leaves a note, pages follow the plants live, and a clock on the page counts down to the next check with every. |
+| [30-uploads](30-uploads) | File Uploads in Quillo: Build a Pet Photo Wall | Pet wall: visitors upload photos of their pets with a multipart form. The route checks the kind and size again, saves each file under a name it makes with save_upload, keeps the captions in SQLite, and serves the photos with files(). |
 
 ## Shorts
 

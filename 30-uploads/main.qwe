@@ -1,0 +1,40 @@
+// Pet wall: visitors upload photos of their pets. The files go on disk, the captions in the database.
+
+db.open("data/pets.db") | unwrap
+db.migrate("migrations")
+
+// The kinds of photo taken, and the ending each is saved with.
+let kinds = { "image/png": "png", "image/jpeg": "jpg" }
+
+route GET / = <html>
+    <head><title>Pet wall</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main>
+        <h1>🐾 Pet wall</h1>
+        <form method="post" action="/photos" enctype="multipart/form-data">
+            <input name="caption" placeholder="Who's this?" required/>
+            <input type="file" name="photo" accept="image/png, image/jpeg" required/>
+            <button>Upload</button>
+        </form>
+        <div.wall>
+            {for p in db.query("select path, caption from photos order by id desc") =>
+                <figure><img src={`/${p.path}`} alt={p.caption}/><figcaption>{p.caption}</figcaption></figure>}
+        </div>
+    </main></body>
+</html>
+
+// An upload. The browser's checks can be skipped, so the route checks again,
+// and saves the file under a name of its own.
+route POST /photos { form: { caption: str } } {
+    let f = request.files.photo
+    if f == null { reply 400 "Choose a photo" }
+    let ext = get(kinds, f.type)
+    if ext == null { reply 415 "Photos only: PNG or JPEG" }
+    if f.size > 2_000_000 { reply 413 "Photos up to 2 MB" }
+    let path = save_upload(f, `photos/${uuid()}.${ext}`)?
+    db.exec("insert into photos (path, caption) values (?, ?)", path, caption)?
+    redirect("/")
+}
+
+route GET /photos/*name = files("photos", name)
+
+route GET /static/*path = files("public", path)
