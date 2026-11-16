@@ -55,6 +55,7 @@ Quillo: https://quillolang.org
 | [47-chat](47-chat) | A Chat App in One File: Sessions, a Database and Live Channels in Quillo | Campfire: a chat in one file. Your name lives in the session (a signed cookie), the messages in SQLite, and new ones travel live on a channel; whoever sits down gets the last fifty messages from the database. |
 | [48-mcp](48-mcp) | Tools for AI Clients: a Recipe Box Your AI Can Use (fn mcp in Quillo) | The recipe box: a page for people, and two tools for an AI client (fn mcp find_recipes and add_recipe). quillo mcp main.qwe serves the tools on stdio; examples/calls.jsonl holds an AI client's messages, and examples/client.json the lines that tell a client to start it. |
 | [49-translations](49-translations) | Hello, Hola, こんにちは: Translating a Quillo App (with Plurals) | The Little Card Shop, in English, Spanish and Japanese: translations("locales"), t() with plural forms in the page and in a component, the language a browser asks for, and a choice of language kept in a cookie. locales/ja.json leaves out the sale line on purpose: it falls back to English. |
+| [50-passwords](50-passwords) | Bug Hunt: Passwords Done Right (and the Tempting Fix That Isn't) | Seed Swap: a garden club's sign-up and log-in, with passwords kept the right way: crypto.hash_password (salted Argon2id) and crypto.verify_password, one message for a wrong email or password, and the same work whether or not the member exists. The video starts from a version that keeps them in plain text, then tries SHA-256. |
 
 ## Shorts
 

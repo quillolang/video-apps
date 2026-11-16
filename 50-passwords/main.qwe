@@ -1,0 +1,52 @@
+// Seed Swap: a garden club's members sign up and log in, with their passwords kept the right way.
+
+db.open("data/club.db") | unwrap
+db.exec("create table if not exists members
+    (id integer primary key, email text unique not null, password_hash text)")
+
+view Page(children) =
+    <html>
+        <head><title>Seed Swap</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🌱 Seed Swap</h1>{children}</main></body>
+    </html>
+
+route GET / with db {
+    let id = session().member ?? reply 200 <Page><Forms/></Page>
+    let me = db.one("select email from members where id = ?", id)
+    <Page>
+        <p.hi>Welcome back, <b>{me.email}</b>!</p>
+        <form method="post" action="/logout"><button>Log out</button></form>
+    </Page>
+}
+
+view Forms() =
+    <div.forms>
+        <form method="post" action="/join"><h2>Join</h2><Fields/><button>Join the club</button></form>
+        <form method="post" action="/login"><h2>Log in</h2><Fields/><button>Log in</button></form>
+    </div>
+
+view Fields() = <div.fields>
+    <input name="email" type="email" placeholder="Email" required/>
+    <input name="password" type="password" placeholder="Password" required/>
+</div>
+
+route POST /join { form: { email: str, password: str } } with db, random {
+    if len(password) < 8 { reply 400 "At least 8 characters, please" }
+    let hash = crypto.hash_password(password)                 // salted Argon2id: slow on purpose
+    let m = db.one("insert into members (email, password_hash) values (?, ?) returning id",
+        lower(trim(email)), hash) ?? reply 409 "That email is already a member"
+    set_session({ member: m.id })
+    redirect("/")
+}
+
+route POST /login { form: { email: str, password: str } } with db, random {
+    let m = db.one("select * from members where email = ?", lower(trim(email)))
+    let hash = m.password_hash ?? crypto.hash_password("not anyone's")   // the same work, member or not
+    if m == null || !crypto.verify_password(password, hash) { reply 401 "Wrong email or password" }
+    set_session({ member: m.id })
+    redirect("/")
+}
+
+route POST /logout { end_session(); redirect("/") }
+
+route GET /static/*path = files("public", path)

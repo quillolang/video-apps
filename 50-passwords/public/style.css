@@ -1,0 +1,14 @@
+/* Seed Swap: green and earthy, two forms side by side. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #263a23; background: #eef3e2; }
+main { max-width: 560px; margin: 0 auto; padding: 24px 16px; }
+h1 { margin: 0 0 16px; font-size: 30px; color: #3f7a2f; }
+.forms { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+form { display: grid; gap: 8px; background: #fff; padding: 14px; border-radius: 14px; box-shadow: 0 3px 10px rgba(63, 122, 47, .12); }
+h2 { margin: 0; font-size: 18px; }
+.fields { display: grid; gap: 8px; }
+input { font: inherit; padding: 8px 10px; border: 2px solid #d5e2c3; border-radius: 9px; outline: none; min-width: 0; }
+input:focus { border-color: #5c9e46; }
+button { font: inherit; font-weight: 600; border: 0; border-radius: 9px; padding: 8px 12px; background: #4f8f3a; color: #fff; cursor: pointer; }
+.hi { font-size: 20px; background: #fff; padding: 14px; border-radius: 14px; }
+main > form { display: inline-block; padding: 0; background: none; box-shadow: none; }
