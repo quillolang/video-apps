@@ -1,0 +1,16 @@
+# /etc/systemd/system/shortlinks.service: starts Shortlinks at boot, and again if it fails.
+
+[Unit]
+Description=Shortlinks
+After=network.target
+
+[Service]
+User=quillo
+WorkingDirectory=/srv/shortlinks
+ExecStart=/usr/local/bin/quillo run main.qwe --port 8080 --trust-proxy 127.0.0.1 --log json --reload --drain 60s
+EnvironmentFile=/etc/quillo/shortlinks.env
+Restart=on-failure
+TimeoutStopSec=75
+
+[Install]
+WantedBy=multi-user.target

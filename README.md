@@ -48,6 +48,7 @@ Quillo: https://quillolang.org
 | [40-speedrun](40-speedrun) | Speedrun: a To-Do App in 2:12 (Quillo, any%) | A to-do list kept in a database: add, tick, delete, three tabs and clear done. Written against the clock from quillo new --minimal, in four files: the table, the server fns (lib/todos.qwe), the component (ui/todos.qwe) and the page. |
 | [41-tenants](41-tenants) | Two Bakeries, One App: a Database per Customer in Quillo | Two bakeries, one app: each bakery is a tenant, picked by the host (crumbs.localhost is the bakery crumbs), with a SQLite database of its own in data/. Run it and open one at http://localhost:8080. The video also runs a version with a global sales counter, to show that a global is one copy for every bakery: keep a bakery's numbers in its database. |
 | [42-policy](42-policy) | Run Code You Didn't Write: Locking a Program Down with quillo.policy | Fortune cookies: a page a friend wrote, with a few surprises in it (a stats call, a /debug route, a link preview that fetches anything, a loop with no end), run under quillo.policy, which says what the program may do whatever its code says. Put APP_NAME and SECRET_KEY in a .env to see the policy hide the second. |
+| [43-hosting](43-hosting) | Ship It: Taking a Quillo App from Your Laptop to a Server | Shortlinks: short codes for long addresses, ready for a server of its own. deploy/ has a systemd unit, a Caddyfile for HTTPS in front, and the environment file's one line (QUILLO_SECRET). |
 
 ## Shorts
 

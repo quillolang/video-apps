@@ -1,0 +1,6 @@
+# /etc/caddy/Caddyfile: Caddy gets the HTTPS certificate, and hands each request to Quillo on this machine.
+
+links.example.com {
+    respond /_quillo/metrics 403
+    reverse_proxy 127.0.0.1:8080
+}

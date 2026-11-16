@@ -1,0 +1,45 @@
+// Shortlinks: short codes for long addresses, ready for a server of its own.
+
+db.open("data/links.db") | unwrap      // stop, rather than run on an empty database in memory
+db.migrate("migrations")
+
+let version = "1.0"
+
+fn recent() -> list with db = db.query(sql`select code, url, visits from links order by rowid desc limit 5`)
+
+view Link(l: map) =
+    <li><a href={`/go/${l.code}`}>/go/{l.code}</a> <span>→ {l.url}</span> <small>{l.visits} visits</small></li>
+
+route GET / with db =
+    <html>
+        <head><title>Shortlinks</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>✂️ Shortlinks</h1>
+            <form method="post" action="/shorten">
+                <input name="url" type="url" placeholder="https://a-very-long-address.example/..." required/>
+                <button>Shorten</button>
+            </form>
+            <ul>{for l in recent() => <Link l={l}/>}</ul>
+            <footer>version {version}</footer>
+        </main></body>
+    </html>
+
+route POST /shorten { form: { url: str } } with db, random {
+    let code = lower(crypto.token(4))
+    db.exec("insert into links (code, url) values (?, ?)", code, url)
+    redirect("/")
+}
+
+route GET /go/:code with db {
+    let l = db.one("select url from links where code = ?", code) ?? reply 404 "No such link"
+    db.exec("update links set visits = visits + 1 where code = ?", code)
+    redirect(l.url)
+}
+
+// A slow report: two seconds of pretend number crunching.
+route GET /report with db, time {
+    sleep(2000)
+    `${db.one("select count(*) as n from links").n} links`
+}
+
+route GET /static/*path = files("public", path)
