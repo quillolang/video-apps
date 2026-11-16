@@ -34,6 +34,7 @@ Quillo: https://quillolang.org
 | [26-channels](26-channels) | Real Time with Channels in Quillo: A Live Emoji Reaction Wall | Cheers!, a talk's live reaction wall: tap an emoji and it floats up on every open page. The server counts with channel.on and channel.broadcast, join and leave keep a count of who's watching, and each page listens with channel.open. |
 | [27-live](27-live) | Live Data in Quillo, Deeper: A Silent Auction with Watch and Publish | Bid for Good, a charity's silent auction: a board that follows every bid with live(all_items), item pages that follow only their own item with live(one_item, id), watch and unwatched, and bids that publish the item's topic. |
 | [28-streaming](28-streaming) | Streaming in Quillo: A Rocket Countdown with Server-Sent Events | Mission Control: a crew briefing that types itself out, streamed word by word with stream, and a launch countdown sent as Server-Sent Events with events, read on the page with receive. |
+| [29-jobs](29-jobs) | Scheduled Jobs in Quillo: Houseplants That Ask for Water | Plant Pal: houseplants that ask for water. A job on a schedule finds the thirsty ones and leaves a note, pages follow the plants live, and a clock on the page counts down to the next check with every. |
 
 ## Shorts
 

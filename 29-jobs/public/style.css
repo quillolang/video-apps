@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    background: #eef7ea;
+    color: #22331f;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .8rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #2f7a3a;
+}
+
+.plant {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: .6rem;
+    padding: .7rem .9rem;
+    background: #fff;
+    border: 2px solid #cfe6c8;
+    border-radius: 14px;
+    transition: background .3s;
+}
+
+.plant.thirsty {
+    background: #fff4e0;
+    border-color: #f2b45a;
+}
+
+.emoji {
+    font-size: 1.8rem;
+}
+
+.plant small {
+    margin-left: auto;
+    color: #5f8a58;
+}
+
+.plant button {
+    margin-left: auto;
+    padding: .4rem .9rem;
+    font: 700 15px system-ui, sans-serif;
+    color: #fff;
+    background: #2a8bd8;
+    border: 0;
+    border-radius: 99px;
+    cursor: pointer;
+}
+
+.next {
+    margin: .2rem 0 .5rem;
+    text-align: center;
+    color: #5f8a58;
+    font-variant-numeric: tabular-nums;
+}
+
+.notes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: .95rem;
+    color: #6b5a2a;
+}
+
+.notes li {
+    padding: .2rem 0;
+}

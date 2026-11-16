@@ -1,0 +1,49 @@
+// Plant Pal: houseplants that ask for water, checked by a job on a schedule.
+
+db.open("data/plants.db") | unwrap
+db.migrate("migrations")
+db.exec("update plants set watered = ? where watered = 0", now())
+
+// Who's thirsty? A plant is, once its time since watering is up. Each one gets a note.
+fn check_plants() {
+    let due = db.query("select id, name from plants where thirsty = 0 and watered + every_ms < ?", now())
+    for p in due {
+        db.exec("update plants set thirsty = 1 where id = ?", p.id)
+        db.exec("insert into notes (text, at) values (?, ?)", `${p.name} is thirsty!`, now())
+    }
+}
+
+// Every ten seconds while we work on it. For real plants: "0 8 * * *", eight every morning (UTC).
+schedule("10s", check_plants)
+
+server fn plants() -> list = db.query("select id, name, emoji, thirsty from plants order by id")
+server fn notes() -> list = db.query("select text, at from notes order by id desc limit 4")
+
+server fn water(id: int) {
+    db.exec("update plants set watered = ?, thirsty = 0 where id = ?", now(), id)
+}
+
+component Garden() {
+    state all = live(plants)
+    state said = live(notes)
+    state clock = now()
+    every(1000, () => { clock = now() })
+    let next = 10 - floor(clock / 1000) % 10
+
+    <section.garden>
+        {for p in all =>
+            <div class={p.thirsty == 1 ? "plant thirsty" : "plant"}>
+                <span.emoji>{p.emoji}</span> <b>{p.name}</b>
+                {p.thirsty == 1 ? <button @click={() => water(p.id)}>💧 Water me!</button> : <small>Happy</small>}
+            </div>}
+        <p.next>Next check in {next}s</p>
+        <ul.notes>{for n in said => <li>🔔 {n.text}</li>}</ul>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Plant Pal</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🪴 Plant Pal</h1><Garden/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
