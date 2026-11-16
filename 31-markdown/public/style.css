@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    background: #fff8ef;
+    color: #3b2b1d;
+    font: 18px/1.6 Georgia, serif;
+}
+
+main {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2rem;
+}
+
+.brand {
+    margin: 0 0 1rem;
+    font: 700 1.2rem system-ui, sans-serif;
+}
+
+.brand a,
+.posts a,
+.about a {
+    color: #b8571d;
+    text-decoration: none;
+}
+
+.posts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.posts li {
+    display: flex;
+    align-items: baseline;
+    gap: .8rem;
+    padding: .7rem 0;
+    border-bottom: 1px solid #f0dcc4;
+    font-size: 1.2rem;
+}
+
+time {
+    margin-left: auto;
+    color: #a08a74;
+    font: .85rem system-ui, sans-serif;
+}
+
+article h1 {
+    margin: 0 0 .4rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+article h2 {
+    margin: 1.2rem 0 .3rem;
+    font-size: 1.2rem;
+    color: #b8571d;
+}
+
+article blockquote {
+    margin: 1rem 0;
+    padding: .5rem 1rem;
+    background: #fbead6;
+    border-left: 4px solid #e8a55c;
+    font-style: italic;
+}
+
+article p,
+article li {
+    margin: .3rem 0;
+}

@@ -1,0 +1,37 @@
+// The Pancake Diaries: a blog whose posts are Markdown files in posts/.
+
+// The posts, newest first. Each is posts/<slug>.md; its title is its first heading.
+let posts = [
+    { slug: "pancakes-for-forty", day: "2026-11-14" },
+    { slug: "syrup-debate", day: "2026-11-07" },
+    { slug: "fluffy-at-last", day: "2026-10-31" },
+]
+
+fn text_of(slug: str) -> str ! str = read_file(`posts/${slug}.md`)
+fn title_of(text: str) -> str = (re.find(text, "^# (.+)$", "m") ?? { groups: ["Untitled"] }).groups[0]
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><p.brand><a href="/">🥞 The Pancake Diaries</a></p>{children}</main></body>
+</html>
+
+route GET / = <Page title="The Pancake Diaries">
+    <ul.posts>
+        {for p in posts =>
+            <li><a href={`/posts/${p.slug}`}>{title_of(text_of(p.slug) ?? "")}</a> <time>{p.day}</time></li>}
+    </ul>
+    <p.about><a href="/about">About this blog</a></p>
+</Page>
+
+// A post: only one on the list, its Markdown made HTML inside our own page.
+route GET /posts/:slug {
+    let p = find(posts, (x) => x.slug == slug)
+    if p == null { reply 404 "No such post" }
+    let text = text_of(slug)?
+    <Page title={title_of(text)}><article>{markdown(text)}</article><time>{p.day}</time></Page>
+}
+
+// The about page: markdown_page makes the whole page, head and title too.
+route GET /about = markdown_page(read_file("about.md")?)
+
+route GET /static/*path = files("public", path)
