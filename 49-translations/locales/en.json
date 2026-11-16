@@ -1,0 +1,17 @@
+{
+  "title": "Little Card Shop",
+  "tagline": "Cards for every occasion",
+  "cards": {
+    "birthday": "Happy birthday",
+    "thanks": "Thank you",
+    "congrats": "Congratulations"
+  },
+  "add": "Add to bag",
+  "bag": {
+    "zero": "Your bag is empty",
+    "one": "{count} card in your bag",
+    "other": "{count} cards in your bag"
+  },
+  "language": "Language",
+  "sale": "Free shipping this week!"
+}

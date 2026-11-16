@@ -1,0 +1,49 @@
+// The Little Card Shop, in English, Spanish and Japanese. The words are in locales/, one file for each language.
+
+translations("locales", { default: "en" })
+
+let cards = [
+    { key: "birthday", art: "🎂" },
+    { key: "thanks", art: "💐" },
+    { key: "congrats", art: "🎉" },
+]
+
+// The shelf runs in the browser: the bag counts up there, in the page's language.
+component Shelf() {
+    state bag = 0
+    <section>
+        <div.cards>{for c in cards =>
+            <div.card>
+                <span>{c.art}</span><b>{t(`cards.${c.key}`)}</b>
+                <button @click={() => { bag += 1 }}>{t("add")}</button>
+            </div>}
+        </div>
+        <p.bag>🛍️ {t("bag", { count: bag })}</p>
+    </section>
+}
+
+route GET / = <html lang={locale()}>
+    <head><title>{t("title")}</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main>
+        <h1>{t("title")}</h1>
+        <p.tagline>{t("tagline")} · <b>{t("sale")}</b></p>
+        <Shelf/>
+        <form method="post" action="/lang">
+            <select name="to">
+                <option value="en" selected={locale() == "en"}>English</option>
+                <option value="es" selected={locale() == "es"}>Español</option>
+                <option value="ja" selected={locale() == "ja"}>日本語</option>
+            </select>
+            <button>{t("language")}</button>
+        </form>
+    </main></body>
+</html>
+
+// Choosing a language keeps it in a cookie, which counts before what the browser asks for.
+route POST /lang { form: { to: str } } {
+    if !contains(["en", "es", "ja"], to) { reply 400 "No such language" }
+    set_cookie("locale", to, { max_age: "1y" })
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)

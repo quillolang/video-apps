@@ -1,0 +1,17 @@
+{
+  "title": "La Tiendita de Tarjetas",
+  "tagline": "Tarjetas para cada ocasión",
+  "cards": {
+    "birthday": "Feliz cumpleaños",
+    "thanks": "Gracias",
+    "congrats": "Felicidades"
+  },
+  "add": "Añadir a la bolsa",
+  "bag": {
+    "zero": "Tu bolsa está vacía",
+    "one": "{count} tarjeta en tu bolsa",
+    "other": "{count} tarjetas en tu bolsa"
+  },
+  "language": "Idioma",
+  "sale": "¡Envío gratis esta semana!"
+}
