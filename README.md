@@ -26,6 +26,7 @@ Quillo: https://quillolang.org
 | [18-no-fetch](18-no-fetch) | No fetch in Quillo: Call the Server Like a Function | A live lunch poll whose buttons call the server like plain functions: no API route, no fetch, no JSON, no async/await, no try/catch, and every open tab follows the votes with live(). |
 | [19-no-async](19-no-async) | No async/await in Quillo: Waiting Without the Ceremony | A pizza tracker waiting on slow kitchens with no async and no await: calls one after another, parallel() to overlap their waits, a server that answers other requests meanwhile, and a page whose click handler waits three times without freezing. |
 | [20-headers-cookies](20-headers-cookies) | Headers, Cookies and Sessions in Quillo: The Treehouse Club | The treehouse club: a greeting in the browser's own language from accept-language, a day or night theme kept in a cookie, members kept in a signed session that can't be forged, and a secret door that opens to the right knock header. |
+| [21-records](21-records) | Records and Types in Quillo: Build an RPG Character Sheet | Hero forge, an RPG character sheet whose types catch bad stats: string unions for classes, defaults, nested records, a JSON route that only takes a Hero, and fields a client adds dropped on the way in. |
 
 ## Shorts
 

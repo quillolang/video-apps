@@ -1,0 +1,38 @@
+// Hero forge: an RPG character sheet whose types catch bad stats.
+
+type Class = "warrior" | "mage" | "rogue"
+type Stats = { strength: int, magic: int, speed: int }
+type Hero = { name: str, class: Class = "warrior", level: int = 1, stats: Stats, items: list<str> = [] }
+
+let heroes = [
+    Hero({ name: "Brienne", level: 7, stats: { strength: 9, magic: 1, speed: 5 }, items: ["Sword", "Shield"] }),
+    Hero({ name: "Merlin", class: "mage", level: 12,
+           stats: { strength: 2, magic: 10, speed: 4 }, items: ["Staff"] }),
+]
+
+fn title(h: Hero) -> str = match h.class {
+    "warrior" => "the Brave"
+    "mage" => "the Wise"
+    _ => "the Quick"
+}
+
+view Sheet(h: Hero) =
+    <article.sheet>
+        <h2>{h.name} <small>{title(h)}</small></h2>
+        <p>Level {h.level} {h.class}</p>
+        {for [k, v] in h.stats => <div.stat><span>{k}</span><i style={`width: ${v * 10}%`}></i><b>{v}</b></div>}
+        <p.items>{join(h.items, " · ")}</p>
+    </article>
+
+route GET / = <html>
+    <head><title>Hero forge</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Hero forge</h1>{for h in heroes => <Sheet {h}/>}</main></body>
+</html>
+
+// A new hero, as JSON: the body is made a Hero, or the request is refused.
+route POST /heroes { json: Hero } {
+    heroes = heroes | push(json)
+    respond(201, json)
+}
+
+route GET /static/*path = files("public", path)
