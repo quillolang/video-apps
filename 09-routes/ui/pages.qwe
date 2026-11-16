@@ -1,0 +1,48 @@
+// The shop's pages: the frame, the list of books, a book's page, logging in, and the admin page.
+
+use lib/shop.qwe
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <header><a href="/">Bookshop</a> <a href="/admin">Admin</a></header>
+            <main>{children}</main>
+        </body>
+    </html>
+
+view BookList(books: list) =
+    <ul.books>
+        {for b in books => <li><a href={`/books/${b.id}`}>{b.title}</a> <span>{b.author}</span></li>}
+    </ul>
+
+view BookPage(b: Book) =
+    <article>
+        <h1>{b.title}</h1>
+        <p.by>{b.author}, {b.year}</p>
+        <p><a href="/">All books</a></p>
+    </article>
+
+view Login(next: str) =
+    <form.card method="post" action={`/login?next=${url_encode(next)}`}>
+        <h1>Log in</h1>
+        <label>Your name <input name="name"/></label>
+        <button>Log in</button>
+    </form>
+
+view Admin(user: str, books: list) =
+    <section>
+        <h1>Admin</h1>
+        <p.by>Signed in as {user}</p>
+        <BookList {books}/>
+        <form.card method="post" action="/admin/books">
+            <h2>Add a book</h2>
+            <label>Title <input name="title"/></label>
+            <label>Author <input name="author"/></label>
+            <label>Year <input name="year" type="number"/></label>
+            <button>Add it</button>
+        </form>
+    </section>

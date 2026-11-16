@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    background: #f4f1ea;
+    color: #23201b;
+    font: 16px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 1.1rem;
+    font-size: 1.9rem;
+}
+
+.teams {
+    display: flex;
+    gap: 1rem;
+}
+
+.card {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 1px 3px #0002;
+    text-align: center;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #5b5348;
+}
+
+.points {
+    margin: .2rem 0 .6rem;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2f6f4f;
+}
+
+button {
+    font: inherit;
+    font-weight: 600;
+    border: 0;
+    border-radius: 999px;
+    padding: .4rem 1.1rem;
+    background: #2f6f4f;
+    color: #fff;
+    cursor: pointer;
+}
+
+button + button {
+    margin-left: .4rem;
+}
+
+.notes {
+    display: block;
+    margin-top: 1.3rem;
+    font-weight: 600;
+}
+
+.notes input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: .3rem;
+    font: inherit;
+    font-weight: 400;
+    padding: .5rem .7rem;
+    border: 1px solid #d8d1c4;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.crowd {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin: 1.1rem 0 0;
+    color: #5b5348;
+    font-weight: 600;
+}
+
+.crowd button {
+    background: #b45309;
+}

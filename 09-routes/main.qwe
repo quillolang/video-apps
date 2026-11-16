@@ -1,0 +1,48 @@
+// A little bookshop, and the routes that answer for it.
+
+use lib/shop.qwe
+use ui/pages.qwe
+
+route GET / = <Page title="Bookshop"><h1>Books</h1><BookList {books}/></Page>
+
+// :id(int) takes only a number; anything else goes on to the next route.
+route GET /books/:id(int) {
+    let b = book(id) ?? return respond(404, "No such book")
+    <Page title={b.title}><BookPage {b}/></Page>
+}
+
+route GET /books/:slug {
+    let b = book_by_slug(slug) ?? return respond(404, "No such book")
+    redirect(`/books/${b.id}`)
+}
+
+// The JSON API: one prefix for all of it.
+routes /api {
+    route GET /books = books
+    route GET /search ? { q: str, page: int = 1 } = search(q, page)
+
+    routes /books/:id(int) {
+        route GET / = book(id) ?? respond(404, { error: "no such book" })
+        route GET /same-author = same_author(id)
+    }
+}
+
+// The admin area: signed in, or sent to log in first.
+fn signed_in(r) = session().user != null ? r : reply 303 redirect(`/login?next=${url_encode(r.path)}`)
+
+routes /admin | signed_in {
+    route GET / = <Page title="Admin"><Admin user={session().user} {books}/></Page>
+    route POST /books { form: NewBook } {
+        add_book(form)
+        redirect("/admin")
+    }
+}
+
+route GET /login ? { next: str = "/admin" } = <Page title="Log in"><Login {next}/></Page>
+
+route POST /login ? { next: str = "/admin" } { form: { name: str } } {
+    set_session({ user: name })
+    redirect(local_path(next) ?? "/admin")
+}
+
+route GET /static/*path = files("public", path)

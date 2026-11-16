@@ -1,0 +1,33 @@
+// The shop's books, kept in memory: it starts with four, and the admin area adds more.
+
+type Book = { id: int, slug: str, title: str, author: str, year: int }
+type NewBook = { title: str, author: str, year: int }
+
+let books = [
+    Book({ id: 1, slug: "dune", title: "Dune", author: "Frank Herbert", year: 1965 }),
+    Book({ id: 2, slug: "earthsea", title: "A Wizard of Earthsea", author: "Ursula K. Le Guin", year: 1968 }),
+    Book({ id: 3, slug: "left-hand", title: "The Left Hand of Darkness", author: "Ursula K. Le Guin", year: 1969 }),
+    Book({ id: 4, slug: "kindred", title: "Kindred", author: "Octavia E. Butler", year: 1979 }),
+]
+
+fn book(id: int) -> Book? = find(books, b => b.id == id)
+
+fn book_by_slug(slug: str) -> Book? = find(books, b => b.slug == slug)
+
+// The other books by the same author.
+fn same_author(id: int) -> list {
+    let b = book(id) ?? return []
+    filter(books, x => x.id != id && x.author == b.author)
+}
+
+// Books whose title or author has q in it, two to a page.
+fn search(q: str, page: int) -> list {
+    let found = filter(books, b => contains(lower(b.title), lower(q)) || contains(lower(b.author), lower(q)))
+    slice(found, (page - 1) * 2, page * 2)
+}
+
+fn add_book(n: NewBook) -> Book {
+    let b = Book({ id: len(books) + 1, slug: `book-${len(books) + 1}`, title: n.title, author: n.author, year: n.year })
+    books = books | push(b)
+    b
+}

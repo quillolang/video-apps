@@ -1,0 +1,19 @@
+// The page around everything, and a team's score: a component with its own state.
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main>{children}</main></body>
+    </html>
+
+component Score(team: str) {
+    state points = 0
+    <section.card>
+        <h2>{team}</h2>
+        <p.points>{points}</p>
+        <button @click={() => points += 1}>+1</button>
+    </section>
+}

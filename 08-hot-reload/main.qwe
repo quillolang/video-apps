@@ -1,0 +1,33 @@
+// Game night: a scoreboard, to see what a save keeps under quillo run --watch.
+
+use ui/board.qwe
+
+// The server's data: the program changes it, so a save keeps it.
+let cheers = 0
+
+server fn cheer() -> int {
+    cheers += 1
+    cheers
+}
+
+// Cheers from the crowd: the count is the server's.
+component Crowd(start: int) {
+    state n = start
+    <p.crowd>
+        <button @click={() => n = cheer() ?? n}>Cheer</button>
+        <span>{n} cheer{n == 1 ? "" : "s"}</span>
+    </p>
+}
+
+route GET / =
+    <Page title="Game night">
+        <h1>Game night</h1>
+        <div.teams>
+            <Score team="Owls"/>
+            <Score team="Foxes"/>
+        </div>
+        <Crowd start={cheers}/>
+        <label.notes>Notes <input placeholder="Who's bringing snacks?"/></label>
+    </Page>
+
+route GET /static/*path = files("public", path)
