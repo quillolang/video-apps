@@ -1,0 +1,63 @@
+// Snack-o-matic: a vending machine where every failure is a value.
+
+type Slot = { code: str, name: str, price: int, stock: int }
+type Sale = { item: str, change: int }
+
+let slots = [
+    Slot({ code: "A1", name: "Crisps", price: 150, stock: 3 }),
+    Slot({ code: "A2", name: "Choc bar", price: 120, stock: 1 }),
+    Slot({ code: "B1", name: "Lemonade", price: 200, stock: 0 }),
+]
+
+fn cents(n: int) -> str = `$${format_number(n / 100, "en-US", 2)}`
+
+// The slot with this code, or an error that says there's none.
+fn slot(code: str) -> Slot ! str =
+    find(slots, (s) => s.code == code) ?? err(`There's no slot ${code}`)
+
+// The change from paying for a slot, or an error if it's not enough.
+fn pay(s: Slot, paid: int) -> int ! str =
+    paid >= s.price ? paid - s.price : err(`That's ${cents(s.price)}: put in ${cents(s.price - paid)} more`)
+
+server fn shelf() -> list = slots
+
+server fn buy(code: str, paid: int) -> Sale ! str {
+    let s = slot(code)?
+    if s.stock == 0 { return err(`${s.name} is sold out`) }
+    let change = pay(s, paid)?
+    slots = map(slots, (x) => x.code == code ? { ...x, stock: x.stock - 1 } : x)
+    Sale({ item: s.name, change })
+}
+
+component Machine() {
+    state items = live(shelf)
+    state paid = 0
+    state code = ""
+    state screen = "Put in coins, pick a snack"
+
+    let vend = () => {
+        let r = buy(upper(code), paid)
+        screen = is_err(r) ? `⚠️ ${r.error}` : `🎉 ${r.item}! Change: ${cents(r.change)}`
+        if !is_err(r) { paid = 0 }
+    }
+
+    <section.machine>
+        <ul.shelf>
+            {for s in items =>
+                <li class={s.stock == 0 && "out"}>
+                    <b>{s.code}</b> {s.name} <span>{cents(s.price)} · {s.stock} left</span>
+                </li>}
+        </ul>
+        <p.screen>{screen}</p>
+        <p.coins>{for c in [10, 20, 50, 100] => <button @click={() => paid += c}>{cents(c)}</button>}</p>
+        <p.paid>Paid: <b>{cents(paid)}</b></p>
+        <p.keypad><input bind:value={code} placeholder="A1"/> <button.vend @click={vend}>Vend</button></p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Snack-o-matic</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Snack-o-matic</h1><Machine/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
