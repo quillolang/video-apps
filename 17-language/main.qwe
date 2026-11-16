@@ -1,0 +1,22 @@
+// Fortune cookies: a little of everything from the tour, in one program.
+
+type Fortune = { text: str, lucky: int }
+
+let fortunes = [
+    Fortune({ text: "A bug you fix today saves ten tomorrow.", lucky: 7 }),
+    Fortune({ text: "Your next deploy will be boring. Boring is good.", lucky: 3 }),
+    Fortune({ text: "Zero is true here. Remember that.", lucky: 0 }),
+]
+
+fn pick(day: int) -> Fortune = fortunes[day % len(fortunes)]
+
+fn mood(f: Fortune) -> str = match f.lucky {
+    0 => "a mysterious one"
+    7 => "a lucky one"
+    _ => "a calm one"
+}
+
+route GET / ? { day: int = 0 } {
+    let f = pick(day)
+    `${f.text} (${mood(f)})`
+}

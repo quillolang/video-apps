@@ -1,0 +1,30 @@
+0.1 + 0.2
+0.1m + 0.2m
+7 / 2
+floor(7 / 2)
+let name = "Ada"
+`Hello, ${name}!`
+'no ${name} here'
+0 ? "truthy" : "falsy"
+"" ? "truthy" : "falsy"
+null ? "truthy" : "falsy"
+1 == "1"
+[1, 2] == [1, 2]
+let xs = [1, 2, 3]
+xs | push(4)
+xs
+xs | filter((x) => x > 1) | map((x) => x * 10)
+xs.map((x) => x * 2)
+for x in xs => x * x
+let user = { name: "Ada", role: "admin" }
+{ ...user, name: "Grace" }
+match user { { role: "admin" } => "staff", _ => "guest" }
+let r = err("The jar is empty")
+r ?? "a cookie anyway"
+is_err(r)
+fn add(a: int, b: int = 10) -> int = a + b
+add(1)
+add(1, 2)
+type Point = { x: int, y: int }
+Point({ x: 1, y: 2 })
+Point({ x: "one", y: 2 })
