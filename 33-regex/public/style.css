@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    background: #f3f0ff;
+    color: #241f3d;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 .7rem;
+    text-align: center;
+    color: #6b4de6;
+}
+
+.signup {
+    padding: 1rem 1.1rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(80, 60, 160, .12);
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #5b5480;
+}
+
+label input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: .2rem;
+    padding: .5rem .7rem;
+    font: 17px system-ui, sans-serif;
+    border: 2px solid #ddd6fe;
+    border-radius: 10px;
+}
+
+.checks {
+    margin: .5rem 0 .6rem;
+    padding: 0;
+    list-style: none;
+    font-size: .95rem;
+}
+
+.checks li.no {
+    color: #a1407a;
+}
+
+.yours {
+    margin: 0 0 .7rem;
+    padding: .4rem .7rem;
+    background: #e7f8ee;
+    color: #1d7a45;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.slug {
+    margin: .3rem 0 .8rem;
+    font: 15px ui-monospace, Menlo, monospace;
+    color: #5b5480;
+}
+
+.slug b {
+    color: #6b4de6;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    min-height: 1.6rem;
+    margin: .5rem 0 0;
+}
+
+.tags span {
+    padding: .1rem .6rem;
+    background: #ede9fe;
+    color: #6b4de6;
+    font-weight: 600;
+    border-radius: 99px;
+}

@@ -1,0 +1,49 @@
+// Pick a handle: a sign-up that checks a username as you type, makes a web address from a title,
+// and finds the hashtags in a bio. Text and regular expressions, in the browser.
+
+let taken = ["ada", "grace", "admin", "root", "quillo"]
+
+// Each rule a handle must pass, and whether this one does.
+fn checks(h: str) -> list = [
+    { says: "3 to 20 characters", ok: re.test(h, "^.{3,20}$") },
+    { says: "Starts with a letter", ok: re.test(h, "^[A-Za-z]") },
+    { says: "Only letters, digits and _", ok: re.test(h, "^[A-Za-z0-9_]*$") },
+    { says: "Not taken", ok: !contains(taken, lower(h)) },
+]
+
+// A title as part of a web address: accents off, small letters, anything else a dash.
+fn slug(title: str) -> str =
+    normalize(title, "NFD")
+    | re.replace("[\u0300-\u036f]", "")
+    | lower()
+    | re.replace("[^a-z0-9]+", "-")
+    | re.replace("^-|-$", "")
+
+// The hashtags in a text, each once, without the #.
+fn tags(text: str) -> list = re.find_all(text, "#(\\w+)") | map((m) => m.groups[0]) | unique()
+
+component Signup() {
+    state handle = ""
+    state title = ""
+    state bio = ""
+    let rows = checks(handle)
+    let good = handle != "" && all(rows, (r) => r.ok)
+    let path = filled(slug(title)) ?? "post"
+
+    <section.signup>
+        <label>Handle <input bind:value={handle} placeholder="ada_1815"/></label>
+        <ul.checks>{for r in rows => <li class={r.ok ? "ok" : "no"}>{r.ok ? "✅" : "❌"} {r.says}</li>}</ul>
+        {good && <p.yours>✨ @{handle} is yours!</p>}
+        <label>Your first post <input bind:value={title} placeholder="Café au Lait & Croissants!"/></label>
+        <p.slug>quillo.blog/{filled(lower(handle)) ?? "you"}/<b>{path}</b></p>
+        <label>Bio <input bind:value={bio} placeholder="I love #pancakes and #quillo"/></label>
+        <p.tags>{for t in tags(bio) => <span>#{t}</span>}</p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Pick a handle</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Pick a handle</h1><Signup/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
