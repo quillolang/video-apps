@@ -1,0 +1,72 @@
+// Comet Catcher high scores: a leaderboard built with pipes, where nothing changes in place.
+
+type Play = { player: str, score: int }
+
+let plays = [
+    Play({ player: "Ada", score: 4200 }),
+    Play({ player: "Grace", score: 5100 }),
+    Play({ player: "Ada", score: 6100 }),
+    Play({ player: "Linus", score: 3900 }),
+    Play({ player: "Grace", score: 2800 }),
+    Play({ player: "Alan", score: 4700 }),
+]
+
+// Each player's best play, best first.
+fn board(ps: list) -> list =
+    ps
+    | group_by((p) => p.player)
+    | values()
+    | map((mine) => mine | sort_by((p) => -p.score) | first())
+    | sort_by((p) => -p.score)
+
+fn medal(i: int) -> str = match i {
+    0 => "🥇"
+    1 => "🥈"
+    2 => "🥉"
+    _ => `#${i + 1}`
+}
+
+fn points(n: int) -> str = format_number(n, "en-US", 0)
+
+server fn every_play() -> list = plays
+
+// A new play: a new list, with it at the end. And a line in the log.
+server fn add(player: str, score: int) {
+    plays = plays | push(Play({ player, score }))
+    print(player, "scored", score)
+}
+
+component Board() {
+    state all = live(every_play)
+    state name = ""
+    state score = ""
+    let rows = board(all)
+    let best = all | map((p) => p.score) | max()
+    let total = all | map((p) => p.score) | sum()
+
+    let submit = () => {
+        add(name, int(score) ?? 0)
+        name = ""
+        score = ""
+    }
+
+    <section.board>
+        <ol>
+            {for [i, p] in enumerate(rows) =>
+                <li><span>{medal(i)}</span> {p.player} <b>{points(p.score)}</b></li>}
+        </ol>
+        <p.stats>{count(all)} plays · {count(rows)} players · best {points(best)} · {points(total)} in all</p>
+        <p.add>
+            <input bind:value={name} placeholder="Name"/>
+            <input bind:value={score} placeholder="Score" inputmode="numeric"/>
+            <button @click={submit}>Add</button>
+        </p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Comet Catcher</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>☄️ Comet Catcher</h1><p.sub>High scores</p><Board/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

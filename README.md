@@ -29,6 +29,7 @@ Quillo: https://quillolang.org
 | [21-records](21-records) | Records and Types in Quillo: Build an RPG Character Sheet | Hero forge, an RPG character sheet whose types catch bad stats: string unions for classes, defaults, nested records, a JSON route that only takes a Hero, and fields a client adds dropped on the way in. |
 | [22-match](22-match) | Pattern Matching Speedrun: Rock Paper Scissors in Quillo | Rock paper referee: rock, paper, scissors against a sneaky computer that plays whatever beats your last move, with every rule written as a match: guards, alternatives, list patterns and map patterns. |
 | [23-errors](23-errors) | Bug Hunt: Errors as Values in Quillo (a Vending Machine) | Snack-o-matic, a vending machine where every failure is a value: no such slot, sold out, not enough money. The video starts from a broken copy with two bugs (an error that isn't text, and a dropped error that sells crisps for 50¢) and fixes them; this is the fixed one. |
+| [24-pipes](24-pipes) | Lists and Maps Without Mutation in Quillo: An Arcade High-Score Table | Comet Catcher high scores: a leaderboard built with pipes (group_by, values, map, sort_by), medals from a match, and new scores added with plays = plays | push(...), since nothing in Quillo changes in place. |
 
 ## Shorts
 
