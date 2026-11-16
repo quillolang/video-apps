@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    background: #fff7ed;
+    color: #2a1d12;
+    font: 16px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 28rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+}
+
+.poll {
+    display: grid;
+    gap: .6rem;
+}
+
+.poll button {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: .7rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #f1d9bd;
+    border-radius: 12px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.poll button span,
+.poll button b {
+    position: relative;
+    z-index: 1;
+}
+
+.poll button i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: #fed7aa;
+    transition: width .3s;
+}
+
+.poll .other {
+    justify-self: start;
+    border-style: dashed;
+    color: #9a6b3c;
+}
+
+.problem {
+    margin: 0;
+    color: #b42318;
+    font-weight: 600;
+}

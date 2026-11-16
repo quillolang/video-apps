@@ -1,0 +1,46 @@
+// Lunch poll: buttons that call the server like plain functions. No fetch, no JSON, no async.
+
+db.open("data/poll.db") | unwrap
+db.exec("create table if not exists votes (choice text primary key, n integer not null)")
+
+let menu = ["Pizza", "Ramen", "Tacos", "Salad"]
+
+// Every choice's votes, zero for those with none yet.
+server fn results() -> map with db {
+    let rows = db.query("select choice, n from votes")
+    menu | reduce({}, (m, c) => set(m, c, (find(rows, (r) => r.choice == c) ?? { n: 0 }).n))
+}
+
+server fn vote(choice: str) -> map ! str with db {
+    if !contains(menu, choice) { return err(`${choice} isn't on the menu today.`) }
+    db.exec("insert into votes (choice, n) values (?, 1) on conflict (choice) do update set n = n + 1", choice)
+    results()
+}
+
+component Poll() {
+    state counts = live(results)
+    state problem = null
+    let total = max([1, counts | values() | sum()])
+
+    let pick = (c) => {
+        let r = vote(c)
+        problem = is_err(r) ? r.error : null
+    }
+
+    <section.poll>
+        {for c in menu =>
+            <button @click={() => pick(c)}>
+                <span>{c}</span> <b>{get(counts, c)}</b>
+                <i style={`width: ${floor(get(counts, c) * 100 / total)}%`}></i>
+            </button>}
+        <button.other @click={() => pick("Sushi")}>Sushi?</button>
+        {problem != null && <p.problem>{problem}</p>}
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Lunch poll</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>What's for lunch?</h1><Poll/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

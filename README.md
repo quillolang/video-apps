@@ -23,6 +23,7 @@ Quillo: https://quillolang.org
 | [14-request-response](14-request-response) | Request and Response in Quillo: What Comes In, What Goes Out | Snippets, a tiny API: one route that echoes what a request holds, and routes that answer with text, HTML, JSON with an etag (and a 304), 201 with a location, 204, a 301 redirect, and an error value's 500. |
 | [15-components](15-components) | Components from quillolang.org: 877 Ready-Made UI Components | Café feedback, made with components downloaded from quillolang.org/components: Rating as a form field and as a read-only summary, Alert for the thanks, and theme.qwe's variables to restyle them all. |
 | [17-language](17-language) | The Quillo Language in One Sitting: What Happens If...? | Fortune cookies: a little of everything from the language tour (a record type, a list, match, a template string and a query pattern) in one small program. The tour itself is tour.txt, for quillo repl. |
+| [18-no-fetch](18-no-fetch) | No fetch in Quillo: Call the Server Like a Function | A live lunch poll whose buttons call the server like plain functions: no API route, no fetch, no JSON, no async/await, no try/catch, and every open tab follows the votes with live(). |
 
 ## Shorts
 
