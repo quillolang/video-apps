@@ -13,3 +13,4 @@ Quillo: https://quillolang.org
 | [04-composition](04-composition) | Components and Views in Quillo: Composing a Page | A café menu made of views and components: a frame, cards, a Stepper, and an order every card shares. |
 | [05-reactivity](05-reactivity) | Reactivity in Quillo: State, Page State and live() | A focus board: a timer and a checklist with their own state, a focus switch in page state, and today's sessions, live for everyone. |
 | [06-spa](06-spa) | A Single-Page App in Quillo: Links, url() and match | A recipe book as a single-page app: pages that change without reloading, a page per recipe at its own address, favourites kept while you move around, and real 404s. |
+| [07-forms](07-forms) | Forms and Validation in Quillo: Typed Routes, 422s and Live Hints | A workshop sign-up: a plain form, a typed route that refuses the wrong shape, friendly messages for each field, seats counted in the database, and the same rules as hints while you type. |

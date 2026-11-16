@@ -1,0 +1,32 @@
+// A workshop sign-up: a form, its rules on the server, and the same rules as you type.
+
+db.open("signups.db")
+db.migrate("migrations")
+
+use lib/signup.qwe
+use ui/form.qwe
+
+let blank = Signup({ name: "", email: "" })
+
+route GET / = <Page title="Sign up"><SignupForm start={blank} left={seats_left()}/></Page>
+
+// The pattern checks the shape: form is a Signup, or the request is refused (400).
+route POST /signup { form: Signup } {
+    let errs = problems(form)
+    if len(keys(errs)) > 0 {
+        return respond(422, <Page title="Sign up"><SignupForm start={form} {errs} left={seats_left()}/></Page>)
+    }
+    let id = save(form)
+    if is_err(id) {
+        let errs = { seats: id.error }
+        return respond(422, <Page title="Sign up"><SignupForm start={form} {errs} left={seats_left()}/></Page>)
+    }
+    redirect(`/thanks/${id}`)
+}
+
+route GET /thanks/:id(int) {
+    let s = signup_by_id(id) ?? return redirect("/")
+    <Page title="Thanks"><Thanks name={s.name} seats={s.seats} ticket={s.ticket}/></Page>
+}
+
+route GET /static/*path = files("public", path)

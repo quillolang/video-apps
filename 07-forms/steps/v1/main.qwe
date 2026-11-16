@@ -1,0 +1,19 @@
+// A workshop sign-up: a form, its rules on the server, and the same rules as you type.
+
+use lib/signup.qwe
+use ui/form.qwe
+
+let blank = Signup({ name: "", email: "" })
+
+route GET / = <Page title="Sign up"><SignupForm start={blank}/></Page>
+
+// The pattern checks the shape: form is a Signup, or the request is refused (400).
+route POST /signup { form: Signup } {
+    let errs = problems(form)
+    if len(keys(errs)) > 0 {
+        return respond(422, <Page title="Sign up"><SignupForm start={form} {errs}/></Page>)
+    }
+    <Page title="Thanks"><Thanks name={form.name} seats={form.seats} ticket={form.ticket}/></Page>
+}
+
+route GET /static/*path = files("public", path)

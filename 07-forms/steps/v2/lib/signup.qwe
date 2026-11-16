@@ -1,0 +1,33 @@
+// A sign-up for the workshop: its record, its rules, and the database.
+
+type Ticket = "online" | "onsite"
+type Signup = { name: str, email: str, seats: int = 1, ticket: Ticket = "online" }
+
+// What's wrong with a sign-up, field by field: empty when all is well.
+// Pure, so the server and the browser both use it.
+fn problems(s: Signup) -> map {
+    let p = {}
+    if trim(s.name) == "" { p = { ...p, name: "Please tell us your name." } }
+    if !re.test(s.email, "^[^@ ]+@[^@ ]+\\.[^@ ]+$") { p = { ...p, email: "That email doesn't look right." } }
+    if s.seats < 1 || s.seats > 4 { p = { ...p, seats: "You can book 1 to 4 seats." } }
+    p
+}
+
+let CAPACITY = 20
+
+fn seats_left() -> int with db =
+    CAPACITY - db.one("select coalesce(sum(seats), 0) as n from signups").n
+
+// Saves a sign-up if there's room: its id, or why not.
+fn save(s: Signup) -> int ! str with db {
+    let left = seats_left()
+    if s.seats > left {
+        let seats = `${left} seat${left == 1 ? " is" : "s are"}`
+        return err(left == 0 ? "Sorry, the workshop is full." : `Sorry, only ${seats} left.`)
+    }
+    let row = db.one("insert into signups (name, email, seats, ticket) values (?, ?, ?, ?) returning id",
+        trim(s.name), trim(s.email), s.seats, s.ticket)?
+    row.id
+}
+
+fn signup_by_id(id: int) -> map? with db = db.one("select name, seats, ticket from signups where id = ?", id)

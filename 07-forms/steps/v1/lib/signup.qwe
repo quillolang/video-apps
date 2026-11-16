@@ -1,0 +1,14 @@
+// A sign-up for the workshop: its record, and its rules.
+
+type Ticket = "online" | "onsite"
+type Signup = { name: str, email: str, seats: int = 1, ticket: Ticket = "online" }
+
+// What's wrong with a sign-up, field by field: empty when all is well.
+// Pure, so the server and the browser both use it.
+fn problems(s: Signup) -> map {
+    let p = {}
+    if trim(s.name) == "" { p = { ...p, name: "Please tell us your name." } }
+    if !re.test(s.email, "^[^@ ]+@[^@ ]+\\.[^@ ]+$") { p = { ...p, email: "That email doesn't look right." } }
+    if s.seats < 1 || s.seats > 4 { p = { ...p, seats: "You can book 1 to 4 seats." } }
+    p
+}

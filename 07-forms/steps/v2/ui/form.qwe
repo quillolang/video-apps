@@ -1,0 +1,50 @@
+// The sign-up form, and the pages around it.
+
+use lib/signup.qwe
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main>{children}</main></body>
+    </html>
+
+// A field: its label, the input inside, and its message when something's wrong.
+view Field(label: str, error: str?, children) =
+    <label.field class={error != null && "bad"}>
+        <span>{label}</span>
+        {children}
+        {error != null && <small>{error}</small>}
+    </label>
+
+// The form: plain HTML, posted to the server. It works with JavaScript off.
+view SignupForm(start: Signup, errs: map = {}, left: int = 20) =
+    <form.card method="post" action="/signup" novalidate>
+        <h2>Join the Quillo workshop</h2>
+        <p.muted>{left} of 20 seats left</p>
+        <Field label="Name" error={get(errs, "name")}>
+            <input name="name" value={start.name}/>
+        </Field>
+        <Field label="Email" error={get(errs, "email")}>
+            <input name="email" value={start.email}/>
+        </Field>
+        <Field label="Seats" error={get(errs, "seats")}>
+            <input name="seats" type="number" value={str(start.seats)}/>
+        </Field>
+        <Field label="Ticket" error={null}>
+            <select name="ticket">
+                <option value="online" selected={start.ticket == "online"}>Online</option>
+                <option value="onsite" selected={start.ticket == "onsite"}>On site</option>
+            </select>
+        </Field>
+        <button>Sign me up</button>
+    </form>
+
+view Thanks(name: str, seats: int, ticket: str) =
+    <section.card>
+        <h2>You're in, {name}!</h2>
+        <p>{seats} seat{seats == 1 ? "" : "s"}, {ticket == "online" ? "online" : "on site"}. See you there.</p>
+        <p><a href="/">Back to the form</a></p>
+    </section>

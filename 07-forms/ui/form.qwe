@@ -1,0 +1,59 @@
+// The sign-up form, and the pages around it.
+
+use lib/signup.qwe
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main>{children}</main></body>
+    </html>
+
+// A field: its label, the input inside, and its message when something's wrong.
+view Field(label: str, error: str?, children) =
+    <label.field class={error != null && "bad"}>
+        <span>{label}</span>
+        {children}
+        {error != null && <small>{error}</small>}
+    </label>
+
+// The form runs in the browser too: the same rules, checked as you type.
+component SignupForm(start: Signup, errs: map = {}, left: int = 20) {
+    state name = start.name
+    state email = start.email
+    state seats = str(start.seats)
+    state ticket = start.ticket
+    let hints = problems(Signup({ name, email, seats: int(seats) ?? 0, ticket }))
+    // A hint as you type; what the server said stays while the field holds what was sent.
+    let msg = (field, now, sent) =>
+        (now != "" ? get(hints, field) : null) ?? (now == sent ? get(errs, field) : null)
+    <form.card method="post" action="/signup" novalidate>
+        <h2>Join the Quillo workshop</h2>
+        <p.muted>{left} of 20 seats left</p>
+        <Field label="Name" error={msg("name", name, start.name)}>
+            <input name="name" bind:value={name}/>
+        </Field>
+        <Field label="Email" error={msg("email", email, start.email)}>
+            <input name="email" bind:value={email}/>
+        </Field>
+        <Field label="Seats" error={msg("seats", seats, str(start.seats))}>
+            <input name="seats" type="number" bind:value={seats}/>
+        </Field>
+        <Field label="Ticket" error={null}>
+            <select name="ticket" bind:value={ticket}>
+                <option value="online">Online</option>
+                <option value="onsite">On site</option>
+            </select>
+        </Field>
+        <button>Sign me up</button>
+    </form>
+}
+
+view Thanks(name: str, seats: int, ticket: str) =
+    <section.card>
+        <h2>You're in, {name}!</h2>
+        <p>{seats} seat{seats == 1 ? "" : "s"}, {ticket == "online" ? "online" : "on site"}. See you there.</p>
+        <p><a href="/">Back to the form</a></p>
+    </section>
