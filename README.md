@@ -33,6 +33,7 @@ Quillo: https://quillolang.org
 | [25-money](25-money) | Money in Quillo: A Lemonade Stand Till That Never Loses a Cent | Lemon Aid, a lemonade stand's till: prices as exact decimals, tax rounded to the cent with money.mul, a bill split between friends with money.allocate so no cent is lost or made, and sales priced by the server's own menu. |
 | [26-channels](26-channels) | Real Time with Channels in Quillo: A Live Emoji Reaction Wall | Cheers!, a talk's live reaction wall: tap an emoji and it floats up on every open page. The server counts with channel.on and channel.broadcast, join and leave keep a count of who's watching, and each page listens with channel.open. |
 | [27-live](27-live) | Live Data in Quillo, Deeper: A Silent Auction with Watch and Publish | Bid for Good, a charity's silent auction: a board that follows every bid with live(all_items), item pages that follow only their own item with live(one_item, id), watch and unwatched, and bids that publish the item's topic. |
+| [28-streaming](28-streaming) | Streaming in Quillo: A Rocket Countdown with Server-Sent Events | Mission Control: a crew briefing that types itself out, streamed word by word with stream, and a launch countdown sent as Server-Sent Events with events, read on the page with receive. |
 
 ## Shorts
 

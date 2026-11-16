@@ -1,0 +1,66 @@
+// Mission Control: a briefing that types itself out, and a countdown sent as it happens.
+
+let briefing = join([
+    "Good morning, crew. Today we fly the Quillo One to the Moon.",
+    "The weather is clear, the tanks are full, and the snacks are packed.",
+    "Strap in, and watch the countdown.",
+], " ")
+
+// The briefing, word by word: text, sent as it is made.
+route GET /briefing = stream((send) => {
+    for w in split(briefing, " ") {
+        send(`${w} `)
+        sleep(70)
+    }
+})
+
+// The countdown: Server-Sent Events, a tick a second, then liftoff.
+route GET /countdown = events((send) => {
+    for n in range(10, -1, -1) {
+        send({ n }, "tick")
+        sleep(1000)
+    }
+    send({ text: "Liftoff!" }, "liftoff")
+})
+
+// Telemetry: maps, sent as lines of JSON, two a second.
+route GET /telemetry = stream((send) => {
+    for t in range(1, 6) {
+        send({ t, altitude: t * t * 150, speed: t * 320 })
+        sleep(500)
+    }
+}, { type: "application/x-ndjson" })
+
+component Control() {
+    state words = ""
+    state left = null
+    state flying = false
+    let label = flying ? "🚀 Liftoff!" : left == null ? "T-minus --" : `T-minus ${left}`
+
+    let brief = () => {
+        words = ""
+        receive("/briefing", (part) => { words = words + part })
+    }
+    let launch = () => {
+        flying = false
+        receive("/countdown", (e) => match e {
+            { n: int as n } => { left = n }
+            { text: str } => { flying = true }
+            _ => null
+        })
+    }
+
+    <section.control>
+        <p.screen>{words == "" ? "Press Brief me." : words}</p>
+        <p.count class={flying && "go"}>{label}</p>
+        <progress value={left == null ? 0 : 10 - left} max="10"></progress>
+        <p.buttons><button @click={brief}>Brief me</button> <button.launch @click={launch}>Launch</button></p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Mission Control</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Mission Control</h1><Control/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
