@@ -1,0 +1,24 @@
+// A recipe book, as a single-page app: one App component, and every page made on the server too.
+
+use lib/recipes.qwe
+use ui/app.qwe
+
+route GET /static/*path = files("public", path)
+
+// Every other path renders the app; the server answers 404 for one that is no page.
+route GET /*rest {
+    let page =
+        <html>
+            <head>
+                <title>Recipe book</title>
+                <link rel="stylesheet" href="/static/style.css"/>
+            </head>
+            <body><App/></body>
+        </html>
+    let found = match page_of(request.path) {
+        "missing" => false
+        "recipe" => !is_err(get_recipe(int(last(split(request.path, "/"))) ?? 0))
+        _ => true
+    }
+    found ? page : respond(404, page)
+}

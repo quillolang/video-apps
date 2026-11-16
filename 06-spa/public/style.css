@@ -1,0 +1,14 @@
+/* The recipe book's look: a menu bar, and one column for the page. */
+body { margin: 0; font: 18px/1.55 system-ui, sans-serif; color: #24211c; background: #faf7f2; }
+.app { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 2rem; }
+nav { display: flex; gap: .4rem; padding: 1rem 0; border-bottom: 1px solid #e8e0d4; margin-bottom: 1.2rem; }
+nav a { padding: .35rem .8rem; border-radius: .5rem; color: #6b6255; text-decoration: none; font-weight: 600; }
+nav a.active { background: #2f6f4f; color: #fff; }
+h2 { margin: 0 0 .5rem; font-size: 1.7rem; }
+a { color: #2f6f4f; }
+.muted { color: #8a8174; }
+.recipes { padding-left: 1.2rem; }
+.recipes li { margin: .3rem 0; }
+ol { padding-left: 1.3rem; }
+button { font: inherit; font-weight: 600; border: 0; border-radius: .6rem; padding: .4rem 1rem; background: #f0c34a; color: #24211c; cursor: pointer; }
+code { background: #efe8dc; padding: .1rem .35rem; border-radius: .3rem; }

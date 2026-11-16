@@ -1,0 +1,17 @@
+// The recipes, and the server fns the pages load them with.
+
+type Recipe = { id: int, name: str, minutes: int, about: str, steps: list<str> }
+
+let RECIPES = [
+    Recipe({ id: 1, name: "Pancakes", minutes: 20, about: "Fluffy, for a slow Sunday.",
+        steps: ["Whisk the flour, milk and eggs.", "Rest the batter for five minutes.", "Fry until golden."] }),
+    Recipe({ id: 2, name: "Tomato soup", minutes: 30, about: "Warm, red and simple.",
+        steps: ["Soften an onion in oil.", "Add the tomatoes; simmer twenty minutes.", "Blend until smooth."] }),
+    Recipe({ id: 3, name: "Lemon pasta", minutes: 15, about: "Bright, quick, and done in one pan.",
+        steps: ["Boil the pasta.", "Toss it with butter, lemon and parmesan.", "Finish with black pepper."] }),
+]
+
+// The list, without the steps: what the Recipes page shows.
+server fn list_recipes() -> list = map(RECIPES, (r) => { id: r.id, name: r.name, minutes: r.minutes })
+
+server fn get_recipe(id: int) -> Recipe ! str = find(RECIPES, (r) => r.id == id) ?? err("no such recipe")

@@ -1,0 +1,43 @@
+// The App component owns the page: the menu, and the page the address names.
+
+use ui/pages.qwe
+
+// The page for a path, matched on its parts, the way the server's routes are.
+fn page_of(path: str) -> str = match split(path, "/") | filter((s) => s != "") {
+    [] => "home"
+    ["recipes"] => "recipes"
+    ["recipes", id] => is_err(int(id)) ? "missing" : "recipe"
+    ["favourites"] => "favourites"
+    _ => "missing"
+}
+
+view NavLink(href: str, here: bool, children) =
+    <a {href} class={here && "active"}>{children}</a>
+
+component App() {
+    state favs = []
+    let path = url().path
+    let page = page_of(path)
+    let parts = split(path, "/") | filter((s) => s != "")
+    let saved = (id) => any(favs, (f) => f.id == id)
+    let toggle = (r) => {
+        favs = saved(r.id) ? filter(favs, (f) => f.id != r.id) : favs | push({ id: r.id, name: r.name })
+    }
+    <div.app>
+        <nav>
+            <NavLink href="/" here={page == "home"}>Home</NavLink>
+            <NavLink href="/recipes" here={page == "recipes" || page == "recipe"}>Recipes</NavLink>
+            <NavLink href="/favourites" here={page == "favourites"}>Favourites ({len(favs)})</NavLink>
+        </nav>
+        <main>
+            {match page {
+                "home" => <Home/>
+                "recipes" => <RecipeList/>
+                "recipe" => <RecipePage key={parts[1]} id={int(parts[1]) ?? 0}
+                    saved={saved(int(parts[1]) ?? 0)} on_save={toggle}/>
+                "favourites" => <Favourites items={favs}/>
+                _ => <NotFound {path}/>
+            }}
+        </main>
+    </div>
+}

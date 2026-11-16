@@ -1,0 +1,46 @@
+// The pages: views for the plain ones, components for the ones that load data.
+
+use lib/recipes.qwe
+
+view Home() =
+    <section>
+        <h2>Welcome</h2>
+        <p>A little recipe book. Open the <a href="/recipes">recipes</a>, and save your favourites.</p>
+    </section>
+
+view NotFound(path: str) =
+    <section>
+        <h2>Not found</h2>
+        <p>Nothing at <code>{path}</code>. <a href="/">Back home</a>.</p>
+    </section>
+
+component RecipeList() {
+    state items = live(list_recipes)
+    <section>
+        <h2>Recipes</h2>
+        {items == null ? <p.muted>Loading…</p> : <ul.recipes>{for r in items =>
+            <li key={r.id}><a href={`/recipes/${r.id}`}>{r.name}</a> <span.muted>{r.minutes} min</span></li>}</ul>}
+    </section>
+}
+
+component RecipePage(id: int, saved: bool, on_save: fn) {
+    state recipe = live(get_recipe, id)
+    <section>
+        {recipe == null ? <p.muted>Loading…</p>
+            : is_err(recipe) ? <NotFound path={`/recipes/${id}`}/>
+            : <article>
+                <h2>{recipe.name}</h2>
+                <p.muted>{recipe.minutes} minutes · {recipe.about}</p>
+                <ol>{for s in recipe.steps => <li>{s}</li>}</ol>
+                <button @click={() => on_save(recipe)}>{saved ? "★ Saved" : "☆ Save"}</button>
+                <p><a href="/recipes">← All recipes</a></p>
+            </article>}
+    </section>
+}
+
+view Favourites(items: list) =
+    <section>
+        <h2>Favourites</h2>
+        {len(items) == 0 ? <p.muted>Nothing saved yet. <a href="/recipes">Find a recipe</a>.</p>
+            : <ul.recipes>{for r in items => <li key={r.id}><a href={`/recipes/${r.id}`}>{r.name}</a></li>}</ul>}
+    </section>

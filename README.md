@@ -12,3 +12,4 @@ Quillo: https://quillolang.org
 | [03-starter-app](03-starter-app) | A Tour of the Quillo Starter App (quillo new) | The to-do app `quillo new` makes, with the first change from the video: a Clear done button. |
 | [04-composition](04-composition) | Components and Views in Quillo: Composing a Page | A café menu made of views and components: a frame, cards, a Stepper, and an order every card shares. |
 | [05-reactivity](05-reactivity) | Reactivity in Quillo: State, Page State and live() | A focus board: a timer and a checklist with their own state, a focus switch in page state, and today's sessions, live for everyone. |
+| [06-spa](06-spa) | A Single-Page App in Quillo: Links, url() and match | A recipe book as a single-page app: pages that change without reloading, a page per recipe at its own address, favourites kept while you move around, and real 404s. |

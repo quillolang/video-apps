@@ -1,0 +1,34 @@
+// The App component owns the page: the menu, and the page the address names.
+
+use ui/pages.qwe
+
+// The page for a path, matched on its parts, the way the server's routes are.
+fn page_of(path: str) -> str = match split(path, "/") | filter((s) => s != "") {
+    [] => "home"
+    ["recipes"] => "recipes"
+    ["recipes", id] => is_err(int(id)) ? "missing" : "recipe"
+    _ => "missing"
+}
+
+view NavLink(href: str, here: bool, children) =
+    <a {href} class={here && "active"}>{children}</a>
+
+component App() {
+    let path = url().path
+    let page = page_of(path)
+    let parts = split(path, "/") | filter((s) => s != "")
+    <div.app>
+        <nav>
+            <NavLink href="/" here={page == "home"}>Home</NavLink>
+            <NavLink href="/recipes" here={page == "recipes" || page == "recipe"}>Recipes</NavLink>
+        </nav>
+        <main>
+            {match page {
+                "home" => <Home/>
+                "recipes" => <RecipeList/>
+                "recipe" => <RecipePage key={parts[1]} id={int(parts[1]) ?? 0}/>
+                _ => <NotFound {path}/>
+            }}
+        </main>
+    </div>
+}

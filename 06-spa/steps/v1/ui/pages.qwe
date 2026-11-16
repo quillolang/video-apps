@@ -1,0 +1,24 @@
+// The pages: views for the plain ones, components for the ones that load data.
+
+use lib/recipes.qwe
+
+view Home() =
+    <section>
+        <h2>Welcome</h2>
+        <p>A little recipe book. Open the <a href="/recipes">recipes</a>, and save your favourites.</p>
+    </section>
+
+view NotFound(path: str) =
+    <section>
+        <h2>Not found</h2>
+        <p>Nothing at <code>{path}</code>. <a href="/">Back home</a>.</p>
+    </section>
+
+component RecipeList() {
+    state items = live(list_recipes)
+    <section>
+        <h2>Recipes</h2>
+        {items == null ? <p.muted>Loading…</p> : <ul.recipes>{for r in items =>
+            <li key={r.id}><a href={`/recipes/${r.id}`}>{r.name}</a> <span.muted>{r.minutes} min</span></li>}</ul>}
+    </section>
+}
