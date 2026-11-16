@@ -1,0 +1,29 @@
+// The splitter: what you change is state; what follows from it is let.
+
+import lib/tips.qwe use pay_tip, dollars
+
+component Splitter(so_far: float) {
+    state bill = "60"
+    state tip = 15
+    state people = 3
+    state everyone = so_far
+
+    state amount = float(bill) ?? 0.0
+    state tip_amount = amount * tip / 100
+    state each = (amount + tip_amount) / people
+
+    <section.card>
+        <label>Bill <input bind:value={bill} inputmode="decimal"/></label>
+        <p.row>
+            Tip {for t in [10, 15, 20] => <button class={t == tip && "on"} @click={() => tip = t}>{t}%</button>}
+        </p>
+        <p.row>
+            People <button @click={() => people = max([1, people - 1])}>−</button>
+            <b>{people}</b> <button @click={() => people += 1}>+</button>
+        </p>
+        <p.each>{dollars(each)} each</p>
+        <p.small>Tip {dollars(tip_amount)}, total {dollars(amount + tip_amount)}</p>
+        <button.pay @click={() => everyone = pay_tip(tip_amount) ?? everyone}>Pay the tip</button>
+        <p.small>Tips paid through this server: {dollars(everyone)}</p>
+    </section>
+}

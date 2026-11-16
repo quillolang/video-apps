@@ -1,0 +1,9 @@
+// Days: pure helpers, so the pages and the server both use them.
+
+fn days_since(day: str, today: str) -> int = date.days_between(day, today)
+
+// How long ago, in words.
+fn ago(days: int) -> str = days == 0 ? "today" : days == 1 ? "yesterday" : `${days} days ago`
+
+// A plant is due when it's been as many days as it likes between waterings.
+fn due(p: map, today: str) -> bool = days_since(p.watered, today) >= p.every

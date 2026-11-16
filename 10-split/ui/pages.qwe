@@ -1,0 +1,29 @@
+// The bakery's pages: the frame, the order form, and the receipt.
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main>{children}</main></body>
+    </html>
+
+fn dollars(cents: int) -> str = `$${floor(cents / 100)}.${cents % 100 < 10 ? "0" : ""}${cents % 100}`
+
+view OrderForm(breads: map, error: str? = null) =
+    <form.card method="post" action="/order">
+        <h1>Bread, fresh today</h1>
+        {for [name, cents] in breads => <label.bread><input type="radio" name="bread" value={name}/> {name} <span>{dollars(cents)}</span></label>}
+        <label>Your name <input name="name"/></label>
+        {error != null && <p.error>{error}</p>}
+        <button>Order</button>
+    </form>
+
+view Receipt(inv: map) =
+    <section.card>
+        <h1>Invoice #{inv.id}</h1>
+        <p>{inv.bread} for {inv.name}: {dollars(inv.cents)}</p>
+        <p.small>Billing's call #{inv.served} since it started</p>
+        <p><a href="/">Order more</a></p>
+    </section>

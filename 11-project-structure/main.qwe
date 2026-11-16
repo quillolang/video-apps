@@ -1,0 +1,13 @@
+// Plant care: which plants need water today. The program: its database, its parts, its routes.
+
+db.open("data/plants.db") | unwrap
+db.migrate("migrations")
+
+use lib/days.qwe
+use lib/plants.qwe
+use ui/kit.qwe
+use ui/plants.qwe
+
+route GET / = <Frame title="Plant care"><PlantList/></Frame>
+
+route GET /static/*path = files("public", path)

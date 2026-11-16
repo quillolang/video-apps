@@ -1,0 +1,9 @@
+// Plants: the server fns and queries for the plants table.
+
+server fn plants() -> list with db = db.query("select * from plants order by name")
+
+// Watered today: the plants, as they are now.
+server fn water(id: int) -> list with db, time {
+    db.exec("update plants set watered = ? where id = ?", date.today(), id)
+    plants()
+}

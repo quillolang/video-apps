@@ -1,0 +1,17 @@
+// Tip splitter: state for what you change, let for what follows from it, and a let on the server.
+
+use lib/tips.qwe
+use ui/splitter.qwe
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main><h1>{title}</h1>{children}</main></body>
+    </html>
+
+route GET / = <Page title="Tip splitter"><Splitter so_far={tipped}/></Page>
+
+route GET /static/*path = files("public", path)

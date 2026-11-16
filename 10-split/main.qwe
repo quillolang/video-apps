@@ -1,0 +1,20 @@
+// A bakery: its page and its orders. Billing is a service, in this process or a process of its own.
+
+use ui/pages.qwe
+
+service billing = "billing.qwe"
+
+let breads = { Sourdough: 650, Rye: 550, Baguette: 350 }
+
+route GET / = <Page title="Bakery"><OrderForm {breads}/></Page>
+
+route POST /order { form: { name: str, bread: str = "Sourdough" } } with http {
+    let cents = get(breads, bread) ?? return respond(400, "No such bread")
+    let inv = billing.invoice(name, bread, cents)
+    if is_err(inv) {
+        return respond(422, <Page title="Bakery"><OrderForm {breads} error={inv.error}/></Page>)
+    }
+    <Page title="Thanks"><Receipt {inv}/></Page>
+}
+
+route GET /static/*path = files("public", path)

@@ -1,0 +1,15 @@
+// Billing: invoices, in a database of its own. A service: the bakery calls its server fn.
+
+db.open("billing.db")
+db.exec("create table if not exists invoices (id integer primary key, name text, bread text, cents int)")
+
+// The calls this process has answered: each process has its own.
+let served = 0
+
+server fn invoice(name: str, bread: str, cents: int) -> map ! str {
+    if trim(name) == "" { return err("An invoice needs a name.") }
+    served += 1
+    let inv = db.one("insert into invoices (name, bread, cents) values (?, ?, ?) returning id, name, bread, cents",
+        trim(name), bread, cents)?
+    { ...inv, served }
+}

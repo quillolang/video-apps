@@ -1,0 +1,17 @@
+// The plant list: a component, on the page and in the browser.
+
+import lib/days.qwe use days_since, due, ago
+import lib/plants.qwe use plants, water
+
+component PlantList() {
+    state list = plants()
+    let today = date.today()
+    <ul.plants>
+        {for p in list =>
+            <li class={due(p, today) && "due"}>
+                <b>{p.name}</b>
+                <span>every {p.every} days, watered {ago(days_since(p.watered, today))}</span>
+                <button @click={() => list = water(p.id) ?? list}>Water</button>
+            </li>}
+    </ul>
+}

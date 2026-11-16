@@ -1,0 +1,43 @@
+// Plant care: which plants need water today. Everything in one file, for now.
+
+db.open("plants.db")
+db.migrate("migrations")
+
+fn days_since(day: str, today: str) -> int = date.days_between(day, today)
+
+fn ago(days: int) -> str = days == 0 ? "today" : days == 1 ? "yesterday" : `${days} days ago`
+
+fn due(p: map, today: str) -> bool = days_since(p.watered, today) >= p.every
+
+server fn plants() -> list with db = db.query("select * from plants order by name")
+
+server fn water(id: int) -> list with db, time {
+    db.exec("update plants set watered = ? where id = ?", date.today(), id)
+    plants()
+}
+
+view Frame(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main><h1>{title}</h1>{children}</main></body>
+    </html>
+
+component PlantList() {
+    state list = plants()
+    let today = date.today()
+    <ul.plants>
+        {for p in list =>
+            <li class={due(p, today) && "due"}>
+                <b>{p.name}</b>
+                <span>every {p.every} days, watered {ago(days_since(p.watered, today))}</span>
+                <button @click={() => list = water(p.id) ?? list}>Water</button>
+            </li>}
+    </ul>
+}
+
+route GET / = <Frame title="Plant care"><PlantList/></Frame>
+
+route GET /static/*path = files("public", path)

@@ -1,0 +1,10 @@
+// Tips: what this server has taken in. A top-level let: one value for every visitor, until a restart.
+
+let tipped = 0.0
+
+server fn pay_tip(amount: float) -> float {
+    tipped += amount
+    tipped
+}
+
+fn dollars(x: float) -> str = `$${format_number(x, "en-US", 2)}`

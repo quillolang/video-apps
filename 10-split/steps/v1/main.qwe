@@ -1,0 +1,32 @@
+// A bakery, all in one program: its page, its orders, and its invoices.
+
+use ui/pages.qwe
+
+db.open("bakery.db")
+db.exec("create table if not exists invoices (id integer primary key, name text, bread text, cents int)")
+
+let breads = { Sourdough: 650, Rye: 550, Baguette: 350 }
+
+// The calls this process has answered.
+let served = 0
+
+fn invoice(name: str, bread: str, cents: int) -> map ! str with db {
+    if trim(name) == "" { return err("An invoice needs a name.") }
+    served += 1
+    let inv = db.one("insert into invoices (name, bread, cents) values (?, ?, ?) returning id, name, bread, cents",
+        trim(name), bread, cents)?
+    { ...inv, served }
+}
+
+route GET / = <Page title="Bakery"><OrderForm {breads}/></Page>
+
+route POST /order { form: { name: str, bread: str = "Sourdough" } } {
+    let cents = get(breads, bread) ?? return respond(400, "No such bread")
+    let inv = invoice(name, bread, cents)
+    if is_err(inv) {
+        return respond(422, <Page title="Bakery"><OrderForm {breads} error={inv.error}/></Page>)
+    }
+    <Page title="Thanks"><Receipt {inv}/></Page>
+}
+
+route GET /static/*path = files("public", path)
