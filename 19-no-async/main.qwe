@@ -1,0 +1,47 @@
+// Pizza tracker: waiting on slow kitchens, with no async and no await.
+
+// Each station takes its time. sleep waits, and the server answers others meanwhile.
+server fn make_dough() -> str { sleep(900); "dough" }
+server fn make_sauce() -> str { sleep(600); "sauce" }
+server fn grate_cheese() -> str { sleep(300); "cheese" }
+
+// One after another: each call waits for the one before.
+route GET /one-by-one {
+    let t = now()
+    let parts = [make_dough(), make_sauce(), grate_cheese()]
+    `${join(parts, ", ")}: ${now() - t} ms`
+}
+
+// All at once: parallel overlaps their waits.
+route GET /all-at-once {
+    let t = now()
+    let parts = parallel(make_dough, make_sauce, grate_cheese)
+    `${join(parts, ", ")}: ${now() - t} ms`
+}
+
+// In the browser: a handler that waits on the server, three times, and a page that never freezes.
+component Tracker() {
+    state status = "Hungry?"
+    state waves = 0
+    let order = () => {
+        status = "Making the dough..."
+        make_dough()
+        status = "Spreading the sauce..."
+        make_sauce()
+        status = "Grating the cheese..."
+        grate_cheese()
+        status = "Pizza's ready!"
+    }
+    <section.tracker>
+        <p.status>{status}</p>
+        <button @click={order}>Order a pizza</button>
+        <button.wave @click={() => waves += 1}>Wave at the chef ({waves})</button>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Pizza tracker</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>Pizza tracker</h1><Tracker/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
