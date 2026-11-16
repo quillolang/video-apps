@@ -25,6 +25,7 @@ Quillo: https://quillolang.org
 | [17-language](17-language) | The Quillo Language in One Sitting: What Happens If...? | Fortune cookies: a little of everything from the language tour (a record type, a list, match, a template string and a query pattern) in one small program. The tour itself is tour.txt, for quillo repl. |
 | [18-no-fetch](18-no-fetch) | No fetch in Quillo: Call the Server Like a Function | A live lunch poll whose buttons call the server like plain functions: no API route, no fetch, no JSON, no async/await, no try/catch, and every open tab follows the votes with live(). |
 | [19-no-async](19-no-async) | No async/await in Quillo: Waiting Without the Ceremony | A pizza tracker waiting on slow kitchens with no async and no await: calls one after another, parallel() to overlap their waits, a server that answers other requests meanwhile, and a page whose click handler waits three times without freezing. |
+| [20-headers-cookies](20-headers-cookies) | Headers, Cookies and Sessions in Quillo: The Treehouse Club | The treehouse club: a greeting in the browser's own language from accept-language, a day or night theme kept in a cookie, members kept in a signed session that can't be forged, and a secret door that opens to the right knock header. |
 
 ## Shorts
 

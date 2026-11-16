@@ -1,0 +1,69 @@
+// The treehouse club: a greeting in the browser's language, a theme in a cookie, members in a session.
+
+fn hello(lang: str) -> str = match lang {
+    "es" => "¡Hola"
+    "fr" => "Bonjour"
+    _ => "Hello"
+}
+
+// Every page: the theme the cookie remembers, day unless it says night.
+view Page(title: str, children) =
+    <html>
+        <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body class={cookie("theme") == "night" ? "night" : "day"}><main>{children}</main></body>
+    </html>
+
+// A header: the language the browser asks for.
+route GET / {
+    let lang = slice(request.headers["accept-language"] ?? "en", 0, 2)
+    let me = session().member
+    <Page title="Treehouse">
+        <h1>{hello(lang)}{me != null ? `, ${me}` : ""}!</h1>
+        <p>Theme: <a href="/theme/day">day</a> or <a href="/theme/night">night</a></p>
+        <p><a href="/clubhouse">Climb up to the clubhouse</a></p>
+    </Page>
+}
+
+// A cookie: the browser keeps the theme, and sends it back with every request.
+route GET /theme/:name {
+    if name == "day" || name == "night" { set_cookie("theme", name, { max_age: 31536000 }) }
+    redirect("/")
+}
+
+route GET /door = <Page title="The door">
+    <form.card method="post" action="/door">
+        <h1>Members only</h1>
+        <label>Your name <input name="name"/></label>
+        <label>The password <input name="password" type="password"/></label>
+        <button>Climb up</button>
+    </form>
+</Page>
+
+// A session: signed by the server, so the browser can keep it but not change it.
+route POST /door { form: { name: str, password: str } } {
+    if password != "acorns" {
+        return respond(401, <Page title="The door"><h1>That's not the password.</h1></Page>)
+    }
+    set_session({ member: name })
+    redirect("/clubhouse")
+}
+
+route GET /clubhouse {
+    let me = session().member ?? return redirect("/door")
+    <Page title="Clubhouse">
+        <h1>Welcome back, {me}!</h1>
+        <p>Today's secret snack: acorns.</p>
+        <form method="post" action="/leave"><button>Climb down</button></form>
+    </Page>
+}
+
+route POST /leave {
+    end_session()
+    redirect("/")
+}
+
+// A route chosen by a header: the right knock opens the secret door.
+route GET /secret { headers: { "x-knock": "knock-knock" } } = "Who's there?"
+route GET /secret = respond(403, "Knock first.")
+
+route GET /static/*path = files("public", path)
