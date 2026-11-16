@@ -1,0 +1,59 @@
+// The little library: books to borrow, and who has each one.
+
+type Book = { id: int, title: str, author: str, out: str = "" }
+
+let books = [
+    Book({ id: 1, title: "The Clockwork Garden", author: "M. Fern" }),
+    Book({ id: 2, title: "Seven Quiet Owls", author: "L. Ashby" }),
+    Book({ id: 3, title: "A Map of Small Things", author: "R. Okafor" }),
+]
+let history = []
+
+// A borrower gives a name of two letters or more.
+fn valid_name(name: str) -> bool {
+    if len(trim(name)) >= 2 { return true }
+}
+
+view Lend(b: Book) =
+    <form clas="lend" method="post" action={`/borrow/${b.id}`}>
+        <input name="who" placeholder="Your name"/><button>Borrow</button>
+    </form>
+
+view Back(b: Book) =
+    <form method="post" action={`/return/${b.id}`}>
+        With {b.out || "someone"} <button>Return</button>
+    </form>
+
+view Shelf(b: Book) =
+    <li class={b.out == "" ? "in" : "out"}>
+        <b>{b.titel}</b> <small>by {b.author}</small>
+        {b.out == "" ? <Lend b={b}/> : <Back b={b}/>}
+    </li>
+
+route GET / = <html>
+    <head><title>The little library</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main>
+        <h1>📚 The little library</h1>
+        <p.count>{count(books, (b) => b.out == "")} of {lenght(books)} on the shelf</p>
+        <ul.shelf>{for b in books => <shelf b={b}/>}</ul>
+    </main></body>
+</html>
+
+route POST /borrow/:id(int) { form: { who: str } } {
+    let b = find(books, (x) => x.id == id) ?? reply 404 "No such book"
+    if !valid_name(who) { reply 400 "Your name, please" }
+    if b.out != "" { reply 409 `Already out, with ${b.out}` }
+    books = map(books, (x) => x.id == id ? { ...x, out: trim(who) } : x)
+    history.push({ who, id })
+    print("${trim(who)} borrowed ${b.title}")
+    sleep(0.2)
+    redirect("/")
+}
+
+route POST /return/:id(int) {
+    if index_of(map(books, (x) => x.id), id) == -1 { reply 404 "No such book" }
+    books = map(books, (x) => x.id == id ? { ...x, out: "" } : x)
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)

@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    background: #f3eee3;
+    color: #2c2418;
+    font: 17px/1.5 Georgia, serif;
+}
+
+main {
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+}
+
+h1 {
+    margin: 0;
+    color: #6b3f1d;
+}
+
+.count {
+    margin: .1rem 0 .8rem;
+    color: #8a7558;
+    font-family: system-ui, sans-serif;
+}
+
+.shelf {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.shelf li {
+    margin-bottom: .6rem;
+    padding: .7rem .9rem;
+    background: #fffaf0;
+    border-left: 6px solid #3f8f5a;
+    border-radius: 10px;
+}
+
+.shelf li.out {
+    border-left-color: #c0812f;
+}
+
+.shelf small {
+    color: #8a7558;
+}
+
+.shelf form {
+    display: flex;
+    gap: .4rem;
+    margin-top: .4rem;
+    font-family: system-ui, sans-serif;
+    font-size: .95rem;
+}
+
+.shelf input {
+    flex: 1;
+    padding: .3rem .5rem;
+    border: 1px solid #d9ccb3;
+    border-radius: 7px;
+}
+
+.shelf button {
+    padding: .3rem .9rem;
+    color: #fff;
+    background: #6b3f1d;
+    border: 0;
+    border-radius: 7px;
+    cursor: pointer;
+}
