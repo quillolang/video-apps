@@ -50,6 +50,7 @@ Quillo: https://quillolang.org
 | [42-policy](42-policy) | Run Code You Didn't Write: Locking a Program Down with quillo.policy | Fortune cookies: a page a friend wrote, with a few surprises in it (a stats call, a /debug route, a link preview that fetches anything, a loop with no end), run under quillo.policy, which says what the program may do whatever its code says. Put APP_NAME and SECRET_KEY in a .env to see the policy hide the second. |
 | [43-hosting](43-hosting) | Ship It: Taking a Quillo App from Your Laptop to a Server | Shortlinks: short codes for long addresses, ready for a server of its own. deploy/ has a systemd unit, a Caddyfile for HTTPS in front, and the environment file's one line (QUILLO_SECRET). |
 | [44-api-docs](44-api-docs) | API Docs for Free: quillo docs and OpenAPI | Plant care: a small JSON API for the office plants, and a docs page made from its own OpenAPI description. Run it with ./run.sh --describe and open /docs; quillo docs main.qwe prints the same description. |
+| [45-monitoring](45-monitoring) | The Case of the Broken Pizza Order: Logs, Request IDs and Metrics in Quillo | Slice: pizza by the slice, the bill split between you and your friends. Run it with ./run.sh --log json --metrics, and read its log with grep '^{' and jq. This is the fixed version; the video finds its bug in the log. |
 
 ## Shorts
 

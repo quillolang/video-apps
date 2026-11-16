@@ -1,0 +1,42 @@
+// Slice: pizza by the slice, the bill split with your friends. Run it with --log json --metrics.
+
+let menu = { margherita: 350, pepperoni: 400, mushroom: 375 }   // cents a slice
+
+let css = "
+    body { margin: 0; font: 17px/1.5 system-ui, sans-serif; background: #fff3ea; color: #3d2418; }
+    main { max-width: 420px; margin: 0 auto; padding: 26px 18px; }
+    h1 { margin: 0 0 14px; font-size: 32px; color: #c4381c; }
+    form { display: grid; gap: 10px; background: #fff; padding: 16px; border-radius: 14px; }
+    label { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-weight: 600; }
+    select, input { font: inherit; width: 150px; padding: 6px 8px; border: 2px solid #f1d6c8; border-radius: 8px; }
+    button { font: inherit; font-weight: 700; padding: 9px; border: 0; border-radius: 9px; background: #c4381c; color: #fff; }
+    .done { background: #fff; padding: 16px; border-radius: 14px; font-size: 19px; }
+    a { color: #c4381c; font-weight: 600; }
+"
+
+fn dollars(cents: int | float) -> str = `$${format_number(cents / 100, "en-US", 2)}`
+
+view Page(children) =
+    <html>
+        <head><title>Slice</title><style>{css}</style></head>
+        <body><main><h1>🍕 Slice</h1>{children}</main></body>
+    </html>
+
+route GET / = <Page>
+    <form method="post" action="/order">
+        <label>Pizza <select name="pizza">{for p in keys(menu) => <option>{p}</option>}</select></label>
+        <label>Slices <input name="slices" type="number" value="2" min="1"/></label>
+        <label>Friends sharing <input name="friends" type="number" value="0" min="0"/></label>
+        <button>Order</button>
+    </form>
+</Page>
+
+route POST /order { form: { pizza: str, slices: int, friends: int = 0 } } {
+    let price = menu[pizza] ?? reply 404 "No such pizza"
+    let total = price * slices
+    let each = total / (friends + 1)        // the bill, split between you and your friends
+    <Page>
+        <p.done>{slices} slices of {pizza}: {dollars(total)}, so {dollars(each)} each.</p>
+        <a href="/">Order more</a>
+    </Page>
+}
