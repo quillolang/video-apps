@@ -1,0 +1,13 @@
+/* The docs page: a card for each operation. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1d3b2a; background: #eef6ef; }
+main { max-width: 600px; margin: 0 auto; padding: 22px 18px; }
+h1 { margin: 0 0 12px; font-size: 28px; color: #23764a; }
+section { background: #fff; border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(35, 118, 74, .08); }
+h3 { margin: 0; font: 600 15px ui-monospace, Menlo, monospace; }
+h3 b { display: inline-block; width: 52px; font-size: 12px; text-align: center; border-radius: 6px; padding: 2px 0; margin-right: 8px; color: #fff; }
+b.get { background: #2e86de; } b.post { background: #23a35c; }
+section p { margin: 4px 0 0 60px; color: #557565; font-size: 14px; }
+code { display: inline-block; white-space: nowrap; font: 13px ui-monospace, Menlo, monospace; background: #eef6ef; border-radius: 5px; padding: 1px 6px; margin: 1px 4px 1px 0; color: #1d3b2a; }
+.fn { border-left: 4px solid #23a35c; }
+.fn p { margin-left: 0; }

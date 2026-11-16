@@ -1,0 +1,66 @@
+// Plant care: an API for the office plants, and how long each has gone without water. quillo docs describes it.
+
+type Light = "sun" | "shade"
+type Plant = { id: int, name: str, room: str, every_days: int, days_dry: int = 0, light: Light = "shade" }
+
+let plants = [
+    Plant({ id: 1, name: "Monstera", room: "kitchen", every_days: 7, days_dry: 3 }),
+    Plant({ id: 2, name: "Fern", room: "office", every_days: 2, days_dry: 2 }),
+    Plant({ id: 3, name: "Cactus", room: "office", every_days: 21, days_dry: 20 }),
+]
+
+// Every plant, or the plants in one room.
+route GET /plants ? { room: str = "" } =
+    room == "" ? plants : plants | filter((p) => p.room == room)
+
+// One plant, by its id.
+route GET /plants/:id(int) = find(plants, (p) => p.id == id) ?? reply 404 "No such plant"
+
+// Adds a plant, not yet dry.
+route POST /plants { json: { name: str, room: str, every_days: int, light: Light = "shade" } } {
+    let p = Plant({ id: len(plants) + 1, name, room, every_days, light })
+    plants = plants | push(p)
+    reply 201 p
+}
+
+// Waters a plant: it is not dry any more.
+route POST /plants/:id(int)/water {
+    if find(plants, (p) => p.id == id) == null { reply 404 "No such plant" }
+    plants = map(plants, (p) => p.id == id ? { ...p, days_dry: 0 } : p)
+    find(plants, (p) => p.id == id)
+}
+
+/// The plants that need water now: dry for as long as they can go, or longer.
+server fn thirsty() -> list<Plant> = plants | filter((p) => p.days_dry >= p.every_days)
+
+// A docs page, made from the API's own description (run with --describe).
+route GET /docs with http {
+    let api = http.get(`${platform().server.url}/_quillo/describe`, {}, { public_only: false }).json
+    let fns = api["x-quillo-server-fns"]
+    <html>
+        <head><title>Plant care API</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>🌿 Plant care API</h1>
+            {for path in keys(api.paths) => for method in keys(api.paths[path]) =>
+                <Op method={method} path={path} op={api.paths[path][method]}/>}
+            {for name in keys(fns) => <Fn f={fns[name]}/>}
+        </main></body>
+    </html>
+}
+
+view Op(method: str, path: str, op: map) =
+    <section>
+        <h3><b class={method == "get" ? "get" : "post"}>{upper(method)}</b> {path}</h3>
+        {for p in op.parameters ?? [] => <p><code>{p.name}</code> in the {p.in}: {schema_type(p.schema)}</p>}
+        {op.requestBody && <Body schema={op.requestBody.content["application/json"].schema}/>}
+    </section>
+
+view Body(schema: map) =
+    <p>JSON: {for k in keys(schema.properties) => <code>{k}: {schema_type(schema.properties[k])}</code>}</p>
+
+view Fn(f: map) = <section.fn><code>{f.contract}</code><p>{f.description}</p></section>
+
+// A schema's type, or the name of the type it refers to.
+fn schema_type(s: map) -> str = s.type ?? (split(s["$ref"] ?? "?", "/") | last())
+
+route GET /static/*path = files("public", path)

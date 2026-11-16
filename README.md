@@ -49,6 +49,7 @@ Quillo: https://quillolang.org
 | [41-tenants](41-tenants) | Two Bakeries, One App: a Database per Customer in Quillo | Two bakeries, one app: each bakery is a tenant, picked by the host (crumbs.localhost is the bakery crumbs), with a SQLite database of its own in data/. Run it and open one at http://localhost:8080. The video also runs a version with a global sales counter, to show that a global is one copy for every bakery: keep a bakery's numbers in its database. |
 | [42-policy](42-policy) | Run Code You Didn't Write: Locking a Program Down with quillo.policy | Fortune cookies: a page a friend wrote, with a few surprises in it (a stats call, a /debug route, a link preview that fetches anything, a loop with no end), run under quillo.policy, which says what the program may do whatever its code says. Put APP_NAME and SECRET_KEY in a .env to see the policy hide the second. |
 | [43-hosting](43-hosting) | Ship It: Taking a Quillo App from Your Laptop to a Server | Shortlinks: short codes for long addresses, ready for a server of its own. deploy/ has a systemd unit, a Caddyfile for HTTPS in front, and the environment file's one line (QUILLO_SECRET). |
+| [44-api-docs](44-api-docs) | API Docs for Free: quillo docs and OpenAPI | Plant care: a small JSON API for the office plants, and a docs page made from its own OpenAPI description. Run it with ./run.sh --describe and open /docs; quillo docs main.qwe prints the same description. |
 
 ## Shorts
 
