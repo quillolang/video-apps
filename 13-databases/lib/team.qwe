@@ -1,0 +1,30 @@
+// The team: its people and their kudos, in the database.
+
+type Person = { id: int, name: str, points: int, budget: int }
+
+server fn people() -> list<Person> with db =
+    db.query("select id, name, points, budget from people order by points desc, name")
+
+server fn recent() -> list with db =
+    db.query("select g.name as giver, t.name as taker, note from kudos join people g on g.id = giver
+        join people t on t.id = taker order by kudos.id desc limit 3")
+
+// A new person; a name already on the team is said plainly.
+server fn add_person(name: str) -> map ! str with db {
+    let r = db.exec("insert into people (name) values (?)", trim(name))
+    if is_err(r) {
+        return err(db.error_kind(r) == "unique" ? `${trim(name)} is already on the team.` : r.error)
+    }
+    r
+}
+
+// Kudos from one person to another: their budget down, the other's points up, and a note. All or nothing.
+server fn give(from: int, to: int, note: str) -> map ! str with db =
+    db.transaction(() => {
+        db.exec("update people set budget = budget - 1 where id = ?", from)?
+        db.exec("update people set points = points + 1 where id = ?", to)?
+        db.exec("insert into kudos (giver, taker, note) values (:from, :to, :note)", { from, to, note })?
+        let giver = db.one("select budget from people where id = ?", from)?
+        if giver.budget < 0 { return err("No kudos left to give today.") }
+        { ok: true }
+    })
