@@ -1,0 +1,50 @@
+// Possible or not? Twenty questions about Quillo, each with its proof. Run: quillo repl < proofs.txt
+// 1. Overflow an int, quietly?
+9223372036854775807 + 1
+// 2. Divide by zero?
+1 / 0
+// 3. Get 3.5 from 7 / 2?
+7 / 2
+// 4. Divide whole numbers with //?
+7 // 2
+floor(7 / 2)
+// 5. Get exactly 0.3 from 0.1 + 0.2?
+0.1 + 0.2
+0.1m + 0.2m
+// 6. Add text and a number?
+"a" + 1
+// 7. Multiply text by a number?
+"ab" * 3
+repeat("ab", 3)
+// 8. Upper-case "straße"?
+upper("straße")
+// 9. Reverse "héllo", accent and all?
+reverse("héllo")
+// 10. Ask text for its .length?
+"héllo".length
+len("héllo")
+// 11. Compare two lists with ==?
+[1, 2] == [1, 2]
+// 12. Read the last item with [-1]?
+[1, 2, 3][-1]
+// 13. Read past the end, without a crash?
+[1, 2][5] ?? "nothing there"
+// 14. Push onto a list, in place?
+let nums = [1]
+nums.push(2)
+nums
+// 15. Use a number as a map's key?
+{1: "one"}
+// 16. Treat zero as false?
+0 ? "truthy" : "falsy"
+// 17. Compare with ===?
+1 === 1
+// 18. Count up with ++?
+let n = 1
+n++
+// 19. Try, and catch?
+try { int("12abc") }
+int("12abc") ?? 0
+// 20. Recurse 100,000 calls deep?
+fn depth(n) = n == 0 ? 0 : 1 + depth(n - 1)
+depth(100000)
