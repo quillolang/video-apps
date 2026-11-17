@@ -1,0 +1,54 @@
+// Storm: a wall of 500 made-up stock tickers, all changing at once, to see how the page keeps up.
+// Every tick makes a new list; only the prices that changed are written to the page.
+
+let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+// A made-up symbol for each: its first two letters differ for every one of the 500.
+fn symbol(i: int) -> str = letters[i % 26] + letters[(floor(i / 26) * 5 + 3) % 26] + letters[(i * 11 + 5) % 26]
+fn start() -> list = map(range(500), (i) => { id: i, sym: symbol(i), price: 20.0 + (i * 37) % 180, move: 0 })
+
+// A stock's next price: up or down by up to 2%.
+fn step(s: map) -> map {
+    let change = s.price * (random() - 0.5) * 0.04
+    { ...s, price: max([1.0, s.price + change]), move: change > 0 ? 1 : -1 }
+}
+
+component Wall() {
+    state stocks = start()
+    state running = false
+    state every_ms = 200              // how often it ticks
+    state share = 10                  // how many in a hundred change each tick
+    state ticks = 0
+    if running {
+        every(every_ms, () => {
+            stocks = map(stocks, (s) => random_int(1, 100) <= share ? step(s) : s)
+            ticks += 1
+        })
+    }
+    <section>
+        <div.controls>
+            <button onclick={() => { running = !running }}>{running ? "Stop" : "Start"}</button>
+            <label>every <select value={str(every_ms)} onchange={(e) => { every_ms = int(e.value) ?? 200 }}>
+                <option>1000</option><option>200</option><option>50</option><option>16</option>
+            </select> ms</label>
+            <label><select value={str(share)} onchange={(e) => { share = int(e.value) ?? 10 }}>
+                <option>0</option><option>1</option><option>10</option><option>100</option>
+            </select> % change</label>
+            <span.ticks>{ticks} ticks</span>
+        </div>
+        <div.wall>
+            {for s in stocks =>
+                <div.t key={s.id} class={{ up: s.move > 0, down: s.move < 0 }}>
+                    <b>{s.sym}</b>
+                    <span>{format_number(s.price, "en-US", 2)}</span>
+                </div>}
+        </div>
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Storm</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>⛈️ Storm</h1><Wall/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
