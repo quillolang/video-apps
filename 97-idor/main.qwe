@@ -1,0 +1,24 @@
+// Luigi's order tracker, in Quillo: your own orders, and only yours.
+db.open("luigis.db")
+db.migrate("migrations")
+
+// A log-in with no password, to keep the demo short.
+route POST /login { form: { who: str } } {
+    set_session({ user: who })
+    redirect("/")
+}
+
+fn line(o) = `Order ${o.id}: ${o.customer}'s ${o.pizza}, to ${o.address}`
+
+// Signed in, or off to the log-in page.
+fn signed_in(r) = session().user != null ? r
+    : reply 303 redirect(`/login?next=${url_encode(r.path)}`)
+
+routes /orders | signed_in with db {
+    route GET /:id(int) {
+        let o = db.one(
+            "select * from orders where id = ? and customer = ?",
+            id, session().user)?
+        o == null ? respond(404, "no such order") : line(o)
+    }
+}
