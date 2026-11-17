@@ -1,0 +1,20 @@
+// Dawn Runners, in Quillo: the members in SQLite, and a page that lists them.
+db.open("club.db")
+db.migrate("migrations")
+
+// The members, for the page.
+server fn members() with db = db.query("select * from members order by id")
+
+component Members() {
+    style css`li { margin: .4rem 0 }`
+    state list = members()
+    <ul>{for m in list => <li key={m.name}>{m.name}, since {m.joined}</li>}</ul>
+}
+
+route GET / = <html>
+    <head><title>Dawn Runners</title></head>
+    <body style="font: 20px system-ui; margin: 2rem">
+        <h1>Our members</h1>
+        <Members/>
+    </body>
+</html>

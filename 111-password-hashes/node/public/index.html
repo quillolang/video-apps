@@ -1,0 +1,15 @@
+<!doctype html>
+<title>Dawn Runners</title>
+<style>body { font: 20px system-ui; margin: 2rem } li { margin: .4rem 0 }</style>
+<h1>Our members</h1>
+<ul id="members"></ul>
+<script>
+  // Each member's name, and when they joined.
+  fetch('/api/members').then((res) => res.json()).then((members) => {
+    for (const m of members) {
+      const li = document.createElement('li');
+      li.textContent = `${m.name}, since ${m.joined}`;
+      document.querySelector('#members').append(li);
+    }
+  });
+</script>
