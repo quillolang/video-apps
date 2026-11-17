@@ -1,0 +1,11 @@
+/* Noughts: a chalkboard, a three by three grid of big squares, X in yellow and O in pink. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #e2e8f0; background: #1f3a2e; }
+main { padding: 14px 18px; }
+h1 { margin: 0 0 6px; font-size: 22px; }
+.status { margin: 0 0 10px; font-weight: 700; font-size: 17px; }
+.grid { display: grid; grid-template-columns: repeat(3, 76px); gap: 6px; }
+.cell { width: 76px; height: 76px; font: 800 44px/1 system-ui; border: 0; border-radius: 10px;
+        background: #2c5141; color: #e2e8f0; cursor: pointer; }
+.cell.x { color: #fde047; }
+.cell.o { color: #f9a8d4; }

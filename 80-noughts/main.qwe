@@ -1,0 +1,58 @@
+// Noughts: tic-tac-toe for two browsers. The game lives on the server, each player's page
+// follows it with live, and the server says whose turn it is.
+
+let lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+let fresh = { board: ["", "", "", "", "", "", "", "", ""], turn: "X", winner: "" }
+let game = fresh
+
+// Who has three in a row: "X", "O", "draw" when the board is full, or "" while it goes on.
+fn winner(b: list) -> str {
+    for l in lines {
+        if b[l[0]] != "" && b[l[0]] == b[l[1]] && b[l[1]] == b[l[2]] { return b[l[0]] }
+    }
+    len(filter(b, (c) => c == "")) == 0 ? "draw" : ""
+}
+
+server fn current() -> map = game
+
+server fn play(i: int, who: str) -> map ! str {
+    if game.winner != "" { return err("the game is over") }
+    if who != game.turn { return err(`it's ${game.turn}'s turn`) }
+    if game.board[i] != "" { return err("that square is taken") }
+    let board = set(game.board, i, who)
+    game = { board: board, turn: who == "X" ? "O" : "X", winner: winner(board) }
+    game
+}
+
+server fn again() { game = fresh }
+
+component Board(me: str) {
+    state g = live(current)            // both pages follow the one game
+    state note = ""
+    let tap = (i) => {
+        let r = play(i, me)
+        note = is_err(r) ? r.error : ""
+    }
+    let status = g.winner == "draw" ? "A draw!" : g.winner != "" ? `${g.winner} wins!`
+        : g.turn == me ? "Your turn" : `Waiting for ${g.turn}`
+    <section>
+        <p.status>You're {me}. {status}</p>
+        <div.grid>
+            {for i in range(9) =>
+                <button.cell key={i} class={{ x: g.board[i] == "X", o: g.board[i] == "O" }}
+                    aria-label={`square ${i + 1}`} onclick={() => { tap(i) }}>{g.board[i]}</button>}
+        </div>
+        {note != "" && <p.note>{note}</p>}
+        {g.winner != "" && <button.again onclick={() => { again() }}>Play again</button>}
+    </section>
+}
+
+view Page(me: str) =
+    <html>
+        <head><title>Noughts: {me}</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>⭕ Noughts</h1><Board me={me}/></main></body>
+    </html>
+
+route GET /x = <Page me="X"/>
+route GET /o = <Page me="O"/>
+route GET /static/*path = files("public", path)

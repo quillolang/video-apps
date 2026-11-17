@@ -1,0 +1,40 @@
+// Noughts: tic-tac-toe on one screen. X and O take turns at the same browser.
+
+let lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+
+// Who has three in a row: "X", "O", "draw" when the board is full, or "" while it goes on.
+fn winner(b: list) -> str {
+    for l in lines {
+        if b[l[0]] != "" && b[l[0]] == b[l[1]] && b[l[1]] == b[l[2]] { return b[l[0]] }
+    }
+    len(filter(b, (c) => c == "")) == 0 ? "draw" : ""
+}
+
+component Board() {
+    state board = ["", "", "", "", "", "", "", "", ""]
+    state turn = "X"
+    let won = winner(board)
+    let tap = (i) => {
+        if won == "" && board[i] == "" {
+            board = set(board, i, turn)
+            turn = turn == "X" ? "O" : "X"
+        }
+    }
+    let status = won == "draw" ? "A draw!" : won != "" ? `${won} wins!` : `${turn}'s turn`
+    <section>
+        <p.status>{status}</p>
+        <div.grid>
+            {for i in range(9) =>
+                <button.cell key={i} class={{ x: board[i] == "X", o: board[i] == "O" }}
+                    aria-label={`square ${i + 1}`} onclick={() => { tap(i) }}>{board[i]}</button>}
+        </div>
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Noughts</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>⭕ Noughts</h1><Board/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
