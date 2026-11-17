@@ -1,0 +1,14 @@
+// Crumbs bakery's club, in Quillo: a log-in for its members.
+db.open("club.db")
+db.migrate("migrations")
+
+// POST /login with an email and a password.
+route POST /login { form: { email: str, password: str } } with db, random {
+    let user = db.one("select * from users where email = ?", email)
+    // the same work, for a member or not
+    let hash = user.password_hash ?? crypto.hash_password("not anyone's")
+    if user == null || !crypto.verify_password(password, hash) {
+        reply 401 "Wrong email or password"
+    }
+    `Welcome back, ${user.name}!`
+}
