@@ -1,0 +1,36 @@
+// Post in one tab; every open tab shows it, live.
+db.open("wall.db")
+db.migrate("migrations")
+
+type Note = { id: int, text: str }
+
+server fn notes() -> list<Note> with db =
+    db.query(
+        "select * from notes order by id desc")
+
+server fn add(text: str) -> bool ! str with db {
+    db.exec("insert into notes (text) values (?)",
+        text)?
+    true
+}
+
+component Wall() {
+    state items = live(notes)
+    state draft = ""
+    <form onsubmit={() => {
+        let r = add(draft)
+        if !is_err(r) { draft = "" }
+    }}>
+        <input value={draft}
+               style="font:inherit"/>
+        <button style="font:inherit">Post</button>
+        <ul>{for n in items ?? [] =>
+            <li key={n.id}>{n.text}</li>}</ul>
+    </form>
+}
+
+route GET / =
+    <html><body style="font: 24px system-ui">
+        <h1>The wall 📌</h1>
+        <Wall/>
+    </body></html>
