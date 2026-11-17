@@ -1,0 +1,52 @@
+// The book club: members log in to read the club's notes, and are sent back where they were going.
+
+let members = {
+    "ada@example.com": { name: "Ada", hash: crypto.hash_password("lovelace-1815") },
+    "grace@example.com": { name: "Grace", hash: crypto.hash_password("cobol-1959") },
+}
+let books = [
+    { id: 1, title: "The Left Hand of Darkness", note: "Next meeting: the 28th. Bring tea." },
+    { id: 2, title: "Kindred", note: "We meet at Grace's, at seven." },
+    { id: 3, title: "Piranesi", note: "Ada brings the cake." },
+]
+
+// On every answer: scripts and styles from this site only, and no address passed on to other sites.
+site_headers({ "content-security-policy": "default-src 'self'", "referrer-policy": "same-origin" })
+
+view Page(children) =
+    <html>
+        <head><title>Book club</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>📚 The book club</h1>{children}</main></body>
+    </html>
+
+// Members only: anyone else logs in first, and is sent back here after.
+fn signed_in(r) = session().member != null ? r : reply 303 redirect(`/login?next=${url_encode(r.path)}`)
+
+routes / | signed_in {
+    route GET / = <Page><ul.books>{for b in books => <li><a href={`/books/${b.id}`}>{b.title}</a></li>}</ul></Page>
+    route GET /books/:id(int) {
+        let b = find(books, (b) => b.id == id) ?? reply 404 <Page><p>No such book</p></Page>
+        <Page><h2>{b.title}</h2><p.note>{b.note}</p><a href="/">All books</a></Page>
+    }
+}
+
+route GET /login ? { next: str = "/" } = <Page>
+    <form.login method="post" action={`/login?next=${url_encode(next)}`}>
+        <input type="email" name="email" placeholder="Email" required/>
+        <input type="password" name="password" placeholder="Password" required/>
+        <button>Log in</button>
+    </form>
+</Page>
+
+// Logging in: the member's password checked (a stranger's costs a hash too), and back to next.
+route POST /login ? { next: str = "/" } { form: { email: str, password: str } } with random {
+    let who = lower(trim(email))
+    let hash = members[who].hash ?? crypto.hash_password("not anyone's")
+    if members[who] == null || !crypto.verify_password(password, hash) {
+        reply 401 <Page><p.no>Wrong email or password</p></Page>
+    }
+    set_session({ member: who })
+    redirect(local_path(next) ?? "/")       // only an address on this site, else home
+}
+
+route GET /static/*path = files("public", path)
