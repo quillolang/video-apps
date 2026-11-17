@@ -1,0 +1,12 @@
+/* Pizza Forno's kitchen board: a chalkboard, and tickets on it. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #f3efe6; background: #2b2f2a; }
+main { max-width: 640px; margin: 0 auto; padding: 18px 20px; }
+h1 { margin: 0 0 14px; font-size: 26px; }
+ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.tickets li { margin-bottom: 8px; padding: 10px 14px; border-radius: 8px; background: #fffaf0; color: #2b2f2a;
+  box-shadow: 0 3px 0 #0003; transform: rotate(-0.4deg); }
+.tickets li:nth-child(even) { transform: rotate(0.5deg); }
+.tickets b { color: #c0392b; }
+.tickets span { float: right; font-weight: 600; }
+.reviews li { padding: 6px 0; border-top: 1px dashed #6b7066; color: #e6e1d3; }

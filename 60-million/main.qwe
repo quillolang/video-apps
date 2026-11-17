@@ -1,0 +1,65 @@
+// The town phone book: a million entries, and a page that only ever holds the few on screen.
+
+let lasts = ["Abbott", "Andersen", "Baker", "Bianchi", "Chen", "Costa", "Diaz", "Dubois", "Eriksen", "Evans",
+             "Ferreira", "Fischer", "Garcia", "Gomez", "Haddad", "Hughes", "Ito", "Ivanova", "Jensen", "Jovanovic",
+             "Kim", "Kowalski", "Larsen", "Lopez", "Moreau", "Murphy", "Nakamura", "Novak", "Okafor", "Olsen",
+             "Park", "Patel", "Quinn", "Reyes", "Rossi", "Sato", "Silva", "Tanaka", "Torres", "Ueda",
+             "Usman", "Vega", "Volkov", "Weber", "Wong", "Xu", "Yilmaz", "Young", "Zhang", "Zimmermann"]
+let firsts = ["Ada", "Alan", "Amara", "Ben", "Bea", "Carlos", "Chloe", "Dev", "Dina", "Ella",
+              "Emil", "Finn", "Grace", "Hana", "Hugo", "Ines", "Iris", "Jay", "Juno", "Kai",
+              "Lena", "Leo", "Maya", "Max", "Nia", "Noah", "Omar", "Pia", "Quinn", "Rosa",
+              "Ravi", "Sam", "Sofia", "Theo", "Uma", "Vera", "Wen", "Yara", "Yusuf", "Zoe"]
+let streets = ["Ash", "Beech", "Birch", "Cedar", "Cherry", "Elm", "Fir", "Hazel", "Holly", "Juniper",
+               "Larch", "Laurel", "Linden", "Maple", "Myrtle", "Oak", "Olive", "Palm", "Pine", "Poplar",
+               "Rowan", "Spruce", "Sycamore", "Walnut", "Willow"]
+let size = 50 * 40 * 25 * 20         // last names, first names, streets, house numbers: 1,000,000
+
+type Entry = { name: str, address: str, phone: str }
+
+// Entry number i, in phone-book order. Ours is made up: a real one would come from a database.
+fn entry(i: int) -> Entry = {
+    name: `${lasts[floor(i / 20000)]}, ${firsts[floor(i / 500) % 40]}`,
+    address: `${i % 20 + 1} ${streets[floor(i / 20) % 25]} St`,
+    phone: `555-${slice(str(10000 + (i * 7919) % 10000), 1)}`,
+}
+
+view Page(children) =
+    <html>
+        <head><title>Phone book</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>📞 The town phone book</h1>{children}</main></body>
+    </html>
+
+let on_screen = 16      // the entries in the page at once: a screenful
+let track = 15000000    // the scrollbar's length, in pixels. A million 30-pixel rows would be 30 million: too tall
+
+type Screen = { first: int, entries: list<Entry> }
+
+// The entries on screen, from number first on.
+server fn screen(first: int) -> Screen =
+    { first, entries: for i in range(first, min([first + on_screen, size])) => entry(i) }
+
+// The book runs in the browser: where the scrollbar is, as a fraction, says which entry is first.
+component Book() {
+    state top = 0                               // how far down it's scrolled, in pixels
+    state shown = screen(0)
+    // The entries for where the list is scrolled: on the page (a reload keeps the place), and at every scroll.
+    let show = (el) => {
+        top = floor(el.scrollTop)
+        let share = el.scrollTop / (el.scrollHeight - el.clientHeight)      // 0 at the top, 1 at the bottom
+        shown = screen(round(share * (size - on_screen)))
+    }
+    <section>
+        <div.book onmount={show} onscroll={(e) => show(e.target)}>
+            <div.track style={`height: ${track}px`}>
+                <ol style={`transform: translateY(${top}px)`}>{for [k, e] in enumerate(shown.entries) =>
+                    <li><small>{format_number(shown.first + k + 1, "en-US")}</small><b>{e.name}</b>
+                        <span>{e.address}</span><i>{e.phone}</i></li>}</ol>
+            </div>
+        </div>
+        <p.count>Entries in the page: <b>{len(shown.entries)}</b> of {format_number(size, "en-US")}</p>
+    </section>
+}
+
+route GET / = <Page><Book/></Page>
+
+route GET /static/*path = files("public", path)

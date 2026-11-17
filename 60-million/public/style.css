@@ -1,0 +1,15 @@
+/* The town phone book: yellow pages, black type. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1f1a0e; background: #f7d44a; }
+main { max-width: 640px; margin: 0 auto; padding: 16px 20px; }
+h1 { margin: 0 0 10px; font-size: 26px; letter-spacing: -0.5px; }
+.book { height: 480px; overflow-y: scroll; background: #fff7cf; border-radius: 10px; box-shadow: 0 0 0 2px #1f1a0e; }
+.track { position: relative; }
+.book ol { margin: 0; padding: 0; list-style: none; }
+.book li { display: flex; gap: 10px; align-items: baseline; height: 30px; padding: 5px 12px; border-bottom: 1px solid #ecdc9c;
+  white-space: nowrap; overflow: hidden; }
+.book small { width: 72px; color: #9a8a4a; font-variant-numeric: tabular-nums; text-align: right; }
+.book b { width: 150px; }
+.book span { flex: 1; color: #5a5234; }
+.book i { font-style: normal; font-variant-numeric: tabular-nums; }
+.count { margin: 10px 0 0; font-weight: 600; }

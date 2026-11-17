@@ -1,0 +1,56 @@
+// Pizza Forno's webhook: the delivery app sends every event to one address, and the JSON says which route takes it.
+
+type Order = { id: str, name: str, pizzas: list<str> }
+
+let tickets = []        // the kitchen's tickets, oldest first: an order, and where it's at
+let reviews = []        // { stars, text }
+
+// A new order: a ticket for the kitchen.
+route POST /hooks { json: { type: "order.placed", order: Order } } {
+    tickets = tickets | push({ ...order, status: "🔥 in the oven" })
+    "ok"
+}
+
+// An order called off: its ticket says why.
+route POST /hooks { json: { type: "order.cancelled", id: str, reason: str } } {
+    tickets = map(tickets, (t) => t.id == id ? { ...t, status: `❌ cancelled: ${reason}` } : t)
+    "ok"
+}
+
+// A courier at the door: the order's on its way.
+route POST /hooks { json: { type: "courier.arrived", id: str, courier: str } } {
+    tickets = map(tickets, (t) => t.id == id ? { ...t, status: `🛵 out with ${courier}` } : t)
+    "ok"
+}
+
+// A review: one to five stars, and a few words.
+route POST /hooks { json: { type: "review.posted", stars: int, text: str } } {
+    if stars < 1 || stars > 5 { reply 422 "stars go from 1 to 5" }
+    reviews = reviews | push({ stars, text })
+    "ok"
+}
+
+// A review that isn't one (stars as text, say): refused, not ignored, so the app's makers hear of it.
+route POST /hooks { json: { type: "review.posted" } } = reply 422 "a review needs stars, a number from 1 to 5"
+
+// Any other event: taken, so the app doesn't send it again, and noted in the log.
+route POST /hooks { json: { type: str } } {
+    print(`ignored: ${type}`)
+    reply 202 `ignored: ${type}`
+}
+
+// The kitchen's board, which looks again every two seconds.
+route GET / = <html>
+    <head>
+        <title>Pizza Forno</title><meta http-equiv="refresh" content="2"/>
+        <link rel="stylesheet" href="/static/style.css"/>
+    </head>
+    <body><main>
+        <h1>🍕 Pizza Forno: the kitchen</h1>
+        <ul.tickets>{for t in tickets =>
+            <li><b>{t.id}</b> {t.name}: {join(t.pizzas, ", ")} <span>{t.status}</span></li>}</ul>
+        <ul.reviews>{for r in reviews => <li>{repeat("⭐", r.stars)} {r.text}</li>}</ul>
+    </main></body>
+</html>
+
+route GET /static/*path = files("public", path)
