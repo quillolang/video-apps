@@ -1,0 +1,19 @@
+/* Which fruit are you? A fruit stand: sunny yellow, leafy green. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #2f3a1f; background: #fff8e1; }
+main { max-width: 820px; margin: 0 auto; padding: 18px 22px; }
+h1 { margin: 0 0 14px; font-size: 30px; }
+.quiz { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
+.questions, .you { background: #fff; border-radius: 16px; padding: 10px 18px; box-shadow: 0 0 0 2px #f3e3a7; }
+.questions label { display: block; padding: 8px 0; border-bottom: 1px solid #f6eccb; font-weight: 600; }
+.questions label:last-child { border-bottom: 0; }
+.questions span { display: flex; align-items: center; gap: 12px; margin-top: 2px; }
+.questions input { flex: 1; accent-color: #5a9a2f; }
+.questions b { width: 18px; text-align: center; color: #5a9a2f; font-variant-numeric: tabular-nums; }
+.you { text-align: center; }
+.you > p { margin: 4px 0 10px; font-size: 20px; }
+.you > .fruit { margin: 6px 0 0; font-size: 110px; line-height: 1.1; }
+.you ol { margin: 0; padding: 10px 0 0; list-style: none; border-top: 1px solid #f6eccb; text-align: left; }
+.you li { display: flex; gap: 8px; padding: 3px 6px; font-size: 17px; }
+.you li:first-child { background: #eef7e1; border-radius: 8px; font-weight: 700; }
+.you li i { margin-left: auto; font-style: normal; color: #5a9a2f; font-variant-numeric: tabular-nums; }

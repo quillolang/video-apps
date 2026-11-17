@@ -1,0 +1,56 @@
+// Which fruit are you? Five answers make a vector, and the fruit whose vector points the most alike is yours.
+
+let questions = [
+    "Do you sing in the shower?",
+    "Dessert before dinner?",
+    "Hot sauce on everything?",
+    "A whole Saturday in a hammock?",
+    "Order the dish you can't pronounce?",
+]
+
+// Each fruit's own answers to the five questions, from 1 (not at all) to 5 (totally).
+let fruits = [
+    { name: "Lemon", emoji: "🍋", answers: [4, 1, 5, 1, 3] },
+    { name: "Strawberry", emoji: "🍓", answers: [3, 5, 2, 3, 1] },
+    { name: "Pineapple", emoji: "🍍", answers: [5, 4, 3, 2, 5] },
+    { name: "Avocado", emoji: "🥑", answers: [2, 1, 1, 5, 2] },
+    { name: "Banana", emoji: "🍌", answers: [4, 4, 1, 4, 2] },
+    { name: "Kiwi", emoji: "🥝", answers: [2, 3, 4, 2, 4] },
+]
+
+// How alike two lists of answers are: 1 when they point the same way, however big their numbers.
+fn cosine(a: list<int>, b: list<int>) = vec.dot(a, b) / (vec.norm(a) * vec.norm(b))
+
+// The quiz runs in the browser: move a slider, and the match follows.
+component Quiz() {
+    state answers = [3, 3, 3, 3, 3]
+    let likeness = map(fruits, (f) => cosine(answers, f.answers))
+    let best = vec.argsort(likeness, true)       // the closest first
+    let you = fruits[best[0]]
+    <section.quiz>
+        <div.questions>
+            {for [i, q] in enumerate(questions) =>
+                <label>{q}
+                    <span><input type="range" min="1" max="5" value={answers[i]}
+                                 @input={(e) => { answers = set(answers, i, int(e.target.value) ?? 3) }}/>
+                    <b>{answers[i]}</b></span>
+                </label>}
+        </div>
+        <div.you>
+            <p.fruit>{you.emoji}</p>
+            <p>You're a <b>{you.name}</b>!</p>
+            <ol>{for k in take(best, 3) =>
+                <li>{fruits[k].emoji} {fruits[k].name} <i>{round(likeness[k] * 100)}%</i></li>}</ol>
+        </div>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Which fruit are you?</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+route GET / = <Page><h1>🍉 Which fruit are you?</h1><Quiz/></Page>
+
+route GET /static/*path = files("public", path)
