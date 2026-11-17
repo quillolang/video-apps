@@ -1,0 +1,18 @@
+// Pip's Recipes, in Quillo: the page made on the server, recipes and all.
+let RECIPES = ["Banana bread", "Lemon tart",
+    "Mushroom risotto", "Tomato soup"]
+
+view Recipes(q: str) =
+    <main>
+        <h1>🍰 Pip's Recipes</h1>
+        <form>
+            <input name="q" value={q}/> <button>Find</button>
+        </form>
+        <ul>{for r in RECIPES | filter((r) => contains(lower(r), lower(q)))
+            => <li>{r}</li>}</ul>
+    </main>
+
+route GET / ? { q: str = "" } =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <Recipes q={q}/>
+    </body></html>
