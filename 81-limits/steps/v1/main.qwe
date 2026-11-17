@@ -1,0 +1,15 @@
+// Treehouse: a members' log-in. Any name and password may be tried, as often as you like.
+
+db.open("treehouse.db")
+db.migrate("migrations")
+if db.one("select count(*) as n from members").n == 0 {
+    db.exec("insert into members (name, hash) values (?, ?)", "ada", crypto.hash_password("marigold"))
+}
+
+route POST /login { form: { name: str, password: str } } with db {
+    let m = db.one("select hash from members where name = ?", name)
+    if m != null && crypto.verify_password(password, m.hash) {
+        reply 200 "welcome to the treehouse, " + name
+    }
+    reply 401 "wrong name or password"
+}

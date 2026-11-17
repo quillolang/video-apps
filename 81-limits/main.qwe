@@ -1,0 +1,25 @@
+// Treehouse: a members' log-in that slows guessers down. Quillo has no rate limit of its own,
+// so a table keeps each failed try, and after five for a name in ten minutes, the answer is 429.
+
+db.open("treehouse.db")
+db.migrate("migrations")
+if db.one("select count(*) as n from members").n == 0 {
+    db.exec("insert into members (name, hash) values (?, ?)", "ada", crypto.hash_password("marigold"))
+}
+
+let window = 10 * 60 * 1000            // ten minutes, in milliseconds
+let most = 5                           // failed tries allowed in that time
+
+route POST /login { form: { name: str, password: str } } with db, time {
+    let recent = db.one("select count(*) as n from tries where name = ? and at > ?", name, now() - window).n
+    if recent >= most {
+        return respond(429, "too many tries: wait ten minutes", { "retry-after": "600" })
+    }
+    let m = db.one("select hash from members where name = ?", name)
+    if m != null && crypto.verify_password(password, m.hash) {
+        db.exec("delete from tries where name = ?", name)
+        reply 200 "welcome to the treehouse, " + name
+    }
+    db.exec("insert into tries (name, at) values (?, ?)", name, now())
+    reply 401 "wrong name or password"
+}
