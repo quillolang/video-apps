@@ -1,0 +1,76 @@
+// Cannon: pick an angle and a power, fire, and hit the target. math.cos and math.sin split the shot into across
+// and up, and every moves the clock on.
+
+let g = 300.0       // gravity: each second, the ball falls 300 pixels a second faster
+
+// The game runs in the browser. Where the ball is comes straight from the formula, at time t.
+component Cannon() {
+    state angle = 45                       // degrees, up from the ground
+    state power = 400                      // pixels a second
+    state target = 460                     // the first target; after a hit, anywhere
+    state shot = { across: 0.0, up: 0.0 }  // the speed fired, split in two
+    state t = 0.0                          // seconds in the air
+    state flying = false
+    state trail = []
+    state tries = 0
+    state hit = false
+    state message = "Aim, and fire!"
+
+    let x = shot.across * t
+    let y = shot.up * t - g * t * t / 2
+
+    let fire = () => {
+        let a = math.radians(angle)
+        shot = { across: power * math.cos(a), up: power * math.sin(a) }
+        t = 0.0
+        trail = []
+        tries += 1
+        flying = true
+    }
+    let land = () => {
+        flying = false
+        hit = abs(x - target) < 24
+        let miss = x < target ? "Too short!" : "Too far!"
+        message = hit ? `🎯 A hit, in ${tries} ${tries == 1 ? "try" : "tries"}!` : miss
+    }
+    let tick = () => {
+        t += 0.03
+        if y < 0 { land() } else { trail = trail | push({ x, y }) }
+    }
+    if flying { every(30, tick) }
+
+    let again = () => {
+        target = random_int(150, 700)
+        tries = 0
+        hit = false
+        trail = []
+        message = "A new target!"
+    }
+
+    <section.game>
+        <div.field>
+            {for p in trail => <i.dot style={`left: ${p.x}px; bottom: ${p.y}px`}></i>}
+            {flying && <b.ball style={`left: ${x}px; bottom: ${y}px`}></b>}
+            <span.target style={`left: ${target}px`}>🎯</span>
+            <span.barrel style={`transform: rotate(${-angle}deg)`}></span>
+            <p.message>{message}</p>
+        </div>
+        <div.controls>
+            <label>Angle <input type="range" min="10" max="80" bind:value={angle}/> <b>{angle}°</b></label>
+            <label>Power <input type="range" min="200" max="500" step="10" bind:value={power}/>
+                <b>{power}</b></label>
+            {hit ? <button @click={again}>New target</button>
+                 : <button @click={fire} disabled={flying}>🔥 Fire</button>}
+        </div>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Cannon</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+route GET / = <Page><h1>💥 Cannon</h1><Cannon/></Page>
+
+route GET /static/*path = files("public", path)

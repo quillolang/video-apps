@@ -1,0 +1,19 @@
+/* Cannon: a sky, some grass, and a dotted arc. The field's origin is the barrel's mouth: 30px in, 24px up. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1d2b3a; background: #eef4f8; }
+main { max-width: 820px; margin: 0 auto; padding: 16px 22px; }
+h1 { margin: 0 0 12px; font-size: 28px; }
+.field { position: relative; height: 300px; overflow: hidden; border-radius: 16px;
+  background: linear-gradient(#bfe3fa, #e6f5fd calc(100% - 24px), #7cc36a calc(100% - 24px)); }
+.dot { position: absolute; width: 8px; height: 8px; margin: 0 0 20px 26px; border-radius: 50%; background: #2b3a4a; }
+.ball { position: absolute; width: 18px; height: 18px; margin: 0 0 15px 21px; border-radius: 50%; background: #1d2b3a; }
+.target { position: absolute; bottom: 16px; margin-left: 12px; font-size: 36px; line-height: 1; }
+.barrel { position: absolute; left: 10px; bottom: 18px; width: 48px; height: 18px; border-radius: 4px 9px 9px 4px;
+  background: #2b3a4a; transform-origin: 9px 9px; }
+.controls { display: flex; align-items: center; gap: 18px; margin-top: 12px; flex-wrap: wrap; }
+.controls label { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.controls input { width: 150px; accent-color: #e4572e; }
+.controls b { min-width: 40px; font-variant-numeric: tabular-nums; }
+button { font: inherit; font-weight: 700; border: 0; border-radius: 10px; padding: 8px 18px; background: #e4572e; color: #fff; cursor: pointer; }
+button:disabled { opacity: .5; }
+.message { position: absolute; top: 16px; left: 0; right: 0; margin: 0; text-align: center; font-weight: 800; font-size: 26px; }

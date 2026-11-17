@@ -61,6 +61,7 @@ Quillo: https://quillolang.org
 | [53-randomness](53-randomness) | Roll the Dice, Hide the Treasure: random_int vs crypto.token in Quillo | A dice tower (random_int, in the browser) and a treasure chest whose link holds a secret code made with crypto.token(16) and checked with crypto.equal. The video first hides the chest with a four-digit random_int code, and finds it by trying all 9,000. |
 | [54-stats](54-stats) | One Zero Fooled the Average: Mean, Median, Mode and Spread in Quillo | A report card for a class quiz: stats.mean, median, mode and pstdev, a grade histogram, and zscore to mark who stands out, all worked out in the browser as a score is typed. Theo's zero, and then his retake, show how one far-off score pulls the mean and hides who needs help. |
 | [55-vectors](55-vectors) | Which Fruit Are You? Vectors and Cosine Similarity in Quillo | Which fruit are you? Five sliders make a vector of answers, and the fruit whose answers point the most the same way, by cosine similarity (vec.dot over vec.norm), is yours. It's all worked out in the browser as you slide; vec.argsort ranks the fruits. |
+| [56-math](56-math) | Build a Cannon Game with Sine and Cosine in Quillo (math.sin, math.cos, every) | Cannon: pick an angle and a power, fire, and hit the target. math.cos and math.sin split the shot into across and up, the ball's place comes straight from the formula at time t, and every, under an if, runs the clock only while the ball flies. |
 
 ## Shorts
 
