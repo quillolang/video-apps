@@ -1,0 +1,32 @@
+// Luigi's menu, in Quillo: the page and its server on one origin.
+let MENU = ["Margherita", "Funghi"]
+
+server fn menu() = MENU
+server fn order(pizza: str) = `One ${pizza}, coming up!`
+
+component Menu() {
+    state list = menu()
+    state note = ""
+    <div>
+        <p>{join(list, ", ")}</p>
+        <button style="font: inherit"
+            onclick={() => { note = order("Margherita") }}>
+            Order one</button>
+        <p>{note}</p>
+    </div>
+}
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🍕 Luigi's menu</h1>
+        <Menu/>
+    </body></html>
+
+// For another site's page: the menu as an API, with the headers that say
+// that site may read it.
+let CORS = {
+    "access-control-allow-origin": "http://localhost:5173",
+    "access-control-allow-methods": "GET",
+}
+route OPTIONS /api/*rest = respond(204, null, CORS)
+route GET /api/menu = respond(200, MENU, CORS)

@@ -1,0 +1,13 @@
+<!-- Luigi's menu, in plain JavaScript, served on its own port. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>🍕 Luigi's menu</h1>
+<p id="menu">...</p>
+<script>
+  const api = new URLSearchParams(location.search).get('api')
+    ?? 'http://localhost:3000';
+  fetch(api + '/api/menu')
+    .then((r) => r.json())
+    .then((list) => { menu.textContent = list.join(', '); })
+    .catch((e) => { menu.textContent = `Error: ${e.message}`; });
+</script>
