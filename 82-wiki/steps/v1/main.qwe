@@ -1,0 +1,48 @@
+// Wikiwiki: a tiny wiki. Pages in Markdown, and an editor for each.
+
+db.open("wiki.db")
+db.migrate("migrations")
+
+fn slug(name: str) -> str = replace(trim(name), " ", "_")
+fn title(page: str) -> str = replace(page, "_", " ")
+
+fn latest(name: str) -> map? with db =
+    db.one("select id, body, at from pages where name = ? order by id desc limit 1", name)
+
+view Page(name: str, children) =
+    <html>
+        <head><title>{name} · Wikiwiki</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <nav>
+                <a href="/wiki/Home">🥖 Wikiwiki</a>
+                <a href={`/wiki/${slug(name)}/edit`}>Edit</a>
+            </nav>
+            <h1>{name}</h1>
+            {children}
+        </main></body>
+    </html>
+
+route GET / = redirect("/wiki/Home")
+
+route GET /wiki/:page with db {
+    let p = latest(title(page))
+    if p == null { return redirect(`/wiki/${page}/edit`) }
+    <Page name={title(page)}>{markdown(p.body)}</Page>
+}
+
+route GET /wiki/:page/edit with db {
+    let body = (latest(title(page)) ?? { body: "" }).body
+    <Page name={title(page)}>
+        <form method="post">
+            <textarea name="body" rows="8" aria-label="The page, in Markdown">{body}</textarea>
+            <button>Save</button>
+        </form>
+    </Page>
+}
+
+route POST /wiki/:page/edit { form: { body: str } } with db, time {
+    db.exec("insert into pages (name, body, at) values (?, ?, ?)", title(page), body, date.now())
+    redirect(`/wiki/${page}`)
+}
+
+route GET /static/*path = files("public", path)

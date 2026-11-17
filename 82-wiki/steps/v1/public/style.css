@@ -1,0 +1,10 @@
+/* Wikiwiki: a flour-white page, a bread-crust nav, and plain reading type. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.55 Georgia, serif; color: #2b2118; background: #fffdf8; }
+main { max-width: 600px; margin: 0 auto; padding: 14px 22px; }
+nav { display: flex; gap: 14px; padding-bottom: 8px; border-bottom: 2px solid #e8d8bf; font: 600 15px system-ui, sans-serif; }
+nav a:first-child { margin-right: auto; }
+a { color: #9a4d16; }
+h1 { margin: 12px 0 6px; font-size: 30px; }
+textarea { width: 100%; font: 15px/1.5 ui-monospace, Menlo, monospace; padding: 10px; border: 2px solid #e8d8bf; border-radius: 10px; }
+button { margin-top: 8px; font: 600 15px system-ui, sans-serif; padding: 7px 16px; border: 0; border-radius: 8px; background: #9a4d16; color: #fff; }
