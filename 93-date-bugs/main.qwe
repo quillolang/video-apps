@@ -1,0 +1,23 @@
+// Flex & Flow's renewals, in Quillo: dates as dates, months kept whole.
+//   quillo run main.qwe
+let today = "2026-02-15"
+
+let members = [
+    { name: "Ada", joined: "2026-01-31" },
+    { name: "Grace", joined: "2026-03-01" },
+    // From a form in the UK: 3 April.
+    { name: "Linus",
+      joined: unwrap(date.parse("03/04/2026", "DD/MM/YYYY")) },
+]
+
+// The first renewal after today, counted from the day they joined.
+fn renewal(joined: str) =
+    range(1, 120)
+        | map((n) => date.add_months(joined, n))
+        | find((d) => date.days_between(today, d) > 0)
+
+for m in members {
+    let next = renewal(m.joined)
+    print(m.name, "joined", m.joined, "renews", next,
+        "in", date.days_between(today, next), "days")
+}
