@@ -1,0 +1,45 @@
+// The dice tower and the treasure chest: random numbers for a game, and a secret code for a chest.
+
+let faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]
+let chests = {}       // id → { code, treasure }
+
+// The dice tower runs in the browser: two dice, and the last few rolls.
+component Tower() {
+    state dice = [1, 1]
+    state rolls = []
+    let roll = () => {
+        dice = [random_int(1, 6), random_int(1, 6)]
+        rolls = [dice[0] + dice[1]] + take(rolls, 7)
+    }
+    <section.tower>
+        <p.dice>{faces[dice[0] - 1]} {faces[dice[1] - 1]}</p>
+        <button @click={roll}>Roll</button>
+        <p.rolls>{join(map(rolls, str), " · ")}</p>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Dice and treasure</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+route GET / = <Page><h1>🎲 The dice tower</h1><Tower/></Page>
+
+view Chest(children) = <Page><h1>🧰 The treasure chest</h1>{children}</Page>
+
+// Hiding a treasure: a chest with a secret code. The link with the code opens it.
+route POST /chests { form: { treasure: str } } with random {
+    let id = uuid()
+    let code = crypto.token(16)                 // 128 random bits from the system: for secrets
+    chests = set(chests, id, { code, treasure })
+    `/chests/${id}?code=${code}`
+}
+
+route GET /chests/:id ? { code: str = "" } {
+    let chest = chests[id] ?? reply 404 <Chest><p.no>No such chest</p></Chest>
+    if !crypto.equal(code, chest.code) { reply 403 <Chest><p.no>🔒 The chest stays shut.</p></Chest> }
+    <Chest><p.yes>💰 You found it: {chest.treasure}!</p></Chest>
+}
+
+route GET /static/*path = files("public", path)

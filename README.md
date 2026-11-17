@@ -58,6 +58,7 @@ Quillo: https://quillolang.org
 | [50-passwords](50-passwords) | Bug Hunt: Passwords Done Right (and the Tempting Fix That Isn't) | Seed Swap: a garden club's sign-up and log-in, with passwords kept the right way: crypto.hash_password (salted Argon2id) and crypto.verify_password, one message for a wrong email or password, and the same work whether or not the member exists. The video starts from a version that keeps them in plain text, then tries SHA-256. |
 | [51-signed-links](51-signed-links) | Signed Links: Party Invites Nobody Can Forge (crypto.hmac in Quillo) | Garden party invites nobody can forge: each link carries the guest's name, the last day it works, and an HMAC signature made with a key only the server knows (INVITE_KEY). Open /host for the links. |
 | [52-images](52-images) | Build an Avatar Maker: Crop and Shrink Uploads in Quillo (image.info, image.convert) | Avatars: upload any picture, and image.info and image.convert make a square avatar from its middle, at most 256 pixels. Not a picture? A 415. The pictures in the video were drawn with ffmpeg. |
+| [53-randomness](53-randomness) | Roll the Dice, Hide the Treasure: random_int vs crypto.token in Quillo | A dice tower (random_int, in the browser) and a treasure chest whose link holds a secret code made with crypto.token(16) and checked with crypto.equal. The video first hides the chest with a four-digit random_int code, and finds it by trying all 9,000. |
 
 ## Shorts
 

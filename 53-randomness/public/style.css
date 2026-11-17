@@ -1,0 +1,12 @@
+/* The dice tower and the treasure chest: felt green and gold. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: #f5efe0; background: #1f4d3a; }
+main { max-width: 460px; margin: 0 auto; padding: 24px 16px; text-align: center; }
+h1 { margin: 0 0 14px; font-size: 30px; color: #f2c14e; }
+.tower { background: #163a2c; border-radius: 18px; padding: 18px; box-shadow: inset 0 0 0 2px #2c6b52; }
+.dice { margin: 0; font-size: 96px; line-height: 1.1; letter-spacing: 10px; }
+button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 10px 26px; background: #f2c14e; color: #3b2a07; cursor: pointer; }
+.rolls { margin: 12px 0 0; color: #a9cdb9; font-variant-numeric: tabular-nums; min-height: 1.5em; }
+.yes, .no { background: #163a2c; border-radius: 16px; padding: 20px; font-size: 22px; box-shadow: inset 0 0 0 2px #2c6b52; }
+.yes { color: #f2c14e; }
+.no { color: #e8a598; }
