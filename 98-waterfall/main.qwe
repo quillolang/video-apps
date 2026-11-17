@@ -1,0 +1,22 @@
+// Ada's dashboard, in Quillo: made on the server, two calls at once.
+
+// Each takes 400 ms, as a real API might.
+fn me() with time { sleep(400); { id: 7, name: "Ada" } }
+fn orders_of(id: int) with time { sleep(400); ["Margherita", "Funghi"] }
+fn picks_for(id: int) with time { sleep(400); ["Diavola"] }
+
+view Dashboard(me, orders, picks) =
+    <main>
+        <h2>Hi, {me.name}!</h2>
+        <p>Your orders: {join(orders, ", ")}</p>
+        <p>Try: {join(picks, ", ")}</p>
+    </main>
+
+route GET / with time {
+    let me = me()
+    let [orders, picks] = parallel([() => orders_of(me.id),
+                                    () => picks_for(me.id)])
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <Dashboard me={me} orders={orders} picks={picks}/>
+    </body></html>
+}
