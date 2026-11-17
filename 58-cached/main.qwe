@@ -1,0 +1,40 @@
+// The Neon Arcade's leaderboard: a month of plays, a million of them, added up into the top ten.
+
+let names = ["Ada", "Ben", "Chloe", "Dev", "Ella", "Finn", "Grace", "Hugo", "Iris", "Jay",
+             "Kai", "Lena", "Max", "Nia", "Omar", "Pia", "Quinn", "Rosa", "Sam", "Theo"]
+let skill = [610, 540, 700, 480, 655, 590, 720, 505, 630, 560, 690, 470, 600, 645, 520, 575, 680, 495, 615, 550]
+
+// A month at the arcade: who played, and what they scored. Made up, the same way every time.
+let plays = for i in range(1000000) => { player: names[(i * 7) % 20], score: (i * 7919) % skill[(i * 7) % 20] }
+
+// The top ten: each player's games, best and points, from all the plays. A million plays take a while,
+// so Quillo keeps the HTML, and renders it again only once plays is assigned.
+view Leaderboard(plays: list) {
+    let players = for [name, ps] in group_by(plays, (p) => p.player) =>
+        { name, games: len(ps), best: max(map(ps, (p) => p.score)), points: sum(map(ps, (p) => p.score)) }
+    let top = take(reverse(sort_by(players, (p) => p.points)), 10)
+    <section.board>
+        <ol>{for p in top =>
+            <li class={p.name == last(plays).player ? "just" : ""}>
+                <b>{p.name}</b> <span>{format_number(p.games, "en-US")} games</span>
+                <span>best {p.best}</span> <i>{format_number(p.points, "en-US")}</i>
+            </li>}</ol>
+        <p.updated>As of play #{format_number(len(plays), "en-US")}</p>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Neon Arcade</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🕹️ Neon Arcade: top ten</h1>{children}</main></body>
+    </html>
+
+route GET / = <Page><Leaderboard plays={plays}/></Page>
+
+// A new play, from the machines: it joins the month's plays.
+route POST /plays { form: { player: str, score: int } } {
+    plays = plays | push({ player, score })
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)

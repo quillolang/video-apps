@@ -1,0 +1,15 @@
+/* The Neon Arcade: a dark room, pink and cyan lights. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #e8e6ff; background: #120b2b; }
+main { max-width: 640px; margin: 0 auto; padding: 18px 20px; }
+h1 { margin: 0 0 12px; font-size: 26px; color: #ff5fb4; text-shadow: 0 0 12px #ff5fb488; }
+.board { background: #1b1240; border-radius: 16px; padding: 8px 14px 10px; box-shadow: 0 0 0 2px #3a2a7a, 0 0 24px #00e5ff22; }
+ol { margin: 0; padding: 0 0 0 26px; }
+li { padding: 5px 4px; border-bottom: 1px solid #2c2160; }
+li::marker { color: #00e5ff; font-weight: 800; }
+li b { display: inline-block; width: 70px; }
+li span { display: inline-block; width: 120px; color: #a9a3d9; font-size: 15px; font-variant-numeric: tabular-nums; }
+li i { float: right; font-style: normal; font-weight: 700; color: #00e5ff; font-variant-numeric: tabular-nums; }
+li.just { background: #ff5fb422; border-radius: 8px; }
+li.just b::after { content: " ✨"; }
+.updated { margin: 8px 0 0; color: #8f88c4; font-size: 14px; text-align: right; }
