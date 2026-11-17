@@ -1,0 +1,29 @@
+// Luigi's notes, in Quillo: a note, and a Save button.
+db.open("notes.db")
+db.migrate("migrations")
+
+server fn save(text: str) with db = idempotent(() => {
+    db.exec("insert into notes (text) values (?)", text)?
+    "Saved"
+})
+
+component Notes() {
+    state text = ""
+    state status = ""
+    <p>
+        <textarea rows="2" cols="28" style="font: inherit"
+            value={text}></textarea>
+        <br/><button style="font: inherit" onclick={() => {
+            status = "Saving…"
+            let r = save(text)
+            status = is_err(r) ? `Not saved: ${r.error}` : r
+        }}>Save</button>
+        <span style="margin-left: 12px">{status}</span>
+    </p>
+}
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>📝 Luigi's notes</h1>
+        <Notes/>
+    </body></html>

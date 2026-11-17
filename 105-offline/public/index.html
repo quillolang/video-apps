@@ -1,0 +1,14 @@
+<!-- Luigi's notes, in plain JavaScript: a note, and a Save button. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>📝 Luigi's notes</h1>
+<textarea id="note" rows="2" cols="28" style="font: inherit"></textarea>
+<p><button id="save" style="font: inherit">Save</button>
+  <span id="msg" style="margin-left: 12px"></span></p>
+<script>
+  save.onclick = async () => {
+    msg.textContent = 'Saving…';
+    await fetch('/save', { method: 'POST', body: note.value });
+    msg.textContent = 'Saved';
+  };
+</script>
