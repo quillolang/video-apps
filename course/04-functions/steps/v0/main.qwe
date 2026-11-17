@@ -1,0 +1,21 @@
+let movies = [
+    { title: "The Last Pancake", year: 2019, minutes: 104 },
+    { title: "Space Llamas", year: 2023, minutes: 96 },
+    { title: "Robots in Love", year: 1998, minutes: 121 },
+    { title: "The Quiet Lighthouse", year: 2011, minutes: 132 },
+    { title: "Midnight Bakery", year: 2021, minutes: 88 },
+]
+let host = "Sam"
+
+route GET / =
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <ul>
+            {for m in movies =>
+                <li>{m.title} ({m.year}), {m.minutes} minutes</li>}
+        </ul>
+    </main>

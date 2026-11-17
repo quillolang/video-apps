@@ -1,0 +1,44 @@
+let movies = [
+    { id: 1, title: "The Last Pancake", year: 2019, minutes: 104 },
+    { id: 2, title: "Space Llamas", year: 2023, minutes: 96 },
+    { id: 3, title: "Robots in Love", year: 1998, minutes: 121 },
+    { id: 4, title: "The Quiet Lighthouse", year: 2011, minutes: 132 },
+    { id: 5, title: "Midnight Bakery", year: 2021, minutes: 88 },
+]
+let host = "Sam"
+
+fn length_text(minutes: int) -> str =
+    `${int(minutes / 60)} h ${minutes % 60} min`
+
+fn snack_note(minutes: int) -> str =
+    minutes > 120 ? "A long one: bring extra snacks!" : "Not too long."
+
+fn era(year: int) -> str =
+    year < 2000 ? "A classic!" : "A newer one."
+
+route GET / =
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <ul>
+            {for m in movies =>
+                <li><a href={`/movies/${m.id}`}>{m.title}</a> ({m.year}), {length_text(m.minutes)}</li>}
+        </ul>
+    </main>
+
+route GET /movies/:id(int) {
+    let movie = find(movies, (m) => m.id == id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <main>
+        <h1>{movie.title}</h1>
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <p><a href="/">All the movies</a></p>
+    </main>
+}

@@ -1,0 +1,19 @@
+let titles = [
+    "The Last Pancake",
+    "Space Llamas",
+    "Robots in Love",
+    "The Quiet Lighthouse",
+]
+let host = "Sam"
+
+route GET / =
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <p>{len(titles)} movies to choose from:</p>
+        <ul>
+            {for t in titles => <li>{t}</li>}
+        </ul>
+    </main>

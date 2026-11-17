@@ -1,0 +1,74 @@
+db.open("movie-night.db")
+db.migrate("migrations")
+
+let host = "Sam"
+
+server fn all_movies() -> list with db = db.query("select * from movies order by votes desc, id")
+
+server fn vote(id: int) -> int with db {
+    db.exec("update movies set votes = votes + 1 where id = ?", id)
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+server fn unvote(id: int) -> int with db {
+    db.exec("update movies set votes = max(votes - 1, 0) where id = ?", id)
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+fn length_text(minutes: int) -> str =
+    `${int(minutes / 60)} h ${minutes % 60} min`
+
+fn snack_note(minutes: int) -> str =
+    minutes > 120 ? "A long one: bring extra snacks!" : "Not too long."
+
+fn era(year: int) -> str =
+    year < 2000 ? "A classic!" : "A newer one."
+
+component VoteButton(id: int, start: int) {
+    state votes = start
+    let label = votes == 1 ? "vote" : "votes"
+    <p>
+        <button onclick={() => { votes = vote(id) }}>👍 {votes} {label}</button>
+        <button onclick={() => { votes = unvote(id) }}>Undo</button>
+    </p>
+}
+
+component MovieList() {
+    state movies = live(all_movies)
+    <div>
+        <p>Tonight's pick, so far: {movies.first().title}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <ul>
+            {for m in movies =>
+                <li>
+                    <button onclick={() => { vote(m.id) }}>👍 {m.votes}</button>{" "}
+                    <a href={`/movies/${m.id}`}>{m.title}</a>
+                </li>}
+        </ul>
+    </div>
+}
+
+route GET / {
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <MovieList/>
+    </main>
+}
+
+route GET /movies/:id(int) {
+    let movie = db.one("select * from movies where id = ?", id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <main>
+        <h1>{movie.title}</h1>
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <VoteButton id={movie.id} start={movie.votes}/>
+        <p><a href="/">All the movies</a></p>
+    </main>
+}

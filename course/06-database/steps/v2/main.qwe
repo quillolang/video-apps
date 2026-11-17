@@ -1,0 +1,54 @@
+db.open("movie-night.db")
+db.migrate("migrations")
+
+let host = "Sam"
+
+fn all_movies() with db = db.query("select * from movies order by id")
+
+fn length_text(minutes: int) -> str =
+    `${int(minutes / 60)} h ${minutes % 60} min`
+
+fn snack_note(minutes: int) -> str =
+    minutes > 120 ? "A long one: bring extra snacks!" : "Not too long."
+
+fn era(year: int) -> str =
+    year < 2000 ? "A classic!" : "A newer one."
+
+component VoteButton() {
+    state votes = 0
+    let label = votes == 1 ? "vote" : "votes"
+    <p>
+        <button onclick={() => { votes += 1 }}>👍 {votes} {label}</button>
+        <button onclick={() => { votes = 0 }}>Reset</button>
+    </p>
+}
+
+route GET / {
+    let movies = all_movies()
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <ul>
+            {for m in movies =>
+                <li><a href={`/movies/${m.id}`}>{m.title}</a> ({m.year}), {length_text(m.minutes)}</li>}
+        </ul>
+    </main>
+}
+
+route GET /movies/:id(int) {
+    let movie = db.one("select * from movies where id = ?", id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <main>
+        <h1>{movie.title}</h1>
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <VoteButton/>
+        <p><a href="/">All the movies</a></p>
+    </main>
+}

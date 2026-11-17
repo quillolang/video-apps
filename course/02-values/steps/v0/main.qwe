@@ -1,0 +1,6 @@
+route GET / =
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+    </main>

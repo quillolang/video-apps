@@ -1,0 +1,12 @@
+let tonight = "The Last Pancake"
+let minutes = 104
+let trailers = 15
+
+route GET / =
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Tonight: {tonight}</p>
+        <p>{minutes + trailers} minutes, with the trailers.</p>
+    </main>
