@@ -1,0 +1,22 @@
+// Luigi's orders, in Quillo: the latest orders, and who placed each one.
+db.open(env("DATABASE_URL", "shop.db"))     // or PostgreSQL's address
+db.migrate("migrations")
+
+view Orders(orders: list) =
+    <table>{for o in orders =>
+        <tr>
+            <td>#{o.id}</td>
+            <td>{o.name}</td>
+            <td>{"$"}{o.total}</td>
+        </tr>}
+    </table>
+
+fn latest(n: int) with db = db.query("
+    select orders.id, customers.name, orders.total
+    from orders join customers on customers.id = orders.customer_id
+    order by orders.id desc limit ?", n)
+
+fn page(orders: list) = <html><body><Orders orders={orders}/></body></html>
+
+route GET /orders with db = page(latest(100))
+route GET /report with db = page(latest(10000))
