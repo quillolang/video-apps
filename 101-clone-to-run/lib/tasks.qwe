@@ -1,0 +1,20 @@
+// The tasks, in the database, and the server fns the Tasks tab calls. They are the
+// app's: every visitor sees the same list.
+
+type Task = { id: int, text: str, done: int }
+
+server fn list_tasks() -> list<Task> with db =
+    db.query("select id, text, done from tasks order by id")
+
+server fn add_task(text: str) -> list<Task> ! str with db {
+    let t = trim(text)
+    if t == "" { return err("a task needs some text") }
+    if len(t) > 200 { return err("keep it under 200 characters") }
+    db.exec("insert into tasks (text) values (?)", t)?
+    list_tasks()
+}
+
+server fn toggle_task(id: int) -> list<Task> ! str with db {
+    db.exec("update tasks set done = 1 - done where id = ?", id)?
+    list_tasks()
+}

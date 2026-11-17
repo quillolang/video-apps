@@ -1,0 +1,160 @@
+// The App component owns the page: the tab bar, the theme switch and the tab
+// the address names. It runs in the browser once the page has loaded, so moving
+// between tabs changes only the tab, and what App holds stays.
+
+use lib/note.qwe
+use lib/tasks.qwe
+use ui/theme_switch.qwe
+
+// The tab for a path, as the server's routes would match it.
+fn tab_of(path: str) -> str = match split(path, "/") | filter((s) => s != "") {
+    [] => "home"
+    ["tasks"] => "tasks"
+    ["notes"] => "notes"
+    ["settings"] => "settings"
+    _ => "missing"
+}
+
+// What each tab is, for the page the server makes at its address: search engines
+// read that page, and show this under its title.
+fn tab_description(tab: str) -> str = match tab {
+    "home" => "A single-page app in Quillo: tabs that change without reloading the page, with a note and a task list kept in SQLite and live on every open page."
+    "tasks" => "A task list kept in SQLite: add a task or tick one, and every open page shows it at once, without a reload."
+    "notes" => "A note kept in SQLite as you type, half a second after you stop, and live on every other open page."
+    "settings" => "The app's theme, Quillo UI's: System, Light or Dark, kept in a cookie so every page is made in it."
+    _ => "There is no tab at this address."
+}
+
+view Tab(href: str, here: bool, children) =
+    <a {href} aria-current={here ? "page" : null}>{children}</a>
+
+view Home() =
+    <section>
+        <h2>Home</h2>
+        <p>A single-page app in Quillo. Each tab above is a link: the address changes and
+        the page does not reload, so what the app holds stays. Back and Forward work, and a
+        reload opens the same tab, made on the server.</p>
+        <p class="muted">Try <a href="/tasks">Tasks</a>, then <a href="/notes">Notes</a>.</p>
+    </section>
+
+component TasksTab() {
+    // Live: list_tasks runs again whenever the tasks table changes, here or on any
+    // other open page, so adding or ticking a task shows everywhere at once.
+    state items = live(list_tasks)
+    state draft = ""
+    state problem = null
+    <section>
+        <h2>Tasks</h2>
+        <form.add @submit={() => {
+            let r = add_task(draft)
+            if is_err(r) {
+                problem = r.error
+            } else {
+                draft = ""
+                problem = null
+            }
+        }}>
+            <input bind:value={draft} placeholder="Something to do" aria-label="New task"/>
+            <button>Add</button>
+        </form>
+        {problem && <p.problem>{problem}</p>}
+        {items == null
+            ? <p.muted>Loading…</p>
+            : <ul.list.card>{for t in items =>
+                <li key={t.id}>
+                    <label class={t.done == 1 && "done"}>
+                        <input type="checkbox" checked={t.done == 1} @change={() => {
+                            let r = toggle_task(t.id)
+                            if is_err(r) { problem = r.error }
+                        }}/>
+                        {t.text}
+                    </label>
+                </li>}</ul>}
+    </section>
+}
+
+view Settings() =
+    <section>
+        <h2>Settings</h2>
+        <p>The theme is Quillo UI's. The switch in the bar changes it at once, without
+        reloading the page, and keeps it in a cookie, so the server renders the next page
+        in it too. System follows the light or dark setting of your computer.</p>
+    </section>
+
+view Missing(path: str) =
+    <section>
+        <h2>Not found</h2>
+        <p>No tab is at <code>{path}</code>. <a href="/">Go home</a>.</p>
+    </section>
+
+// The note's text, from what load_note gave: "" until it comes, or if it failed.
+fn text_of(loaded) -> str = is_err(loaded) || loaded == null ? "" : loaded
+
+component App(theme: str) {
+    // Live: the note as the database has it, followed, so a note saved on another
+    // page comes here too.
+    state remote = live(load_note)
+    state note = text_of(remote)
+    state saved = text_of(remote)   // what the database has
+    state saving = false            // a save is on its way
+    state failed = null             // the text the last save could not keep
+    state note_problem = null       // and why
+    let path = url().path
+    let tab = tab_of(path)
+    // Half a second after the typing stops, the note goes to the database. This
+    // statement reads `note`, so each key starts the wait again; it is App's, so
+    // moving to another tab meanwhile does not stop it. One save at a time, each
+    // with the newest text, so a slow answer cannot put an older text back. A
+    // save that fails is not tried again until the note changes.
+    if note != saved && note != failed && !saving {
+        every(500, () => {
+            let text = note
+            saving = true
+            let r = save_note(text)
+            if is_err(r) {
+                failed = text
+                note_problem = r.error
+            } else {
+                saved = text
+                failed = null
+                note_problem = null
+            }
+            saving = false
+        })
+    }
+    // Another page saved the note: take it, unless this page has typing of its own
+    // not yet saved, which then goes to the database and on to the other pages.
+    // This page's own saves come back as what it has, and change nothing.
+    if !is_err(remote) && remote != null && remote != saved && note == saved && !saving {
+        note = remote
+        saved = remote
+    }
+    <div.app>
+        <header.bar>
+            <b>spa</b>
+            <ThemeSwitch start={theme}/>
+        </header>
+        <nav.tabs aria-label="Tabs">
+            <Tab href="/" here={tab == "home"}>Home</Tab>
+            <Tab href="/tasks" here={tab == "tasks"}>Tasks</Tab>
+            <Tab href="/notes" here={tab == "notes"}>Notes</Tab>
+            <Tab href="/settings" here={tab == "settings"}>Settings</Tab>
+        </nav>
+        <main>
+            {match tab {
+                "home" => <Home/>
+                "tasks" => <TasksTab/>
+                "notes" =>
+                    <section>
+                        <h2>Notes</h2>
+                        <textarea.note bind:value={note} maxlength="20000" placeholder="Write here, reload, come back tomorrow" aria-label="Note"></textarea>
+                        <p class="muted">{len(note)} characters · {note_problem != null ? `Not saved: ${note_problem}` : note == saved ? "Saved" : "Saving…"}. Kept in
+                        the app's database (SQLite) half a second after you stop typing, so a reload or
+                        a restart keeps it; every visitor sees the same note, as with the tasks.</p>
+                    </section>
+                "settings" => <Settings/>
+                _ => <Missing {path}/>
+            }}
+        </main>
+    </div>
+}
