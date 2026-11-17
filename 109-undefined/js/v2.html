@@ -1,0 +1,14 @@
+<!-- A member's card, in plain JavaScript, from the API: /v2?user=bob -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<div id="card"></div>
+<script>
+  const who = new URLSearchParams(location.search).get('user');
+  fetch(`/api/users/${who}`).then((r) => r.json()).then((user) => {
+    card.innerHTML = `
+      <h2>${user.name}</h2>
+      <p>Lives in ${user.address?.city}</p>
+      <p>Balance: $${user.balance || 'N/A'}</p>
+      ${user.unread && `<p>${user.unread} new messages</p>`}`;
+  });
+</script>

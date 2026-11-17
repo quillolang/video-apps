@@ -1,0 +1,19 @@
+// A member's card, in Quillo, from the same API: /?user=bob
+type Address = { city: str }
+type User = { name: str, address: Address?, balance: int, unread: int }
+
+view Card(u: User) =
+    <div>
+        <h2>{u.name}</h2>
+        <p>Lives in {u.address.city}</p>
+        <p>Balance: {"$"}{u.balance || "N/A"}</p>
+        {u.unread && <p>{u.unread} new messages</p>}
+    </div>
+
+route GET / ? { user: str } with http {
+    let answer = http.get(`http://localhost:8081/api/users/${user}`)
+    let u = User(answer.json)?
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <Card u={u}/>
+    </body></html>
+}
