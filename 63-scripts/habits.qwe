@@ -1,0 +1,26 @@
+// A habit tracker, kept in a JSON file:  quillo run habits.qwe -- did stretch   ·   quillo run habits.qwe -- show
+
+let file = env("HABITS_FILE", "habits.json")              // .env may name another
+let days = json.parse(read_file(file) ?? "{}") ?? {}      // habit → the dates it was done
+
+// How many days in a row, up to today, the habit was done.
+fn streak(done: list<str>) -> int {
+    let n = 0
+    while contains(done, date.add_days(date.today(), -n)) { n += 1 }
+    n
+}
+
+match args() {
+    ["did", habit] | ["did", habit, str] => {
+        let when = args()[2] ?? date.today()
+        write_file(file, json.stringify(set(days, habit, unique((days[habit] ?? []) | push(when))), true) + "\n")
+        print(`✅ ${habit} on ${when}`)
+    }
+    ["show"] => for [habit, done] in days {
+        print(`${habit}: ${len(done)} ${len(done) == 1 ? "day" : "days"}, ${streak(done)} in a row 🔥`)
+    }
+    _ => {
+        print("usage: did <habit> [date]  ·  show")
+        exit(2)
+    }
+}

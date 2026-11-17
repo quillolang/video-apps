@@ -1,0 +1,8 @@
+// The words used most in what's piped in, skipping the little ones:  cat fable.txt | quillo run words.qwe -- 5
+
+let little = ["the", "a", "an", "and", "of", "to", "in", "it", "was", "is", "at", "on", "so", "did", "not", "they"]
+let top = int(args()[0] ?? "10") ?? 10
+
+let words = for m in re.find_all(lower(stdin()), "[a-z']+") => m.text
+let counts = for [w, ws] in group_by(filter(words, (w) => !contains(little, w)), (w) => w) => { w, n: len(ws) }
+for c in take(reverse(sort_by(counts, (c) => c.n)), top) { print(`${c.n}  ${c.w}`) }
