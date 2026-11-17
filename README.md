@@ -62,6 +62,7 @@ Quillo: https://quillolang.org
 | [54-stats](54-stats) | One Zero Fooled the Average: Mean, Median, Mode and Spread in Quillo | A report card for a class quiz: stats.mean, median, mode and pstdev, a grade histogram, and zscore to mark who stands out, all worked out in the browser as a score is typed. Theo's zero, and then his retake, show how one far-off score pulls the mean and hides who needs help. |
 | [55-vectors](55-vectors) | Which Fruit Are You? Vectors and Cosine Similarity in Quillo | Which fruit are you? Five sliders make a vector of answers, and the fruit whose answers point the most the same way, by cosine similarity (vec.dot over vec.norm), is yours. It's all worked out in the browser as you slide; vec.argsort ranks the fruits. |
 | [56-math](56-math) | Build a Cannon Game with Sine and Cosine in Quillo (math.sin, math.cos, every) | Cannon: pick an angle and a power, fire, and hit the target. math.cos and math.sin split the shot into across and up, the ball's place comes straight from the formula at time t, and every, under an if, runs the clock only while the ball flies. |
+| [57-compiled](57-compiled) | From 30 Seconds to 100 ms: Compiled Numbers in Quillo (a Mandelbrot Poster) | A Mandelbrot poster: 225,000 pixels, each the rounds of z = z² + c it takes to escape, painted on a canvas in the browser. Written first with complex numbers as maps (29.9 seconds), then in plain floats, which Quillo compiles to machine code (100 ms). With QUILLO_JIT=0, the same floats take 5.6 seconds. |
 
 ## Shorts
 

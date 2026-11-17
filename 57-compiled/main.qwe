@@ -1,0 +1,61 @@
+// A Mandelbrot poster: for each pixel, the rounds of z = z² + c it takes to escape, in plain floats.
+
+// How many rounds the point (cx, cy) takes to escape, or limit if it never does: then it's in the set.
+// Only ints and floats, so Quillo compiles it to machine code.
+fn rounds(cx: float, cy: float, limit: int) -> int {
+    let x = 0.0
+    let y = 0.0
+    let n = 0
+    while n < limit && x * x + y * y <= 4.0 {
+        let t = x * x - y * y + cx      // z² + c, the real part
+        y = 2.0 * x * y + cy            // and the imaginary part
+        x = t
+        n += 1
+    }
+    n
+}
+
+// Every pixel's rounds, row by row: x from -2.2 to 1, y from -1 to 1.
+fn picture(w: int, h: int, limit: int) {
+    let rows = []
+    for py in range(h) {
+        let row = []
+        for px in range(w) {
+            row = row | push(rounds(-2.2 + 3.2 * px / w, -1.0 + 2.0 * py / h, limit))
+        }
+        rows = rows | push(row)
+    }
+    rows
+}
+
+let colors = ["#2a1b5e", "#3b3b98", "#3f6fc4", "#4aa3d8", "#8fd3e8",
+              "#e8f1c8", "#f6cf6a", "#f39a3d", "#e0603a", "#a8324a"]
+
+// The poster is painted in the browser, a pixel at a time, from the rounds.
+component Poster(rows: list<list<int>>, limit: int) {
+    <canvas width={len(rows[0])} height={len(rows)} onmount={(el) => {
+        let pen = el.getContext("2d")
+        for [y, row] in enumerate(rows) {
+            for [x, n] in enumerate(row) {
+                pen.fillStyle = n == limit ? "#07081c" : colors[n % len(colors)]
+                pen.fillRect(x, y, 1, 1)
+            }
+        }
+    }}></canvas>
+}
+
+route GET / {
+    let start = now()
+    let rows = picture(600, 375, 200)
+    let ms = now() - start
+    <html>
+        <head><title>Mandelbrot</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>🌀 The Mandelbrot poster</h1>
+            <Poster rows={rows} limit={200}/>
+            <p>225,000 pixels, up to 200 rounds each: worked out in <b>{format_number(ms, "en-US")} ms</b></p>
+        </main></body>
+    </html>
+}
+
+route GET /static/*path = files("public", path)
