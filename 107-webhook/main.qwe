@@ -1,0 +1,33 @@
+// Luigi's orders, in Quillo: an order's page, and the webhook the payment
+// provider calls when an order is paid.
+db.open("shop.db")
+db.migrate("migrations")
+
+route GET /orders/:id(int) with db {
+    let o = db.one("select * from orders where id = ?", id)
+    if o == null { reply 404 "not found\n" }
+    `order ${id}: ${o.paid == 1 ? "paid" : "not paid"}\n`
+}
+
+// The provider signs each event: Pay-Signature: t=<time>,v1=<signature>,
+// the HMAC of "<time>.<body>" with the secret only it and Luigi know.
+fn signed(body: str, header: str?) -> bool {
+    let f = split(header ?? "", ",") | map((p) => split(p, "="))
+    let t = int(find(f, (p) => p[0] == "t")?[1] ?? "")
+    // Older than five minutes? Refused: a copy can't be sent again later.
+    if is_err(t) || abs(now() / 1000 - t) > 300 { return false }
+    let want = crypto.hmac(env("PAY_WEBHOOK_SECRET"), `${t}.${body}`)
+    any(f, (p) => p[0] == "v1" && crypto.equal(p[1] ?? "", want))
+}
+
+route POST /hooks/pay with db, env, time {
+    if !signed(request.body, request.headers["pay-signature"]) {
+        reply 400 "bad signature\n"
+    }
+    let e = request.json
+    // The provider may send an event again: each one counts once.
+    let r = db.exec("insert or ignore into events (id) values (?)", e.id)?
+    if r.changes == 0 { return "already received\n" }
+    db.exec("update orders set paid = 1 where id = ?", e.order)?
+    "received\n"
+}
