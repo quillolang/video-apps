@@ -1,0 +1,63 @@
+// Pantry: 10,000 recipes, searched as you type. SQLite's full-text search finds every word
+// you type, in any order, from its first letters, the best match first.
+
+db.open("pantry.db")
+db.migrate("migrations")
+
+// 10,000 made-up recipes, written on the first start: a way, two different things, and a dish.
+let how = ["Roast", "Creamy", "Spicy", "Smoky", "Lemony",
+           "Crispy", "Slow-cooked", "Grilled", "Herby", "Golden"]
+let what = ["tomato", "basil", "mushroom", "pumpkin", "chicken", "lentil", "spinach",
+            "garlic", "ginger", "salmon", "potato", "pepper", "carrot", "leek",
+            "fennel", "chickpea", "aubergine", "courgette", "halloumi", "walnut"]
+let dish = ["soup", "pie", "risotto", "salad", "curry", "tart", "stew", "pasta", "bake", "noodles"]
+if db.one("select count(*) as n from recipes").n == 0 {
+    db.transaction(() => {
+        let n = 0                      // 38,000 ways to name one; keep 5 in every 19
+        for h in how {
+            for a in what {
+                for b in filter(what, (w) => w != a) {
+                    for d in dish {
+                        n += 1
+                        if n % 19 % 4 == 0 {
+                            db.exec("insert into recipes (name) values (?)", `${h} ${a} and ${b} ${d}`)?
+                        }
+                    }
+                }
+            }
+        }
+    })?
+    db.exec("insert into found (found) values ('rebuild')")?
+}
+
+// Each typed word, in quotes (so a stray " can't break the query), and matched from its start.
+fn terms(q: str) -> str =
+    join(map(filter(split(trim(q), " "), (w) => w != ""), (w) => `"${replace(w, "\"", "\"\"")}"*`), " ")
+
+server fn search(q: str) -> map with db {
+    if trim(q) == "" { return { count: 0, names: [] } }
+    let t = terms(q)
+    let rows = db.query("select recipes.name from found join recipes on recipes.id = found.rowid
+                         where found match ? order by rank limit 8", t)
+    let count = db.one("select count(*) as n from found where found match ?", t).n
+    { count: count, names: map(rows, (r) => r.name) }
+}
+
+component Search() {
+    state q = ""
+    state found = { count: 0, names: [] }
+    <section>
+        <input value={q} oninput={(e) => { q = e.value; found = search(e.value) }}
+            placeholder="tomato basil…" aria-label="Search the recipes"/>
+        <p.count>{q == "" ? "10,000 recipes" : `${found.count} found`}</p>
+        <ul>{for n in found.names => <li key={n}>{n}</li>}</ul>
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Pantry</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🥫 Pantry</h1><Search/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
