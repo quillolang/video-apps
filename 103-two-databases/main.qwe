@@ -1,0 +1,20 @@
+// Luigi's gift cards, in Quillo: the cards in the shop's SQLite,
+// and every payment in the ledger, on PostgreSQL.
+db.open("shop.db")
+db.migrate("migrations")
+let ledger = db.connect(env("LEDGER_URL"))
+ledger.migrate("ledger")
+
+// $50 off Ada's card, and into the ledger: both, or neither.
+fn pay(name: str) = db.atomic([db, ledger], () => {
+    db.exec("update cards set balance = balance - 50 where who = ?", name)?
+    ledger.exec("insert into entries values (?, 50)", name)?
+    "paid $50"
+})
+
+// POST /pay/Ada
+route POST /pay/:name with db {
+    let paid = pay(name)
+    if is_err(paid) { reply 500 `not paid: ${paid.error}` }
+    paid
+}
