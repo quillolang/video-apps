@@ -1,0 +1,57 @@
+// Luigi's kitchen, in Quillo, with the menu's cheap dishes kept in state the
+// way React's effect kept them: an assignment, written alone.
+let HITS = 0
+
+// The oven: how hot it is. Each time it's asked counts.
+server fn oven() -> str {
+    HITS += 1
+    "220°"
+}
+route GET /hits = `${HITS}\n`
+
+// 1. Add one, a second after each click.
+component Later() {
+    state count = 0
+    <p><button onclick={() => run_after(1000, () => { count += 1 })}>
+        Add one, in a second</button> {count}</p>
+}
+
+// 2. Ask the oven how hot it is, every second, while its panel is open.
+component Oven() {
+    state heat = "…"
+    every(1000, () => { heat = oven() })
+    <p>Oven: {heat}</p>
+}
+
+// 3. A ticker, and a button that makes it ten times faster.
+component Ticker() {
+    state speed = 1000
+    state ticks = 0
+    every(speed, () => { ticks += 1 })
+    <p><button onclick={() => { speed = speed / 10 }}>Faster</button>
+        {" "}{ticks} ticks, every {speed} ms</p>
+}
+
+// 4. What's under $10, worked out from the menu it's given.
+component Cheap(menu: list) {
+    state cheap = []
+    cheap = menu | filter((m) => m[1] < 10)
+    <p>Under $10: {join(cheap | map((m) => m[0]), ", ")}</p>
+}
+
+component Kitchen() {
+    state open = true
+    <div>
+        <h1>🍕 Luigi's kitchen</h1>
+        <Later/>
+        {open && <Oven/>}
+        <p><button onclick={() => { open = false }}>
+            Close the oven's panel</button></p>
+        <Ticker/>
+        <Cheap menu={[["Margherita", 9], ["Funghi", 11], ["Lemonade", 3]]}/>
+    </div>
+}
+
+route GET / = <html><body style="font: 22px system-ui; margin: 28px">
+    <Kitchen/>
+</body></html>
