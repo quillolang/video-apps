@@ -1,0 +1,50 @@
+// Lucky Draw: a raffle with a print on every kind of line, to see where each runs: server, browser, or both.
+
+print("the program loads")
+let prizes = ["a teapot", "a kite", "a jar of honey", "a cactus"]
+
+fn new_ticket() -> int {
+    print("a ticket is drawn")
+    random_int(1000, 9999)
+}
+
+server fn draw_prize() -> str {
+    print("draw_prize runs")
+    prizes[random_int(0, len(prizes) - 1)]
+}
+
+server fn where_am_i() -> str {
+    let p = platform()
+    `the ${p.runtime}, on ${p.os_name}`
+}
+
+view Page(children) {
+    print("Page is made")
+    <html>
+        <head><title>Lucky Draw</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🎟️ Lucky Draw</h1>{children}</main></body>
+    </html>
+}
+
+component Raffle(name: str) {
+    state ticket = new_ticket()
+    state prize = ""
+    state where = where_am_i()
+    print("Raffle's body, ticket", ticket)
+    <section.raffle>
+        <p>{name}'s ticket: <b>#{ticket}</b></p>
+        <button onclick={() => {
+            print("the button is clicked")
+            prize = draw_prize()
+        }}>Draw a prize</button>
+        {prize != "" && <p.prize>🎉 {name} wins {prize}!</p>}
+        <small>Drawn by: {where}</small>
+    </section>
+}
+
+route GET / {
+    print("GET / runs")
+    <Page><Raffle name="Ada"/></Page>
+}
+
+route GET /static/*path = files("public", path)
