@@ -1,0 +1,19 @@
+<!-- A prize page, on another port: Luigi's account page in a frame you
+     can't see, its Delete button right under "Claim your prize!". -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px; background: #fff3c4">
+<h1>🎉 You won a free pizza!</h1>
+<p>One click, and it's yours.</p>
+<button style="position: absolute; left: 28px; top: 164px; width: 194px;
+  height: 32px; font: inherit">Claim your prize!</button>
+<iframe id="frame" src="http://localhost:8081/" style="position: absolute;
+  inset: 0; width: 100%; height: 100%; border: 0; opacity: 0"></iframe>
+<script>
+  // ?frame=... frames another page instead; ?peek shows the frame.
+  const q = new URLSearchParams(location.search);
+  if (q.get('frame')) frame.src = q.get('frame');
+  const peek = () => Object.assign(frame.style, {
+    opacity: 0.85, background: 'white',
+    outline: '4px dashed red', outlineOffset: '-6px' });
+  if (q.has('peek')) peek();
+</script>

@@ -1,0 +1,29 @@
+// Luigi's pizza club, in Quillo: Ada's account page, with a button that
+// deletes it.
+db.open("club.db")
+db.migrate("migrations")
+
+route GET /login {
+    set_session({ user: "Ada" })
+    redirect("/")
+}
+
+fn page(body) =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🍕 Luigi's pizza club</h1>
+        {body}
+    </body></html>
+
+route GET / with db {
+    let a = db.one("select * from accounts where name = ?", session().user)
+    page(a ? <div>
+        <p>Signed in as {a.name}: {a.points} points.</p>
+        <form method="post" action="/delete">
+            <button style="font: inherit">Delete my account</button></form>
+    </div> : <p>No account here.</p>)
+}
+
+route POST /delete with db {
+    db.exec("delete from accounts where name = ?", session().user)?
+    page(<p>Your account is gone.</p>)
+}
