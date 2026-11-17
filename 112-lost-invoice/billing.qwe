@@ -1,0 +1,8 @@
+// Luna's billing: sends invoices. The mail provider is slow: two seconds for each.
+db.open("billing.db")
+db.exec("create table if not exists invoices (id integer primary key, order_id int not null)")
+
+server fn invoice(order_id: int) -> map {
+    sleep(2000)
+    db.one("insert into invoices (order_id) values (?) returning id", order_id)
+}

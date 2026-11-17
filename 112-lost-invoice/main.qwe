@@ -1,0 +1,20 @@
+// Luna's Cakes, in Quillo: an order, and its invoice, a call made later.
+db.open("shop.db")
+db.exec("create table if not exists orders (id integer primary key, cake text not null, invoice text)")
+service billing = "billing.qwe"
+
+// POST /order with a cake: the order, and the call that sends its invoice, saved together.
+route POST /order { form: { cake: str } } with db, http {
+    db.transaction(() => {
+        let order = db.one("insert into orders (cake) values (?) returning id", cake)
+        let call = billing.later.invoice(order.id)
+        db.exec("update orders set invoice = ? where id = ?", call, order.id)?
+        `order ${order.id}: ${cake}\n`
+    })
+}
+
+// GET /orders/12: the order, and what became of its invoice.
+route GET /orders/:id(int) with db {
+    let order = db.one("select * from orders where id = ?", id) ?? reply 404 "no such order"
+    `order ${id}: ${order.cake}, invoice ${later.status(order.invoice).state}\n`
+}
