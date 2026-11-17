@@ -1,0 +1,27 @@
+// Luigi's menu, in Quillo: the filters live in the address.
+let MENU = [
+    { name: "Margherita", kind: "pizza", price: 9 },
+    { name: "Funghi", kind: "pizza", price: 11 },
+    { name: "Quattro formaggi", kind: "pizza", price: 14 },
+    { name: "Carbonara", kind: "pasta", price: 12 },
+    { name: "Lasagne", kind: "pasta", price: 13 },
+    { name: "Lemonade", kind: "drinks", price: 3 },
+]
+type Kind = "all" | "pizza" | "pasta" | "drinks"
+
+fn shown(m, kind: Kind, under: int) =
+    (kind == "all" || m.kind == kind) && (under == 0 || m.price < under)
+fn link(kind: Kind, under: int) = `/menu?kind=${kind}&under=${under}`
+
+// /menu?kind=pizza&under=12: the filters, read from the address.
+route GET /menu ? { kind: Kind = "all", under: int = 0 } =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🍕 Luigi's menu</h1>
+        <p>{for k in ["all", "pizza", "pasta", "drinks"] =>
+            <a href={link(k, under)} style="margin-right: 14px">
+                {k == kind ? <b>{k}</b> : k}</a>}
+            <a href={link(kind, under == 0 ? 12 : 0)}>
+                {under == 0 ? "☐" : "☑"} under $12</a></p>
+        <ul>{for m in MENU | filter((m) => shown(m, kind, under)) =>
+            <li>{m.name}, {"$"}{m.price}</li>}</ul>
+    </body></html>

@@ -1,0 +1,27 @@
+<!-- Luigi's menu, in plain JavaScript: the filters live in variables. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>🍕 Luigi's menu</h1>
+<p id="filters"></p>
+<ul id="list"></ul>
+<script>
+  const MENU = [['Margherita', 'pizza', 9], ['Funghi', 'pizza', 11],
+    ['Quattro formaggi', 'pizza', 14], ['Carbonara', 'pasta', 12],
+    ['Lasagne', 'pasta', 13], ['Lemonade', 'drinks', 3]];
+  const KINDS = ['all', 'pizza', 'pasta', 'drinks'];
+  let kind = 'all', cheap = false;              // the filters
+  function button(k) {
+    const label = k === kind ? `<b>${k}</b>` : k;
+    return `<button onclick="kind = '${k}'; show()">${label}</button>`;
+  }
+  function show() {
+    filters.innerHTML = KINDS.map(button).join(' ')
+      + ` <label><input type="checkbox" ${cheap ? 'checked' : ''}`
+      + ` onchange="cheap = this.checked; show()"> under $12</label>`;
+    const items = MENU.filter(([, k, price]) =>
+      (kind === 'all' || k === kind) && (!cheap || price < 12));
+    list.innerHTML = items
+      .map(([name, , price]) => `<li>${name}, $${price}</li>`).join('');
+  }
+  show();
+</script>
