@@ -1,0 +1,49 @@
+// Snip: long links made short, and how many times each short link was followed.
+
+db.open("snip.db")
+db.migrate("migrations")
+
+// A short link's code: five letters and digits, without 0, o, 1, l or i, which look alike.
+let letters = "abcdefghjkmnpqrstuvwxyz23456789"
+fn new_code() -> str = join(map(range(5), (_) => letters[random_int(0, len(letters) - 1)]))
+
+view Page(children) =
+    <html>
+        <head><title>Snip</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>✂️ Snip</h1>{children}</main></body>
+    </html>
+
+route GET / with db =
+    <Page>
+        <form method="post" action="/links">
+            <input name="url" placeholder="Paste a long link" aria-label="A long link"/>
+            <button>Snip</button>
+        </form>
+        <table>
+            {for l in db.query("select code, url, clicks from links order by rowid desc") =>
+                <tr>
+                    <td><a href={`/s/${l.code}`}>/s/{l.code}</a></td>
+                    <td.url>{l.url}</td>
+                    <td.clicks>{l.clicks}</td>
+                </tr>}
+        </table>
+    </Page>
+
+route POST /links { form: { url: str } } with db, random {
+    if !starts_with(url, "http://") && !starts_with(url, "https://") {
+        reply 400 <Page><p>A link starts with http:// or https://.</p></Page>
+    }
+    db.exec("insert into links (code, url) values (?, ?)", new_code(), url)?
+    redirect("/")
+}
+
+// A short link: count the click, and send the browser on. 302 asks the browser to come back every
+// time; a 301 it would keep, and go straight there, so only the first click would count.
+route GET /s/:code with db {
+    let link = db.one("select url from links where code = ?", code)
+    if link == null { reply 404 <Page><p>No link /s/{code}.</p></Page> }
+    db.exec("update links set clicks = clicks + 1 where code = ?", code)?
+    redirect(link.url, 302)
+}
+
+route GET /static/*path = files("public", path)
