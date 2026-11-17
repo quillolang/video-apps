@@ -21,8 +21,8 @@ component Todos(initial: list<Todo>) {
     }
 
     <section.todos>
-        <form onsubmit={send}>
-            <input value={draft} placeholder="What needs doing?" autofocus/>
+        <form @submit={send}>
+            <input bind:value={draft} placeholder="What needs doing?" autofocus/>
             <button>Add</button>
         </form>
         {problem && <p.problem>{problem}</p>}
@@ -30,17 +30,17 @@ component Todos(initial: list<Todo>) {
             {for t in todos | filter((t) => shows(t, tab)) =>
                 <li key={t.id} class={t.done == 1 ? "done" : ""}>
                     <label>
-                        <input type="checkbox" checked={t.done == 1} onchange={() => { todos = toggle(t.id) }}/>
+                        <input type="checkbox" checked={t.done == 1} @change={() => { todos = toggle(t.id) }}/>
                         {t.text}
                     </label>
-                    <button.x onclick={() => { todos = delete_todo(t.id) }}>✕</button>
+                    <button.x @click={() => { todos = delete_todo(t.id) }}>✕</button>
                 </li>}
         </ul>
         <footer>
             <span>{left(todos)} left</span>
             {for name in ["all", "active", "done"] =>
-                <button class={name == tab ? "on" : ""} onclick={() => { tab = name }}>{name}</button>}
-            <button onclick={() => { todos = clear_done() }}>Clear done</button>
+                <button class={name == tab ? "on" : ""} @click={() => { tab = name }}>{name}</button>}
+            <button @click={() => { todos = clear_done() }}>Clear done</button>
         </footer>
     </section>
 }

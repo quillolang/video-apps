@@ -107,7 +107,7 @@ view Rating(name: str = "rating", label: str? = null, value: num? = null, max: i
                 <input type="radio" id={`${id}-${replace(rating_num(n), ".", "-")}`} name={name} value={rating_num(n)}
                        checked={value != null && n == value} required={required} aria-label={word(n)}
                        aria-invalid={error != null ? "true" : null}
-                       onchange={() => { on_change && on_change(n) }}/>,
+                       @change={() => { on_change && on_change(n) }}/>,
                 <label for={`${id}-${replace(rating_num(n), ".", "-")}`} title={word(n)}
                        class={ui_cls(["ui-rating-piece", half && n != ceil(n) && "ui-rating-left",
                                       half && n == ceil(n) && "ui-rating-right", n == ceil(n) && n < max && "ui-rating-gap"])}>

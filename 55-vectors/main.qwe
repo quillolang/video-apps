@@ -32,7 +32,7 @@ component Quiz() {
             {for [i, q] in enumerate(questions) =>
                 <label>{q}
                     <span><input type="range" min="1" max="5" value={answers[i]}
-                                 oninput={(e) => { answers = set(answers, i, int(e.target.value) ?? 3) }}/>
+                                 @input={(e) => { answers = set(answers, i, int(e.target.value) ?? 3) }}/>
                     <b>{answers[i]}</b></span>
                 </label>}
         </div>

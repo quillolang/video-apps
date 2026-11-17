@@ -43,14 +43,14 @@ component Life() {
 
     <section.life>
         <div.grid>{for [r, row] in enumerate(cells) =>
-            for [c, x] in enumerate(row) => <i class={x == 1 ? "on" : ""} onclick={() => toggle(r, c)}></i>}</div>
+            for [c, x] in enumerate(row) => <i class={x == 1 ? "on" : ""} @click={() => toggle(r, c)}></i>}</div>
         <div.controls>
-            <button.play onclick={() => { running = !running }}>{running ? "⏸ Pause" : "▶ Play"}</button>
-            <button onclick={step}>Step</button>
-            <button onclick={() => start(glider)}>Glider</button>
-            <button onclick={() => start(r_pentomino)}>R-pentomino</button>
-            <button onclick={() => start([])}>Clear</button>
-            <label>Speed <input type="range" min="1" max="30" value={speed}/> <b>{speed}/s</b></label>
+            <button.play @click={() => { running = !running }}>{running ? "⏸ Pause" : "▶ Play"}</button>
+            <button @click={step}>Step</button>
+            <button @click={() => start(glider)}>Glider</button>
+            <button @click={() => start(r_pentomino)}>R-pentomino</button>
+            <button @click={() => start([])}>Clear</button>
+            <label>Speed <input type="range" min="1" max="30" bind:value={speed}/> <b>{speed}/s</b></label>
         </div>
         <p.count>Generation <b>{generation}</b> · <b>{population}</b> alive</p>
     </section>

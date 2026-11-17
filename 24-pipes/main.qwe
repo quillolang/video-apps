@@ -57,9 +57,9 @@ component Board() {
         </ol>
         <p.stats>{count(all)} plays · {count(rows)} players · best {points(best)} · {points(total)} in all</p>
         <p.add>
-            <input value={name} placeholder="Name"/>
-            <input value={score} placeholder="Score" inputmode="numeric"/>
-            <button onclick={submit}>Add</button>
+            <input bind:value={name} placeholder="Name"/>
+            <input bind:value={score} placeholder="Score" inputmode="numeric"/>
+            <button @click={submit}>Add</button>
         </p>
     </section>
 }

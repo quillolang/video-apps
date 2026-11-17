@@ -76,7 +76,7 @@ view Alert(tone: str = "info", title: str? = null, variant: str = "soft", icon: 
             <div.ui-alert-text>{children}</div>
         </div>
         {dismissable && <button.ui-alert-x type="button" aria-label="Dismiss"
-                                onclick={() => { on_dismiss && on_dismiss() }}>×</button>}
+                                @click={() => { on_dismiss && on_dismiss() }}>×</button>}
     </div>
 }
 

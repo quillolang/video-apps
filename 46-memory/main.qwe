@@ -39,9 +39,9 @@ component Memory() {
     <section>
         <p.stats>{moves} {moves == 1 ? "move" : "moves"} · {seconds} s{best != null ? ` · best: ${best}` : ""}</p>
         <div.grid>{for i in range(count(cards)) =>
-            <button class={shown(i) ? "card up" : "card"} onclick={() => flip(i)}>{shown(i) && cards[i]}</button>}
+            <button class={shown(i) ? "card up" : "card"} @click={() => flip(i)}>{shown(i) && cards[i]}</button>}
         </div>
-        {done && <p.win>🎉 All six pairs in {moves} moves! <button onclick={again}>Play again</button></p>}
+        {done && <p.win>🎉 All six pairs in {moves} moves! <button @click={again}>Play again</button></p>}
     </section>
 }
 

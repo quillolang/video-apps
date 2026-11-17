@@ -41,8 +41,8 @@ component Box() {
     <section.box>
         <p.left><b>{free}</b> seats left</p>
         <p.buy>
-            <input value={name} placeholder="Your name"/>
-            <button onclick={go}>Buy</button>
+            <input bind:value={name} placeholder="Your name"/>
+            <button @click={go}>Buy</button>
         </p>
         <p.said>{said}</p>
     </section>

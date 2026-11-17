@@ -62,16 +62,16 @@ component Form() {
     }
 
     <section.form>
-        <label>Your name <input value={name}/></label><p.hint>{hint("name")}</p>
-        <label>Email <input value={email}/></label><p.hint>{hint("email")}</p>
-        <label>Age <input type="number" value={age}/></label><p.hint>{hint("age")}</p>
+        <label>Your name <input bind:value={name}/></label><p.hint>{hint("name")}</p>
+        <label>Email <input bind:value={email}/></label><p.hint>{hint("email")}</p>
+        <label>Age <input type="number" bind:value={age}/></label><p.hint>{hint("age")}</p>
         <label>Pet
-            <select value={pet}>
+            <select bind:value={pet}>
                 <option>Biscuit</option><option>Mochi</option><option>Sir Hops</option>
             </select>
         </label>
-        <label.tick><input type="checkbox" checked={garden}/> I have a garden</label><p.hint>{hint("pet")}</p>
-        <button onclick={send}>Adopt</button>
+        <label.tick><input type="checkbox" bind:checked={garden}/> I have a garden</label><p.hint>{hint("pet")}</p>
+        <button @click={send}>Adopt</button>
         {done && <p.done>🏡 {done.pet} is going home with {done.name}!</p>}
     </section>
 }

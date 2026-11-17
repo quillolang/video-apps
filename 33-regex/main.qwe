@@ -31,12 +31,12 @@ component Signup() {
     let path = filled(slug(title)) ?? "post"
 
     <section.signup>
-        <label>Handle <input value={handle} placeholder="ada_1815"/></label>
+        <label>Handle <input bind:value={handle} placeholder="ada_1815"/></label>
         <ul.checks>{for r in rows => <li class={r.ok ? "ok" : "no"}>{r.ok ? "✅" : "❌"} {r.says}</li>}</ul>
         {good && <p.yours>✨ @{handle} is yours!</p>}
-        <label>Your first post <input value={title} placeholder="Café au Lait & Croissants!"/></label>
+        <label>Your first post <input bind:value={title} placeholder="Café au Lait & Croissants!"/></label>
         <p.slug>quillo.blog/{filled(lower(handle)) ?? "you"}/<b>{path}</b></p>
-        <label>Bio <input value={bio} placeholder="I love #pancakes and #quillo"/></label>
+        <label>Bio <input bind:value={bio} placeholder="I love #pancakes and #quillo"/></label>
         <p.tags>{for t in tags(bio) => <span>#{t}</span>}</p>
     </section>
 }

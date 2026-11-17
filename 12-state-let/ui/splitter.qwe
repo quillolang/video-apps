@@ -13,17 +13,17 @@ component Splitter(so_far: float) {
     let each = (amount + tip_amount) / people
 
     <section.card>
-        <label>Bill <input value={bill} inputmode="decimal"/></label>
+        <label>Bill <input bind:value={bill} inputmode="decimal"/></label>
         <p.row>
-            Tip {for t in [10, 15, 20] => <button class={t == tip && "on"} onclick={() => tip = t}>{t}%</button>}
+            Tip {for t in [10, 15, 20] => <button class={t == tip && "on"} @click={() => tip = t}>{t}%</button>}
         </p>
         <p.row>
-            People <button onclick={() => people = max([1, people - 1])}>−</button>
-            <b>{people}</b> <button onclick={() => people += 1}>+</button>
+            People <button @click={() => people = max([1, people - 1])}>−</button>
+            <b>{people}</b> <button @click={() => people += 1}>+</button>
         </p>
         <p.each>{dollars(each)} each</p>
         <p.small>Tip {dollars(tip_amount)}, total {dollars(amount + tip_amount)}</p>
-        <button.pay onclick={() => everyone = pay_tip(tip_amount) ?? everyone}>Pay the tip</button>
+        <button.pay @click={() => everyone = pay_tip(tip_amount) ?? everyone}>Pay the tip</button>
         <p.small>Tips paid through this server: {dollars(everyone)}</p>
     </section>
 }

@@ -34,8 +34,8 @@ component Tracker() {
     }
     <section.tracker>
         <p.status>{status}</p>
-        <button onclick={order}>Order a pizza</button>
-        <button.wave onclick={() => waves += 1}>Wave at the chef ({waves})</button>
+        <button @click={order}>Order a pizza</button>
+        <button.wave @click={() => waves += 1}>Wave at the chef ({waves})</button>
     </section>
 }
 

@@ -49,7 +49,7 @@ component Wall() {
         </div>
         <p.buttons>
             {for e in emojis =>
-                <button onclick={() => room.send({ emoji: e })}>{e} <small>{get(shown, e) ?? 0}</small></button>}
+                <button @click={() => room.send({ emoji: e })}>{e} <small>{get(shown, e) ?? 0}</small></button>}
         </p>
         <p.watching>👀 {people} watching</p>
     </section>

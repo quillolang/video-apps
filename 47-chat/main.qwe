@@ -43,8 +43,8 @@ component Fire(me: str) {
 
     <section.fire>
         <ul.lines>{for l in lines => <Line l={l} me={me}/>}</ul>
-        <form onsubmit={() => { room.send({ text: draft }); draft = "" }}>
-            <input value={draft} placeholder="Say something" autofocus/><button>Send</button>
+        <form @submit={() => { room.send({ text: draft }); draft = "" }}>
+            <input bind:value={draft} placeholder="Say something" autofocus/><button>Send</button>
         </form>
     </section>
 }

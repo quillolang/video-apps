@@ -15,7 +15,7 @@ component Shelf() {
         <div.cards>{for c in cards =>
             <div.card>
                 <span>{c.art}</span><b>{t(`cards.${c.key}`)}</b>
-                <button onclick={() => { bag += 1 }}>{t("add")}</button>
+                <button @click={() => { bag += 1 }}>{t("add")}</button>
             </div>}
         </div>
         <p.bag>🛍️ {t("bag", { count: bag })}</p>

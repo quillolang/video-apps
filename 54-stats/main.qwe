@@ -30,7 +30,7 @@ component ReportCard(start: list<Pupil>) {
                 <li class={z[i] >= 1 ? "star" : z[i] <= -1 ? "help" : ""}>
                     <span>{p.name}</span>
                     <input type="number" min="0" max="100" value={p.score}
-                           oninput={(e) => rescore(p.name, e.target.value)}/>
+                           @input={(e) => rescore(p.name, e.target.value)}/>
                     <small>{z[i] >= 1 ? "⭐ star" : z[i] <= -1 ? "🤝 check in" : ""}</small>
                 </li>}
         </ul>

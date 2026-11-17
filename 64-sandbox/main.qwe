@@ -39,14 +39,14 @@ component Sheet() {
         values = compute(typed)
     }
     <section.sheet>
-        <div.bar><b>{picked}</b><input value={typed[picked] ?? ""} onchange={(e) => save(e.target.value)}/></div>
+        <div.bar><b>{picked}</b><input value={typed[picked] ?? ""} @change={(e) => save(e.target.value)}/></div>
         <p.why>{is_err(values[picked]) ? values[picked].error : ""}</p>
         <table>
             <tr><th></th>{for c in cols => <th>{c}</th>}</tr>
             {for r in rows => <tr><th>{r}</th>{for c in cols => {
                 let ref = `${c}${r}`
                 <td class={[picked == ref ? "picked" : "", is_err(values[ref]) ? "err" : ""]}
-                    onclick={() => { picked = ref }}>{shown(values[ref])}</td>
+                    @click={() => { picked = ref }}>{shown(values[ref])}</td>
             }}</tr>}
         </table>
     </section>

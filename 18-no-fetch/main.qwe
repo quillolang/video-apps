@@ -29,11 +29,11 @@ component Poll() {
 
     <section.poll>
         {for c in menu =>
-            <button onclick={() => pick(c)}>
+            <button @click={() => pick(c)}>
                 <span>{c}</span> <b>{get(counts, c)}</b>
                 <i style={`width: ${floor(get(counts, c) * 100 / total)}%`}></i>
             </button>}
-        <button.other onclick={() => pick("Sushi")}>Sushi?</button>
+        <button.other @click={() => pick("Sushi")}>Sushi?</button>
         {problem != null && <p.problem>{problem}</p>}
     </section>
 }
