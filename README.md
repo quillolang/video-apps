@@ -59,6 +59,7 @@ Quillo: https://quillolang.org
 | [51-signed-links](51-signed-links) | Signed Links: Party Invites Nobody Can Forge (crypto.hmac in Quillo) | Garden party invites nobody can forge: each link carries the guest's name, the last day it works, and an HMAC signature made with a key only the server knows (INVITE_KEY). Open /host for the links. |
 | [52-images](52-images) | Build an Avatar Maker: Crop and Shrink Uploads in Quillo (image.info, image.convert) | Avatars: upload any picture, and image.info and image.convert make a square avatar from its middle, at most 256 pixels. Not a picture? A 415. The pictures in the video were drawn with ffmpeg. |
 | [53-randomness](53-randomness) | Roll the Dice, Hide the Treasure: random_int vs crypto.token in Quillo | A dice tower (random_int, in the browser) and a treasure chest whose link holds a secret code made with crypto.token(16) and checked with crypto.equal. The video first hides the chest with a four-digit random_int code, and finds it by trying all 9,000. |
+| [54-stats](54-stats) | One Zero Fooled the Average: Mean, Median, Mode and Spread in Quillo | A report card for a class quiz: stats.mean, median, mode and pstdev, a grade histogram, and zscore to mark who stands out, all worked out in the browser as a score is typed. Theo's zero, and then his retake, show how one far-off score pulls the mean and hides who needs help. |
 
 ## Shorts
 

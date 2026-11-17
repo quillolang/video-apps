@@ -1,0 +1,56 @@
+// The class report card: Friday's quiz, and what the stats module makes of it, worked out in the browser.
+
+type Pupil = { name: str, score: int }
+
+let quiz = [
+    { name: "Ada", score: 92 }, { name: "Ben", score: 85 }, { name: "Chloe", score: 78 },
+    { name: "Dev", score: 85 }, { name: "Ella", score: 64 }, { name: "Finn", score: 88 },
+    { name: "Grace", score: 95 }, { name: "Hugo", score: 71 }, { name: "Iris", score: 85 },
+    { name: "Jay", score: 58 }, { name: "Kai", score: 80 }, { name: "Theo", score: 0 },
+]
+
+let grades = ["A", "B", "C", "D", "F"]
+let cutoffs = [0, 60, 70, 80, 90, 100]     // F under 60, D in the 60s, ... A from 90 up
+
+fn one(x: float) = format_number(x, "en-US", 1)     // 73.41666… → "73.4"
+
+// The report card runs in the browser: change a score, and every number follows.
+component ReportCard(start: list<Pupil>) {
+    state pupils = start
+    let scores = map(pupils, (p) => p.score)
+    let spread = stats.pstdev(scores)        // the whole class, not a sample of it
+    let z = stats.zscore(scores)             // how many spreads from the mean
+    let bars = reverse(stats.histogram(scores, cutoffs).counts)
+    let rescore = (name, text) => {
+        pupils = map(pupils, (p) => p.name == name ? { ...p, score: int(text) ?? 0 } : p)
+    }
+    <section.card>
+        <ul.roster>
+            {for [i, p] in enumerate(pupils) =>
+                <li class={z[i] >= 1 ? "star" : z[i] <= -1 ? "help" : ""}>
+                    <span>{p.name}</span>
+                    <input type="number" min="0" max="100" value={p.score}
+                           @input={(e) => rescore(p.name, e.target.value)}/>
+                    <small>{z[i] >= 1 ? "⭐ star" : z[i] <= -1 ? "🤝 check in" : ""}</small>
+                </li>}
+        </ul>
+        <div.numbers>
+            <p><b>{one(stats.mean(scores))}</b> mean</p>
+            <p><b>{one(stats.median(scores))}</b> median</p>
+            <p><b>{stats.mode(scores)}</b> mode</p>
+            <p><b>±{one(spread)}</b> spread</p>
+            {for [i, g] in enumerate(grades) =>
+                <p.bar><span>{g}</span><i style={`width: ${bars[i] * 22}px`}></i>{bars[i]}</p>}
+        </div>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Report card</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+route GET / = <Page><h1>📝 Friday's quiz</h1><ReportCard start={quiz}/></Page>
+
+route GET /static/*path = files("public", path)
