@@ -1,0 +1,37 @@
+// Pixels: a 16 by 16 pixel-art editor: pick a colour, and paint by dragging across the grid.
+
+let size = 16
+let palette = ["#1f2937", "#ef4444", "#f59e0b", "#22c55e", "#3b82f6", "#a855f7", "#fde68a", "#ffffff"]
+let blank = map(range(size * size), (_) => "#ffffff")
+
+component Editor() {
+    state picture = blank
+    state colour = "#ef4444"
+    state painting = false
+    let paint = (i) => { picture = set(picture, i, colour) }
+    let begin = (i) => {
+        painting = true
+        paint(i)
+    }
+    <section onpointerup={() => { painting = false }} onpointerleave={() => { painting = false }}>
+        <div.tools>
+            {for c in palette =>
+                <button.swatch key={c} style={`background: ${c}`} class={{ picked: c == colour }}
+                    aria-label={`paint ${c}`} onclick={() => { colour = c }}></button>}
+        </div>
+        <div.grid>
+            {for i in range(size * size) =>
+                <div.px key={i} style={`background: ${picture[i]}`}
+                    onpointerdown={() => { begin(i) }}
+                    onpointerenter={() => { if painting { paint(i) } }}></div>}
+        </div>
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Pixels</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🎨 Pixels</h1><Editor/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
