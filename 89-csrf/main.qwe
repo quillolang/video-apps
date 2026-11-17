@@ -1,0 +1,25 @@
+// Piggy Bank, in Quillo: send money with a form, and only with a form.
+let balances = { ada: 100, eve: 0 }
+
+route POST /login {
+    set_session({ who: "ada" })
+    redirect("/")
+}
+
+fn send(to: str, amount: int) {
+    let who = session().who ?? reply 401 "Log in first"
+    balances = set(balances, who, get(balances, who) - amount)
+    balances = set(balances, to, get(balances, to) + amount)
+    redirect("/")
+}
+
+route POST /send { form: { to: str, amount: int } } = send(to, amount)
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🐷 Piggy Bank</h1>
+        <p>{session().who ? "Logged in as Ada" : "Not logged in"}</p>
+        <p>{`Ada: $${balances.ada} · Eve: $${balances.eve}`}</p>
+        <form method="post" action="/login">
+            <button>Log in as Ada</button></form>
+    </body></html>

