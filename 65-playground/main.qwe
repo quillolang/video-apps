@@ -1,0 +1,52 @@
+// The Quillo playground, written in Quillo: type a program, and the checker says what it thinks of it as you type.
+
+// The examples to start from, a line of code each.
+let examples = [
+    { name: "Fine", code: [
+        "// Make a mistake, and see what the checker says.",
+        "let prices = [3, 5, 8]",
+        "let total = sum(prices)",
+        "print(`total: ${total}`)" ] },
+    { name: "A typo", code: [
+        "route GET /hello/:name = `Hello, ${nam}!`" ] },
+    { name: "JavaScript habits", code: [
+        "let name = \"\"",
+        "let shown = name || \"anonymous\"",
+        "let items = []",
+        "items.push(1)",
+        "let count = 0",
+        "if count && true { print(\"some\") }" ] },
+    { name: "Wrong types", code: [
+        "let n = len(42)",
+        "let s = upper(\"hi\")",
+        "print(s.lenght)" ] },
+]
+
+// What quillo check says of the code: the same checker, given the text, so nothing is written to disk.
+server fn check(code: str) -> list with fs = check_program("playground.qwe", { "playground.qwe": code })
+
+// The playground runs in the browser, and asks the server at every keystroke. The latest answer wins.
+component Playground() {
+    state code = join(examples[0].code, "\n")
+    state problems = check(code)
+    let edit = (text) => {
+        code = text
+        problems = check(text)
+    }
+    <section>
+        <nav>{for ex in examples => <button @click={() => edit(join(ex.code, "\n"))}>{ex.name}</button>}</nav>
+        <div.editor>
+            <pre.lines>{join(for i in range(1, len(split(code, "\n")) + 1) => str(i), "\n")}</pre>
+            <textarea spellcheck="false" value={code} @input={(e) => edit(e.value)}></textarea>
+        </div>
+        <ul.problems>{len(problems) == 0 ? <li.ok>✓ No problems</li> : for p in problems =>
+            <li class={p.severity == "error" ? "error" : "warning"}><b>line {p.line}</b> {p.message}</li>}</ul>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Playground</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🛝 The Quillo playground</h1><Playground/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)

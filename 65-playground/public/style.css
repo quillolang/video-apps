@@ -1,0 +1,17 @@
+/* The Quillo playground: an editor on a dark desk, and the checker's notes under it. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #e6e9f2; background: #171a26; }
+main { max-width: 720px; margin: 0 auto; padding: 16px 20px; }
+h1 { margin: 0 0 10px; font-size: 24px; }
+nav { display: flex; gap: 8px; margin-bottom: 10px; }
+nav button { font: inherit; font-weight: 600; border: 0; border-radius: 8px; padding: 5px 12px; background: #2a3044; color: #c9d1ea; cursor: pointer; }
+.editor { display: flex; border-radius: 10px; overflow: hidden; background: #0f1220; box-shadow: 0 0 0 1px #2a3044; }
+.lines, textarea { margin: 0; padding: 12px 10px; font: 15px/1.6 ui-monospace, Menlo, monospace; }
+.lines { min-width: 40px; text-align: right; color: #56607e; background: #141827; user-select: none; }
+textarea { flex: 1; height: 190px; border: 0; outline: 0; resize: none; color: #e6e9f2; background: transparent; white-space: pre; }
+.problems { margin: 10px 0 0; padding: 0; list-style: none; }
+.problems li { margin-bottom: 6px; padding: 7px 12px; border-radius: 8px; font-size: 14px; }
+.problems b { margin-right: 6px; font-family: ui-monospace, Menlo, monospace; }
+.problems .error { background: #3a1d24; color: #ffb3bf; }
+.problems .warning { background: #3a3119; color: #ffe1a1; }
+.problems .ok { background: #173326; color: #9ff0c0; }
