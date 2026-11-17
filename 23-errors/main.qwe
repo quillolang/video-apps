@@ -49,9 +49,9 @@ component Machine() {
                 </li>}
         </ul>
         <p.screen>{screen}</p>
-        <p.coins>{for c in [10, 20, 50, 100] => <button @click={() => paid += c}>{cents(c)}</button>}</p>
+        <p.coins>{for c in [10, 20, 50, 100] => <button onclick={() => paid += c}>{cents(c)}</button>}</p>
         <p.paid>Paid: <b>{cents(paid)}</b></p>
-        <p.keypad><input bind:value={code} placeholder="A1"/> <button.vend @click={vend}>Vend</button></p>
+        <p.keypad><input value={code} placeholder="A1"/> <button.vend onclick={vend}>Vend</button></p>
     </section>
 }
 

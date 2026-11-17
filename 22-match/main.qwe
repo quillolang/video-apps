@@ -49,7 +49,7 @@ component Game() {
         <p.shout>{shout(rounds)}</p>
         <p.moves>
             {for m in ["rock", "paper", "scissors"] =>
-                <button disabled={over} @click={() => rounds = [play(m, sneaky(rounds)), ...rounds]}>
+                <button disabled={over} onclick={() => rounds = [play(m, sneaky(rounds)), ...rounds]}>
                     {emoji(m)}
                 </button>}
         </p>
@@ -57,7 +57,7 @@ component Game() {
         <ol.rounds>
             {for r in rounds => <li class={r.won}>{emoji(r.you)} vs {emoji(r.cpu)}</li>}
         </ol>
-        {over && <button.again @click={() => rounds = []}>Play again</button>}
+        {over && <button.again onclick={() => rounds = []}>Play again</button>}
     </section>
 }
 

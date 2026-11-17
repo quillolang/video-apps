@@ -13,7 +13,7 @@ component Tower() {
     }
     <section.tower>
         <p.dice>{faces[dice[0] - 1]} {faces[dice[1] - 1]}</p>
-        <button @click={roll}>Roll</button>
+        <button onclick={roll}>Roll</button>
         <p.rolls>{join(map(rolls, str), " · ")}</p>
     </section>
 }

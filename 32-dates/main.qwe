@@ -33,7 +33,7 @@ component Countdown(at: str) {
     let order = cities | sort_by((c) => date.ms(midnight(c.zone)))
 
     <section.countdown>
-        <p.home>Times in <select bind:value={home}>{for z in homes => <option value={z}>{z}</option>}</select></p>
+        <p.home>Times in <select value={home}>{for z in homes => <option value={z}>{z}</option>}</select></p>
         <ol.cities>
             {for c in order {
                 let m = midnight(c.zone)

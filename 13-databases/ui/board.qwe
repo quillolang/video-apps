@@ -22,18 +22,18 @@ component Board() {
 
     <section.card>
         <label.row>
-            You are <select bind:value={me}>{for p in list => <option value={str(p.id)}>{p.name}</option>}</select>
+            You are <select value={me}>{for p in list => <option value={str(p.id)}>{p.name}</option>}</select>
         </label>
-        <label.row>For <input bind:value={note}/></label>
+        <label.row>For <input value={note}/></label>
         <ol.board>
             {for p in list =>
                 <li key={p.id}>
                     <b>{p.name}</b> <span>{p.points} kudos, {p.budget} to give</span>
-                    <button @click={() => kudos(p.id)}>Kudos</button>
+                    <button onclick={() => kudos(p.id)}>Kudos</button>
                 </li>}
         </ol>
         {problem != null && <p.problem>{problem}</p>}
         <ul.recent>{for k in notes => <li>{k.giver} to {k.taker}: {k.note}</li>}</ul>
-        <form.row @submit={add}><input bind:value={name} placeholder="Someone new"/> <button>Add</button></form>
+        <form.row onsubmit={add}><input value={name} placeholder="Someone new"/> <button>Add</button></form>
     </section>
 }

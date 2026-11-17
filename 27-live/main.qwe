@@ -62,9 +62,9 @@ component Item(id: int) {
         <p.best>Best bid: <b>{usd((lead ?? { amount: it.start }).amount)}</b></p>
         <ol.bids>{for b in it.bids => <li>{b.who} <b>{usd(b.amount)}</b></li>}</ol>
         <p.bid>
-            <input bind:value={who} placeholder="Your name"/>
-            <input bind:value={amount} placeholder="$" inputmode="numeric"/>
-            <button @click={go}>Bid</button>
+            <input value={who} placeholder="Your name"/>
+            <input value={amount} placeholder="$" inputmode="numeric"/>
+            <button onclick={go}>Bid</button>
         </p>
         {note != null && <p.note>{note}</p>}
     </section>

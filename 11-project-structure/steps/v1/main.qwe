@@ -33,7 +33,7 @@ component PlantList() {
             <li class={due(p, today) && "due"}>
                 <b>{p.name}</b>
                 <span>every {p.every} days, watered {ago(days_since(p.watered, today))}</span>
-                <button @click={() => list = water(p.id) ?? list}>Water</button>
+                <button onclick={() => list = water(p.id) ?? list}>Water</button>
             </li>}
     </ul>
 }

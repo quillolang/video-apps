@@ -56,11 +56,11 @@ component Cannon() {
             <p.message>{message}</p>
         </div>
         <div.controls>
-            <label>Angle <input type="range" min="10" max="80" bind:value={angle}/> <b>{angle}°</b></label>
-            <label>Power <input type="range" min="200" max="500" step="10" bind:value={power}/>
+            <label>Angle <input type="range" min="10" max="80" value={angle}/> <b>{angle}°</b></label>
+            <label>Power <input type="range" min="200" max="500" step="10" value={power}/>
                 <b>{power}</b></label>
-            {hit ? <button @click={again}>New target</button>
-                 : <button @click={fire} disabled={flying}>🔥 Fire</button>}
+            {hit ? <button onclick={again}>New target</button>
+                 : <button onclick={fire} disabled={flying}>🔥 Fire</button>}
         </div>
     </section>
 }

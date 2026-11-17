@@ -54,7 +54,7 @@ component Control() {
         <p.screen>{words == "" ? "Press Brief me." : words}</p>
         <p.count class={flying && "go"}>{label}</p>
         <progress value={left == null ? 0 : 10 - left} max="10"></progress>
-        <p.buttons><button @click={brief}>Brief me</button> <button.launch @click={launch}>Launch</button></p>
+        <p.buttons><button onclick={brief}>Brief me</button> <button.launch onclick={launch}>Launch</button></p>
     </section>
 }
 

@@ -34,7 +34,7 @@ component Garden() {
         {for p in all =>
             <div class={p.thirsty == 1 ? "plant thirsty" : "plant"}>
                 <span.emoji>{p.emoji}</span> <b>{p.name}</b>
-                {p.thirsty == 1 ? <button @click={() => water(p.id)}>💧 Water me!</button> : <small>Happy</small>}
+                {p.thirsty == 1 ? <button onclick={() => water(p.id)}>💧 Water me!</button> : <small>Happy</small>}
             </div>}
         <p.next>Next check in {next}s</p>
         <ul.notes>{for n in said => <li>🔔 {n.text}</li>}</ul>

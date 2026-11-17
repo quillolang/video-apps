@@ -37,7 +37,7 @@ component Till() {
     <section.till>
         <p.menu>
             {for i in menu =>
-                <button @click={() => order = order | push(i)}>
+                <button onclick={() => order = order | push(i)}>
                     {i.name} <small>{show(usd(i.price))}</small>
                 </button>}
         </p>
@@ -46,13 +46,13 @@ component Till() {
         <p.line>Tax, 8.25% <b>{show(b.tax)}</b></p>
         <p.total>Total <b>{show(b.total)}</b></p>
         <p.split>
-            Split <button @click={() => friends = max([1, friends - 1])}>−</button>
+            Split <button onclick={() => friends = max([1, friends - 1])}>−</button>
             <b>{friends}</b>
-            <button @click={() => friends += 1}>+</button> ways: {join(map(shares, show), " + ")}
+            <button onclick={() => friends += 1}>+</button> ways: {join(map(shares, show), " + ")}
         </p>
         <p.actions>
-            <button.sell @click={() => { day = sell(map(order, (i) => i.name)); order = [] }}>Sell</button>
-            <button @click={() => order = []}>Clear</button>
+            <button.sell onclick={() => { day = sell(map(order, (i) => i.name)); order = [] }}>Sell</button>
+            <button onclick={() => order = []}>Clear</button>
         </p>
         <p.day>Today's takings: <b>{show(day)}</b></p>
     </section>
