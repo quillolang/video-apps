@@ -1,0 +1,24 @@
+// The Book Nook, in Quillo: the books in SQLite, and a shelf that lists them.
+db.open("shop.db")
+db.migrate("migrations")
+
+type Book = { id: int, name: str, author: str }
+
+// The books, as Book records: each row keeps only Book's fields.
+server fn books() -> list<Book> with db =
+    db.query("select * from books order by id") | map(Book)
+
+// The shelf, in the browser.
+component Shelf() {
+    style css`li { margin: .4rem 0 }`
+    state shelf = books()
+    <ul>{for book in shelf => <li key={book.id}>{book.title}, by {book.author}</li>}</ul>
+}
+
+route GET / = <html>
+    <head><title>The Book Nook</title></head>
+    <body style="font: 20px system-ui; margin: 2rem">
+        <h1>The Book Nook</h1>
+        <Shelf/>
+    </body>
+</html>

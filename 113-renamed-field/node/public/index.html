@@ -1,0 +1,15 @@
+<!doctype html>
+<title>The Book Nook</title>
+<style>body { font: 20px system-ui; margin: 2rem } li { margin: .4rem 0 }</style>
+<h1>The Book Nook</h1>
+<ul id="shelf"></ul>
+<script>
+  // The books from the API, a line each.
+  fetch('/api/books').then((res) => res.json()).then((books) => {
+    for (const book of books) {
+      const li = document.createElement('li');
+      li.textContent = `${book.title}, by ${book.author}`;
+      document.querySelector('#shelf').append(li);
+    }
+  });
+</script>
