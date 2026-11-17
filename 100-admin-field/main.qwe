@@ -1,0 +1,21 @@
+// Pip's Club, in Quillo: a sign-up sends a name; the role is ours to give.
+type SignUp = { name: str }
+
+let users = []
+
+route POST /signup { json: SignUp } {
+    let user = { ...json, role: "member", id: len(users) + 1, prefs: {} }
+    users = users | push(user)
+    user
+}
+
+route POST /prefs/:id(int) { json: map } {
+    users = users | map((u) => u.id == id
+        ? { ...u, prefs: merge(u.prefs, json) } : u)
+    find(users, (u) => u.id == id).prefs
+}
+
+route GET /admin ? { user: int = 0 } {
+    let u = find(users, (u) => u.id == user) ?? {}
+    u.role == "admin" ? "Welcome, admin!" : "Admins only"
+}

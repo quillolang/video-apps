@@ -1,0 +1,21 @@
+// Pip's Club, in Quillo: sign up, save your settings, and an admin page.
+type User = { name: str, role: "member" | "admin" = "member" }
+
+let users = []
+
+route POST /signup { json: User } {
+    let user = { ...json, id: len(users) + 1, prefs: {} }
+    users = users | push(user)
+    user
+}
+
+route POST /prefs/:id(int) { json: map } {
+    users = users | map((u) => u.id == id
+        ? { ...u, prefs: merge(u.prefs, json) } : u)
+    find(users, (u) => u.id == id).prefs
+}
+
+route GET /admin ? { user: int = 0 } {
+    let u = find(users, (u) => u.id == user) ?? {}
+    u.role == "admin" ? "Welcome, admin!" : "Admins only"
+}
