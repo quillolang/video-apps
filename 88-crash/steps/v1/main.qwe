@@ -1,0 +1,11 @@
+// Luigi's pizza orders, in Quillo.
+type Order = { pizza: str }
+
+let orders = []
+
+route POST /orders { json: Order } {
+    orders = orders | push(json)
+    `Order ${len(orders)}: one ${json.pizza}, coming up!\n`
+}
+
+route GET / = `${len(orders)} orders so far\n`

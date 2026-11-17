@@ -1,0 +1,13 @@
+// Luigi's pizza orders, in Quillo, with prices: and a bug.
+type Order = { pizza: str }
+
+let orders = []
+let PRICES = { margherita: 9.50m, funghi: 11m }
+
+route POST /orders { json: Order } {
+    let total = get(PRICES, json.pizza) + 1.50m
+    orders = orders | push(json)
+    `Order ${len(orders)}: one ${json.pizza}, ${total}, coming up!\n`
+}
+
+route GET / = `${len(orders)} orders so far\n`

@@ -1,0 +1,15 @@
+// Luigi's pizza orders, in Quillo, with prices, and a 422 for the rest.
+type Order = { pizza: str }
+
+let orders = []
+let PRICES = { margherita: 9.50m, funghi: 11m }
+
+route POST /orders { json: Order } {
+    let price = get(PRICES, json.pizza)
+    if price == null { reply 422 `Sorry, we don't make ${json.pizza}.\n` }
+    let total = price + 1.50m
+    orders = orders | push(json)
+    `Order ${len(orders)}: one ${json.pizza}, ${total}, coming up!\n`
+}
+
+route GET / = `${len(orders)} orders so far\n`
