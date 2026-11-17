@@ -1,0 +1,63 @@
+// Tap Tap: a typing test. Type the line: the clock starts at your first key and stops at the last,
+// with your words a minute, and how many of your keys were right.
+
+let lines = [
+    "the quick brown fox jumps over the lazy dog",
+    "pack my box with five dozen liquor jugs",
+    "how vexingly quick daft zebras jump",
+]
+
+component Test() {
+    state turn = 0
+    state typed = ""
+    state started = 0                 // when the first key came, in ms (0: not yet)
+    state finished = 0                // when the line was done
+    state keys = 0                    // keys that added a letter
+    state wrong = 0                   // and of those, the wrong ones
+    state tick = 0                    // the clock, while typing
+    let target = lines[turn % len(lines)]
+    let done = finished != 0
+    if started != 0 && !done { every(100, () => { tick = now() }) }
+    let ms = started == 0 ? 0 : (done ? finished : max([tick, started])) - started
+    let right = len(filter(range(len(typed)), (i) => i < len(target) && typed[i] == target[i]))
+    let wpm = ms > 0 ? round(right / 5 / (ms / 60000)) : 0
+    let accuracy = keys > 0 ? round((keys - wrong) / keys * 100) : 100
+    let key = (e) => {
+        let t = e.value
+        if started == 0 { started = now() }
+        if len(t) > len(typed) {
+            keys += 1
+            if len(t) > len(target) || t[len(t) - 1] != target[len(t) - 1] { wrong += 1 }
+        }
+        typed = t
+        if t == target { finished = now() }
+    }
+    let again = () => {
+        turn += 1
+        typed = ""
+        started = 0
+        finished = 0
+        keys = 0
+        wrong = 0
+    }
+    <section>
+        <p.target>
+            {for i in range(len(target)) =>
+                <span class={{ ok: i < len(typed) && typed[i] == target[i],
+                               bad: i < len(typed) && typed[i] != target[i],
+                               at: i == len(typed) }}>{target[i]}</span>}
+        </p>
+        <input value={typed} oninput={key} disabled={done} aria-label="Type the line" spellcheck="false"/>
+        <p.stats>{format_number(ms / 1000, "en-US", 1)} s · {wpm} wpm · {accuracy}% right</p>
+        {done && <div.result>🏁 {wpm} words a minute, {accuracy}% of keys right
+            <button onclick={again}>Again</button></div>}
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Tap Tap</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>⌨️ Tap Tap</h1><Test/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
