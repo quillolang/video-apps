@@ -1,0 +1,16 @@
+// Bookshelf, in Quillo: GET /books, GET /books/:id, and POST /books with a title and pages.
+// The route says what a body must be, so a wrong one is answered 400 before the route runs.
+
+let books = []
+
+route GET /books = books
+
+route GET /books/:id(int) = find(books, (b) => b.id == id) ?? reply 404 { error: "no such book" }
+
+route POST /books { json: { title: str, pages: int } } {
+    if trim(title) == "" { reply 400 { error: "a title is needed" } }
+    if pages < 1 { reply 400 { error: "pages must be 1 or more" } }
+    let book = { id: len(books) + 1, title: trim(title), pages: pages }
+    books = books | push(book)
+    reply 201 book
+}
