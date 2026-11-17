@@ -1,0 +1,20 @@
+// Lisbon's weather, in Quillo, with the key read where the widget is.
+server fn forecast(city: str, key: str) with http {
+    let url = `http://localhost:9090/v1/now?city=${url_encode(city)}`
+    let r = http.get(url, { "x-api-key": key })?
+    r.json
+}
+
+component Weather() {
+    state w = forecast("Lisbon", env("WEATHER_KEY"))
+    <p>{w.temp_c}°C</p>
+}
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>⛅ Lisbon today</h1>
+        <Weather/>
+    </body></html>
+
+// The same widget, in plain JavaScript, to compare.
+route GET /widget = file("public/widget.html")

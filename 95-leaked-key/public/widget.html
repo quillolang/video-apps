@@ -1,0 +1,12 @@
+<!-- The weather widget, in plain JavaScript: it calls the API itself. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>⛅ Lisbon today</h1>
+<p id="out">...</p>
+<script>
+  const WEATHER_KEY = 'wk_live_7Hq2Not4RealJustForTheVideo';
+  fetch('http://localhost:9090/v1/now?city=Lisbon', {
+    headers: { 'x-api-key': WEATHER_KEY },
+  }).then((r) => r.json())
+    .then((w) => { out.textContent = `${w.temp_c}°C`; });
+</script>
