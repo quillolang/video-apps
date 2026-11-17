@@ -1,0 +1,12 @@
+// Luigi's chat, in Quillo: a link's preview, for any link posted.
+
+// The text after the first <title> or <p>.
+fn pick(html: str, tag: str) =
+    re.find(html, `<${tag}>([^<]*)`).groups[0] ?? ""
+
+// GET /preview?url=...: the page's title and its first paragraph.
+route GET /preview ? { url: str } {
+    let page = http.get(url)
+    if is_err(page) { reply 502 `no preview: ${page.error}\n` }
+    `${pick(page.body, "title")}\n${pick(page.body, "p")}\n`
+}
