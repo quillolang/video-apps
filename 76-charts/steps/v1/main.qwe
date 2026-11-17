@@ -1,0 +1,37 @@
+// Allotment: this year's rain as a bar chart, drawn as SVG by a view, with no chart library.
+
+db.open("garden.db")
+db.migrate("migrations")
+
+let months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"]
+
+// A bar for each month, as tall as its rain: the wettest month fills the chart.
+view Bars(rows: list) {
+    let top = max(map(rows, (r) => r.mm) | push(1.0))
+    <svg.bars viewBox="0 0 360 170" role="img" aria-label="Rain each month">
+        {for r in rows =>
+            <g key={r.month}>
+                <rect x={(r.month - 1) * 30 + 4} y={140 - r.mm / top * 120} width="22" height={r.mm / top * 120}>
+                    <title>{r.mm} mm</title>
+                </rect>
+                <text.mm x={(r.month - 1) * 30 + 15} y={134 - r.mm / top * 120}>{r.mm}</text>
+            </g>}
+        {for m in range(12) => <text.month x={m * 30 + 15} y="160">{months[m]}</text>}
+    </svg>
+}
+
+route GET / with db {
+    let rain = db.query("select month, mm from rain where year = 2026 order by month")
+    <html>
+        <head><title>Allotment</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>🍅 Allotment</h1>
+            <section.card>
+                <h2>Rain, 2026</h2>
+                <Bars rows={rain}/>
+            </section>
+        </main></body>
+    </html>
+}
+
+route GET /static/*path = files("public", path)

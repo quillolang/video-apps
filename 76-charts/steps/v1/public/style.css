@@ -1,0 +1,11 @@
+/* Allotment: garden paper, green bars, and thin lines for the tomatoes. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1c2a1a; background: #f4f1e8; }
+main { max-width: 640px; margin: 0 auto; padding: 12px 18px; }
+h1 { margin: 0 0 10px; font-size: 24px; }
+h2 { display: flex; gap: 8px; align-items: center; margin: 0 0 6px; font-size: 16px; }
+.card { margin-bottom: 12px; padding: 10px 14px; border-radius: 12px; background: #fff; box-shadow: 0 1px 0 #ddd6c1; }
+.bars { display: block; width: 100%; }
+.bars rect { fill: #65a30d; rx: 3; transition: y .4s, height .4s; }
+.bars text { font: 10px system-ui; text-anchor: middle; fill: #57534e; }
+.bars text.mm { font-size: 9px; fill: #3f6212; }
