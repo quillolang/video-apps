@@ -1,0 +1,16 @@
+/* Life: a petri dish. Dark agar, glowing green cells. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #e3f2e6; background: #0f1a14; }
+main { max-width: 640px; margin: 0 auto; padding: 14px 20px; }
+h1 { margin: 0 0 10px; font-size: 26px; }
+.grid { display: grid; grid-template-columns: repeat(40, 1fr); gap: 1px; padding: 1px; border-radius: 10px;
+  background: #1d3326; box-shadow: 0 0 0 2px #2c4d38; }
+.grid i { aspect-ratio: 1; background: #12201a; border-radius: 2px; cursor: pointer; }
+.grid i.on { background: #7dff9b; box-shadow: 0 0 6px #7dff9baa; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+button { font: inherit; font-weight: 600; border: 0; border-radius: 8px; padding: 6px 12px; background: #24402f; color: #e3f2e6; cursor: pointer; }
+button.play { background: #7dff9b; color: #0f1a14; min-width: 96px; }
+label { display: flex; align-items: center; gap: 6px; margin-left: auto; font-weight: 600; }
+label input { width: 110px; accent-color: #7dff9b; }
+.count { margin: 10px 0 0; color: #9cc5a7; font-variant-numeric: tabular-nums; }
+.count b { color: #e3f2e6; }

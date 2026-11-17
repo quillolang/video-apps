@@ -1,0 +1,67 @@
+// The Game of Life, in one component: cells live, die and are born by four rules, a generation at a time.
+
+let rows = 26
+let cols = 40
+
+// The eight cells around one: up-left, up, up-right, left, right, and the three below.
+let around = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+
+// 1 if the cell is alive, else 0. The grid wraps around: past the right edge is the left.
+fn alive(cells: list<list<int>>, r: int, c: int) -> int = cells[(r + rows) % rows][(c + cols) % cols]
+
+fn neighbours(cells: list<list<int>>, r: int, c: int) -> int =
+    sum(map(around, (d) => alive(cells, r + d[0], c + d[1])))
+
+// The next generation: a cell with 3 neighbours is born, one with 2 or 3 lives on, any other is empty.
+fn next(cells: list<list<int>>) = for r in range(rows) => for c in range(cols) => {
+    let n = neighbours(cells, r, c)
+    n == 3 || (n == 2 && cells[r][c] == 1) ? 1 : 0
+}
+
+fn empty() = for r in range(rows) => for c in range(cols) => 0
+
+// A pattern's live cells, as [row, column], put down near the middle.
+fn put(pattern: list<list<int>>) =
+    reduce(pattern, empty(), (g, p) => set(g, p[0] + 11, set(g[p[0] + 11], p[1] + 18, 1)))
+
+let glider = [[0, 1], [1, 2], [2, 0], [2, 1], [2, 2]]
+let r_pentomino = [[0, 1], [0, 2], [1, 0], [1, 1], [2, 1]]
+
+// The game runs in the browser: click cells, then play, at the speed the slider says.
+component Life() {
+    state cells = put(glider)
+    state running = false
+    state speed = 8                                  // generations a second
+    state generation = 0
+    let population = sum(map(cells, (row) => sum(row)))
+
+    let step = () => { cells = next(cells); generation += 1 }
+    if running { every(floor(1000 / speed), step) }
+
+    let toggle = (r, c) => { cells = set(cells, r, set(cells[r], c, 1 - cells[r][c])) }
+    let start = (pattern) => { cells = put(pattern); generation = 0 }
+
+    <section.life>
+        <div.grid>{for [r, row] in enumerate(cells) =>
+            for [c, x] in enumerate(row) => <i class={x == 1 ? "on" : ""} @click={() => toggle(r, c)}></i>}</div>
+        <div.controls>
+            <button.play @click={() => { running = !running }}>{running ? "⏸ Pause" : "▶ Play"}</button>
+            <button @click={step}>Step</button>
+            <button @click={() => start(glider)}>Glider</button>
+            <button @click={() => start(r_pentomino)}>R-pentomino</button>
+            <button @click={() => start([])}>Clear</button>
+            <label>Speed <input type="range" min="1" max="30" bind:value={speed}/> <b>{speed}/s</b></label>
+        </div>
+        <p.count>Generation <b>{generation}</b> · <b>{population}</b> alive</p>
+    </section>
+}
+
+view Page(children) =
+    <html>
+        <head><title>Life</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+route GET / = <Page><h1>🧫 Life</h1><Life/></Page>
+
+route GET /static/*path = files("public", path)

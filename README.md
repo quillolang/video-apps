@@ -64,6 +64,7 @@ Quillo: https://quillolang.org
 | [56-math](56-math) | Build a Cannon Game with Sine and Cosine in Quillo (math.sin, math.cos, every) | Cannon: pick an angle and a power, fire, and hit the target. math.cos and math.sin split the shot into across and up, the ball's place comes straight from the formula at time t, and every, under an if, runs the clock only while the ball flies. |
 | [57-compiled](57-compiled) | From 30 Seconds to 100 ms: Compiled Numbers in Quillo (a Mandelbrot Poster) | A Mandelbrot poster: 225,000 pixels, each the rounds of z = z² + c it takes to escape, painted on a canvas in the browser. Written first with complex numbers as maps (29.9 seconds), then in plain floats, which Quillo compiles to machine code (100 ms). With QUILLO_JIT=0, the same floats take 5.6 seconds. |
 | [58-cached](58-cached) | Make a Slow Page Instant by Deleting One Line: Cached Views in Quillo | The Neon Arcade's leaderboard: a million plays added up into the top ten, in a view. With the time in it (date.now()), the view runs for every page; without it, Quillo keeps its HTML until plays is assigned, so pages are instant, and a new play shows at once. |
+| [59-life](59-life) | Conway's Game of Life in One Quillo Component (Click, Play, Speed Slider) | Conway's Game of Life in one component: a 40 by 26 grid that wraps around, four rules in a function called next, cells you click to bring to life, a glider and the R-pentomino to start from, and every running the generations at the speed a slider says. |
 
 ## Shorts
 
