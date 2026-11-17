@@ -1,0 +1,12 @@
+// Bookworm's member search, in Quillo, with the SQL put together by hand.
+db.open("bookworm.db")
+db.migrate("migrations")
+
+fn line(m) = `${m.name} <${m.email}>`
+
+route GET /search ? { q: str } with db {
+    let found = db.query(
+        `select name, email from members where name like '%${q}%'`)?
+    if len(found) == 0 { return "No members match." }
+    found | map(line) | join("\n")
+}

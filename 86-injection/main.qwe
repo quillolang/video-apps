@@ -1,0 +1,19 @@
+// Bookworm's member search, in Quillo: values as ?, names by sql_name.
+db.open("bookworm.db")
+db.migrate("migrations")
+
+fn line(m) = `${m.name} <${m.email}>`
+
+route GET /search ? { q: str } with db {
+    let found = db.query(
+        "select name, email from members where name like ?", `%${q}%`)?
+    if len(found) == 0 { return "No members match." }
+    found | map(line) | join("\n")
+}
+
+// Every member, sorted by a column the visitor picks: one of two names.
+type Column = "name" | "joined"
+
+route GET /members ? { by: Column = "name" } with db =
+    db.query(`select name, joined from members order by ${sql_name(by)}`)?
+        | map((m) => `${m.joined}  ${m.name}`) | join("\n")
