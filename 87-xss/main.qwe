@@ -1,0 +1,21 @@
+// Pip's Pottery guestbook, in Quillo: visitors write Markdown, made safe.
+db.open("guestbook.db")
+db.migrate("migrations")
+
+route GET / with db, random {
+    if session().id == null { set_session({ id: uuid() }) }
+    let comments = db.query("select text from comments order by id")?
+    <html><body style="font: 20px system-ui; margin: 24px">
+        <h1>🏺 Pip's Pottery</h1>
+        <ul>{for c in comments =>
+            <li>{markdown(c.text, { inline: true })}</li>}</ul>
+        <form method="post" action="/sign">
+            <input name="text"/> <button>Sign</button>
+        </form>
+    </body></html>
+}
+
+route POST /sign { form: { text: str } } with db {
+    db.exec("insert into comments (text) values (?)", text)?
+    redirect("/")
+}
