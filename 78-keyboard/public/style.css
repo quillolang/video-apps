@@ -1,0 +1,23 @@
+/* Saturday Runners: an orange club page, round chips for the distance, a big Join button,
+   and a ring around whatever the keyboard is on. */
+* { box-sizing: border-box; }
+:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 2px; }
+body { margin: 0; font: 16px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #431407;
+       background: #fff7ed; }
+main { max-width: 520px; margin: 0 auto; padding: 16px 20px; }
+h1 { margin: 0 0 12px; font-size: 24px; }
+.signup { display: grid; gap: 10px; }
+label { display: grid; gap: 3px; font-weight: 600; font-size: 14px; }
+input { font: inherit; font-weight: 400; font-size: 16px; padding: 9px 12px;
+        border: 2px solid #fed7aa; border-radius: 10px; background: #fff; }
+.distances { display: flex; gap: 8px; margin: 0; padding: 0; border: 0; }
+.distances legend { margin-bottom: 4px; font-weight: 600; font-size: 14px; }
+.chip { display: flex; gap: 6px; align-items: center; padding: 6px 16px; border-radius: 99px;
+        border: 2px solid #fdba74; background: #fff; }
+.chip:has(input:checked) { background: #ea580c; border-color: #ea580c; color: #fff; }
+.chip input, .agree input { width: 18px; height: 18px; margin: 0; accent-color: #ea580c; }
+.agree { display: flex; gap: 10px; align-items: center; font-weight: 400; font-size: 16px; }
+button { font: inherit; padding: 11px; border: 0; border-radius: 12px; background: #ea580c;
+         color: #fff; font-weight: 700; }
+.welcome { margin: 0; padding: 10px 12px; border-radius: 10px; background: #dcfce7; color: #14532d;
+           font-weight: 700; }

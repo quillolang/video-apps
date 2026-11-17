@@ -1,0 +1,45 @@
+// Saturday Runners: sign up for Saturday's run, with a mouse or with the keyboard alone.
+// Real controls (a form, labels, radios, a checkbox, a button), so Tab, Space and Enter all work.
+
+let runners = []
+
+server fn sign_up(name: str, email: str, km: int) -> int {
+    runners = runners | push({ name: name, email: email, km: km })
+    len(runners)
+}
+
+component Signup() {
+    state name = ""
+    state email = ""
+    state km = 5
+    state agreed = false
+    state number = 0
+    let send = () => {
+        if agreed && name != "" { number = sign_up(name, email, km) }
+    }
+    <form.signup onsubmit={send}>
+        <label>Your name <input value={name} autocomplete="name" required/></label>
+        <label>Email <input type="email" value={email} autocomplete="email" required/></label>
+        <fieldset.distances>
+            <legend>Distance</legend>
+            {for k in [5, 10] =>
+                <label.chip>
+                    <input type="radio" name="km" checked={km == k} onchange={() => { km = k }}/> {k} km
+                </label>}
+        </fieldset>
+        <label.agree>
+            <input type="checkbox" checked={agreed}/>
+            <span>I'll bring water, and wave at the marshals</span>
+        </label>
+        <button>Join Saturday's run</button>
+        {number != 0 && <p.welcome role="status">🏃 You're runner number {number}!</p>}
+    </form>
+}
+
+route GET / =
+    <html>
+        <head><title>Saturday Runners</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🏃 Saturday Runners</h1><Signup/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)

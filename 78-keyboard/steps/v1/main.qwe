@@ -1,0 +1,41 @@
+// Saturday Runners: sign up for Saturday's run. It looks fine, and works with a mouse.
+
+let runners = []
+
+server fn sign_up(name: str, email: str, km: int) -> int {
+    runners = runners | push({ name: name, email: email, km: km })
+    len(runners)
+}
+
+component Signup() {
+    state name = ""
+    state email = ""
+    state km = 5
+    state agreed = false
+    state number = 0
+    let send = () => {
+        if agreed && name != "" { number = sign_up(name, email, km) }
+    }
+    <section.signup>
+        <input value={name} placeholder="Your name"/>
+        <input value={email} placeholder="Email"/>
+        <div.distances>
+            {for k in [5, 10] =>
+                <span class={{ chip: true, on: km == k }} onclick={() => { km = k }}>{k} km</span>}
+        </div>
+        <p.agree>
+            <span class={{ box: true, on: agreed }} onclick={() => { agreed = !agreed }}></span>
+            <span>I'll bring water, and wave at the marshals</span>
+        </p>
+        <div.join onclick={send}>Join Saturday's run</div>
+        {number != 0 && <p.welcome>🏃 You're runner number {number}!</p>}
+    </section>
+}
+
+route GET / =
+    <html>
+        <head><title>Saturday Runners</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🏃 Saturday Runners</h1><Signup/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
