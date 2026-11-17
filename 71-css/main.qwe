@@ -1,0 +1,50 @@
+// Crumbs, a bakery: menu cards and badges that both style .title, each scoped to its own,
+// and a gift card in the colour a link asks for, kept to one CSS value by css`...`.
+
+let menu = [
+    { name: "Croissant", price: "3.20", badge: "warm" },
+    { name: "Cinnamon bun", price: "4.10", badge: "new" },
+    { name: "Sourdough loaf", price: "6.50", badge: "" },
+]
+
+view Page(title: str, children) =
+    <html>
+        <head><title>{title}</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🥐 Crumbs</h1>{children}</main></body>
+    </html>
+
+view Badge(text: str) {
+    style css`
+        .title { padding: 2px 9px; border-radius: 99px; font: 600 12px system-ui;
+                 background: #0f766e; color: #fff }
+    `
+    <span.title>{text}</span>
+}
+
+view MenuCard(item: map) {
+    style css`
+        .card { display: flex; justify-content: space-between; padding: 12px 0;
+                border-bottom: 1px dashed #d6c4a8 }
+        .title { font: 600 20px Georgia, serif; color: #7c2d12 }
+        .price { font: 18px Georgia, serif; color: #57534e }
+    `
+    <div.card>
+        <span.title>{item.name} {item.badge != "" && <Badge text={item.badge}/>}</span>
+        <span.price>£{item.price}</span>
+    </div>
+}
+
+route GET / =
+    <Page title="Crumbs">
+        {for item in menu => <MenuCard item={item}/>}
+        <p><a href="/gift">A gift card →</a></p>
+    </Page>
+
+// A gift card in the colour the link asks for: css`...` keeps it to one CSS value.
+route GET /gift ? { color: str = "teal" } =
+    <Page title="A gift card">
+        <style>{css`.gift { border-color: ${color} }`}</style>
+        <div.gift><b>£20</b> to spend at Crumbs</div>
+    </Page>
+
+route GET /static/*path = files("public", path)
