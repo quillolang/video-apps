@@ -1,0 +1,18 @@
+/* The bake sale's spreadsheet: a grid of cells, and a formula bar above it. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #2d2433; background: #fbf3ea; }
+main { max-width: 620px; margin: 0 auto; padding: 18px 20px; }
+h1 { margin: 0 0 12px; font-size: 26px; }
+.bar { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: #fff; border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 0 1px #e7d8c6; }
+.bar b { min-width: 34px; padding: 2px 8px; border-radius: 6px; background: #f4a3b5; color: #fff; text-align: center; }
+.bar input { flex: 1; font: 15px/1.4 ui-monospace, Menlo, monospace; border: 0; outline: 0; color: #2d2433; background: transparent; }
+.why { min-height: 22px; margin: 0; padding: 2px 12px; font: 13px ui-monospace, Menlo, monospace; color: #c0392b; background: #fff5f5; }
+table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; box-shadow: 0 0 0 1px #e7d8c6; font-variant-numeric: tabular-nums; }
+th { padding: 4px; background: #f6ece0; color: #8a7a6a; font-size: 13px; font-weight: 600; }
+td { height: 34px; padding: 4px 10px; border: 1px solid #efe3d4; cursor: pointer; white-space: nowrap; }
+tr > th:first-child { width: 34px; }
+td { overflow: hidden; text-overflow: ellipsis; }
+td.picked { outline: 2px solid #e05a7a; outline-offset: -2px; }
+td.err { color: #c0392b; font-weight: 700; }
+tr:first-child + tr td { font-weight: 700; background: #fffaf3; }

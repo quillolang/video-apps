@@ -1,0 +1,60 @@
+// The bake sale's spreadsheet: cells hold numbers, words, or formulas that people type, run safely with run_script.
+
+let cols = ["A", "B", "C", "D"]
+let rows = [1, 2, 3, 4, 5, 6]
+
+// What's typed in each cell. A formula starts with = and is Quillo: B2 * C2, sum([D2, D3]), a ? b : c.
+let start = {
+    A1: "Item", B1: "Price", C1: "Sold", D1: "Total",
+    A2: "Lemonade", B2: "1.5", C2: "40", D2: "=B2 * C2",
+    A3: "Cookies", B3: "0.75", C3: "120", D3: "=B3 * C3",
+    A4: "Brownies", B4: "2", C4: "35", D4: "=B4 * C4",
+    A5: "All", C5: "=C2 + C3 + C4", D5: "=sum([D2, D3, D4])",
+    A6: "Goal", B6: "150", C6: "=C5 >= B6 ? \"🎉 met\" : \"not yet\"", D6: "=round(D5 / C5, 2)",
+}
+
+// Every cell's value, row by row. A formula sees the cells before it, and nothing else: no files, no
+// environment, no database, no network, at most 20,000 steps, and no value over 1 MB.
+server fn compute(typed: map) -> map = reduce(rows, {}, (done, r) => reduce(cols, done, (seen, c) => {
+    let ref = `${c}${r}`
+    let text = typed[ref] ?? ""
+    let value = starts_with(text, "=") ? run_script(slice(text, 1), seen)
+              : text == "" ? null
+              : int(text) ?? float(text) ?? text
+    set(seen, ref, value)
+}))
+
+// What a cell shows: a number with at most two decimals, words as they are, and #ERR for a formula that failed.
+fn shown(v) = is_err(v) ? "#ERR"
+            : type_of(v) == "float" || type_of(v) == "int" ? format_number(v, "en-US", { max: 2 })
+            : v ?? ""
+
+// The sheet runs in the browser: pick a cell, and the bar above shows what's typed in it, to change.
+component Sheet() {
+    state typed = start
+    state values = compute(start)
+    state picked = "D2"
+    let save = (text) => {
+        typed = set(typed, picked, text)
+        values = compute(typed)
+    }
+    <section.sheet>
+        <div.bar><b>{picked}</b><input value={typed[picked] ?? ""} @change={(e) => save(e.target.value)}/></div>
+        <p.why>{is_err(values[picked]) ? values[picked].error : ""}</p>
+        <table>
+            <tr><th></th>{for c in cols => <th>{c}</th>}</tr>
+            {for r in rows => <tr><th>{r}</th>{for c in cols => {
+                let ref = `${c}${r}`
+                <td class={[picked == ref ? "picked" : "", is_err(values[ref]) ? "err" : ""]}
+                    @click={() => { picked = ref }}>{shown(values[ref])}</td>
+            }}</tr>}
+        </table>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Bake sale</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🧁 The bake sale</h1><Sheet/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
