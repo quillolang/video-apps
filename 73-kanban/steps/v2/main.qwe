@@ -1,0 +1,55 @@
+// Flip: a pancake kitchen's board. Drag an order from Ordered to On the griddle to Served.
+
+db.open("flip.db")
+db.migrate("migrations")
+
+let stages = [
+    { id: "ordered", name: "Ordered" },
+    { id: "cooking", name: "On the griddle" },
+    { id: "served", name: "Served" },
+]
+
+server fn orders() -> list with db = db.query("select id, who, what, stage from orders order by id")
+
+server fn move(id: int, stage: str) with db {
+    if !contains(map(stages, (s) => s.id), stage) { return err("no such stage") }
+    db.exec("update orders set stage = ? where id = ?", stage, id)?
+}
+
+component Board() {
+    state all = orders()              // the orders, as the page was made
+    state dragging = null             // the order in hand
+    state over = null                 // the column it's over
+    let drop = (stage) => {
+        let id = dragging
+        dragging = null
+        over = null
+        if id != null {
+            move(id, stage)?
+            all = orders()                    // and fetch them again
+        }
+    }
+    <div.board>
+        {for s in stages =>
+            <section.column key={s.id} class={{ over: over == s.id }}
+                    ondragover={(e) => { e.preventDefault(); over = s.id }}
+                    ondrop={(e) => { e.preventDefault(); drop(s.id) }}>
+                <h2>{s.name}</h2>
+                {for o in all | filter((o) => o.stage == s.id) =>
+                    <article.card key={o.id} draggable="true" class={{ lifted: dragging == o.id }}
+                            ondragstart={() => { dragging = o.id }}
+                            ondragend={() => { dragging = null; over = null }}>
+                        <b>{o.who}</b>
+                        <span>{o.what}</span>
+                    </article>}
+            </section>}
+    </div>
+}
+
+route GET / =
+    <html>
+        <head><title>Flip</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>🥞 Flip</h1><Board/></main></body>
+    </html>
+
+route GET /static/*path = files("public", path)

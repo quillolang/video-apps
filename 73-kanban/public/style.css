@@ -1,0 +1,13 @@
+/* Flip: three columns on a warm counter, cards like order slips, and the column under a card lit up. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color: #3f2a14; background: #fdf3e1; }
+main { padding: 14px 16px; }
+h1 { margin: 0 0 10px; font-size: 24px; }
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.column { min-height: 230px; padding: 8px; border: 2px dashed transparent; border-radius: 12px; background: #f6e3c2; }
+.column.over { border-color: #d97706; background: #fde7b0; }
+h2 { margin: 2px 4px 8px; font-size: 14px; text-transform: uppercase; letter-spacing: .05em; color: #92400e; }
+.card { margin-bottom: 8px; padding: 8px 10px; border-radius: 9px; background: #fff; box-shadow: 0 2px 0 #e7c48d; cursor: grab; }
+.card b { display: block; }
+.card span { color: #7c5a33; font-size: 14px; }
+.card.lifted { opacity: .45; }

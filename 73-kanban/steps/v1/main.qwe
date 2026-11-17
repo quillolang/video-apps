@@ -1,0 +1,34 @@
+// Flip: a pancake kitchen's board, three columns of orders, drawn on the server.
+
+db.open("flip.db")
+db.migrate("migrations")
+
+let stages = [
+    { id: "ordered", name: "Ordered" },
+    { id: "cooking", name: "On the griddle" },
+    { id: "served", name: "Served" },
+]
+
+view Board(all: list) =
+    <div.board>
+        {for s in stages =>
+            <section.column>
+                <h2>{s.name}</h2>
+                {for o in all | filter((o) => o.stage == s.id) =>
+                    <article.card>
+                        <b>{o.who}</b>
+                        <span>{o.what}</span>
+                    </article>}
+            </section>}
+    </div>
+
+route GET / with db =
+    <html>
+        <head><title>Flip</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>
+            <h1>🥞 Flip</h1>
+            <Board all={db.query("select id, who, what, stage from orders order by id")}/>
+        </main></body>
+    </html>
+
+route GET /static/*path = files("public", path)
