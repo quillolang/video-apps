@@ -1,0 +1,17 @@
+<!-- Order tracking, in plain JavaScript. -->
+<meta charset="utf-8">
+<body style="font: 22px system-ui; margin: 28px">
+<h1>🍕 Track your order</h1>
+<p>Ada's latest order: <span id="num">...</span></p>
+<button style="font: inherit" onclick="show()">Show it</button>
+<p id="out"></p>
+<script>
+  let latest;
+  fetch('/api/latest?who=Ada').then((r) => r.json())
+    .then((o) => { latest = o; num.textContent = o.id; });
+  async function show() {
+    const r = await fetch(`/api/orders/${latest.id}`);
+    const order = await r.json();
+    out.textContent = `${order.who}'s ${order.pizza}`;
+  }
+</script>

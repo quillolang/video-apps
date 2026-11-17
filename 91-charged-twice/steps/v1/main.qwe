@@ -1,0 +1,27 @@
+// Bean There's Pay button, in Quillo: a charge for each call.
+db.open("bean.db")
+db.migrate("migrations")
+
+fn charged() with db = db.one("select count(*) as n from charges")?.n
+
+server fn pay() with db {
+    db.exec("insert into charges (cents) values (450)")?
+    `Paid: charge ${charged()}`
+}
+
+component Pay() {
+    state note = ""
+    <p>
+        <button style="font: inherit"
+            onclick={() => { note = pay() }}>Pay $4.50</button>
+        <span style="margin-left: 12px">{note}</span>
+    </p>
+}
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>☕ Bean There</h1>
+        <Pay/>
+    </body></html>
+
+route GET /charges with db = `charges: ${charged()}`

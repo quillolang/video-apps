@@ -1,0 +1,39 @@
+// Luigi's order tracking: a JSON API, a JavaScript page, and Quillo's.
+db.open("luigis.db")
+db.migrate("migrations")
+
+type Order = { id: int, who: str, pizza: str }
+
+let LATEST = "select * from orders where who = ? order by id desc"
+
+// The JSON API, and the plain JavaScript page that uses it.
+route GET /api/latest ? { who: str } with db =
+    db.one("select id from orders where who = ? order by id desc", who)?
+route GET /api/orders/:id(int) with db =
+    db.one("select * from orders where id = ?", id)?
+        ?? respond(404, "no such order")
+route GET /track = file("public/track.html")
+
+// The same page, in Quillo: the id goes through the browser too.
+server fn latest_for(who: str) -> Order with db =
+    Order(db.one(LATEST, who)?)
+server fn order_by_id(id: int) -> Order with db =
+    Order(db.one("select * from orders where id = ?", id)?)
+
+component Track() {
+    state latest = latest_for("Ada")
+    state order = null
+    <div>
+        <p>Ada's latest order: {latest.id}</p>
+        <button style="font: inherit"
+            onclick={() => { order = order_by_id(latest.id) }}>
+            Show it</button>
+        <p>{order && `${order.who}'s ${order.pizza}`}</p>
+    </div>
+}
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🍕 Track your order</h1>
+        <Track/>
+    </body></html>
