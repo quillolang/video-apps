@@ -1,0 +1,165 @@
+db.open("movie-night.db")
+db.migrate("migrations")
+
+let host = "Sam"
+
+server fn my_name() -> str = session().name ?? ""
+
+server fn set_name(name: str) -> str ! str {
+    let n = trim(name)
+    if n == "" {
+        return err("Type your name first.")
+    }
+    set_session({ name: n })
+    n
+}
+
+server fn all_movies() -> list with db = db.query("select * from movies order by votes desc, id")
+
+server fn vote(id: int) -> int ! str with db {
+    let name = session().name ?? ""
+    if name == "" {
+        return err("Tell us your name first, at the top of the page.")
+    }
+    let added = db.exec("insert or ignore into voters (movie_id, name) values (?, ?)", id, name)
+    if added.changes == 1 {
+        db.exec("update movies set votes = votes + 1 where id = ?", id)
+    }
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+server fn unvote(id: int) -> int ! str with db {
+    let name = session().name ?? ""
+    if name == "" {
+        return err("Tell us your name first, at the top of the page.")
+    }
+    let removed = db.exec("delete from voters where movie_id = ? and name = ?", id, name)
+    if removed.changes == 1 {
+        db.exec("update movies set votes = votes - 1 where id = ?", id)
+    }
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+server fn all_suggestions() -> list with db = db.query("select * from suggestions order by id")
+
+server fn suggest(title: str) -> int ! str with db {
+    let name = trim(title)
+    if name == "" {
+        return err("Type a movie's title first.")
+    }
+    if len(name) > 60 {
+        return err("That title is too long: 60 letters at most.")
+    }
+    if db.one("select id from suggestions where title = ?", name) != null {
+        return err(`${name} is on the list already.`)
+    }
+    db.exec("insert into suggestions (title) values (?)", name).last_id
+}
+
+fn length_text(minutes: int) -> str =
+    `${int(minutes / 60)} h ${minutes % 60} min`
+
+fn snack_note(minutes: int) -> str =
+    minutes > 120 ? "A long one: bring extra snacks!" : "Not too long."
+
+fn era(year: int) -> str =
+    year < 2000 ? "A classic!" : "A newer one."
+
+component NameBox() {
+    state me = my_name()
+    state draft = ""
+    <div>
+        {me == "" ?
+            <form onsubmit={() => { me = set_name(draft) ?? "" }}>
+                <input value={draft} placeholder="Your name"/>
+                <button>That's me</button>
+            </form>
+          : <p>Hi, {me}! Your vote counts once for each movie.</p>}
+    </div>
+}
+
+component VoteButton(id: int, start: int) {
+    state votes = start
+    let label = votes == 1 ? "vote" : "votes"
+    <p>
+        <button onclick={() => { votes = vote(id) ?? votes }}>👍 {votes} {label}</button>
+        <button onclick={() => { votes = unvote(id) ?? votes }}>Undo</button>
+    </p>
+}
+
+component MovieList() {
+    state movies = live(all_movies)
+    state problem = ""
+    <div>
+        <p>Tonight's pick, so far: {movies.first().title}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <p>{problem}</p>
+        <ul>
+            {for m in movies =>
+                <li>
+                    <button onclick={() => {
+                        let r = vote(m.id)
+                        problem = is_err(r) ? r.error : ""
+                    }}>👍 {m.votes}</button>{" "}
+                    <a href={`/movies/${m.id}`}>{m.title}</a>
+                </li>}
+        </ul>
+        <p>Votes so far: {sum(for m in movies => m.votes)}</p>
+    </div>
+}
+
+component SuggestBox() {
+    state draft = ""
+    state problem = ""
+    state suggestions = live(all_suggestions)
+    <div>
+        <form onsubmit={() => {
+            let r = suggest(draft)
+            if is_err(r) {
+                problem = r.error
+            } else {
+                draft = ""
+                problem = ""
+            }
+        }}>
+            <input value={draft} placeholder="A movie title"/>
+            <button>Suggest</button>
+        </form>
+        <p>{problem}</p>
+        <ul>{for s in suggestions => <li>{s.title}</li>}</ul>
+    </div>
+}
+
+route GET / {
+    <main>
+        <h1>Movie Night</h1>
+        <p>Friday at 8. Bring snacks!</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <NameBox/>
+        <MovieList/>
+        <p><a href="/suggest">Suggest a movie</a></p>
+    </main>
+}
+
+route GET /suggest =
+    <main>
+        <h1>Suggest a movie</h1>
+        <SuggestBox/>
+        <p><a href="/">All the movies</a></p>
+    </main>
+
+route GET /movies/:id(int) {
+    let movie = db.one("select * from movies where id = ?", id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <main>
+        <h1>{movie.title}</h1>
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <VoteButton id={movie.id} start={movie.votes}/>
+        <p><a href="/">All the movies</a></p>
+    </main>
+}

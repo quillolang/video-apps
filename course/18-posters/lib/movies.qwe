@@ -1,0 +1,46 @@
+// Movies: the votes and the suggestions in the database.
+
+type Movie = { id: int, title: str, year: int, minutes: int, votes: int, poster: str? }
+type Suggestion = { id: int, title: str }
+
+server fn all_movies() -> list<Movie> with db = db.query("select * from movies order by votes desc, id")
+
+server fn vote(id: int) -> int ! str with db {
+    let name = session().name ?? ""
+    if name == "" {
+        return err("Tell us your name first, at the top of the page.")
+    }
+    let added = db.exec("insert or ignore into voters (movie_id, name) values (?, ?)", id, name)
+    if added.changes == 1 {
+        db.exec("update movies set votes = votes + 1 where id = ?", id)
+    }
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+server fn unvote(id: int) -> int ! str with db {
+    let name = session().name ?? ""
+    if name == "" {
+        return err("Tell us your name first, at the top of the page.")
+    }
+    let removed = db.exec("delete from voters where movie_id = ? and name = ?", id, name)
+    if removed.changes == 1 {
+        db.exec("update movies set votes = votes - 1 where id = ?", id)
+    }
+    db.one("select votes from movies where id = ?", id).votes
+}
+
+server fn all_suggestions() -> list<Suggestion> with db = db.query("select * from suggestions order by id")
+
+server fn suggest(title: str) -> int ! str with db {
+    let name = trim(title)
+    if name == "" {
+        return err("Type a movie's title first.")
+    }
+    if len(name) > 60 {
+        return err("That title is too long: 60 letters at most.")
+    }
+    if db.one("select id from suggestions where title = ?", name) != null {
+        return err(`${name} is on the list already.`)
+    }
+    db.exec("insert into suggestions (title) values (?)", name).last_id
+}

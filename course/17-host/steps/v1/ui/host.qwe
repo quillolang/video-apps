@@ -1,0 +1,45 @@
+// The host's log-in, and the host's panel.
+import lib/host.qwe use am_host, host_log_in, host_log_out, new_week
+
+component HostLogin() {
+    state me = am_host()
+    state draft = ""
+    state problem = ""
+    <div>
+        {me ?
+            <div>
+                <p>
+                    Welcome, host!{" "}
+                    <button onclick={() => { me = host_log_out() }}>Log out</button>
+                </p>
+                <HostPanel/>
+            </div>
+          : <form onsubmit={() => {
+                let r = host_log_in(draft)
+                if is_err(r) {
+                    problem = r.error
+                } else {
+                    me = true
+                    draft = ""
+                    problem = ""
+                }
+            }}>
+                <input type="password" value={draft} placeholder="The host's password"/>
+                <button>Log in</button>
+            </form>}
+        <p.problem>{problem}</p>
+    </div>
+}
+
+component HostPanel() {
+    state said = ""
+    <div>
+        <h2>A new week</h2>
+        <p>After movie night: clear every vote, and start again.</p>
+        <button onclick={() => {
+            let r = new_week()
+            said = is_err(r) ? r.error : "Every vote is cleared. Happy new week!"
+        }}>Clear the votes</button>
+        <p>{said}</p>
+    </div>
+}

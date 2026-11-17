@@ -1,0 +1,10 @@
+// The frame around every page.
+
+view Page(title: str, children) =
+    <html>
+        <head>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body><main>{children}</main></body>
+    </html>

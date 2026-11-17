@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    background: #fdf6ec;
+    color: #2b2118;
+    font: 18px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px 24px;
+}
+
+h1 {
+    color: #b4361f;
+    font-size: 40px;
+}
+
+a {
+    color: #b4361f;
+}
+
+button {
+    font: inherit;
+    padding: 2px 12px;
+    border: 2px solid #b4361f;
+    border-radius: 999px;
+    background: #fff;
+}

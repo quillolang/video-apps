@@ -1,0 +1,60 @@
+db.open("movie-night.db")
+db.migrate("migrations")
+
+let host = "Sam"
+let zone = "Australia/Sydney"
+
+use "lib/names.qwe"
+use "lib/movies.qwe"
+use "lib/words.qwe"
+use "lib/when.qwe"
+use "ui/page.qwe"
+use "ui/movies.qwe"
+use "lib/host.qwe"
+use "ui/host.qwe"
+
+route GET / {
+    let today = date.today(zone)
+    let night = next_friday(today)
+    <Page title="Movie Night">
+        <h1>Movie Night</h1>
+        <p>Next movie night: {date.format(night, "dddd, MMMM D")}, at 8. Bring snacks!</p>
+        <p>{countdown_text(days_until(today, night))}</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <NameBox/>
+        <MovieList/>
+        <p><a href="/suggest">Suggest a movie</a></p>
+    </Page>
+}
+
+route GET /suggest =
+    <Page title="Suggest a movie">
+        <h1>Suggest a movie</h1>
+        <SuggestBox/>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+
+route GET /host =
+    <Page title="The host's page">
+        <h1>The host's page</h1>
+        <HostLogin/>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+
+route GET /movies/:id(int) {
+    let movie = db.one("select * from movies where id = ?", id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <Page title={movie.title}>
+        <h1>{movie.title}</h1>
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <VoteButton id={movie.id} start={movie.votes}/>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+}
+
+route GET /static/*path = files("public", path)

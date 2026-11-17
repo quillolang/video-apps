@@ -1,0 +1,26 @@
+// The host's log-in.
+import lib/host.qwe use am_host, host_log_in
+
+component HostLogin() {
+    state me = am_host()
+    state draft = ""
+    state problem = ""
+    <div>
+        {me ?
+            <p>Welcome, host! Your page grows in lesson 17.</p>
+          : <form onsubmit={() => {
+                let r = host_log_in(draft)
+                if is_err(r) {
+                    problem = r.error
+                } else {
+                    me = true
+                    draft = ""
+                    problem = ""
+                }
+            }}>
+                <input type="password" value={draft} placeholder="The host's password"/>
+                <button>Log in</button>
+            </form>}
+        <p.problem>{problem}</p>
+    </div>
+}

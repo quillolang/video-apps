@@ -1,6 +1,6 @@
 # Who's Voting? Names, One Vote Each, and Party Time | Learn to Code with Quillo #10
 
-Movie Night, lesson 10 of Learn to Code with Quillo, the finished app: each friend gives a name (kept in a session), votes count once per person and movie (a voters table), Undo takes away only your own vote, and it runs on the home Wi-Fi with --host 0.0.0.0.
+Movie Night, lesson 10 of Learn to Code with Quillo, the end of part one: each friend gives a name (kept in a session), votes count once per person and movie (a voters table), Undo takes away only your own vote, and it runs on the home Wi-Fi with --host 0.0.0.0.
 
 This lesson starts where [09-forms](../09-forms) ended.
 
@@ -11,6 +11,16 @@ Written for Quillo 0.8.6. `run.sh` downloads that Quillo the first time:
 ```
 
 Then open http://127.0.0.1:8080.
+
+On Windows, in PowerShell, in this folder:
+
+```powershell
+curl.exe -fsSLO https://raw.githubusercontent.com/quillolang/starter/v0.8.6/get-quillo.ps1
+powershell -ExecutionPolicy Bypass -File get-quillo.ps1
+.\run.cmd --watch
+```
+
+Quillo gets updates: the official install page, https://quillolang.org/docs/install/, always has the latest.
 
 ## The versions in the video
 

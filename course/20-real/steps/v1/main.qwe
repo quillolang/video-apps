@@ -1,0 +1,107 @@
+db.open("movie-night.db")
+db.migrate("migrations")
+
+let host = "Sam"
+let zone = "Australia/Sydney"
+
+use "lib/names.qwe"
+use "lib/movies.qwe"
+use "lib/words.qwe"
+use "lib/when.qwe"
+use "ui/page.qwe"
+use "ui/movies.qwe"
+use "lib/host.qwe"
+use "ui/host.qwe"
+
+route GET / {
+    let today = date.today(zone)
+    let night = next_friday(today)
+    <Page title="Movie Night">
+        <h1>Movie Night</h1>
+        <p>Next movie night: {date.format(night, "dddd, MMMM D")}, at 8. Bring snacks!</p>
+        <p>{countdown_text(days_until(today, night))}</p>
+        <p>We vote on the movie together.</p>
+        <p>Hosted by {host}</p>
+        <NameBox/>
+        <MovieList/>
+        <p><a href="/suggest">Suggest a movie</a> · <a href="/search">Find a movie</a></p>
+    </Page>
+}
+
+route GET /suggest =
+    <Page title="Suggest a movie">
+        <h1>Suggest a movie</h1>
+        <SuggestBox/>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+
+route GET /search ? { q: str = "" } {
+    let found = find_movies(q)
+    <Page title="Find a movie">
+        <h1>Find a movie</h1>
+        <form method="get" action="/search">
+            <input name="q" value={q} placeholder="A word from the title"/>
+            <button>Search</button>
+        </form>
+        {q != "" && <p>{found_text(q, len(found))}</p>}
+        <ul>
+            {for m in found =>
+                <li><a href={`/movies/${m.id}`}>{m.title}</a> ({m.year})</li>}
+        </ul>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+}
+
+route GET /host =
+    <Page title="The host's page">
+        <h1>The host's page</h1>
+        <HostLogin/>
+        <p><a href="/">All the movies</a></p>
+    </Page>
+
+route GET /movies/:id(int) {
+    let movie = db.one("select * from movies where id = ?", id)
+    if movie == null {
+        return respond(404, "No such movie")
+    }
+    <Page title={movie.title}>
+        <h1>{movie.title}</h1>
+        {movie.poster != null && <img.poster src={`/posters/${movie.poster}`} alt="The poster"/>}
+        <p>{movie.year}, {length_text(movie.minutes)}</p>
+        <p>{snack_note(movie.minutes)}</p>
+        <p>{era(movie.year)}</p>
+        <VoteButton id={movie.id} start={movie.votes}/>
+        {am_host() &&
+            <form method="post" action={`/movies/${movie.id}/poster`} enctype="multipart/form-data">
+                <input type="file" name="poster" accept="image/*"/>
+                <button>Upload a poster</button>
+            </form>}
+        <p><a href="/">All the movies</a></p>
+    </Page>
+}
+
+route GET /static/*path = files("public", path)
+
+// The movies as JSON, for other programs: a list or a map a route gives back is sent as JSON.
+route GET /api/movies = all_movies()
+
+// A poster for a movie, from the host: checked, shrunk, and saved in posters/ under a name we choose.
+route POST /movies/:id(int)/poster with db, fs, random {
+    if !am_host() {
+        reply 403 "Only the host can add posters."
+    }
+    let f = request.files.poster ?? reply 400 "Choose a picture first."
+    let upload = save_upload(f, `posters/upload-${uuid()}`)?
+    let info = image.info(upload)
+    if is_err(info) {
+        delete_file(upload)
+        reply 415 "That's not a picture: a JPEG, PNG, WebP or GIF, please."
+    }
+    let name = `${uuid()}.jpg`
+    image.convert(upload, `posters/${name}`, { width: 300 })?
+    delete_file(upload)
+    db.exec("update movies set poster = ? where id = ?", name, id)?
+    redirect(`/movies/${id}`)
+}
+
+route GET /posters/*name = files("posters", name)

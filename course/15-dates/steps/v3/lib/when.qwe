@@ -1,0 +1,7 @@
+// When: the next movie night, and how long until it.
+
+// Movie night is every Friday: weekday 5 (Monday is 1, Sunday is 7).
+fn next_friday(today: str) -> str =
+    date.add_days(today, (5 - date.weekday(today) + 7) % 7)
+
+fn days_until(today: str, night: str) -> int = date.days_between(today, night)

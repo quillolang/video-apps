@@ -1,0 +1,74 @@
+// The parts of the page that live in the browser.
+
+import lib/movies.qwe use all_movies, all_suggestions, suggest, unvote, vote
+import lib/names.qwe use my_name, set_name
+import lib/words.qwe use votes_text
+
+component NameBox() {
+    state me = my_name()
+    state draft = ""
+    <div>
+        {me == "" ?
+            <form onsubmit={() => { me = set_name(draft) ?? "" }}>
+                <input value={draft} placeholder="Your name"/>
+                <button>That's me</button>
+            </form>
+          : <p>Hi, {me}! Your vote counts once for each movie.</p>}
+    </div>
+}
+
+component VoteButton(id: int, start: int) {
+    state votes = start
+    <p>
+        <button onclick={() => { votes = vote(id) ?? votes }}>👍 {votes_text(votes)}</button>
+        <button onclick={() => { votes = unvote(id) ?? votes }}>Undo</button>
+    </p>
+}
+
+component MovieList() {
+    style css`
+        .pick { background: #fff; border-radius: 12px; padding: 12px 16px; font-weight: 600 }
+        .movies { list-style: none; padding: 0 }
+        .movies li { padding: 6px 0; border-bottom: 1px solid #ecdcc6 }
+    `
+    state movies = live(all_movies)
+    state problem = ""
+    <div>
+        <p.pick>Tonight's pick, so far: {movies.first().title}</p>
+        <p>{len(movies)} movies to choose from:</p>
+        <p.problem>{problem}</p>
+        <ul.movies>
+            {for m in movies =>
+                <li>
+                    <button onclick={() => {
+                        let r = vote(m.id)
+                        problem = is_err(r) ? r.error : ""
+                    }}>👍 {m.votes}</button>{" "}
+                    <a href={`/movies/${m.id}`}>{m.title}</a>
+                </li>}
+        </ul>
+        <p>Votes so far: {sum(for m in movies => m.votes)}</p>
+    </div>
+}
+
+component SuggestBox() {
+    state draft = ""
+    state problem = ""
+    state suggestions = live(all_suggestions)
+    <div>
+        <form onsubmit={() => {
+            let r = suggest(draft)
+            if is_err(r) {
+                problem = r.error
+            } else {
+                draft = ""
+                problem = ""
+            }
+        }}>
+            <input value={draft} placeholder="A movie title"/>
+            <button>Suggest</button>
+        </form>
+        <p.problem>{problem}</p>
+        <ul>{for s in suggestions => <li>{s.title}</li>}</ul>
+    </div>
+}

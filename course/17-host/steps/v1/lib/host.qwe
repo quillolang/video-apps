@@ -1,0 +1,29 @@
+// The host: a password only the host knows, checked against its hash in .env, and the host's own actions.
+
+server fn am_host() -> bool = session().host == true
+
+server fn host_log_in(password: str) -> bool ! str {
+    let hash = env("HOST_PASSWORD_HASH")
+    if hash == null {
+        return err("The host's password isn't set: put HOST_PASSWORD_HASH in .env, then start the program again.")
+    }
+    if !crypto.verify_password(password, hash) {
+        return err("That's not the host's password.")
+    }
+    set_session({ ...session(), host: true })
+    true
+}
+
+server fn host_log_out() -> bool {
+    set_session({ ...session(), host: false })
+    false
+}
+
+// A new week: every vote cleared, both tables or neither.
+server fn new_week() -> bool ! str with db {
+    db.transaction(() => {
+        db.exec("delete from voters")?
+        db.exec("update movies set votes = 0")?
+        true
+    })
+}

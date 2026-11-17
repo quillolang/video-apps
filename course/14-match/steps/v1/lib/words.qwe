@@ -1,0 +1,16 @@
+// Words about a movie: its length, a snack note, its era, and its votes.
+
+fn length_text(minutes: int) -> str =
+    `${int(minutes / 60)} h ${minutes % 60} min`
+
+fn snack_note(minutes: int) -> str =
+    minutes > 120 ? "A long one: bring extra snacks!" : "Not too long."
+
+fn era(year: int) -> str =
+    year < 2000 ? "A classic!" : "A newer one."
+
+fn votes_text(votes: int) -> str = match votes {
+    0 => "No votes yet"
+    1 => "1 vote"
+    n => `${n} votes`
+}

@@ -1,0 +1,12 @@
+// Names: who's who, kept in each browser's session.
+
+server fn my_name() -> str = session().name ?? ""
+
+server fn set_name(name: str) -> str ! str {
+    let n = trim(name)
+    if n == "" {
+        return err("Type your name first.")
+    }
+    set_session({ name: n })
+    n
+}
