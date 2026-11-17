@@ -1,0 +1,8 @@
+// Luigi's downloads, in Quillo: a file from the files folder, by name.
+route GET /download ? { name: str } = file(`files/${name}`)
+
+// Avatars: each photo saved in avatars/, under the name it came with.
+route POST /avatar { files: { photo: map } } {
+    let saved = save_upload(photo, `avatars/${photo.filename}`)?
+    `saved ${saved}`
+}
