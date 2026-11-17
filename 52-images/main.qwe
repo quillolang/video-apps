@@ -1,0 +1,43 @@
+// Avatars: upload any picture, and get a square avatar, cut from its middle and shrunk to 256 pixels.
+
+let avatars = []      // the ones made, newest first: { id, name, from }
+
+// The biggest square in the middle of a picture.
+fn middle_square(w: int, h: int) -> map {
+    let side = min([w, h])
+    { x: floor((w - side) / 2), y: floor((h - side) / 2), w: side, h: side }
+}
+
+route GET / = <html>
+    <head><title>Avatars</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main>
+        <h1>🖼️ Avatars</h1>
+        <form method="post" action="/avatars" enctype="multipart/form-data">
+            <input name="name" placeholder="Your name" required/>
+            <input type="file" name="picture" accept="image/*" required/>
+            <button>Make my avatar</button>
+        </form>
+        <ul>{for a in avatars =>
+            <li><img src={`/avatars/${a.id}.png`} width="96" height="96"/>
+                <b>{a.name}</b><small>{a.from}</small></li>}
+        </ul>
+    </main></body>
+</html>
+
+route POST /avatars with fs, random {
+    let name = trim(request.form.name ?? "")
+    let f = request.files.picture ?? reply 400 "Choose a picture"
+    let id = uuid()
+    let original = save_upload(f, `uploads/${id}`)?
+    let info = image.info(original)
+    if is_err(info) {
+        delete_file(original)
+        reply 415 "That's not a picture: a JPEG, PNG, WebP or GIF, please"
+    }
+    image.convert(original, `avatars/${id}.png`, { crop: middle_square(info.width, info.height), width: 256 })?
+    avatars = [{ id, name, from: `${info.width}×${info.height} ${info.format}` }] + avatars
+    redirect("/")
+}
+
+route GET /avatars/*name = files("avatars", name)
+route GET /static/*path = files("public", path)
