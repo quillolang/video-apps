@@ -1,0 +1,18 @@
+// Three pretend weather stations: each sends a reading over UDP every second, as a real one on a pole would.
+//   quillo run stations.qwe --port 8081     (a port of its own: the board, main.qwe, has 8080, and UDP 9000)
+
+let stations = [
+    { name: "Harbor", warmth: 14.0, breeze: 22 },
+    { name: "Hilltop", warmth: 9.5, breeze: 35 },
+    { name: "Meadow", warmth: 12.0, breeze: 8 },
+]
+let tick = 0
+
+every(1000, () => {
+    tick += 1
+    for [k, s] in enumerate(stations) {
+        let c = s.warmth + 2.0 * math.sin(tick / 8.0 + k * 2.0) + random_int(-3, 3) / 10.0
+        let wind = max([0, s.breeze + random_int(-6, 6)])
+        udp.send("127.0.0.1", 9000, { station: s.name, c: round(c, 1), wind })
+    }
+}, { name: "send" })

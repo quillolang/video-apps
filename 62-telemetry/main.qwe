@@ -1,0 +1,52 @@
+// The weather board: stations send their readings over UDP, and every open page shows them as they come.
+
+let latest = {}         // each station's last reading: name → { c, wind, at }
+let history = {}        // each station's last 30 temperatures, oldest first
+let count = 0           // readings taken so far
+
+// Each packet is one reading, as JSON. Anything else is noted in the log, and skipped.
+udp.listen(9000, (p) => match json.parse(p.text ?? "") {
+    { station: str, c: int | float as c, wind: int = 0 } => {
+        latest = set(latest, station, { c, wind, at: p.at })
+        history = set(history, station, slice((history[station] ?? []) | push(c), -30))
+        count += 1
+        udp.reply(p, "ok")
+    }
+    _ => print(`not a reading, from ${p.from.host}: ${p.text}`)
+})
+
+// What the board shows: each station's last reading, and its recent temperatures.
+server fn board() = {
+    count,
+    stations: for name in sort(keys(latest)) => { name, ...latest[name], temps: history[name] },
+}
+
+// A line of temperatures for a chart 60 wide and 20 high: the lowest at the bottom, the highest at the top.
+fn line(temps: list) -> str {
+    let lo = min(temps) - 0.5
+    let hi = max(temps) + 0.5
+    join(for [i, c] in enumerate(temps) => `${i * 2},${round(20 - (c - lo) * 20 / (hi - lo), 1)}`, " ")
+}
+
+// The board runs in the browser, and follows the server: each reading that comes in shows at once.
+component Board() {
+    state b = live(board)
+    <section>
+        <div.stations>{for s in b.stations =>
+            <article>
+                <h2>{s.name}</h2>
+                <p.temp>{format_number(s.c, "en-US", 1)}°C</p>
+                <p.wind>💨 {s.wind} km/h</p>
+                <svg viewBox="0 0 60 20"><polyline points={line(s.temps)}/></svg>
+            </article>}</div>
+        <p.count>{len(b.stations) == 0 ? "Waiting for the stations..."
+                                       : `${format_number(b.count, "en-US")} readings so far`}</p>
+    </section>
+}
+
+route GET / = <html>
+    <head><title>Weather board</title><link rel="stylesheet" href="/static/style.css"/></head>
+    <body><main><h1>🌦️ The weather board</h1><Board/></main></body>
+</html>
+
+route GET /static/*path = files("public", path)
