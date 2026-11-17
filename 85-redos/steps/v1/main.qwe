@@ -1,0 +1,17 @@
+// Sprout Club's sign-up, in Quillo: the same pattern, on the server.
+
+let EMAIL = "^([a-zA-Z0-9]+[._-]?)+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$"
+
+route GET / =
+    <html><body style="font: 22px system-ui; margin: 28px">
+        <h1>🌱 Sprout Club</h1>
+        <form method="post" action="/join">
+            <input name="email" placeholder="you@example.com"/>
+            <button>Join</button>
+        </form>
+    </body></html>
+
+route POST /join { form: { email: str } } =
+    re.test(email, EMAIL)
+        ? `Welcome to the Sprout Club, ${email}!`
+        : "That does not look like an email."
