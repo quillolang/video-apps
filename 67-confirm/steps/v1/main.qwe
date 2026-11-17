@@ -1,0 +1,44 @@
+// Pen Pals: Ada's settings, with a button that deletes her account, but asks first, and waits for the answer.
+
+let accounts = { ada: { name: "Ada", letters: 12 } }
+
+server fn delete_account() {
+    accounts = remove(accounts, "ada")
+}
+
+view Page(children) =
+    <html>
+        <head><title>Pen Pals</title><link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main><h1>💌 Pen Pals</h1>{children}</main></body>
+    </html>
+
+// The settings run in the browser, with a dialog of their own: open, cancel and delete, each a handler.
+component Settings(me: map) {
+    state asking = false
+    <section.settings>
+        <h2>Hello, {me.name}</h2>
+        <p>{me.letters} letters sent, every one kept.</p>
+        <div.danger>
+            <h3>Danger zone</h3>
+            <button.delete onclick={() => { asking = true }}>Delete my account</button>
+        </div>
+        {asking && <div.modal>
+            <div.box>
+                <h3>Delete your account?</h3>
+                <p>Your {me.letters} letters go too, and it can't be undone.</p>
+                <button onclick={() => { asking = false }}>Cancel</button>
+                <button.red onclick={() => {
+                    asking = false
+                    delete_account()
+                    navigate("/goodbye")
+                }}>Delete it</button>
+            </div>
+        </div>}
+    </section>
+}
+
+route GET / = <Page>{accounts.ada == null ? <p>No account here.</p> : <Settings me={accounts.ada}/>}</Page>
+
+route GET /goodbye = <Page><h2>Goodbye, and thanks for all the letters.</h2></Page>
+
+route GET /static/*path = files("public", path)
