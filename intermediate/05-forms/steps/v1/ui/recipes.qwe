@@ -1,0 +1,78 @@
+// The members' pages: your own recipes, and a form to add one.
+import ui/page.qwe use Page
+import lib/recipes.qwe use add_my_recipe, mine
+import lib/rules.qwe use check_recipe, message_for
+
+view MyRecipesPage() =
+    <Page title="My recipes">
+        <h1>My recipes</h1>
+        <MyList/>
+        <h2>Add a recipe</h2>
+        <RecipeForm/>
+    </Page>
+
+// The member's recipes, live: one added shows up at once, like the votes in the beginner course.
+component MyList() {
+    state recipes = live(mine)
+    {len(recipes ?? []) == 0
+        ? <p.meta>No recipes yet. Add your first one!</p>
+        : <ul.recipes>{for r in recipes => <li key={r.id}>
+            <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            <a.edit href={`/my/recipes/${r.id}/edit`}>Edit</a>
+        </li>}</ul>}
+}
+
+// The form: hints as you type, from the rules, after the first try.
+component RecipeForm() {
+    state title = ""
+    state servings = 2
+    state minutes = 20
+    state touched = false
+    state from_server = []
+    state sent = null
+    state added = null
+    let draft = { title, servings: servings ?? 0, minutes: minutes ?? 0 }
+    let mine_problems = check_recipe(draft)
+    let problems = mine_problems + (sent == draft ? from_server : [])
+    let hint = (field) => touched ? message_for(problems, field) : null
+    <form.stack onsubmit={() => {
+        touched = true
+        if len(mine_problems) == 0 {
+            let r = add_my_recipe(draft)
+            sent = draft
+            if is_err(r) { from_server = r.error } else { added = title; title = ""; touched = false }
+        }
+    }}>
+        <label>Title <input name="title" value={title}/></label>
+        <p.hint>{hint("title")}</p>
+        <label>Serves <input name="servings" type="number" value={servings}/></label>
+        <p.hint>{hint("servings")}</p>
+        <label>Minutes <input name="minutes" type="number" value={minutes}/></label>
+        <p.hint>{hint("minutes")}</p>
+        <p.hint>{hint("")}</p>
+        <button>Add it</button>
+        {added != null && <p.meta>Added {added}.</p>}
+    </form>
+}
+
+view EditRecipePage(recipe: map) =
+    <Page title={`Edit ${recipe.title}`}>
+        <h1>Edit {recipe.title}</h1>
+        <form.stack method="post" action={`/my/recipes/${recipe.id}`}>
+            <label>Title <input name="title" value={recipe.title} required/></label>
+            <label>Serves <input name="servings" type="number" min="1" value={recipe.servings} required/></label>
+            <label>Minutes <input name="minutes" type="number" min="1" value={recipe.minutes} required/></label>
+            <button>Save</button>
+        </form>
+        <p><a href={`/my/recipes/${recipe.id}/delete`}>Delete this recipe</a></p>
+    </Page>
+
+view DeleteRecipePage(recipe: map) =
+    <Page title={`Delete ${recipe.title}?`}>
+        <h1>Delete {recipe.title}?</h1>
+        <p>This can't be undone.</p>
+        <form method="post" action={`/my/recipes/${recipe.id}/delete`}>
+            <button>Yes, delete it</button>
+            <a href="/my">No, keep it</a>
+        </form>
+    </Page>

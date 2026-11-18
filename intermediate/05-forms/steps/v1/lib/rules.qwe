@@ -1,0 +1,15 @@
+// The rules for a new recipe: plain functions, so the browser and the server run the very same ones.
+type NewRecipe = { title: str, servings: int, minutes: int }
+
+// A problem is a field and a message; rules add up with +, and an empty list means all is well.
+fn problem(field: str, message: str) -> list = [{ field, message }]
+fn when(cond: bool, problems: list) -> list = cond ? problems : []
+
+fn check_recipe(r: map) -> list =
+    when(trim(r.title ?? "") == "", problem("title", "Give it a title, please."))
+    + when(len(trim(r.title ?? "")) > 60, problem("title", "60 letters at most."))
+    + when((r.servings ?? 0) < 1, problem("servings", "It serves at least one person."))
+    + when((r.minutes ?? 0) < 1, problem("minutes", "How many minutes does it take?"))
+
+// The first message for a field, or null.
+fn message_for(problems: list, field: str) = (find(problems, (p) => p.field == field) ?? {}).message
