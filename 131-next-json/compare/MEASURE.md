@@ -18,7 +18,7 @@ in `../assets/runs.json`. Measured on one machine.
   it; `zod.js` checks it with a zod schema (`name: z.string().min(1)`, `email: z.email()`, `guests: z.int().min(0).max(8)`),
   `safeParse`, and answers 400 with `z.flattenError(result.error)`, as Next's docs suggest a schema library like Zod for
   server-side validation. `next.config.mjs` takes its `distDir` from `DIST`, so `build-variants.sh` builds each into its
-  own folder (`.next-naive`, `.next-zod`). (The starter's `--eslint` made no ESLint config in the API starter, so nothing
+  own folder (`.next/naive`, `.next/zod`). (The starter's `--eslint` made no ESLint config in the API starter, so nothing
   is linted.)
 - **Quillo**: `../steps/pattern/main.qwe`, `route POST /api/signups { json: Signup }` with
   `type Signup = { name: str, email: str, guests: int }` (`quillo check`: `main.qwe: ok (2 routes, 0 functions, 0 components)`); and
