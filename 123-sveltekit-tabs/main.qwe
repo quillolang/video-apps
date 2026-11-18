@@ -1,0 +1,39 @@
+// Groceries: one list, open in as many tabs as you like.
+let css = read_file("groceries.css")
+db.open("groceries.db")
+db.exec(`create table if not exists items (
+    id integer primary key, name text not null, bought integer not null default 0)`)
+
+server fn load_items() -> list with db = db.query("select id, name, bought from items order by id")
+
+server fn add(name: str) with db {
+    if trim(name) != "" { db.exec("insert into items (name) values (?)", trim(name)) }
+}
+
+server fn toggle(id: int) with db = db.exec("update items set bought = 1 - bought where id = ?", id)
+
+component Groceries() {
+    state items = live(load_items)
+    state draft = ""
+    let left = count(items, item => item.bought == 0)
+
+    <main>
+        <h1>Groceries</h1>
+        <p class="left">{left} to buy</p>
+        <ul>
+            {for item in items => <li key={item.id} class={item.bought == 1 && "bought"}>
+                <button onclick={() => toggle(item.id)}>{item.bought == 1 ? "✓" : ""}</button>
+                <span>{item.name}</span>
+            </li>}
+        </ul>
+        <form class="add" onsubmit={() => { add(draft); draft = "" }}>
+            <input value={draft} placeholder="Add an item" autocomplete="off"/>
+            <button>Add</button>
+        </form>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Groceries</title><style>{raw(css)}</style></head>
+    <body><Groceries/></body>
+</html>
