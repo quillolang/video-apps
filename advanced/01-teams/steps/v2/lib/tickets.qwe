@@ -1,0 +1,5 @@
+// A team's tickets. Every query runs in the database of the team the request came for.
+fn all_tickets() -> list with db = db.query("select * from tickets order by id desc")
+
+fn add_ticket(title: str) -> map ! str with db =
+    db.exec("insert into tickets (title) values (?)", trim(title))

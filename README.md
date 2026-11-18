@@ -184,3 +184,11 @@ One app, Recipe Box, built up over the lessons. Each folder is where its lesson 
 | [08-components](intermediate/08-components) | Components That Work Together: Props Down, Changes Up, and Page State \| Intermediate Quillo #8 | Recipe Box, lesson 8 of Intermediate Quillo: components that work together. A servings picker tells its parent each new number through a function prop, the ingredient list follows the servings it's given, and a page state, picked, is shared by a badge in the header and a Pick button beside each recipe. |
 | [09-tests](intermediate/09-tests) | Test Your Own Code: A Test Script That Catches a Bug \| Intermediate Quillo #9 | Recipe Box, lesson 9 of Intermediate Quillo: tests for your own code. scaled() and amount_text() in lib/amounts.qwe, plain functions the page uses, and tests.qwe, a script that checks them and the form's rules, prints ok or FAIL for each, and ends with status 1 on a failure: quillo run tests.qwe. |
 | [10-jobs](intermediate/10-jobs) | Jobs and Imports: A Recipe of the Day, and All-or-Nothing Imports \| Intermediate Quillo #10 | Recipe Box, lesson 10 of Intermediate Quillo, the finished app: a recipe of the day picked by a scheduled job (schedule at the program's top level, with db and time), import.qwe bringing recipes in from a JSON file in one transaction, all or nothing, and export.qwe writing them out in the same shape. |
+
+## Advanced Quillo: Build a Help Desk
+
+One app, Help Desk, built up over the lessons. Each folder is where its lesson ends, and the next lesson starts from it.
+
+| Folder | Lesson | The app |
+|---|---|---|
+| [01-teams](advanced/01-teams) | One App, Many Teams: A Database per Team \| Advanced Quillo #1 | Help Desk, lesson 1 of Advanced Quillo: one app for many teams, each with a database of its own, picked from the address (acme.localhost). new_tenant starts a team and refuses a name that's taken, and a team's data stays out of global variables. |

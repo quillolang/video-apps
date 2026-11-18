@@ -1,0 +1,52 @@
+// Help Desk: one app, many teams, each with a database of its own.
+tenant_from("localhost")      // acme.localhost is the team "acme"
+db.open("data/{tenant}.db")   // a SQLite file per team
+db.migrate("migrations")      // run for each team's database when it's made
+
+use "lib/tickets.qwe"
+use "ui/page.qwe"
+
+// The bare address, with no team: a page to start one.
+route GET / ? { taken: str = "" } {
+    if tenant() != null {
+        if !db.tenant_exists(tenant()) { reply 404 "No such team" }
+        return team_home()
+    }
+    <Page title="Help Desk">
+        <h1>Help Desk</h1>
+        <p>A help desk for your team, with a database of its own.</p>
+        {taken != "" && <p.problem>"{taken}" is taken. Try another name.</p>}
+        <form method="post" action="/teams">
+            <input name="name" placeholder="your team's name: acme" pattern="[a-z0-9][a-z0-9_]*" required/>
+            <button>Start a team</button>
+        </form>
+    </Page>
+}
+
+// Starting a team makes its database, migrated, in one step: a name that's taken is refused.
+route POST /teams { form: { name: str } } {
+    let made = new_tenant(name, () => null)
+    if is_err(made) { reply 303 redirect(`/?taken=${url_encode(name)}`) }
+    redirect(`http://${name}.${request.headers.host}/`)
+}
+
+// A team's home: its tickets, and a form to add one.
+fn team_home() with db {
+    let latest = latest_ticket()
+    <Page title={`${tenant()} · Help Desk`}>
+        <h1>{tenant()}</h1>
+        {latest != null && <p.meta>Latest: {latest.title}</p>}
+        <form method="post" action="/tickets">
+            <input name="title" placeholder="What's wrong?" required/>
+            <button>Add ticket</button>
+        </form>
+        <ul.tickets>{for t in all_tickets() => <li>{t.title} <span.meta>· {t.status}</span></li>}</ul>
+    </Page>
+}
+
+route POST /tickets { form: { title: str } } with db {
+    add_ticket(title)?
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)
