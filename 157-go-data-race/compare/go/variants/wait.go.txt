@@ -1,0 +1,24 @@
+// The count read, the visit reported to the stats service, then the count set: atomic loads and stores, around a wait.
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"strings"
+	"sync/atomic"
+)
+
+var hits atomic.Int64
+
+func main() {
+	http.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
+		n := hits.Load() + 1
+		if res, err := http.Post("http://localhost:8099/visit", "application/json", strings.NewReader(fmt.Sprintf(`{"n":%d}`, n))); err == nil {
+			res.Body.Close()
+		}
+		hits.Store(n)
+		fmt.Fprintf(w, "Welcome! You're visitor number %d.\n", n)
+	})
+	http.HandleFunc("GET /hits", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintf(w, "%d\n", hits.Load()) })
+	http.ListenAndServe(":8090", nil)
+}

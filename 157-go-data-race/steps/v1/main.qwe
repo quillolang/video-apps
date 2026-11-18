@@ -1,0 +1,9 @@
+// The bakery's hit counter: every visit adds one, and /hits says how many.
+let hits = 0
+
+route GET / {
+    hits += 1
+    `Welcome! You're visitor number ${hits}.`
+}
+
+route GET /hits = hits

@@ -1,0 +1,14 @@
+// The bakery's hit counter: every visit adds one, is reported to the stats service, and /hits says how many.
+let hits = 0
+
+// Tells the stats service about a visit.
+fn report(n: int) with http = http.post("http://localhost:8099/visit", { n }, {}, { timeout: 2 })
+
+route GET / with http {
+    let n = hits + 1
+    report(n)
+    hits = n
+    `Welcome! You're visitor number ${n}.`
+}
+
+route GET /hits = hits
