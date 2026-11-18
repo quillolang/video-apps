@@ -1,0 +1,38 @@
+// Trail Club: log in with the club's OpenID Connect provider, by hand: the first try, which works,
+// and has two holes (no state, any ?next= followed).
+let css = read_file("club.css")
+let issuer = env("ISSUER", "http://localhost:4000")
+let provider = http.get(`${issuer}/.well-known/openid-configuration`, {}, { public_only: false }).json
+let client_id = env("CLIENT_ID", "trail-quillo")
+let redirect_uri = env("BASE", "http://trail.localhost:8080") + "/callback"
+
+view Page(children) = <html>
+    <head><title>Trail Club</title><style>{raw(css)}</style></head>
+    <body><main>{children}</main></body>
+</html>
+
+route GET / {
+    let user = session().user
+    if user == null { return <Page><h1>Trail Club</h1><p><a href="/login">Log in</a></p></Page> }
+    <Page><h1>Trail Club: hello, {user.name}</h1><p class="who">Signed in as {user.sub}.</p></Page>
+}
+
+// To the provider. Where to go after logging in (?next=) is kept in the session.
+route GET /login ? { next: str = "/" } {
+    set_session({ next })
+    redirect(provider.authorization_endpoint + "?" + url_encode({
+        response_type: "code", client_id, redirect_uri, scope: "openid profile" }))
+}
+
+// Back from the provider: the code for tokens, the user in the session, and on to ?next=.
+route GET /callback ? { code: str } with env, http {
+    let tokens = http.post(provider.token_endpoint, url_encode({ grant_type: "authorization_code", code,
+        redirect_uri, client_id, client_secret: env("CLIENT_SECRET", "") }),
+        { "content-type": "application/x-www-form-urlencoded" }, { public_only: false })?
+    if !tokens.ok { return respond(502, "The provider refused the code") }
+    let bearer = { authorization: `Bearer ${tokens.json.access_token}` }
+    let me = http.get(provider.userinfo_endpoint, bearer, { public_only: false })?
+    let next = session().next ?? "/"
+    set_session({ user: { sub: me.json.sub, name: me.json.name } })
+    redirect(next)
+}
