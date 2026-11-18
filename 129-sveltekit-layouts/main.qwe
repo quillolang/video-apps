@@ -1,0 +1,59 @@
+// Trail Guide: one layout around every page, a page per trail, and 404s of its own.
+let css = read_file("trails.css")
+let trails = json.parse(read_file("trails.json"))
+
+view Layout(title: str, here: str, children) = <html>
+    <head><title>{title}</title><style>{raw(css)}</style></head>
+    <body>
+        <header>
+            <a class="brand" href="/">Trail Guide</a>
+            <nav>
+                <a href="/" class={here == "home" && "here"}>Home</a>
+                <a href="/trails" class={here == "trails" && "here"}>Trails</a>
+                <a href="/about" class={here == "about" && "here"}>About</a>
+            </nav>
+        </header>
+        <main>{children}</main>
+        <footer>Six trails, all within an hour of town.</footer>
+    </body>
+</html>
+
+view NoTrail() = <Layout title="Trail not found · Trail Guide" here="trails">
+    <a href="/trails">← All trails</a>
+    <h1 class="missing">404: That trail isn't in the guide</h1>
+    <p>Try the list: six trails, numbered 1 to 6.</p>
+</Layout>
+
+view NotFound() = <Layout title="Not Found · Trail Guide" here="">
+    <a href="/">← Home</a>
+    <h1 class="missing">404: Not Found</h1>
+</Layout>
+
+route GET / = <Layout title="Trail Guide" here="home">
+    <h1>Trail Guide</h1>
+    <p>Six trails, from an easy loop to a hard ridge. <a href="/trails">See them all</a>.</p>
+</Layout>
+
+route GET /trails = <Layout title="Trails · Trail Guide" here="trails">
+    <h1>Trails</h1>
+    <ul>{for t in trails => <li><a href={`/trails/${t.id}`}>{t.name}</a></li>}</ul>
+</Layout>
+
+route GET /trails/:id(int) {
+    let trail = find(trails, (t) => t.id == id)
+    if trail == null { return respond(404, <NoTrail/>) }
+    <Layout title={`${trail.name} · Trail Guide`} here="trails">
+        <a href="/trails">← All trails</a>
+        <h1>{trail.name}</h1>
+        <p class="facts">{trail.km} km · {trail.climb} m climb · {trail.level}</p>
+    </Layout>
+}
+
+route GET /trails/*rest = respond(404, <NoTrail/>)
+
+route GET /about = <Layout title="About · Trail Guide" here="about">
+    <h1>About</h1>
+    <p>Made by the Saturday walking club. Trails are checked every spring.</p>
+</Layout>
+
+route GET /*rest = respond(404, <NotFound/>)
