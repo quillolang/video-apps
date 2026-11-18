@@ -1,0 +1,9 @@
+// The team's activity, as it happens: the page follows the server's feed, a line at a time.
+component Feed() {
+    state lines = []
+    listen("/activity", (a) => { lines = take([a] + lines, 5) })
+    <section>
+        <h2>Activity</h2>
+        <ul.feed>{for a in lines => <li key={a.id}><b>{a.who}</b> {a.what}</li>}</ul>
+    </section>
+}

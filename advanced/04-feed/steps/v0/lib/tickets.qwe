@@ -1,0 +1,15 @@
+// A team's tickets. Every query runs in the database of the team the request came for.
+fn all_tickets() -> list with db = db.query("select * from tickets order by id desc")
+
+fn add_ticket(title: str) -> map ! str with db =
+    db.exec("insert into tickets (title) values (?)", trim(title))
+
+// The list again, for a page that follows it, with each ticket's reply count. It reads replies,
+// so a reply anywhere wakes it: here that's right, since the list shows the counts.
+server fn load_tickets() -> list = db.query(sql`
+    select t.*, (select count(*) from replies r where r.ticket_id = t.id) as replies
+    from tickets t
+    order by t.id desc`)
+
+// One ticket, by its id: null when there's none.
+fn ticket(id: int) with db = db.one("select * from tickets where id = ?", id)
