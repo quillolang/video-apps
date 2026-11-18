@@ -1,0 +1,7 @@
+// The Library: its database, and a page that shows its books.
+db.open("library.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+route GET / with db = <Table title="Library: books" rows={db.query("select * from books")}/>
+route GET /static/*path = files("public", path)

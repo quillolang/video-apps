@@ -1,0 +1,7 @@
+// The School: its database, and a page that shows its students.
+db.open("school.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+route GET / with db = <Table title="School: students" rows={db.query("select * from students")}/>
+route GET /static/*path = files("public", path)

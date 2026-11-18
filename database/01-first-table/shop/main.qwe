@@ -1,0 +1,7 @@
+// The Corner Shop: its database, and a page that shows its products.
+db.open("shop.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+route GET / with db = <Table title="Corner Shop: products" rows={db.query("select * from products")}/>
+route GET /static/*path = files("public", path)

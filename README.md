@@ -199,3 +199,11 @@ One app, Help Desk, built up over the lessons. Each folder is where its lesson e
 |---|---|---|
 | [01-teams](advanced/01-teams) | One App, Many Teams: A Database per Team \| Advanced Quillo #1 | Help Desk, lesson 1 of Advanced Quillo: one app for many teams, each with a database of its own, picked from the address (acme.localhost). new_tenant starts a team and refuses a name that's taken, and a team's data stays out of global variables. |
 | [02-presence](advanced/02-presence) | Who's Here? Live Presence with Channels, Join and Leave \| Advanced Quillo #2 | Help Desk, lesson 2 of Advanced Quillo: who else is looking at a ticket, as it happens. A "viewers" channel: the page joins it and says which ticket it shows, the server keeps who's where in a map keyed by tenant() and broadcasts it, and leave takes a closed page off the list. |
+
+## Quillo Databases: SQL from Zero to PostgreSQL
+
+Six settings (a corner shop, a library, a school, a clinic, a bank and a concert hall), each a folder with its own database, coming back lesson after lesson. Each lesson's folder holds them as that lesson ends, every one ready to run.
+
+| Folder | Lesson | The app |
+|---|---|---|
+| [01-first-table](database/01-first-table) | Your First Table: Rows, Columns and Types \| Quillo Databases #1 | Lesson 1 of Quillo Databases: your first tables. A database is a file of tables; a table has columns with types and a row for each thing. Four settings, each a folder with its own database: the Corner Shop's products, the Library's books, the School's students and the Clinic's patients, every table strict so the database keeps its types. |

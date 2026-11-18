@@ -1,0 +1,7 @@
+// The Clinic: its database, and a page that shows its patients.
+db.open("clinic.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+route GET / with db = <Table title="Clinic: patients" rows={db.query("select * from patients")}/>
+route GET /static/*path = files("public", path)
