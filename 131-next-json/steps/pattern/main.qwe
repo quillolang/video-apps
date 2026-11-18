@@ -1,0 +1,11 @@
+// Sign-ups for the bake sale: who's coming, and how many guests.
+type Signup = { name: str, email: str, guests: int }
+
+let signups = []
+
+route POST /api/signups { json: Signup } {
+    signups = signups | push(json)
+    respond(201, json)
+}
+
+route GET /api/signups = signups
