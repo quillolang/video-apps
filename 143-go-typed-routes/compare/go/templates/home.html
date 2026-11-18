@@ -1,0 +1,4 @@
+{{template "top" "Trail Guide"}}
+<h1>Trail Guide</h1>
+<ul>{{range .}}<li><a href="/trails/{{.ID}}">{{.Name}}</a></li>{{end}}</ul>
+{{template "bottom"}}
