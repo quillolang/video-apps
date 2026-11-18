@@ -1,0 +1,4 @@
+A, after one click: 1
+B, after five ticks: 5: 1 laps
+C, after one click: 100999 100998
+console error: quillo: updates go round in a loop: something sets what it reads

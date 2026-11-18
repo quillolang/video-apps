@@ -1,0 +1,39 @@
+// Lap Timer: start, stop, laps by hand, and one by itself every 5 seconds.
+let css = read_file("timer.css")
+
+fn fmt(t: int) -> str = `${floor(t / 10)}.${t % 10} s`
+
+component Timer() {
+    state running = false
+    state elapsed = 0              // tenths of a second
+    state laps = []
+    let best = min(laps)
+    let lap = () => { laps = laps + [elapsed - sum(laps)] }
+
+    if running {
+        every(100, () => { elapsed += 1 })
+    }
+
+    // a lap by itself every 5 seconds
+    if elapsed > 0 && elapsed % 50 == 0 {
+        lap()
+    }
+
+    <main>
+        <h1>Lap Timer</h1>
+        <p class="time">{fmt(elapsed)}</p>
+        <div class="buttons">
+            <button onclick={() => { running = !running }}>{running ? "Stop" : "Start"}</button>
+            <button onclick={lap} disabled={!running}>Lap</button>
+        </div>
+        {best != null && <p class="best">Best lap: {fmt(best)}</p>}
+        <ol>
+            {for [i, t] in enumerate(laps) => <li>Lap {i + 1}: {fmt(t)}</li>}
+        </ol>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Lap Timer</title><style>{raw(css)}</style></head>
+    <body><Timer/></body>
+</html>

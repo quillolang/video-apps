@@ -1,0 +1,34 @@
+// What Quillo does with statements that set state they read (for MEASURE.md).
+// A: one statement reads n and sets n.  B: the automatic lap's shape.  C: two statements that feed each other.
+component A() {
+    state go = false
+    state n = 0
+    if go {
+        n = n + 1
+    }
+    <p><button id="a" onclick={() => { go = true }}>A</button> <span id="an">{n}</span></p>
+}
+
+component B() {
+    state elapsed = 0
+    state laps = []
+    if elapsed % 5 == 0 && elapsed > 0 {
+        laps = laps + [elapsed]
+    }
+    <p><button id="b" onclick={() => { elapsed += 1 }}>B</button> <span id="bn">{elapsed}: {len(laps)} laps</span></p>
+}
+
+component C() {
+    state go = false
+    state a = 0
+    state b = 0
+    if go {
+        a = b + 1
+    }
+    if go {
+        b = a + 1
+    }
+    <p><button id="c" onclick={() => { go = true }}>C</button> <span id="cn">{a} {b}</span></p>
+}
+
+route GET / = <html><body><A/><B/><C/></body></html>
