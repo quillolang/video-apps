@@ -8,6 +8,8 @@ Written for Quillo 0.8.6 (get it at https://quillolang.org). Run it with:
 ./run.sh                                         # Quillo's Trail Guide, on 8080
 (cd compare/svelte && npm install && npm run dev)  # SvelteKit's (without the [...rest] route)
 (cd compare && ./status.sh http://localhost:8080)  # each address's status
+# Windows (PowerShell), with Quillo from quillolang.org: quillo run main.qwe
+#   and cd compare\svelte; npm install; npm run dev
 ```
 
 ## The comparison
