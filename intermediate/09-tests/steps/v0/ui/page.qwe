@@ -1,0 +1,33 @@
+// The frame every page shares: who is signed in, the title, the stylesheet, and what goes in it.
+import lib/accounts.qwe use me
+
+// The recipes picked on this page: a page state, shared by every component on the page.
+state picked = []
+
+// In the header: how many are picked.
+component PickedBadge() {
+    <span.badge>{len(picked)} picked</span>
+}
+
+view Page(title: str, children) {
+    let user = me()
+    <html lang="en">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <header.top>
+                <span><a href="/">Recipe Box</a> <PickedBadge/></span>
+                {user != null
+                    ? <form method="post" action="/logout">
+                        <a href="/my">My recipes</a> · <a href="/my/plan">This week</a> · {user.name}
+                        <button>Log out</button>
+                    </form>
+                    : <span><a href="/login">Log in</a> · <a href="/signup">Sign up</a></span>}
+            </header>
+            <main>{children}</main>
+        </body>
+    </html>
+}

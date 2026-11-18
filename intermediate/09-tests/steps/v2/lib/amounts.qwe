@@ -1,0 +1,8 @@
+// Amounts: a recipe's amount for another number of servings, and amounts written as a person writes them.
+// Plain functions, no database: the page, the server and the tests all run the same ones.
+
+// round(x, 2) always has two places, so 5.00 is "5" and 2.50 is "2.5".
+fn amount_text(x) -> str = re.replace(re.replace(str(x), "0+$", ""), "\\.$", "")
+
+// The amount for `want` servings, from a recipe that makes `makes`: one serving's, tidied, then times `want`.
+fn scaled(amount: str, want: int, makes: int) -> str = amount_text(round(dec(amount) / makes, 2) * want)
