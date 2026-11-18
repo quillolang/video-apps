@@ -5,7 +5,8 @@ The trail club's two sites, Trail Club and Photo Album, signed in once with the 
 Written for Quillo 0.8.6 (get it at https://quillolang.org). Run it with:
 
 ```sh
-./shots-run.sh      # the provider and all four sites, each on a host of its own (trail.localhost, photos.localhost)
+(cd compare/idp && npm install) && (cd compare/express && npm install)
+./run-all.sh        # the provider and all four sites, each on a host of its own (trail.localhost, photos.localhost)
 # Windows (PowerShell), with Quillo from quillolang.org: start compare\idp's provider.mjs with node, then for each site
 #   set SITE, CLIENT_ID, CLIENT_SECRET and BASE with $env:NAME='...' and run quillo run main.qwe --port <its port>
 ```
