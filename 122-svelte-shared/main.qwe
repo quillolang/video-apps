@@ -1,0 +1,40 @@
+// Book Club: the books on my list, shared by the header, every book's button and the list beside them.
+let css = read_file("club.css")
+let books = json.parse(read_file("books.json"))
+
+state picks = []                 // the page's: every component on it reads and sets it
+
+fn pages() = sum(map(picks, (b) => b.pages))
+
+component Count() {
+    <p class="count">📚 {len(picks)} on my list · {pages()} pages</p>
+}
+
+component AddButton(book: map) {
+    <button onclick={() => { picks = picks + [book] }}>Add to my list</button>
+}
+
+component MyList() {
+    <aside>
+        <h2>My list</h2>
+        {for b in picks => <p>{b.title}</p>}
+        {len(picks) == 0 && <p class="empty">Nothing yet</p>}
+    </aside>
+}
+
+view BookCard(book: map) = <li>
+    <b>{book.title}</b>
+    <span>{book.author} · {book.pages} pages</span>
+    <AddButton book={book}/>
+</li>
+
+route GET / = <html>
+    <head><title>Book Club</title><style>{raw(css)}</style></head>
+    <body>
+        <header><h1>Book Club</h1><Count/></header>
+        <div class="club">
+            <ul class="books">{for b in books => <BookCard book={b}/>}</ul>
+            <MyList/>
+        </div>
+    </body>
+</html>
