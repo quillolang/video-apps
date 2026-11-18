@@ -1,0 +1,8 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title th:text="${error}">Error</title><link rel="stylesheet" href="/trails.css"></head>
+<body><main>
+<a href="/">← All trails</a>
+<h1 class="missing" th:text="|${status}: ${error}|">404: Not Found</h1>
+</main></body>
+</html>

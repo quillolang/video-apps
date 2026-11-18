@@ -1,0 +1,9 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title th:text="${trail.name}">Trail</title><link rel="stylesheet" href="/trails.css"></head>
+<body><main>
+<a href="/">← All trails</a>
+<h1 th:text="${trail.name}">Trail</h1>
+<p class="facts" th:text="|${trail.km} km · ${trail.climb} m climb · ${trail.level}|">facts</p>
+</main></body>
+</html>

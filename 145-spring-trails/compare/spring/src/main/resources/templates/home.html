@@ -1,0 +1,8 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Trail Guide</title><link rel="stylesheet" href="/trails.css"></head>
+<body><main>
+<h1>Trail Guide</h1>
+<ul><li th:each="t : ${trails}"><a th:href="@{/trails/{id}(id=${t.id})}" th:text="${t.name}">trail</a></li></ul>
+</main></body>
+</html>
