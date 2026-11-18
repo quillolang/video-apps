@@ -1,0 +1,34 @@
+// Tip Splitter: a bill, a tip and the number of people, and what each one pays.
+let css = read_file("split.css")
+
+fn usd(x: dec) -> str = money.format(money.of(x, "USD", "half_even"))
+
+component Share(people: int, each: dec) {
+    <p class="share">{people} people pay <strong>{usd(each)}</strong> each</p>
+}
+
+component Splitter() {
+    state bill = 60
+    state tip = 15
+    state people = 2
+    let total = dec(bill ?? 0) * (100 + tip) / 100
+    <main>
+        <h1>Tip Splitter</h1>
+        <label>Bill $ <input type="number" value={bill}/></label>
+        <div class="tips">
+            {for t in [10, 15, 20] => <button class={tip == t && "on"} onclick={() => { tip = t }}>{t}%</button>}
+        </div>
+        <div class="people">
+            <button onclick={() => { people = max([1, people - 1]) }}>−</button>
+            <span>{people} people</span>
+            <button onclick={() => { people += 1 }}>+</button>
+        </div>
+        <p class="total">Total: {usd(total)}</p>
+        <Share people={people} each={total / people}/>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Tip Splitter</title><style>{raw(css)}</style></head>
+    <body><Splitter/></body>
+</html>
