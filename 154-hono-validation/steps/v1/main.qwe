@@ -1,0 +1,41 @@
+// The bakery's order form: what's typed is checked, and the form comes back with what's wrong, by its field.
+
+// An email address: something, an @, a domain, and two letters or more after its last dot.
+let EMAIL = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+
+// What each field needs: a message for each one that's wrong, none when all is well.
+fn problems(f: map) -> map {
+    let n = int(f.loaves ?? "")
+    let bad = {}
+    if trim(f.name ?? "") == "" { bad = { ...bad, name: "Your name, please" } }
+    if !re.test(f.email ?? "", EMAIL) { bad = { ...bad, email: "An email address, please" } }
+    if is_err(n) || n < 1 || n > 12 { bad = { ...bad, loaves: "From 1 to 12 loaves" } }
+    if !date.valid(f.pickup ?? "", "date") { bad = { ...bad, pickup: "A date, like 2026-11-21" } }
+    bad
+}
+
+view Field(label: str, name: str, form: map, bad: map) =
+    <p><label>{label} <input name={name} value={get(form, name, "")}/></label>
+        {has(bad, name) && <strong style="color:#b00"> {get(bad, name)}</strong>}</p>
+
+view OrderPage(form: map, bad: map) =
+    <html><head><title>Order bread</title></head><body>
+        <h1>Order bread</h1>
+        <form method="post" action="/order">
+            <Field label="Name" name="name" form={form} bad={bad}/>
+            <Field label="Email" name="email" form={form} bad={bad}/>
+            <Field label="Loaves" name="loaves" form={form} bad={bad}/>
+            <Field label="Pickup" name="pickup" form={form} bad={bad}/>
+            <button>Order</button>
+        </form>
+    </body></html>
+
+route GET / = <OrderPage form={{}} bad={{}}/>
+
+route POST /order { form: { name: str, email: str, loaves: int, pickup: date } } {
+    let bad = problems(request.form)
+    if len(bad) > 0 { return respond(400, <OrderPage form={request.form} bad={bad}/>) }
+    <html><head><title>Thanks</title></head><body>
+        <h1>Thanks, {trim(name)}! {loaves} {loaves == 1 ? "loaf" : "loaves"}, for {str(pickup)}.</h1>
+    </body></html>
+}

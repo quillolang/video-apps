@@ -1,0 +1,3 @@
+// The same text, read by a route pattern's int and by the int function: what each makes of it.
+route POST /n { form: { n: int } } = `route: ${n}`
+route POST /n = `route: no match; int(): ${int(request.form.n) ?? "an error"}`
