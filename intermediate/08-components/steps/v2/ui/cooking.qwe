@@ -1,0 +1,27 @@
+// The recipe page's parts that change in the browser: the servings, and the ingredients for them.
+import lib/plans.qwe use amount_text
+
+// Minus and plus. It keeps its own number, and tells its parent each new one, through on_change.
+component ServingsPicker(start: int, on_change) {
+    state n = start
+    <p.picker>
+        <button onclick={() => { n = max([n - 1, 1]); on_change(n) }}>−</button>
+        <b>{n}</b> servings
+        <button onclick={() => { n += 1; on_change(n) }}>+</button>
+    </p>
+}
+
+// The ingredients, scaled to the servings it's given.
+component IngredientList(items: list, servings: int, makes: int) {
+    <ul>{for i in items =>
+        <li key={i.id}>{amount_text(round(dec(i.amount) * servings / makes, 2))} {i.unit} {i.name}</li>}</ul>
+}
+
+// The parent keeps the servings: the picker sends them up, and the list gets them down.
+component RecipeScaler(makes: int, items: list) {
+    state servings = makes
+    <div>
+        <ServingsPicker start={makes} on_change={(v) => { servings = v }}/>
+        <IngredientList items={items} servings={servings} makes={makes}/>
+    </div>
+}
