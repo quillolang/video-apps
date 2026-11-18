@@ -1,0 +1,51 @@
+// Soup Kitchen: thirty soups, a page for each, and plain links between the pages.
+let css = read_file("soup.css")
+let soups = json.parse(read_file("soups.json"))
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><style>{raw(css)}</style></head>
+    <body>
+        <header>
+            <a class="brand" href="/">Soup Kitchen</a>
+            <a href="/soups">Soups</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </header>
+        <main>{children}</main>
+    </body>
+</html>
+
+route GET / = <Page title="Soup Kitchen">
+    <h1>Soup Kitchen</h1>
+    <p>Thirty soups, one for every day of the month. <a href="/soups">Pick one</a>.</p>
+</Page>
+
+route GET /soups = <Page title="Soups · Soup Kitchen">
+    <h1>Soups</h1>
+    <ul class="soups">{for s in soups => <li>
+        <a href={`/soups/${s.id}`}>{s.name}</a> <span>{s.minutes} minutes</span>
+    </li>}</ul>
+</Page>
+
+route GET /soups/:id(int) {
+    let soup = find(soups, (s) => s.id == id) ?? return respond(404, "No such soup")
+    <Page title={`${soup.name} · Soup Kitchen`}>
+        <a href="/soups">← All soups</a>
+        <h1>{soup.name}</h1>
+        <p class="minutes">{soup.minutes} minutes</p>
+        <h2>You'll need</h2>
+        <ul>{for x in soup.ingredients => <li>{x}</li>}</ul>
+        <h2>Method</h2>
+        <ol>{for x in soup.steps => <li>{x}</li>}</ol>
+    </Page>
+}
+
+route GET /about = <Page title="About · Soup Kitchen">
+    <h1>About</h1>
+    <p>A neighbourhood kitchen that cooks a different soup each day.</p>
+</Page>
+
+route GET /contact = <Page title="Contact · Soup Kitchen">
+    <h1>Contact</h1>
+    <p>12 Market Lane. Open from eleven till the pot is empty.</p>
+</Page>
