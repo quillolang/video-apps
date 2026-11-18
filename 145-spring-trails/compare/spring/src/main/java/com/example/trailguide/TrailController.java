@@ -19,7 +19,8 @@ public class TrailController {
 	private final List<Trail> trails;
 
 	public TrailController(JsonMapper json) throws IOException {
-		trails = List.of(json.readValue(new ClassPathResource("trails.json").getInputStream(), Trail[].class));
+		var file = new ClassPathResource("trails.json").getInputStream();
+		trails = List.of(json.readValue(file, Trail[].class));
 	}
 
 	@GetMapping("/")
