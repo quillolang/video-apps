@@ -1,0 +1,7 @@
+// Accounts: signing up, with the password kept as a hash.
+fn sign_up(name: str, email: str, password: str) -> int ! str with db, random {
+    let hash = crypto.hash_password(password)
+    let r = db.exec("insert into users (name, email, password_hash) values (?, ?, ?)",
+        trim(name), lower(trim(email)), hash)?
+    r.last_id
+}

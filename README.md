@@ -162,3 +162,4 @@ One app, Recipe Box, built up over the lessons. Each folder is where its lesson 
 | Folder | Lesson | The app |
 |---|---|---|
 | [01-plan](intermediate/01-plan) | Plan First, Then Build: Tables That Point at Each Other \| Intermediate Quillo #1 | Recipe Box, lesson 1 of Intermediate Quillo: recipes and their ingredients in two tables joined by a foreign key, a page for each recipe, and a search by ingredient with a join whose columns are named, so nothing gets mixed up. |
+| [02-accounts](intermediate/02-accounts) | Everyone Gets an Account: Sign Up, Log In, Log Out \| Intermediate Quillo #2 | Recipe Box, lesson 2 of Intermediate Quillo: accounts for everyone, in a users table with one account per email; sign up and log in with each password kept as a hash, the database's errors turned into messages people understand, and who is signed in at the top of every page. |
