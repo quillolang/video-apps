@@ -8,9 +8,11 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const sharp = createRequire(path.join(here, '../next/package.json'))('sharp');
-const src = path.join(here, '../../app/public/hero.jpg');
+// The Quillo app: ../../app in the video's own folder, ../.. in github.com/quillolang/video-apps.
+const app = fs.existsSync(path.join(here, '../../app/main.qwe')) ? path.join(here, '../../app') : path.join(here, '../..');
+const src = path.join(app, 'public/hero.jpg');
 fs.copyFileSync(src, path.join(here, 'hero.jpg'));   // Quillo reads files in its own folder
-const q = spawn(path.join(here, '../../app/.quillo/bin/quillo'), ['run', 'sizes.qwe', '--port', '8098'], { cwd: here, stdio: 'ignore' });
+const q = spawn(path.join(app, '.quillo/bin/quillo'), ['run', 'sizes.qwe', '--port', '8098'], { cwd: here, stdio: 'ignore' });
 for (let i = 0; i < 80; i++) { try { await (await fetch('http://127.0.0.1:8098/')).json(); break; } catch { await new Promise((r) => setTimeout(r, 250)); } }
 q.kill();
 const sizes = {
