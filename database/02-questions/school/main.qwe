@@ -1,0 +1,24 @@
+// The School: its database, and a page for each question we ask it.
+db.open("school.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every student", sql`
+    select * from students`)
+
+route GET /year-7 with db = answer("Year 7, by name", sql`
+    select name, birthday
+    from students
+    where year_level = 7
+    order by name`)
+
+route GET /youngest with db = answer("The youngest", sql`
+    select name, birthday
+    from students
+    order by birthday desc
+    limit 1`)
+
+route GET /static/*path = files("public", path)

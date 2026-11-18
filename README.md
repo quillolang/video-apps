@@ -211,4 +211,4 @@ Six settings (a corner shop, a library, a school, a clinic, a bank and a concert
 | Folder | Lesson | The app |
 |---|---|---|
 | [01-first-table](database/01-first-table) | Your First Table: Rows, Columns and Types \| Quillo Databases #1 | Lesson 1 of Quillo Databases: your first tables. A database is a file of tables; a table has columns with types and a row for each thing. Four settings, each a folder with its own database: the Corner Shop's products, the Library's books, the School's students and the Clinic's patients, every table strict so the database keeps its types. |
-
+| [02-questions](database/02-questions) | Asking Questions: SELECT, WHERE, ORDER BY, LIMIT (and NULL) \| Quillo Databases #2 | Lesson 2 of Quillo Databases: asking questions. select names the columns, where keeps the rows a condition is true of, order by sorts them and limit keeps the first few; null is found with is null, never = null. Every page shows its question, the SQL, above the database's answer. |

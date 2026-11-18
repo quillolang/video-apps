@@ -1,0 +1,28 @@
+// The Library: its database, and a page for each question we ask it.
+db.open("library.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every book", sql`
+    select * from books`)
+
+route GET /austen with db = answer("Jane Austen's books", sql`
+    select title, year
+    from books
+    where author = 'Jane Austen'
+    order by year`)
+
+route GET /newest with db = answer("Newest first", sql`
+    select title, author, year
+    from books
+    order by year desc`)
+
+route GET /no-email with db = answer("Members with no email", sql`
+    select name, joined
+    from members
+    where email is null`)
+
+route GET /static/*path = files("public", path)
