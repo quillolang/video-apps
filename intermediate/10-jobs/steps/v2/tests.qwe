@@ -1,0 +1,25 @@
+// Tests for Recipe Box's own functions:  .quillo/bin/quillo run tests.qwe
+// Each check prints ok or FAIL. Any failure ends the script with status 1, so a tool can tell.
+use "lib/amounts.qwe"
+use "lib/rules.qwe"
+
+fn check(name: str, got, want) -> bool {
+    let ok = got == want
+    print(ok ? `ok    ${name}` : `FAIL  ${name}: got ${str(got)}, want ${str(want)}`)
+    ok
+}
+
+let results = [
+    check("1.25 cups for 6, from a recipe for 4", scaled("1.25", 6, 4), "1.88"),
+    check("the same servings, the same amount", scaled("1.5", 4, 4), "1.5"),
+    check("2 eggs for 1, from a recipe for 2", scaled("2", 1, 2), "1"),
+    check("5.00 is written 5", amount_text(dec("5.00")), "5"),
+    check("a recipe with no title has a title problem",
+        message_for(check_recipe({ title: "", servings: 2, minutes: 10 }), "title"), "Give it a title, please."),
+    check("a good recipe has no problems", check_recipe({ title: "Toast", servings: 2, minutes: 5 }), []),
+    check("13 servings is a warning, not an error",
+        len(errors(check_recipe({ title: "Party Pancakes", servings: 13, minutes: 30 }))), 0),
+]
+let failed = count(results, (ok) => !ok)
+print(`${len(results) - failed} passed, ${failed} failed`)
+exit(failed == 0 ? 0 : 1)

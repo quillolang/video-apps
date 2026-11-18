@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Garlic Bread",
+    "servings": 4,
+    "minutes": 15,
+    "ingredients": [ { "name": "bread", "amount": "1", "unit": "" } ]
+  },
+  {
+    "servings": 2,
+    "minutes": 10,
+    "ingredients": [ { "name": "eggs", "amount": "2", "unit": "" } ]
+  }
+]

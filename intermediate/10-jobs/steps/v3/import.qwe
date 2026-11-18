@@ -1,0 +1,25 @@
+// Imports recipes from a JSON file, all or nothing:  .quillo/bin/quillo run import.qwe -- new-recipes.json
+db.open("recipe-box.db")
+db.migrate("migrations")
+
+let file = args()[0] ?? "new-recipes.json"
+let recipes = json.parse(read_file(file)) ?? []
+
+// One transaction: an error anywhere rolls back every recipe this run added.
+let done = db.transaction(() => {
+    for r in recipes {
+        let row = db.exec("insert into recipes (title, servings, minutes) values (?, ?, ?)",
+            r.title, r.servings, r.minutes)?
+        for i in r.ingredients ?? [] {
+            db.exec("insert into ingredients (recipe_id, name, amount, unit) values (?, ?, ?, ?)",
+                row.last_id, i.name, i.amount, i.unit ?? "")?
+        }
+    }
+    len(recipes)
+})
+
+if is_err(done) {
+    print(`Nothing imported: ${done.error}`)
+    exit(1)
+}
+print(`Imported ${done} recipes from ${file}.`)

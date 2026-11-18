@@ -1,0 +1,18 @@
+// Writes every recipe, with its ingredients, to a JSON file the import can read:
+//   .quillo/bin/quillo run export.qwe -- my-recipes.json
+db.open("recipe-box.db")
+
+let file = args()[0] ?? "my-recipes.json"
+let recipes = db.query("select * from recipes order by id") | map((r) => {
+    title: r.title,
+    servings: r.servings,
+    minutes: r.minutes,
+    ingredients: db.query("select name, amount, unit from ingredients where recipe_id = ? order by id", r.id),
+})
+
+let written = write_file(file, json.stringify(recipes, true))
+if is_err(written) {
+    print(`Nothing written: ${written.error}`)
+    exit(1)
+}
+print(`Exported ${len(recipes)} recipes to ${file}.`)

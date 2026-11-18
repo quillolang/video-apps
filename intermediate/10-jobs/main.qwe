@@ -1,0 +1,168 @@
+// Recipe Box: recipes, the ingredients they need, and what to make with what you have.
+db.open("recipe-box.db")
+db.migrate("migrations")
+
+use "lib/rules.qwe"
+use "lib/recipes.qwe"
+use "lib/tags.qwe"
+use "lib/plans.qwe"
+use "lib/featured.qwe"
+use "lib/accounts.qwe"
+use "ui/page.qwe"
+use "ui/accounts.qwe"
+use "ui/recipes.qwe"
+use "ui/plans.qwe"
+use "ui/cooking.qwe"
+
+// A job: once a day, at midnight UTC.
+schedule("@daily", pick_recipe_of_the_day)
+
+route GET / {
+    let today = recipe_of_the_day()
+    <Page title="Recipe Box">
+        <h1>Recipe Box</h1>
+        {today != null && <p.today>Recipe of the day: <a href={`/recipes/${today.id}`}>{today.title}</a></p>}
+        <form action="/uses">
+            <input name="item" placeholder="What's in your fridge? eggs, rice..." aria-label="Ingredient"/>
+            <button>What can I make?</button>
+        </form>
+        <p.tags>{for t in tag_counts() => <a href={`/tags/${t.name}`}>{t.name} ({t.n})</a>}</p>
+        <form.picks action="/find">
+            {for t in tag_counts() => <label><input type="checkbox" name="tag" value={t.name}/> {t.name}</label>}
+            <button>Find</button>
+        </form>
+        <ul.recipes>
+            {for r in all_recipes() => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+                <PickButton id={r.id}/>
+            </li>}
+        </ul>
+    </Page>
+}
+
+route GET /recipes/:id(int) {
+    let r = recipe(id) ?? reply 404 "No such recipe"
+    let steps = steps_of(id)
+    <Page title={r.title}>
+        <h1>{r.title}</h1>
+        <p.meta>{r.minutes} minutes · serves {r.servings}</p>
+        <p.tags>{for t in tags_of(id) => <a href={`/tags/${t.name}`}>{t.name}</a>}</p>
+        <h2>Ingredients</h2>
+        <RecipeScaler makes={r.servings} items={ingredients_of(id)}/>
+        {me() != null && <form method="post" action="/my/plan">
+            <input type="hidden" name="recipe_id" value={r.id}/>
+            <input type="date" name="day" value={date.today()} aria-label="Day"/>
+            <input type="number" name="servings" value={r.servings} min="1" aria-label="Servings"/>
+            <button>Plan it</button>
+        </form>}
+        {len(steps) > 0 && <section>
+            <h2>Method</h2>
+            <ol>{for s in steps => <li>{s.instruction}</li>}</ol>
+        </section>}
+        <p><a href="/">All recipes</a></p>
+    </Page>
+}
+
+route GET /uses ? { item: str = "" } =
+    <Page title="What can I make?">
+        <h1>Recipes with {item}</h1>
+        <ul.recipes>
+            {for row in recipes_using(item) => <li>
+                <a href={`/recipes/${row.recipe_id}`}>{row.title}</a>
+                <span.meta>{row.amount} {row.unit} {row.name}</span>
+            </li>}
+        </ul>
+        <p><a href="/">All recipes</a></p>
+    </Page>
+
+route GET /tags/:name =
+    <Page title={`Tagged ${name}`}>
+        <h1>Tagged {name}</h1>
+        <ul.recipes>
+            {for r in recipes_tagged(name) => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            </li>}
+        </ul>
+        <p><a href="/">All recipes</a></p>
+    </Page>
+
+route GET /find ? { tag: [str] } =
+    <Page title="Find by tags">
+        <h1>Any of: {join(tag, ", ")}</h1>
+        <ul.recipes>
+            {for r in recipes_with_any(tag) => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            </li>}
+        </ul>
+        <p><a href="/">All recipes</a></p>
+    </Page>
+
+route GET /signup = <SignupPage/>
+
+route POST /signup { form: { name: str, email: str, password: str } } {
+    let id = sign_up(name, email, password)
+    if is_err(id) { reply 422 <SignupPage problem={id.error} name={name} email={email}/> }
+    set_session({ user_id: id })
+    redirect("/")
+}
+
+route GET /login ? { next: str = "" } = <LoginPage next={next}/>
+
+route POST /login { form: { email: str, password: str, next: str = "" } } {
+    let id = log_in(email, password)
+    if is_err(id) { reply 422 <LoginPage problem={id.error} email={email} next={next}/> }
+    set_session({ user_id: id })
+    redirect(local_path(next) ?? "/")
+}
+
+route POST /logout {
+    end_session()
+    redirect("/")
+}
+
+// Members only: every route in the group goes through signed_in first.
+routes /my | signed_in {
+    route GET / = <MyRecipesPage/>
+    route GET /recipes/:id(int)/edit {
+        let r = my_recipe(me().id, id) ?? reply 404 "No such recipe"
+        <EditRecipePage recipe={r}/>
+    }
+    route POST /recipes/:id(int) { form: { title: str, servings: int, minutes: int } } {
+        let done = update_recipe(me().id, id, title, servings, minutes)?
+        if done.changes == 0 { reply 404 "No such recipe" }
+        redirect("/my")
+    }
+    route POST /recipes/:id(int)/tags { form: { name: str } } {
+        tag_recipe(me().id, id, name) ?? reply 404 "No such recipe"
+        redirect(`/recipes/${id}`)
+    }
+    route GET /recipes/:id(int)/delete {
+        let r = my_recipe(me().id, id) ?? reply 404 "No such recipe"
+        <DeleteRecipePage recipe={r}/>
+    }
+    route POST /recipes/:id(int)/delete {
+        let done = delete_recipe(me().id, id)?
+        if done.changes == 0 { reply 404 "No such recipe" }
+        redirect("/my")
+    }
+    route GET /plan {
+        let today = date.today()
+        let days = for i in 0..7 => date.add_days(today, i)
+        <PlanPage days={days} plans={week_plan(me().id, today, date.add_days(today, 6))}/>
+    }
+    route POST /plan { form: { recipe_id: int, day: str, servings: int } } {
+        plan_recipe(me().id, recipe_id, day, servings)?
+        redirect("/my/plan")
+    }
+    route GET /shopping {
+        let today = date.today()
+        <ShoppingPage items={shopping_list(me().id, today, date.add_days(today, 6))}/>
+    }
+    route GET /settings = <SettingsPage name={me().name}/>
+    route POST /settings { form: { name: str } } {
+        rename(me().id, name)?
+        redirect("/my/settings")
+    }
+}
+
+route GET /static/*path = files("public", path)

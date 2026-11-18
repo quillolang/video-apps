@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Overnight Oats",
+    "servings": 2,
+    "minutes": 5,
+    "ingredients": [
+      { "name": "oats", "amount": "1", "unit": "cups" },
+      { "name": "milk", "amount": "1", "unit": "cups" },
+      { "name": "honey", "amount": "1", "unit": "tbsp" }
+    ]
+  },
+  {
+    "title": "Lemon Pasta",
+    "servings": 4,
+    "minutes": 20,
+    "ingredients": [
+      { "name": "pasta", "amount": "400", "unit": "g" },
+      { "name": "lemon", "amount": "1", "unit": "" },
+      { "name": "butter", "amount": "3", "unit": "tbsp" }
+    ]
+  }
+]

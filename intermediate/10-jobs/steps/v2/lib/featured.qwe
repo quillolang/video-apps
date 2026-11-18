@@ -1,0 +1,10 @@
+// The recipe of the day: a job picks one, and the home page shows it.
+
+// Picks a recipe at random for today. It reads the clock, so it says `time` too.
+fn pick_recipe_of_the_day() with db, time {
+    let r = db.one("select id from recipes order by random() limit 1")
+    db.exec("insert or replace into featured (day, recipe_id) values (?, ?)", date.today(), r.id)
+}
+
+fn recipe_of_the_day() with db, time =
+    db.one("select r.* from featured f join recipes r on r.id = f.recipe_id where f.day = ?", date.today())
