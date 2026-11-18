@@ -1,0 +1,28 @@
+// Pantry Search: up to 8 foods that contain what you type, from the server.
+let css = read_file("pantry.css")
+let foods = json.parse(read_file("foods.json"))
+
+// One letter takes 900 ms and more take 150 ms, as the React app's API does: an older, shorter search answers last.
+server fn search(q: str) -> list {
+    if q == "" { return [] }
+    sleep(len(q) == 1 ? 900 : 150)
+    take(filter(foods, (f) => contains(lower(f), lower(q))), 8)
+}
+
+component Pantry() {
+    state query = ""
+    state results = live(search, query)
+    <main>
+        <h1>Pantry Search</h1>
+        <input value={query} placeholder="Search the pantry"/>
+        <p class="for">Results for “{query}”</p>
+        <ul>
+            {for food in results ?? [] => <li key={food}>{food}</li>}
+        </ul>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Pantry Search</title><style>{raw(css)}</style></head>
+    <body><Pantry/></body>
+</html>

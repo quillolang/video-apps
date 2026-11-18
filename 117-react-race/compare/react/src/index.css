@@ -1,0 +1,7 @@
+body { margin: 0; font: 19px/1.4 system-ui, sans-serif; background: #fbf7f0; color: #2c2219; }
+main { max-width: 520px; margin: 0 auto; padding: 26px 24px; }
+h1 { margin: 0 0 14px; font-size: 32px; }
+input { box-sizing: border-box; width: 100%; font: inherit; padding: 10px 14px; border: 2px solid #dccbb4; border-radius: 12px; background: #fff; }
+.for { margin: 14px 0 6px; color: #8a6d50; font-weight: 600; }
+ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+li { padding: 8px 12px; border-radius: 10px; background: #fff; box-shadow: 0 1px 2px #0001; }
