@@ -1,0 +1,55 @@
+// Hearth Bakery's October dashboard: the sales added up on the server, and the whole page sent at once.
+let css = read_file("dash.css")
+let sales = json.parse(read_file("sales.json"))
+
+fn dollars(n: num) -> str = "$" + format_number(n, "en-US", 2)
+
+let revenue = sum(map(sales, (x) => x.total))
+let items = sum(map(sales, (x) => x.qty))
+let groups = group_by(sales, (x) => x.product)
+let by_product = sort_by(map(keys(groups), (k) => [k, sum(map(groups[k], (x) => x.total))]), (p) => -p[1])
+let top = by_product[0][1]
+let latest = take(sort_by(sales, (x) => -x.id), 12)
+
+route GET / = <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Hearth Bakery: October sales</title>
+        <meta name="description" content="The bakery's sales for October: revenue, orders, and the latest orders."/>
+        <link rel="icon" href="/icon.png" type="image/png" sizes="48x48"/>
+        <style>{raw(css)}</style>
+    </head>
+    <body>
+        <header>
+            <h1>Hearth Bakery: October</h1>
+            <p>Sales for the month, by product and by order</p>
+        </header>
+        <main>
+            <div class="cards">
+                <div class="card"><div class="n">{dollars(revenue)}</div><div class="l">revenue</div></div>
+                <div class="card"><div class="n">{len(sales)}</div><div class="l">orders</div></div>
+                <div class="card"><div class="n">{items}</div><div class="l">items sold</div></div>
+                <div class="card">
+                    <div class="n">{dollars(revenue / len(sales))}</div><div class="l">an order, on average</div>
+                </div>
+            </div>
+            <h2>By product</h2>
+            <div class="bars">
+                {for p in by_product => <div class="bar">
+                    <span>{p[0]}</span><i style={`width: ${p[1] / top * 100}%`}></i><b>{dollars(p[1])}</b>
+                </div>}
+            </div>
+            <h2>Latest orders</h2>
+            <table>
+                <thead><tr><th>#</th><th>Day</th><th>Customer</th><th>Item</th><th class="r">Total</th></tr></thead>
+                <tbody>{for x in latest => <tr>
+                    <td>{x.id}</td><td>{x.day}</td><td>{x.customer}</td><td>{x.qty} × {x.product}</td>
+                    <td class="r">{dollars(x.total)}</td>
+                </tr>}</tbody>
+            </table>
+        </main>
+    </body>
+</html>
+
+route GET /icon.png = file("icon.png", { cache: "1y" })

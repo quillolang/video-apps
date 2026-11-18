@@ -1,0 +1,19 @@
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f2430; background: #f5f6f8; }
+header { padding: 14px 18px; background: #26324a; color: #fff; }
+header h1 { margin: 0; font-size: 20px; }
+header p { margin: 2px 0 0; color: #c9d2e3; font-size: 13px; }
+main { padding: 16px 18px 28px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.card { background: #fff; border-radius: 10px; padding: 12px 14px; border: 1px solid #e3e6ec; }
+.card .n { font-size: 24px; font-weight: 800; }
+.card .l { color: #5d6577; font-size: 13px; }
+h2 { font-size: 16px; margin: 18px 0 8px; }
+.bars { background: #fff; border: 1px solid #e3e6ec; border-radius: 10px; padding: 10px 12px; }
+.bar { display: grid; grid-template-columns: 110px 1fr 70px; align-items: center; gap: 8px; margin: 4px 0; }
+.bar i { display: block; height: 12px; border-radius: 6px; background: #4f7cd6; }
+.bar b { text-align: right; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e3e6ec; border-radius: 10px; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #eef0f4; font-size: 14px; }
+th { color: #5d6577; font-weight: 600; }
+td.r, th.r { text-align: right; }
