@@ -1,0 +1,21 @@
+// Sign-ups for the bake sale: who's coming, and how many guests.
+type Signup = { name: str, email: str, guests: int }
+
+let signups = []
+
+// What a type can't say: plain rules, each giving its problems.
+fn problems(s: Signup) -> list =
+    (trim(s.name) == "" ? ["name: empty"] : [])
+    + (re.test(s.email, "^[^@ ]+@[^@ ]+\\.[^@ ]+$") ? [] : ["email: not an email address"])
+    + (s.guests < 0 || s.guests > 8 ? ["guests: from 0 to 8"] : [])
+
+route POST /api/signups {
+    let signup = Signup(request.json)
+    if is_err(signup) { return respond(400, { error: signup.error }) }
+    let bad = problems(signup)
+    if count(bad) > 0 { return respond(400, { errors: bad }) }
+    signups = signups | push(signup)
+    respond(201, signup)
+}
+
+route GET /api/signups = signups
