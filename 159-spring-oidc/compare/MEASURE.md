@@ -23,7 +23,7 @@ in `../assets/runs.json`. Measured on one machine.
   spring-boot-starter-webmvc). Added: `application.properties` (6 properties: the name, the port 8091, and the
   `club` registration: client id, secret from `CLIENT_SECRET`, scopes `openid,profile`, `issuer-uri`), `SecurityConfig.java`
   (one filter chain: `/` open, anything else signed in, `oauth2Login()` as it comes) and `HomeController.java` (the page,
-  with `@AuthenticationPrincipal OidcUser`): 45 non-blank lines of Java. Built with `./mvnw package`; run with
+  with `@AuthenticationPrincipal OidcUser`): 45 non-blank lines of Java. Built with `./mvnw -DskipTests package` (the starter's one test starts the whole site, which needs the provider running); run with
   `CLIENT_SECRET=trail-spring-secret java -jar target/trailclub-0.0.1-SNAPSHOT.jar`.
 - **Quillo** (`../app/main.qwe`, 39 non-blank lines): video 137's login by hand (discovery with `http.get`, a fresh
   `crypto.token()` state kept in the session, `?next=` only on this site with `local_path`, the state compared with
