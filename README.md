@@ -151,6 +151,7 @@ Quillo: https://quillolang.org
 |---|---|---|
 | [01-counter](shorts/01-counter) | A click counter in 12 lines of Quillo | A click counter: a component with its own state, and a route that puts it on a page. One file, 12 lines. |
 | [02-live-tabs](shorts/02-live-tabs) | Post in one tab, see it in every tab \| Quillo | A live wall: post in one tab, and every open tab shows it. A table, two server functions and a component, in one file. |
+| [03-bind](shorts/03-bind) | Type, and the page follows \| Quillo | A greeter: an input's value={name} ties the text box to the state, both ways, and the greeting, the count and a surprise follow every key. |
 
 ## Learn to Code with Quillo (the course)
 

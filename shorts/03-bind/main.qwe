@@ -1,0 +1,18 @@
+// Type, and the page follows along.
+
+component Greeter() {
+    state name = ""
+    <section>
+        <input value={name}
+               placeholder="Your name"
+               style="font:inherit"/>
+        <h2>Hello, {filled(name) ?? "you"}!</h2>
+        <p>{len(name)} characters</p>
+        {len(name) > 8 && <p>What a name! 🎉</p>}
+    </section>
+}
+
+route GET / =
+    <html><body style="font: 24px system-ui">
+        <Greeter/>
+    </body></html>
