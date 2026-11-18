@@ -1,0 +1,25 @@
+// Game Night: two teams, first to 5, and a new game.
+let css = read_file("game.css")
+
+component Game() {
+    state score = { red: 0, blue: 0 }
+    state target = 5
+    let { red, blue } = score
+    let leader = red == blue ? "Tied" : red > blue ? "Red leads" : "Blue leads"
+    let winner = red >= target ? "Red wins!" : blue >= target ? "Blue wins!" : null
+    <main>
+        <h1>Game Night</h1>
+        <div class="teams">
+            <button class="red" onclick={() => { score = { ...score, red: red + 1 } }}>Red {red}</button>
+            <button class="blue" onclick={() => { score = { ...score, blue: blue + 1 } }}>Blue {blue}</button>
+        </div>
+        <p class="leader">First to {target}. {leader}</p>
+        {winner != null && <p class="winner">{winner}</p>}
+        <button class="new" onclick={() => { score = { red: 0, blue: 0 } }}>New game</button>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Game Night</title><style>{raw(css)}</style></head>
+    <body><Game/></body>
+</html>
