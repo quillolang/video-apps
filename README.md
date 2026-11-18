@@ -211,3 +211,4 @@ Six settings (a corner shop, a library, a school, a clinic, a bank and a concert
 | Folder | Lesson | The app |
 |---|---|---|
 | [01-first-table](database/01-first-table) | Your First Table: Rows, Columns and Types \| Quillo Databases #1 | Lesson 1 of Quillo Databases: your first tables. A database is a file of tables; a table has columns with types and a row for each thing. Four settings, each a folder with its own database: the Corner Shop's products, the Library's books, the School's students and the Clinic's patients, every table strict so the database keeps its types. |
+
