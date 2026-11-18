@@ -1,0 +1,44 @@
+// Hearth Bakery's order form: a loaf for tomorrow morning.
+let css = read_file("order.css")
+let loaves = ["Sourdough", "Dark rye", "Seeded", "Baguette"]
+
+view Arrow() = <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+view Pin() = <svg viewBox="0 0 24 24" width="24" height="24">
+    <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/>
+</svg>
+
+view Page(children) = <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Hearth Bakery: order for tomorrow</title>
+        <meta name="description" content="Order your bread tonight, and collect it warm in the morning."/>
+        <link rel="icon" href="/logo.png" type="image/png" sizes="48x48"/>
+        <style>{raw(css)}</style>
+    </head>
+    <body>
+        <header>
+            <img src="/logo.png" width="48" height="48"/><h1>Order for tomorrow</h1>
+        </header>
+        <main>{children}</main>
+        <footer><a href="/visit"><Pin/></a></footer>
+    </body>
+</html>
+
+route GET / = <Page>
+    <form method="post" action="/order">
+        <input name="name" placeholder="Your name" required/>
+        <input name="email" type="email" placeholder="Email" required/>
+        <select name="loaf">{for l in loaves => <option>{l}</option>}</select>
+        <input name="count" type="number" min="1" max="12" value="1"/>
+        <p style="color: #b5aca3">Order by 9 pm, and collect it from 7 am.</p>
+        <button><Arrow/></button>
+    </form>
+</Page>
+
+route POST /order { form: { name: str, email: str, loaf: str, count: int } } = <Page>
+    <p>Thanks, {name}! Your {count} × {loaf} will be ready at 7.</p>
+</Page>
+
+route GET /visit = <Page><p>4 Market Lane, open every day from 7 till the bread is gone.</p></Page>
+route GET /logo.png = file("logo.png", { cache: "1y" })
