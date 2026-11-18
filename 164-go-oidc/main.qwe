@@ -1,0 +1,43 @@
+// Trail Club: log in with the club's OpenID Connect provider, by hand: a fresh state for each login, and ?next=
+// only on this site.
+let css = read_file("club.css")
+let issuer = env("ISSUER", "http://localhost:4000")
+// The provider's settings, read once at start: when it can't be reached, ? stops here, and says why.
+let provider = http.get(`${issuer}/.well-known/openid-configuration`, {}, { public_only: false })?.json
+let client_id = env("CLIENT_ID", "trail-quillo")
+let redirect_uri = env("BASE", "http://trail.localhost:8080") + "/callback"
+
+view Page(children) = <html>
+    <head><title>Trail Club</title><style>{raw(css)}</style></head>
+    <body><main>{children}</main></body>
+</html>
+
+route GET / {
+    let user = session().user
+    if user == null { return <Page><h1>Trail Club</h1><p><a href="/login">Log in</a></p></Page> }
+    <Page><h1>Trail Club: hello, {user.name}</h1><p class="who">Signed in as {user.sub}.</p></Page>
+}
+
+// To the provider, with a fresh state kept in the session, and where to go after: only an address on this site.
+route GET /login ? { next: str = "/" } {
+    let state = crypto.token()
+    set_session({ state, next: local_path(next) ?? "/" })
+    redirect(provider.authorization_endpoint + "?" + url_encode({
+        response_type: "code", client_id, redirect_uri, scope: "openid profile", state }))
+}
+
+// Back from the provider: the same state, or this login wasn't started here; then the code for tokens.
+route GET /callback ? { code: str, state: str } with env, http {
+    if !crypto.equal(state, session().state ?? "") {
+        return respond(400, <Page><h1>This login wasn't started here</h1></Page>)
+    }
+    let tokens = http.post(provider.token_endpoint, url_encode({ grant_type: "authorization_code", code,
+        redirect_uri, client_id, client_secret: env("CLIENT_SECRET", "") }),
+        { "content-type": "application/x-www-form-urlencoded" }, { public_only: false })?
+    if !tokens.ok { return respond(502, "The provider refused the code") }
+    let bearer = { authorization: `Bearer ${tokens.json.access_token}` }
+    let me = http.get(provider.userinfo_endpoint, bearer, { public_only: false })?
+    let next = session().next ?? "/"
+    set_session({ user: { sub: me.json.sub, name: me.json.name } })
+    redirect(next)
+}
