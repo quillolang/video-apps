@@ -1,0 +1,23 @@
+// The week's plan, and the shopping list.
+import ui/page.qwe use Page
+import lib/plans.qwe use amount_text
+
+view PlanPage(days: list, plans: list) =
+    <Page title="This week">
+        <h1>This week</h1>
+        <ul.recipes>{for day in days => <li>
+            <b>{date.format(day, "dddd D MMMM")}</b>
+            {for p in filter(plans, (p) => p.day == day) =>
+                <div><a href={`/recipes/${p.id}`}>{p.title}</a> <span.meta>for {p.servings}</span></div>}
+        </li>}</ul>
+        <p><a href="/my/shopping">The shopping list</a></p>
+    </Page>
+
+view ShoppingPage(items: list) =
+    <Page title="Shopping list">
+        <h1>Shopping list</h1>
+        {len(items) == 0
+            ? <p.meta>Nothing planned this week.</p>
+            : <ul.recipes>{for x in items => <li>{amount_text(x.total)} {x.unit} {x.name}</li>}</ul>}
+        <p><a href="/my/plan">This week</a></p>
+    </Page>

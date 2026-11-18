@@ -1,0 +1,21 @@
+// The meal plan, and the shopping list it needs.
+fn plan_recipe(user_id: int, recipe_id: int, day: str, servings: int) -> map ! str with db {
+    if !date.valid(day, "date") { return err("That's not a date.") }
+    db.exec("insert into plans (user_id, day, recipe_id, servings) values (?, ?, ?, ?)",
+        user_id, day, recipe_id, servings)
+}
+
+fn week_plan(user_id: int, from: str, to: str) -> list with db = db.query(sql`
+    select p.day, p.servings, r.id, r.title from plans p join recipes r on r.id = p.recipe_id
+    where p.user_id = ? and p.day between ? and ? order by p.day`, user_id, from, to)
+
+// Every ingredient the week's recipes need, added up by name and unit.
+fn shopping_list(user_id: int, from: str, to: str) -> list with db =
+    db.query(sql`
+        select i.name, i.unit, i.amount
+        from plans p join ingredients i on i.recipe_id = p.recipe_id
+        where p.user_id = ? and p.day between ? and ?`, user_id, from, to)
+    | group_by((x) => `${x.name}|${x.unit}`)
+    | values
+    | map((g) => { name: g[0].name, unit: g[0].unit, total: sum(map(g, (x) => x.amount)) })
+    | sort_by((x) => x.name)
