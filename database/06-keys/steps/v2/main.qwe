@@ -1,0 +1,38 @@
+// The Clinic: its database, and a page for each question we ask it.
+db.open("clinic.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every patient", sql`
+    select * from patients`)
+
+route GET /since-1990 with db = answer("Born in 1990 or later, youngest first", sql`
+    select name, birthday
+    from patients
+    where birthday >= '1990-01-01'
+    order by birthday desc`)
+
+// A search with two filters, each optional: an empty one matches everyone ('%%', and any birthday >= '').
+let SEARCH = sql`
+    select name, birthday, phone
+    from patients
+    where name like :name and birthday >= :after
+    order by name`
+
+route GET /search ? { name: str = "", after: str = "" } with db =
+    <Table title="Find a patient" sql={SEARCH} rows={db.query(SEARCH, { name: `%${name}%`, after })}>
+        <form>
+            <input name="name" value={name} placeholder="Name"/>
+            <input name="after" value={after} placeholder="Born on or after: 1990-01-01"/>
+            <button>Find</button>
+        </form>
+    </Table>
+
+// The appointments: each one points at a patient.
+route GET /appointments with db = answer("Appointments", sql`
+    select * from appointments`)
+
+route GET /static/*path = files("public", path)
