@@ -1,0 +1,40 @@
+// Chore Chart: three columns of cards; star a card, or move it on to the next column.
+let css = read_file("chores.css")
+let start = json.parse(read_file("board.json"))
+
+fn star(board: list, id: int) -> list = board | map((col) => {
+    ...col,
+    cards: col.cards | map((c) => c.id == id ? { ...c, starred: !c.starred } : c),
+})
+
+fn move_on(board: list, id: int) -> list {
+    let from = find(range(len(board)), (i) => any(board[i].cards, (c) => c.id == id))
+    let card = find(board[from].cards, (c) => c.id == id)
+    for i in range(len(board)) => i == from ? { ...board[i], cards: filter(board[i].cards, (c) => c.id != id) }
+        : i == from + 1 ? { ...board[i], cards: board[i].cards + [card] }
+        : board[i]
+}
+
+component Board(columns: list) {
+    state board = columns
+    <main class="board">
+        {for col in board => <section key={col.id}>
+            <h2>{col.name} <small>{len(col.cards)}</small></h2>
+            <ul>
+                {for c in col.cards => <li key={c.id} class={c.starred && "starred"}>
+                    <span>{c.text}</span>
+                    <button class="star" onclick={() => { board = star(board, c.id) }}>
+                        {c.starred ? "★" : "☆"}
+                    </button>
+                    {col.id != "done"
+                        && <button class="move" onclick={() => { board = move_on(board, c.id) }}>→</button>}
+                </li>}
+            </ul>
+        </section>}
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Chore Chart</title><style>{raw(css)}</style></head>
+    <body><h1>Chore Chart</h1><Board columns={start}/></body>
+</html>

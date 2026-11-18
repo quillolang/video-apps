@@ -1,0 +1,60 @@
+export const start = [
+  {
+    "id": "todo",
+    "name": "To do",
+    "cards": [
+      {
+        "id": 1,
+        "text": "Water the plants",
+        "starred": false
+      },
+      {
+        "id": 2,
+        "text": "Fold the laundry",
+        "starred": false
+      },
+      {
+        "id": 3,
+        "text": "Take out the bins",
+        "starred": false
+      },
+      {
+        "id": 4,
+        "text": "Feed the cat",
+        "starred": false
+      }
+    ]
+  },
+  {
+    "id": "doing",
+    "name": "Doing",
+    "cards": [
+      {
+        "id": 5,
+        "text": "Wash the dishes",
+        "starred": false
+      },
+      {
+        "id": 6,
+        "text": "Vacuum the hall",
+        "starred": false
+      }
+    ]
+  },
+  {
+    "id": "done",
+    "name": "Done",
+    "cards": [
+      {
+        "id": 7,
+        "text": "Make the bed",
+        "starred": true
+      },
+      {
+        "id": 8,
+        "text": "Sweep the porch",
+        "starred": false
+      }
+    ]
+  }
+];
