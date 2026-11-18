@@ -11,6 +11,14 @@ Written for Quillo 0.8.6 (get it at https://quillolang.org). Run it with:
 #   and cd compare\vue; npm install; npm run dev
 ```
 
+## The versions in the video
+
+Two versions from the video, each a folder that runs on its own (`cd steps/first-try && ./run.sh --port 8184`):
+
+- [`steps/first-try`](steps/first-try): the first try: reads localStorage in the state's initializer and saves from the start, so the save runs with the server's defaults first, and a reload loses the settings
+- [`steps/inplace`](steps/inplace): the Vue way: settings.theme.dark = e.target.checked in the dark-mode handler; quillo check lets it through, and the browser refuses the change
+- this folder: the finished app
+
 ## The comparison
 
 The video compares this app with the same one in another framework. [`compare/`](compare) holds that project, made

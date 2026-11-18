@@ -1,0 +1,51 @@
+// Settings that save themselves, in this browser.
+let css = read_file("settings.css")
+let defaults = { theme: { dark: false, size: "medium" }, email: { news: true } }
+
+fn parse_saved(text: str?) -> map = text == null ? defaults : json.parse(text)
+
+component Settings() {
+    state settings = defaults
+    state ready = false            // true once the saved settings are read, in the browser
+    state saves = 0
+    let theme = settings.theme
+    let news = settings.email.news ? "news by email" : "no emails"
+    let summary = `${theme.dark ? "Dark" : "Light"}, ${theme.size} text, ${news}`
+    let change = (group: str, key: str, value) => {
+        settings = set(settings, group, set(settings[group], key, value))
+    }
+
+    // save the settings whenever they change, once they're read
+    if ready {
+        js("localStorage.setItem", "settings", json.stringify(settings))
+        saves += 1
+    }
+
+    <main class={`${theme.size} ${theme.dark ? "dark" : ""}`} onmount={() => {
+        settings = parse_saved(js("localStorage.getItem", "settings"))
+        ready = true
+    }}>
+        <h1>Settings</h1>
+        <label class="row">
+            <input type="checkbox" checked={theme.dark}
+                onchange={(e) => { settings.theme.dark = e.target.checked }}/> Dark mode
+        </label>
+        <label class="row">
+            Text size
+            <select value={theme.size} onchange={(e) => change("theme", "size", e.target.value)}>
+                <option>small</option><option>medium</option><option>large</option>
+            </select>
+        </label>
+        <label class="row">
+            <input type="checkbox" checked={settings.email.news}
+                onchange={(e) => change("email", "news", e.target.checked)}/> Email me news
+        </label>
+        <p class="summary">{summary}</p>
+        <p class="saves">Saved {saves} times</p>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>Settings</title><style>{raw(css)}</style></head>
+    <body><Settings/></body>
+</html>
