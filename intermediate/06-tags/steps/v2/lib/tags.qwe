@@ -1,0 +1,19 @@
+// Tags: a recipe's tags, a tag's recipes, and how many recipes each tag has.
+fn tags_of(recipe_id: int) -> list with db = db.query(sql`
+    select t.name from tags t join recipe_tags rt on rt.tag_id = t.id
+    where rt.recipe_id = ? order by t.name`, recipe_id)
+
+fn recipes_tagged(name: str) -> list with db = db.query(sql`
+    select r.id, r.title, r.minutes, r.servings
+    from recipes r join recipe_tags rt on rt.recipe_id = r.id join tags t on t.id = rt.tag_id
+    where t.name = ? order by r.title`, name)
+
+fn tag_counts() -> list with db = db.query(sql`
+    select t.name, count(*) as n from tags t join recipe_tags rt on rt.tag_id = t.id
+    group by t.id order by t.name`)
+
+// The recipes with any of these tags. The names go in as one JSON list, through one ?.
+fn recipes_with_any(names: list) -> list with db = db.query(sql`
+    select r.id, r.title, r.minutes, r.servings
+    from recipes r join recipe_tags rt on rt.recipe_id = r.id join tags t on t.id = rt.tag_id
+    where t.name in (select value from json_each(?)) order by r.title`, json.stringify(names))
