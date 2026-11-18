@@ -152,6 +152,9 @@ Quillo: https://quillolang.org
 | [01-counter](shorts/01-counter) | A click counter in 12 lines of Quillo | A click counter: a component with its own state, and a route that puts it on a page. One file, 12 lines. |
 | [02-live-tabs](shorts/02-live-tabs) | Post in one tab, see it in every tab \| Quillo | A live wall: post in one tab, and every open tab shows it. A table, two server functions and a component, in one file. |
 | [03-bind](shorts/03-bind) | Type, and the page follows \| Quillo | A greeter: an input's value={name} ties the text box to the state, both ways, and the greeting, the count and a surprise follow every key. |
+| [04-check](shorts/04-check) | Caught before it runs \| quillo check | A greeting in two lines, for trying quillo check: pass a number where text belongs, or use \|\| on a string, and it tells you before anything runs. |
+| [05-hot-reload](shorts/05-hot-reload) | Change the code, keep the count \| Quillo hot reload | The click counter from shorts/01-counter, for trying quillo run --watch: change its code while it runs, and the open page takes the new code and keeps its count. |
+| [07-dice](shorts/07-dice) | A dice roller in 16 lines of Quillo | A dice roller: the roll in state, random_int(1, 6) on a button, the face from a list, and a cheer for a six. One component. |
 
 ## Learn to Code with Quillo (the course)
 

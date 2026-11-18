@@ -1,0 +1,6 @@
+// Mistakes, caught before anything runs.
+
+fn greet(name: str) -> str =
+    `Hello, ${name}!`
+
+route GET / = greet("Ada")

@@ -1,0 +1,19 @@
+// Roll the dice: a random number, in the page.
+
+component Dice() {
+    state roll = 1
+    let faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]
+    let go = () => { roll = random_int(1, 6) }
+    <section>
+        <p style="font-size: 160px; margin: 0">
+            {faces[roll - 1]}</p>
+        <button style="font:inherit" onclick={go}>
+            Roll 🎲</button>
+        {roll == 6 && <p>A six! 🎉</p>}
+    </section>
+}
+
+route GET / =
+    <html><body style="font: 32px system-ui">
+        <Dice/>
+    </body></html>

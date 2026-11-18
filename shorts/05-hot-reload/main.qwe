@@ -1,0 +1,15 @@
+// A click counter: state that lives in the page.
+
+component Counter() {
+    state n = 0
+    <button onclick={() => { n += 1 }}
+            style="font: inherit">
+        Clicks: {n}
+    </button>
+}
+
+route GET / =
+    <html><body style="font: 32px system-ui">
+        <h1>Hello, Quillo 👋</h1>
+        <Counter/>
+    </body></html>
