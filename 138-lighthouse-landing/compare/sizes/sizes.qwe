@@ -1,0 +1,4 @@
+// The hero at 828 pixels wide, as Quillo's image.convert makes it, as WebP and as JPEG, at quality 75; and the sizes.
+let webp = image.convert("hero.jpg", "hero-828.webp", { width: 828, format: "webp", quality: 75 })
+let jpeg = image.convert("hero.jpg", "hero-828.jpg", { width: 828, quality: 75 })
+route GET / = { webp: image.info("hero-828.webp"), jpeg: image.info("hero-828.jpg") }

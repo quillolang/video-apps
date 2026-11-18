@@ -1,0 +1,48 @@
+// Hearth Bakery: one landing page. The hero photo is made smaller once, when the server starts: a copy for
+// phones and one for wider screens, and the browser picks the one it needs.
+let css = read_file("bakery.css")
+let description = "Sourdough, rye and seeded loaves, baked every morning on Market Lane. "
+    + "Order today, collect tomorrow."
+let small = image.convert("public/hero.jpg", "public/hero-828.jpg", { width: 828, quality: 75 })
+let large = image.convert("public/hero.jpg", "public/hero-1600.jpg", { width: 1600, quality: 75 })
+
+let features = [
+    ["Baked at dawn", "Every loaf comes out of the oven by seven, so it is still warm when you collect it."],
+    ["Slow sourdough", "Our starter is twelve years old, and each dough rests for a full day before baking."],
+    ["Order today", "Choose your loaves by nine tonight, and they are waiting for you in the morning."],
+]
+
+route GET / = <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Hearth Bakery: bread worth getting up for</title>
+        <meta name="description" content={description}/>
+        <link rel="icon" href="/icon.png" type="image/png" sizes="48x48"/>
+        <style>{raw(css)}</style>
+    </head>
+    <body>
+        <header>
+            <a class="brand" href="/">Hearth Bakery</a>
+            <nav><a href="/breads">Breads</a><a href="/visit">Visit</a></nav>
+        </header>
+        <main>
+            <section class="hero">
+                <img src="/img/hero-828.jpg" srcset="/img/hero-828.jpg 828w, /img/hero-1600.jpg 1600w" sizes="100vw"
+                    width="1600" height="900" alt="Loaves cooling on the bakery's counter" fetchpriority="high"/>
+                <div class="text">
+                    <h1>Bread worth getting up for</h1>
+                    <p>Sourdough, rye and seeded loaves, baked every morning on Market Lane.</p>
+                    <a class="cta" href="/order">Order for tomorrow</a>
+                </div>
+            </section>
+            <section class="features">
+                {for f in features => <div><h2>{f[0]}</h2><p>{f[1]}</p></div>}
+            </section>
+        </main>
+        <footer>Hearth Bakery, 4 Market Lane. Open every day from 7 till the bread is gone.</footer>
+    </body>
+</html>
+
+route GET /img/*path = files("public", path, { cache: "1y" })
+route GET /icon.png = file("public/icon.png", { cache: "1y" })
