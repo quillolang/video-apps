@@ -1,0 +1,10 @@
+// Who else is looking at this ticket, as it happens. The page joins the "viewers" channel and says
+// which ticket it shows; the server tells every page who's on each ticket.
+component Viewers(ticket: int) {
+    state names = []
+    let room = channel.open("viewers", (m) => {
+        if m.hello == true { room.send({ ticket }) }
+        if m.ticket == ticket { names = m.names }
+    })
+    <p.viewers>{len(names) > 0 ? `Here now: ${join(names, ", ")}` : ""}</p>
+}
