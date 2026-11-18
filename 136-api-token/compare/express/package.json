@@ -1,0 +1,9 @@
+{
+  "name": "trails-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "express": "^5.3.0",
+    "jose": "^6.2.17"
+  }
+}
