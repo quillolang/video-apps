@@ -1,0 +1,42 @@
+// The Library: its database, and a page for each question we ask it.
+db.open("library.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every book", sql`
+    select * from books`)
+
+route GET /austen with db = answer("Jane Austen's books", sql`
+    select title, year
+    from books
+    where author = 'Jane Austen'
+    order by year`)
+
+route GET /newest with db = answer("Newest first", sql`
+    select title, author, year
+    from books
+    order by year desc`)
+
+route GET /members with db = answer("Every member", sql`
+    select * from members`)
+
+route GET /no-email with db = answer("Members with no email", sql`
+    select name, joined
+    from members
+    where email is null`)
+
+// A member, by name, from a form: the name goes in as a value, never into the SQL.
+let FIND_MEMBER = sql`
+    select name, joined, email
+    from members
+    where name = :name`
+
+route GET /member ? { name: str = "" } with db =
+    <Table title="A member" sql={FIND_MEMBER} rows={db.query(FIND_MEMBER, { name })}>
+        <form><input name="name" value={name} placeholder="A member's name"/><button>Find</button></form>
+    </Table>
+
+route GET /static/*path = files("public", path)

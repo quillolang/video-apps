@@ -1,0 +1,39 @@
+// The Corner Shop: its database, and a page for each question we ask it.
+db.open("shop.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every product", sql`
+    select * from products`)
+
+route GET /under-5 with db = answer("Under $5", sql`
+    select name, price_cents
+    from products
+    where price_cents < 500`)
+
+route GET /in-stock with db = answer("Under $5, and in stock", sql`
+    select name, price_cents, in_stock
+    from products
+    where price_cents < 500 and in_stock > 0`)
+
+route GET /cheapest with db = answer("The three cheapest", sql`
+    select name, price_cents
+    from products
+    order by price_cents
+    limit 3`)
+
+// A search box: what was typed goes in as a value, :q, never into the SQL itself.
+let SEARCH = sql`
+    select name, price_cents
+    from products
+    where name like :q`
+
+route GET /search ? { q: str = "" } with db =
+    <Table title="Search the shop" sql={SEARCH} rows={db.query(SEARCH, { q: `%${q}%` })}>
+        <form><input name="q" value={q} placeholder="tea, eggs..."/><button>Search</button></form>
+    </Table>
+
+route GET /static/*path = files("public", path)
