@@ -1,0 +1,26 @@
+// Accounts: signing up and logging in, with each password kept only as a hash.
+fn sign_up(name: str, email: str, password: str) -> int ! str with db, random {
+    let hash = crypto.hash_password(password)
+    let r = db.exec("insert into users (name, email, password_hash) values (?, ?, ?)",
+        trim(name), lower(trim(email)), hash)
+    if db.error_kind(r) == "unique" { return err("That email already has an account. Log in instead?") }
+    r?.last_id
+}
+
+// The same message for a wrong email and a wrong password, so nobody learns who has an account.
+fn log_in(email: str, password: str) -> int ! str with db {
+    let user = db.one("select id, password_hash from users where email = ?", lower(trim(email)))
+    if user == null || !crypto.verify_password(password, user.password_hash) {
+        return err("Wrong email or password.")
+    }
+    user.id
+}
+
+// The signed-in user, or null.
+fn me() with db {
+    let id = session().user_id
+    id == null ? null : db.one("select id, name, email from users where id = ?", id)
+}
+
+// A route group's guard: the request goes on when someone is signed in; otherwise, off to log in.
+fn signed_in(r) = session().user_id != null ? r : reply 303 redirect("/login")

@@ -1,0 +1,26 @@
+// The account pages: a form to sign up, and what it says when something is wrong.
+import ui/page.qwe use Page
+
+view SignupPage(problem: str? = null, name: str = "", email: str = "") =
+    <Page title="Sign up">
+        <h1>Sign up</h1>
+        {problem != null && <p.problem>{problem}</p>}
+        <form.stack method="post" action="/signup">
+            <label>Your name <input name="name" value={name} required/></label>
+            <label>Email <input name="email" type="email" value={email} required/></label>
+            <label>Password <input name="password" type="password" minlength="8" required/></label>
+            <button>Sign up</button>
+        </form>
+    </Page>
+
+view LoginPage(problem: str? = null, email: str = "", next: str = "") =
+    <Page title="Log in">
+        <h1>Log in</h1>
+        {problem != null && <p.problem>{problem}</p>}
+        <form.stack method="post" action="/login">
+            <input type="hidden" name="next" value={next}/>
+            <label>Email <input name="email" type="email" value={email} required/></label>
+            <label>Password <input name="password" type="password" required/></label>
+            <button>Log in</button>
+        </form>
+    </Page>

@@ -1,0 +1,85 @@
+// Recipe Box: recipes, the ingredients they need, and what to make with what you have.
+db.open("recipe-box.db")
+db.migrate("migrations")
+
+use "lib/recipes.qwe"
+use "lib/accounts.qwe"
+use "ui/page.qwe"
+use "ui/accounts.qwe"
+use "ui/recipes.qwe"
+
+route GET / =
+    <Page title="Recipe Box">
+        <h1>Recipe Box</h1>
+        <form action="/uses">
+            <input name="item" placeholder="What's in your fridge? eggs, rice..." aria-label="Ingredient"/>
+            <button>What can I make?</button>
+        </form>
+        <ul.recipes>
+            {for r in all_recipes() => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            </li>}
+        </ul>
+    </Page>
+
+route GET /recipes/:id(int) {
+    let r = recipe(id) ?? reply 404 "No such recipe"
+    let steps = steps_of(id)
+    <Page title={r.title}>
+        <h1>{r.title}</h1>
+        <p.meta>{r.minutes} minutes · serves {r.servings}</p>
+        <h2>Ingredients</h2>
+        <ul>{for i in ingredients_of(id) => <li>{i.amount} {i.unit} {i.name}</li>}</ul>
+        {len(steps) > 0 && <section>
+            <h2>Method</h2>
+            <ol>{for s in steps => <li>{s.instruction}</li>}</ol>
+        </section>}
+        <p><a href="/">All recipes</a></p>
+    </Page>
+}
+
+route GET /uses ? { item: str = "" } =
+    <Page title="What can I make?">
+        <h1>Recipes with {item}</h1>
+        <ul.recipes>
+            {for row in recipes_using(item) => <li>
+                <a href={`/recipes/${row.recipe_id}`}>{row.title}</a>
+                <span.meta>{row.amount} {row.unit} {row.name}</span>
+            </li>}
+        </ul>
+        <p><a href="/">All recipes</a></p>
+    </Page>
+
+route GET /signup = <SignupPage/>
+
+route POST /signup { form: { name: str, email: str, password: str } } {
+    let id = sign_up(name, email, password)
+    if is_err(id) { reply 422 <SignupPage problem={id.error} name={name} email={email}/> }
+    set_session({ user_id: id })
+    redirect("/")
+}
+
+route GET /login ? { next: str = "" } = <LoginPage next={next}/>
+
+route POST /login { form: { email: str, password: str, next: str = "" } } {
+    let id = log_in(email, password)
+    if is_err(id) { reply 422 <LoginPage problem={id.error} email={email} next={next}/> }
+    set_session({ user_id: id })
+    redirect(local_path(next) ?? "/")
+}
+
+route POST /logout {
+    end_session()
+    redirect("/")
+}
+
+// Members only: every route in the group goes through signed_in first.
+routes /my | signed_in {
+    route GET / = <MyRecipesPage recipes={my_recipes(me().id)}/>
+    route POST /recipes { form: { title: str, servings: int, minutes: int } } {
+        add_recipe(me().id, title, servings, minutes)?
+        redirect("/my")
+    }
+}
+
+route GET /static/*path = files("public", path)

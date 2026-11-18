@@ -1,0 +1,19 @@
+// The members' pages: your own recipes, and a form to add one.
+import ui/page.qwe use Page
+
+view MyRecipesPage(recipes: list) =
+    <Page title="My recipes">
+        <h1>My recipes</h1>
+        {len(recipes) == 0
+            ? <p.meta>No recipes yet. Add your first one!</p>
+            : <ul.recipes>{for r in recipes => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            </li>}</ul>}
+        <h2>Add a recipe</h2>
+        <form.stack method="post" action="/my/recipes">
+            <label>Title <input name="title" required/></label>
+            <label>Serves <input name="servings" type="number" min="1" value="2" required/></label>
+            <label>Minutes <input name="minutes" type="number" min="1" required/></label>
+            <button>Add it</button>
+        </form>
+    </Page>
