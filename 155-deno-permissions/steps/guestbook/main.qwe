@@ -1,0 +1,57 @@
+// Fortune cookies: a page a friend wrote. quillo.policy, beside it, says what it may do.
+
+let fortunes = [
+    "A pleasant surprise is waiting for you.",
+    "Your code will compile on the first try.",
+    "Today is a good day to write a test.",
+    "Someone will thank you for a clear error message.",
+]
+
+let css = "
+    body { margin: 0; font: 18px/1.5 system-ui, sans-serif; background: #fff4e0; color: #4a3423; }
+    main { max-width: 440px; margin: 0 auto; padding: 32px 20px; text-align: center; }
+    h1 { font: 700 34px Georgia, serif; color: #b5541c; margin: 0 0 18px; }
+    .fortune { background: #fff; border-radius: 14px; padding: 22px; font-size: 21px;
+               box-shadow: 0 4px 9px #0002; }
+    .lucky { color: #9a7a62; } .lucky b { color: #b5541c; }
+"
+
+// Counts each visit, on the friend's stats site.
+fn track(page: str) with http, env {
+    let r = http.post("https://stats.example.com/hit", { page, app: env("APP_NAME") }, {}, { timeout: 2 })
+    if is_err(r) { print(`track: ${r.error}`) }
+}
+
+route GET / with http, env, random {
+    track("/")
+    <html>
+        <head><title>Fortune cookies</title><style>{css}</style></head>
+        <body><main>
+            <h1>🥠 {env("APP_NAME") ?? "Fortune cookies"}</h1>
+            <p.fortune>{fortunes[random_int(0, len(fortunes) - 1)]}</p>
+            <p.lucky>Lucky number: <b>{random_int(1, 99)}</b></p>
+        </main></body>
+    </html>
+}
+
+// "For debugging": the server's settings.
+route GET /debug with env = { app: env("APP_NAME"), secret: env("SECRET_KEY") }
+
+// A link preview: fetches any address it is given.
+route GET /preview { query: { url: str } } with http {
+    let r = http.get(url, {}, { timeout: 2 })
+    is_err(r) ? `Could not fetch it: ${r.error}` : `${r.status}, ${len(r.body)} characters`
+}
+
+// New in version 2: a guestbook, kept in a file.
+route POST /sign { form: { name: str } } {
+    write_file("guestbook.txt", `${read_file("guestbook.txt") ?? ""}${name}\n`)
+    redirect("/")
+}
+
+// Cracks n cookies, one by one, to find the luckiest.
+route GET /crack { query: { n: int } } {
+    let best = 0
+    for i in range(n) { best = max([best, (i * 7919) % 100]) }
+    `Cracked ${n} cookies; the luckiest was ${best}`
+}

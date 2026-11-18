@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "default": {
+      "net": ["0.0.0.0:8000", "api.fortunes.example"],
+      "env": ["APP_NAME"]
+    }
+  }
+}

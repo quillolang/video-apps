@@ -1,0 +1,15 @@
+# What main.qwe may do, whatever its code says. quillo run and quillo check read this file.
+
+[effects]
+allow = ["http", "env", "random", "time"]
+
+[http]
+hosts = ["api.fortunes.example"]
+private = false
+
+[env]
+names = ["APP_NAME"]
+
+[limits]
+max_compute = "2s"
+max_body = "64KB"
