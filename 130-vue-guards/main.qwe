@@ -1,0 +1,53 @@
+// Pie Shop: today's orders, for the shop's staff only, checked on the server.
+let css = read_file("shop.css")
+let orders = json.parse(read_file("orders.json"))
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><style>{raw(css)}</style></head>
+    <body>
+        <header><a class="brand" href="/">Pie Shop</a> <a href="/admin">Orders</a></header>
+        <main>{children}</main>
+    </body>
+</html>
+
+// Staff only: anyone else is sent to log in first.
+fn signed_in(r) = session().staff != null ? r : reply 303 redirect(`/login?next=${url_encode(r.path)}`)
+
+routes /admin | signed_in {
+    route GET / = <Page title="Orders · Pie Shop">
+        <h1>Today's orders</h1>
+        <table>
+            <tr><th>#</th><th>Name</th><th>Pie</th><th>Pickup</th></tr>
+            {for o in orders => <tr>
+                <td>{o.id}</td><td>{o.name}</td><td>{o.count} × {o.pie}</td><td>{o.pickup}</td>
+            </tr>}
+        </table>
+    </Page>
+    route GET /orders.json = orders
+}
+
+route GET / = <Page title="Pie Shop">
+    <h1>Pie Shop</h1>
+    <p>Fresh pies, every morning. Staff: <a href="/admin">today's orders</a>.</p>
+</Page>
+
+route GET /login ? { next: str = "/admin" } = <Page title="Log in · Pie Shop">
+    <h1>Staff log in</h1>
+    <form method="post" action={`/login?next=${url_encode(next)}`}>
+        <label>Name <input name="name"/></label>
+        <label>Password <input name="password" type="password"/></label>
+        <button>Log in</button>
+    </form>
+</Page>
+
+route POST /login ? { next: str = "/admin" } { form: { name: str, password: str } } with env {
+    let staff_password = env("STAFF_PASSWORD", "")
+    if staff_password == "" || !crypto.equal(password, staff_password) {
+        return respond(401, <Page title="Log in · Pie Shop">
+            <h1>Wrong password</h1>
+            <a href="/login">Try again</a>
+        </Page>)
+    }
+    set_session({ staff: name })
+    redirect(local_path(next) ?? "/admin")
+}
