@@ -1,0 +1,30 @@
+// Trail Guide: a page for each trail, at /trails/<its number>.
+let css = read_file("trails.css")
+let trails = json.parse(read_file("trails.json"))
+
+view Page(title: str, children) = <html>
+    <head><title>{title}</title><style>{raw(css)}</style></head>
+    <body><main>{children}</main></body>
+</html>
+
+view Missing(what: str) = <Page title={what}>
+    <a href="/">← All trails</a>
+    <h1 class="missing">404: {what}</h1>
+</Page>
+
+route GET / = <Page title="Trail Guide">
+    <h1>Trail Guide</h1>
+    <ul>{for t in trails => <li><a href={`/trails/${t.id}`}>{t.name}</a></li>}</ul>
+</Page>
+
+route GET /trails/:id(int) {
+    let trail = find(trails, (t) => t.id == id)
+    if trail == null { return respond(404, <Missing what="No such trail"/>) }
+    <Page title={trail.name}>
+        <a href="/">← All trails</a>
+        <h1>{trail.name}</h1>
+        <p class="facts">{trail.km} km · {trail.climb} m climb · {trail.level}</p>
+    </Page>
+}
+
+route GET /*rest = respond(404, <Missing what="No such page"/>)
