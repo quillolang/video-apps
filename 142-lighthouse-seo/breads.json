@@ -1,0 +1,14 @@
+[
+ {"slug": "sourdough", "name": "Sourdough", "price": "$8.50",
+  "line": "Our twelve-year-old starter, a long rest, and a dark, crackling crust.",
+  "about": "Each loaf rests a full day before it goes in the oven at four, so it's sour, chewy, and keeps for days."},
+ {"slug": "dark-rye", "name": "Dark rye", "price": "$7.00",
+  "line": "Rye, caraway and a little molasses, dense and dark.",
+  "about": "Slice it thin. It keeps for a week, and it's best with butter and a little salt."},
+ {"slug": "seeded", "name": "Seeded", "price": "$7.50",
+  "line": "Sunflower, pumpkin, flax and sesame, inside and on top.",
+  "about": "A wholemeal dough with four kinds of seeds, toasted first, so the whole loaf tastes nutty."},
+ {"slug": "baguette", "name": "Baguette", "price": "$3.50",
+  "line": "Crisp outside, open and soft inside, baked three times a day.",
+  "about": "Best within a few hours, which is why we bake them at seven, at eleven and at three."}
+]

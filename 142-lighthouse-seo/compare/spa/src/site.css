@@ -1,0 +1,9 @@
+body { margin: 0; font: 18px/1.55 system-ui, sans-serif; color: #2b2118; background: #fbf7f0; }
+header, main { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 18px; }
+.brand { font-weight: 700; color: #b5541c; text-decoration: none; }
+h1 { font-size: 30px; margin: 18px 0 10px; }
+ul { padding-left: 20px; }
+li { margin: 8px 0; }
+a { color: #b5541c; }
+.price { font-size: 22px; font-weight: 700; }
