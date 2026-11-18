@@ -1,0 +1,38 @@
+// Trail Club: log in with the club's OpenID Connect provider, by hand: the code flow, with http.post.
+let css = read_file("club.css")
+let issuer = env("ISSUER", "http://localhost:4000")
+let provider = http.get(`${issuer}/.well-known/openid-configuration`).json
+let client_id = "quillo-app"
+let redirect_uri = "http://localhost:8080/callback"
+
+view Page(children) = <html>
+    <head><title>Trail Club</title><style>{raw(css)}</style></head>
+    <body><main>{children}</main></body>
+</html>
+
+route GET / {
+    let user = session().user
+    if user == null { return <Page><h1>Trail Club</h1><p><a href="/login">Log in</a></p></Page> }
+    <Page><h1>Hello, {user.name}</h1><p class="who">Signed in as {user.sub}.</p></Page>
+}
+
+// To the provider, with a fresh state kept in the session: the answer must bring it back.
+route GET /login {
+    let state = crypto.token()
+    set_session({ state })
+    redirect(provider.authorization_endpoint + "?" + url_encode({
+        response_type: "code", client_id, redirect_uri, scope: "openid profile", state }))
+}
+
+// Back from the provider: the same state, then the code for tokens, and the tokens for the user, server to server.
+route GET /callback ? { code: str, state: str } with env, http {
+    if !crypto.equal(state, session().state ?? "") { return respond(400, "This login wasn't started here") }
+    let tokens = http.post(provider.token_endpoint, url_encode({ grant_type: "authorization_code", code,
+        redirect_uri, client_id, client_secret: env("CLIENT_SECRET", "") }),
+        { "content-type": "application/x-www-form-urlencoded" }, { public_only: false })?
+    if !tokens.ok { return respond(502, "The provider refused the code") }
+    let bearer = { authorization: `Bearer ${tokens.json.access_token}` }
+    let me = http.get(provider.userinfo_endpoint, bearer, { public_only: false })?
+    set_session({ user: { sub: me.json.sub, name: me.json.name } })
+    redirect("/")
+}
