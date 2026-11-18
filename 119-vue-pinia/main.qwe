@@ -1,0 +1,33 @@
+// Mixtape: what's playing and the queue in the header, and Play and Queue buttons on every track.
+let css = read_file("mixtape.css")
+let tracks = json.parse(read_file("tracks.json"))
+
+state playing = null             // the page's: every component on it reads and sets these
+state queue = []
+
+component NowPlaying() {
+    <p class="now">
+        {playing != null ? `▶ ${playing.title} — ${playing.artist}` : "Nothing playing"} · {len(queue)} queued
+    </p>
+}
+
+component TrackActions(track: map) {
+    <span class="actions">
+        <button class="play" onclick={() => { playing = track }}>▶</button>
+        <button class="add" onclick={() => { queue = queue + [track] }}>＋</button>
+    </span>
+}
+
+view TrackRow(track: map) = <li>
+    <span class="title">{track.title}</span>
+    <span class="artist">{track.artist}</span>
+    <TrackActions track={track}/>
+</li>
+
+route GET / = <html>
+    <head><title>Mixtape</title><style>{raw(css)}</style></head>
+    <body>
+        <header><h1>Mixtape</h1><NowPlaying/></header>
+        <main><ol class="tracks">{for t in tracks => <TrackRow track={t}/>}</ol></main>
+    </body>
+</html>

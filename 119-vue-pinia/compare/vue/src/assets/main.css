@@ -1,0 +1,11 @@
+body { margin: 0; font: 18px/1.4 system-ui, sans-serif; background: #f3f0fb; color: #1f1a33; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 22px; background: #1f1a33; color: #f3f0fb; }
+header h1 { margin: 0; font-size: 26px; }
+.now { margin: 0; padding: 6px 14px; border-radius: 999px; background: #8b5cf6; font-weight: 700; font-size: 16px; }
+main { padding: 12px 22px 22px; }
+.tracks { margin: 0; padding: 0 0 0 28px; }
+.tracks li { display: flex; align-items: center; gap: 12px; padding: 8px 6px; border-bottom: 1px solid #ddd6f3; }
+.title { flex: 1; font-weight: 600; }
+.artist { color: #6b6290; }
+.actions { display: flex; gap: 6px; }
+.actions button { font: inherit; width: 40px; height: 34px; border: 0; border-radius: 9px; background: #e9e3fb; color: #5b3cc4; cursor: pointer; }
