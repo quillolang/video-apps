@@ -1,0 +1,30 @@
+// Recipes and their ingredients: the types, and the queries that read them.
+type Recipe = { id: int, title: str, servings: int, minutes: int }
+type Ingredient = { id: int, recipe_id: int, name: str, amount: str, unit: str }
+
+fn all_recipes() -> list<Recipe> with db = db.query("select * from recipes order by title")
+fn recipe(id: int) with db = db.one("select * from recipes where id = ?", id)
+fn ingredients_of(id: int) -> list<Ingredient> with db =
+    db.query("select * from ingredients where recipe_id = ? order by id", id)
+fn steps_of(id: int) -> list with db = db.query("select * from steps where recipe_id = ? order by position", id)
+
+// The recipes that use an ingredient, with how much of it each one needs.
+fn recipes_using(item: str) -> list with db = db.query(sql`
+    select r.id as recipe_id, r.title, i.amount, i.unit, i.name
+    from ingredients i join recipes r on r.id = i.recipe_id
+    where i.name like ?
+    order by r.title`, `%${item}%`)
+
+// A member's own recipes, and adding one.
+fn my_recipes(user_id: int) -> list<Recipe> with db =
+    db.query("select * from recipes where user_id = ? order by title", user_id)
+fn add_recipe(user_id: int, title: str, servings: int, minutes: int) -> int ! str with db {
+    let r = db.exec("insert into recipes (user_id, title, servings, minutes) values (?, ?, ?, ?)",
+        user_id, trim(title), servings, minutes)
+    r?.last_id
+}
+
+// Changing a recipe: its title, servings and minutes.
+fn update_recipe(id: int, title: str, servings: int, minutes: int) -> map ! str with db =
+    db.exec("update recipes set title = ?, servings = ?, minutes = ? where id = ?",
+        trim(title), servings, minutes, id)
