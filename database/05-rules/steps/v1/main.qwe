@@ -1,0 +1,64 @@
+// The Corner Shop: its database, and a page for each question we ask it.
+db.open("shop.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every product", sql`
+    select * from products`)
+
+route GET /under-5 with db = answer("Under $5", sql`
+    select name, price_cents
+    from products
+    where price_cents < 500`)
+
+route GET /in-stock with db = answer("Under $5, and in stock", sql`
+    select name, price_cents, in_stock
+    from products
+    where price_cents < 500 and in_stock > 0`)
+
+route GET /cheapest with db = answer("The three cheapest", sql`
+    select name, price_cents
+    from products
+    order by price_cents
+    limit 3`)
+
+// A search box: what was typed goes in as a value, :q, never into the SQL itself.
+let SEARCH = sql`
+    select name, price_cents
+    from products
+    where name like :q`
+
+route GET /search ? { q: str = "" } with db =
+    <Table title="Search the shop" sql={SEARCH} rows={db.query(SEARCH, { q: `%${q}%` })}>
+        <form><input name="q" value={q} placeholder="tea, eggs..."/><button>Search</button></form>
+    </Table>
+
+// Customers sign up here: one account per email.
+let CUSTOMERS = sql`
+    select * from customers`
+
+fn signup_page(message: str) with db =
+    <Table title="Sign up" sql={CUSTOMERS} rows={db.query(CUSTOMERS)}>
+        <form method="post" action="/signup">
+            <input name="name" placeholder="Your name"/>
+            <input name="email" placeholder="Your email"/>
+            <button>Sign up</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /signup with db = signup_page("")
+
+route POST /signup { form: { name: str, email: str } } with db {
+    // Is it taken? Checked here, before the insert.
+    if db.one("select id from customers where email = ?", email) != null {
+        return signup_page("That email already has an account.")
+    }
+    db.exec("insert into customers (name, email) values (?, ?)", name, email)?
+    redirect("/signup")
+}
+
+route GET /static/*path = files("public", path)
