@@ -1,0 +1,4 @@
+<%- include('layout-top', { title: 'Trail Guide' }) %>
+<h1>Trail Guide</h1>
+<ul><% for (const t of trails) { %><li><a href="/trails/<%= t.id %>"><%= t.name %></a></li><% } %></ul>
+<%- include('layout-bottom') %>

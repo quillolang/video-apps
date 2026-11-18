@@ -1,0 +1,5 @@
+<%- include('layout-top', { title: trail.name }) %>
+<a href="/">← All trails</a>
+<h1><%= trail.name %></h1>
+<p class="facts"><%= trail.km %> km · <%= trail.climb %> m climb · <%= trail.level %></p>
+<%- include('layout-bottom') %>
