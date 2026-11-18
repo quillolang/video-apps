@@ -7,6 +7,9 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kid = spawn(process.argv[2], ['run', 'main.qwe', '--port', '8081'], { cwd: path.join(here, 'ints'), stdio: 'ignore', detached: true });
 const base = 'http://localhost:8081';
+// Its server stops however this ends, a closed pipe (| head) too.
+process.on('exit', () => { try { process.kill(-kid.pid); } catch {} });
+process.stdout.on('error', () => process.exit(0));
 for (let i = 0; i < 200; i++) { try { await fetch(base + '/'); break; } catch { await new Promise((r) => setTimeout(r, 100)); } }
 for (const n of ['2', '02', '+2', ' 2 ', '2.5', 'two']) {
   const r = await fetch(base + '/n', { method: 'POST', body: new URLSearchParams({ n }), headers: { origin: base } });
