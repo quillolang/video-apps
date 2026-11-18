@@ -1,0 +1,8 @@
+export const trails = [
+  { id: 1, name: 'Fern Gully Loop', km: 4.2, climb: 120, level: 'easy' },
+  { id: 2, name: 'Eagle Ridge', km: 9.8, climb: 640, level: 'hard' },
+  { id: 3, name: 'Lantern Lake', km: 6.5, climb: 210, level: 'easy' },
+  { id: 4, name: 'Old Mill Path', km: 3.1, climb: 60, level: 'easy' },
+  { id: 5, name: 'Granite Steps', km: 7.4, climb: 520, level: 'hard' },
+  { id: 6, name: 'Cedar Hollow', km: 5.6, climb: 300, level: 'medium' },
+]
