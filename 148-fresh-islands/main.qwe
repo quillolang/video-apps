@@ -1,0 +1,38 @@
+// A counter on one page, and a page with no component on it: what each one sends to the browser.
+let css = read_file("styles.css")
+let button = "px-2 py-1 border-gray-500 border-2 rounded-sm bg-white hover:bg-gray-200 transition-colors"
+
+component Counter(start: int) {
+    state count = start
+    <div class="flex gap-8 py-6">
+        <button class={button} onclick={() => { count -= 1 }}>-1</button>
+        <p class="text-3xl tabular-nums">{count}</p>
+        <button class={button} onclick={() => { count += 1 }}>+1</button>
+    </div>
+}
+
+view Page(title: str, children) = <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{title}</title>
+        <style>{raw(css)}</style>
+    </head>
+    <body>
+        <div class="px-4 py-8 mx-auto gradient min-h-screen">
+            <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">{children}</div>
+        </div>
+    </body>
+</html>
+
+route GET / = <Page title="Quillo counter">
+    <h1 class="text-4xl font-bold">Welcome to Quillo</h1>
+    <p class="my-4">A counter, made on the server, that the browser keeps counting.</p>
+    <Counter start={3}/>
+</Page>
+
+route GET /about = <Page title="About Quillo">
+    <h1 class="text-4xl font-bold">About</h1>
+    <p class="my-4">A page with no component: just HTML and CSS.</p>
+    <a href="/">Back to the counter</a>
+</Page>
