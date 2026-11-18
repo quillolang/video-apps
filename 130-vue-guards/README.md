@@ -10,6 +10,8 @@ STAFF_PASSWORD=apple-pie ./run.sh                                      # Quillo'
 (cd compare/vue && STAFF_PASSWORD=apple-pie node server/api-checked.js) &  # Vue's API, on 3000
 (cd compare/vue && npm run dev)                                               # Vue's shop, on 5173
 (cd compare && ./curl.sh http://localhost:8080 /admin/orders.json)             # what anyone gets
+# Windows (PowerShell), with Quillo from quillolang.org: $env:STAFF_PASSWORD='apple-pie'; quillo run main.qwe
+#   and cd compare\vue; npm install; $env:STAFF_PASSWORD='apple-pie'; node server\api-checked.js (then npm run dev in another window)
 ```
 
 ## The comparison
