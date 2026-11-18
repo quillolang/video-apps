@@ -1,0 +1,29 @@
+// Recipe Box: recipes, the ingredients they need, and what to make with what you have.
+db.open("recipe-box.db")
+db.migrate("migrations")
+
+use "lib/recipes.qwe"
+use "ui/page.qwe"
+
+route GET / =
+    <Page title="Recipe Box">
+        <h1>Recipe Box</h1>
+        <ul.recipes>
+            {for r in all_recipes() => <li>
+                <a href={`/recipes/${r.id}`}>{r.title}</a> <span.meta>{r.minutes} min · serves {r.servings}</span>
+            </li>}
+        </ul>
+    </Page>
+
+route GET /recipes/:id(int) {
+    let r = recipe(id) ?? reply 404 "No such recipe"
+    <Page title={r.title}>
+        <h1>{r.title}</h1>
+        <p.meta>{r.minutes} minutes · serves {r.servings}</p>
+        <h2>Ingredients</h2>
+        <ul>{for i in ingredients_of(id) => <li>{i.amount} {i.unit} {i.name}</li>}</ul>
+        <p><a href="/">All recipes</a></p>
+    </Page>
+}
+
+route GET /static/*path = files("public", path)

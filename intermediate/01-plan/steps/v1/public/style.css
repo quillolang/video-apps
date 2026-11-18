@@ -1,0 +1,60 @@
+/* Recipe Box's look: warm paper, a green accent, and room to breathe. */
+body {
+    margin: 0;
+    background: #faf6ee;
+    color: #2f2a24;
+    font: 18px/1.5 system-ui, sans-serif;
+}
+main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px;
+}
+h1 {
+    color: #3f7d4e;
+    font-size: 36px;
+    margin: 0 0 12px;
+}
+h2 {
+    font-size: 22px;
+    margin: 24px 0 8px;
+}
+a {
+    color: #3f7d4e;
+    font-weight: 600;
+}
+.meta {
+    color: #7a6f62;
+}
+ul.recipes {
+    list-style: none;
+    padding: 0;
+}
+ul.recipes li {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+form {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+}
+input {
+    flex: 1;
+    font: inherit;
+    padding: 8px 12px;
+    border: 1px solid #d8cfc2;
+    border-radius: 8px;
+}
+button {
+    font: inherit;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #3f7d4e;
+    color: white;
+    cursor: pointer;
+}

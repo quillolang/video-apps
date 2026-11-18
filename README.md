@@ -153,3 +153,11 @@ One app, Movie Night, built up over the lessons. Each folder is where its lesson
 | [18-posters](course/18-posters) | Posters: Uploading Pictures, and Checking What's Inside \| Learn to Code with Quillo #18 | Movie Night, lesson 18 of Learn to Code with Quillo (part 2): the host uploads a poster for each movie; the upload is checked with image.info (a name ending in .jpg proves nothing), shrunk with image.convert, saved under a name we choose, and shown on the movie's page and in the list. Make your own .env: see .env.example. |
 | [19-search](course/19-search) | Find a Movie: Search, and Links That Keep It \| Learn to Code with Quillo #19 | Movie Night, lesson 19 of Learn to Code with Quillo (part 2): a search page at /search?q=..., made on the server: a plain HTML form that puts the search in the address, so a link keeps it, and SQL's like with % around the words. |
 | [20-real](course/20-real) | Ready for Real: Secrets, a JSON API, and Going Online \| Learn to Code with Quillo #20 | Movie Night, lesson 20 of Learn to Code with Quillo, the finished app: run for real without --watch, with QUILLO_SECRET in .env so names and the host's log-in survive a restart, and a JSON API at /api/movies and /api/movies/:id. Make your own .env: see .env.example. |
+
+## Intermediate Quillo: Build a Recipe Box
+
+One app, Recipe Box, built up over the lessons. Each folder is where its lesson ends, and the next lesson starts from it.
+
+| Folder | Lesson | The app |
+|---|---|---|
+| [01-plan](intermediate/01-plan) | Plan First, Then Build: Tables That Point at Each Other \| Intermediate Quillo #1 | Recipe Box, lesson 1 of Intermediate Quillo: recipes and their ingredients in two tables joined by a foreign key, a page for each recipe, and a search by ingredient with a join whose columns are named, so nothing gets mixed up. |
