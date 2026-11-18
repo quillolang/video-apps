@@ -1,0 +1,12 @@
+body { margin: 0; font: 18px/1.4 system-ui, sans-serif; background: #fdf6ec; color: #3a2614; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; background: #3a2614; color: #fdf6ec; }
+header h1 { margin: 0; font-size: 26px; }
+.badge { padding: 6px 14px; border-radius: 999px; background: #f4b942; color: #3a2614; font-weight: 800; }
+main { padding: 6px 22px 22px; }
+h2 { margin: 12px 0; font-size: 20px; }
+.grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.grid li { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; border-radius: 14px; background: #fff; box-shadow: 0 1px 3px #0001; }
+.emoji { font-size: 34px; }
+.grid b { font-size: 16px; }
+.grid li > span:not(.emoji) { color: #8a6a4a; font-variant-numeric: tabular-nums; }
+.grid button { font: inherit; font-size: 15px; font-weight: 700; padding: 4px 16px; border: 0; border-radius: 9px; background: #d9534f; color: #fff; cursor: pointer; }

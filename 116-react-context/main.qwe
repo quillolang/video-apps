@@ -1,0 +1,35 @@
+// The Little Bakery: a badge in the header, and an Add button on every pastry, far apart on the page.
+let css = read_file("bakery.css")
+
+let pastries = json.parse(read_file("pastries.json"))
+
+fn dollars(cents: int) -> str = money.format(money.from_minor(cents, "USD"))
+
+state cart = []                  // the page's: every component on it reads and sets it
+
+component Badge() {
+    let total = sum(map(cart, (p) => p.cents))
+    <span class="badge">🛒 {len(cart)} · {dollars(total)}</span>
+}
+
+component AddButton(item: map) {
+    <button onclick={() => { cart = cart + [item] }}>Add</button>
+}
+
+view ProductCard(item: map) = <li>
+    <span class="emoji">{item.emoji}</span>
+    <b>{item.name}</b>
+    <span>{dollars(item.cents)}</span>
+    <AddButton item={item}/>
+</li>
+
+route GET / = <html>
+    <head><title>The Little Bakery</title><style>{raw(css)}</style></head>
+    <body>
+        <header><h1>The Little Bakery</h1><Badge/></header>
+        <main>
+            <h2>Fresh today</h2>
+            <ul class="grid">{for p in pastries => <ProductCard item={p}/>}</ul>
+        </main>
+    </body>
+</html>
