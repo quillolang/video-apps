@@ -1,0 +1,33 @@
+// The Corner Shop: 1,000 products, a name for the order, and a cart total.
+let products = json.parse(read_file("products.json"))
+let css = read_file("shop.css")
+
+fn dollars(cents: int) -> str = money.format(money.from_minor(cents, "USD"))
+
+component Shop(products: list) {
+    state name = ""
+    state cart = []
+    let total = sum(map(cart, (p) => p.cents))
+    <main>
+        <h1>The Corner Shop</h1>
+        <label>
+            Name for the order
+            <input value={name}/>
+        </label>
+        <p class="total">
+            {name != "" && `Order for ${name}: `}{len(cart)} in the cart, {dollars(total)}
+        </p>
+        <ul>
+            {for p in products => <li key={p.id}>
+                <span>{p.name}</span>
+                <span>{dollars(p.cents)}</span>
+                <button onclick={() => { cart = cart + [p] }}>Add</button>
+            </li>}
+        </ul>
+    </main>
+}
+
+route GET / = <html>
+    <head><title>The Corner Shop</title><style>{raw(css)}</style></head>
+    <body><Shop products={products}/></body>
+</html>
