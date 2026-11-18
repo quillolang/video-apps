@@ -1,0 +1,9 @@
+* { box-sizing: border-box; }
+body { margin: 0; font: 18px/1.5 Inter, system-ui, sans-serif; color: #1e2a3a; background: #eef3f8; }
+main { padding: 28px 34px; }
+h1 { margin: 0 0 10px; font-size: 32px; }
+a { color: #1f5fa8; font-weight: 600; }
+.who { color: #5a6b80; }
+form { display: inline-block; margin: 6px 10px 0 0; }
+button { font: inherit; font-weight: 600; padding: 7px 14px; border: 0; border-radius: 8px; background: #1f5fa8; color: #fff; }
+button.all { background: #9a3b2e; }
