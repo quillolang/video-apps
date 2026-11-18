@@ -1,0 +1,38 @@
+// Hearth Bakery's journal: four photos, each with a line or two about it. Each photo's width and height are read
+// from the file and put on its <img>, so the browser keeps its place while it loads; and a copy 800 pixels wide is
+// made of each as the server starts, for phones.
+let css = read_file("journal.css")
+let posts = json.parse(read_file("journal.json"))
+let copies = map(posts, (p) =>
+    image.convert(`photos/${p.photo}.jpg`, `photos/800/${p.photo}.jpg`, { width: 800, quality: 75 }))
+
+view Photo(name: str, alt: str) {
+    let size = image.info(`photos/${name}.jpg`)
+    <img src={`/photos/800/${name}.jpg`} width={size.width} height={size.height} alt={alt}
+        srcset={`/photos/800/${name}.jpg 800w, /photos/${name}.jpg ${size.width}w`}
+        sizes="(max-width: 720px) 100vw, 720px"/>
+}
+
+route GET / = <html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Hearth Bakery: from the oven</title>
+        <meta name="description" content="What came out of the bakery's oven this week, day by day."/>
+        <link rel="icon" href="/icon.png" type="image/png" sizes="48x48"/>
+        <style>{raw(css)}</style>
+    </head>
+    <body>
+        <header><h1>From the oven</h1><p>What Hearth Bakery baked this week</p></header>
+        <main>
+            {for p in posts => <article>
+                <Photo name={p.photo} alt={p.alt}/>
+                <h2>{p.title}</h2>
+                <p>{p.text}</p>
+            </article>}
+        </main>
+    </body>
+</html>
+
+route GET /photos/*path = files("photos", path, { cache: "1y" })
+route GET /icon.png = file("icon.png", { cache: "1y" })

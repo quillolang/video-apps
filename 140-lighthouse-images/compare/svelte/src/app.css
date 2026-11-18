@@ -1,0 +1,9 @@
+body { margin: 0; font: 17px/1.55 system-ui, sans-serif; color: #2b2118; background: #fbf7f0; }
+header, main { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 20px; }
+h1 { font-size: 26px; margin: 0 0 4px; }
+header p { margin: 0 0 20px; color: #6b5a48; }
+article { margin: 0 0 28px; }
+img { display: block; width: 100%; height: auto; border-radius: 12px; background: #e9dfd0; }
+h2 { font-size: 20px; margin: 12px 0 4px; }
+article p { margin: 0; }
