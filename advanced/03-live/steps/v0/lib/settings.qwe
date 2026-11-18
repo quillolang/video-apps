@@ -1,0 +1,9 @@
+// The team's settings, in its own database: one row.
+fn display_name() -> str with db {
+    let row = db.one("select display_name from settings where id = 1")
+    row.display_name ?? tenant()   // a field of null is null
+}
+
+fn rename_team(name: str) -> map ! str with db = db.exec(sql`
+    insert into settings (id, display_name) values (1, ?)
+    on conflict (id) do update set display_name = excluded.display_name`, trim(name))

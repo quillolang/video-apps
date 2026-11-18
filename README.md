@@ -201,6 +201,7 @@ One app, Help Desk, built up over the lessons. Each folder is where its lesson e
 |---|---|---|
 | [01-teams](advanced/01-teams) | One App, Many Teams: A Database per Team \| Advanced Quillo #1 | Help Desk, lesson 1 of Advanced Quillo: one app for many teams, each with a database of its own, picked from the address (acme.localhost). new_tenant starts a team and refuses a name that's taken, and a team's data stays out of global variables. |
 | [02-presence](advanced/02-presence) | Who's Here? Live Presence with Channels, Join and Leave \| Advanced Quillo #2 | Help Desk, lesson 2 of Advanced Quillo: who else is looking at a ticket, as it happens. A "viewers" channel: the page joins it and says which ticket it shows, the server keeps who's where in a map keyed by tenant() and broadcasts it, and leave takes a closed page off the list. |
+| [03-live](advanced/03-live) | Live, but Not Too Live: Topics, Watch and Publish \| Advanced Quillo #3 | Help Desk, lesson 3 of Advanced Quillo: pages that follow the data, but only the data they show. The ticket list is live; each ticket's replies are live on its page, first woken by the whole replies table (every reply runs every open ticket page's loader again), then by a topic of the ticket's own, with watch, unwatched and publish. |
 
 ## Quillo Databases: SQL from Zero to PostgreSQL
 

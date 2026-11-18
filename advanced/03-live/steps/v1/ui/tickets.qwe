@@ -1,0 +1,11 @@
+// The team's tickets, newest first: live, so a ticket added anywhere shows up on every open list.
+import lib/tickets.qwe use load_tickets
+
+component TicketList() {
+    state tickets = live(load_tickets)
+    <div>
+        {len(tickets) > 0 && <p.meta>Latest: {tickets[0].title}</p>}
+        <ul.tickets>{for t in tickets =>
+            <li key={t.id}><a href={`/tickets/${t.id}`}>{t.title}</a> <span.meta>· {t.status}</span></li>}</ul>
+    </div>
+}

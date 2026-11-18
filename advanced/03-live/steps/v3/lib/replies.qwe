@@ -1,0 +1,12 @@
+// A ticket's replies, live on its page. A topic for each ticket: a reply wakes only that ticket's pages.
+server fn load_replies(ticket: int) -> list {
+    watch(`ticket:${ticket}`)
+    unwatched(() => db.query("select * from replies where ticket_id = ? order by id", ticket))
+}
+
+server fn add_reply(ticket: int, body: str) -> map ! str {
+    let made = db.exec("insert into replies (ticket_id, author, body) values (?, ?, ?)",
+        ticket, session().name ?? "Someone", trim(body))?
+    publish(`ticket:${ticket}`)
+    made
+}

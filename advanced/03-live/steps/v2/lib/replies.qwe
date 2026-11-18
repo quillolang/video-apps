@@ -1,0 +1,7 @@
+// A ticket's replies, live on its page.
+server fn load_replies(ticket: int) -> list =
+    db.query("select * from replies where ticket_id = ? order by id", ticket)
+
+server fn add_reply(ticket: int, body: str) -> map ! str =
+    db.exec("insert into replies (ticket_id, author, body) values (?, ?, ?)",
+        ticket, session().name ?? "Someone", trim(body))
