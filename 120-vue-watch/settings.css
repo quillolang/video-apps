@@ -1,0 +1,15 @@
+* { box-sizing: border-box; }
+body { margin: 0; font: 20px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { min-height: 100vh; padding: 26px 30px; background: #f6f7fb; color: #1d2433; transition: none; }
+main.dark { background: #161b26; color: #e8ecf4; }
+main.small { font-size: 16px; }
+main.large { font-size: 25px; }
+h1 { margin: 0 0 16px; font-size: 1.5em; }
+.row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; margin-bottom: 10px; border-radius: 10px;
+       background: #fff; border: 1px solid #e3e6ee; }
+main.dark .row { background: #222a38; border-color: #333d4f; }
+.row input[type="checkbox"] { width: 22px; height: 22px; margin: 0; accent-color: #3b5bdb; }
+.row select { margin-left: auto; font: inherit; padding: 4px 8px; border-radius: 8px; border: 1px solid #c9cfdb; }
+.summary { margin: 18px 0 4px; font-weight: 600; }
+.saves { margin: 0; color: #6b7487; }
+main.dark .saves { color: #9aa4b8; }
