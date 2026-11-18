@@ -6,6 +6,8 @@
 set -e
 out=$1; big=$2; sfx=
 cd "$(dirname "$0")"
+# The Quillo app: ../app in the video's own folder, .. in github.com/quillolang/video-apps.
+app=../app; [ -d "$app" ] || app=..
 if [ -n "$big" ]; then sfx=-10k; cp "$big" react/src/products.json; cp "$big" react-compiler/src/products.json; fi
 cd react
 for v in plain memo fixed; do
@@ -21,7 +23,7 @@ for v in plain functional; do
 done
 cp variants/plain.jsx src/App.jsx
 cd ..
-cp ../app/products.json react/src/products.json; cp ../app/products.json react-compiler/src/products.json
+cp "$app/products.json" react/src/products.json; cp "$app/products.json" react-compiler/src/products.json
 if [ -n "$big" ]; then
-  mkdir -p "$out/quillo-10k"; cp ../app/main.qwe ../app/shop.css "$out/quillo-10k/"; cp "$big" "$out/quillo-10k/products.json"
+  mkdir -p "$out/quillo-10k"; cp "$app/main.qwe" "$app/shop.css" "$out/quillo-10k/"; cp "$big" "$out/quillo-10k/products.json"
 fi
