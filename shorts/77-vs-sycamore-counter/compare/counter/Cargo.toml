@@ -1,0 +1,14 @@
+[package]
+name = "counter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sycamore = "0.9.4"
+
+# For size, as Sycamore's cookbook advises (Optimize WASM Size), with 'z', its aggressive choice.
+[profile.release]
+panic = 'abort'
+codegen-units = 1
+opt-level = 'z'
+lto = true

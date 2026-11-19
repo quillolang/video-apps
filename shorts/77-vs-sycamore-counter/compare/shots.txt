@@ -1,0 +1,2 @@
+  assets/s0.png: 0 0 doubled is 0
+  assets/s3.png: 6 3 doubled is 6

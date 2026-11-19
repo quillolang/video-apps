@@ -1,0 +1,42 @@
+Thu Nov 19 16:26:10 +08 2026
+2026-11-19T08:26:10.746608Z  INFO 🚀 Starting trunk 0.22.2
+2026-11-19T08:26:11.335829Z  INFO 📦 starting build
+2026-11-19T08:26:11.336618Z  INFO node packages []
+   Compiling unicode-ident v1.0.27
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling wasm-bindgen-shared v0.2.130
+   Compiling rustversion v1.0.23
+   Compiling syn v3.0.10
+   Compiling bumpalo v3.20.4
+   Compiling wasm-bindgen v0.2.130
+   Compiling wasm-bindgen-macro-support v0.2.130
+   Compiling version_check v0.9.5
+   Compiling cfg-if v1.0.5
+   Compiling slotmap v1.1.1
+   Compiling paste v1.0.15
+   Compiling slab v0.4.12
+   Compiling pin-project-lite v0.2.17
+   Compiling futures-task v0.3.34
+   Compiling futures-core v0.3.34
+   Compiling futures-util v0.3.34
+   Compiling wasm-bindgen-macro v0.2.130
+   Compiling foldhash v0.2.0
+   Compiling equivalent v1.0.3
+   Compiling allocator-api2 v0.2.21
+   Compiling smallvec v1.16.6
+   Compiling hashbrown v0.17.1
+   Compiling sycamore-view-parser v0.9.4
+   Compiling sycamore-reactive v0.9.4
+   Compiling js-sys v0.3.107
+   Compiling sycamore-core v0.9.4
+   Compiling sycamore-macro v0.9.4
+   Compiling once_cell v1.21.4
+   Compiling web-sys v0.3.107
+   Compiling sycamore-web v0.9.4
+   Compiling sycamore v0.9.4
+   Compiling counter v0.1.0 (/Users/you/dev/quillo-videos/shorts/77-vs-sycamore-counter/compare/counter)
+    Finished `release` profile [optimized] target(s) in 48.64s
+2026-11-19T08:27:00.851896Z  INFO applying new distribution
+2026-11-19T08:27:00.855193Z  INFO ✅ success
+exit 0
