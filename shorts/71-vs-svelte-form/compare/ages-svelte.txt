@@ -1,0 +1,7 @@
+"14"    200  Welcome, ada@example.com!
+"12"    400  You must be 13 or older
+"abc"   400  Age must be a whole number
+"0x0E"  200  Welcome, ada@example.com!
+"1e1"   400  You must be 13 or older
+"02"    400  You must be 13 or older
+""      400  You must be 13 or older

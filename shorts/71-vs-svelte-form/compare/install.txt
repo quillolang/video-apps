@@ -1,0 +1,11 @@
+
+> svelte@0.0.1 prepare
+> svelte-kit sync || echo ''
+
+
+added 86 packages, and audited 87 packages in 18s
+
+23 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

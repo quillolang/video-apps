@@ -1,0 +1,25 @@
+// A sign-up form that checks what comes in.
+
+view Join(email: str = "", problem = null) =
+    <html><body>
+        {problem ? <p>{problem}</p> : null}
+        <form method="post">
+            <input name="email" type="email"
+                   value={email} required/>
+            <input name="age" type="number"
+                   required/>
+            <button>Join</button>
+        </form>
+    </body></html>
+
+route GET / = <Join/>
+
+// The pattern makes age an int, or doesn't match.
+route POST / { form: { email: str, age: int } } =
+    age < 13
+        ? respond(400, <Join email={email}
+              problem="You must be 13 or older"/>)
+        : <p>Welcome, {email}!</p>
+
+route POST / = respond(400,
+    <Join problem="Age must be a whole number"/>)
