@@ -1,0 +1,6 @@
+solid     13.8 KB  (1 piece, 33810 B before gzip)
+vue       24.6 KB  (1 piece, 63275 B before gzip)
+svelte    33.2 KB  (11 pieces, 84539 B before gzip)
+quillo    39.0 KB  (4 pieces, 137386 B before gzip)
+angular   58.2 KB  (1 piece, 190935 B before gzip)
+react     67.8 KB  (1 piece, 219729 B before gzip)
