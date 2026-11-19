@@ -1,0 +1,16 @@
+  the button says: 2
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   3873     1477        
+  load  / (inline <script>)                     inline     530      353         JS
+  load  /_app/immutable/entry/payload.DSmR2FwN.jsscript     65       100         JS
+  load  /_app/immutable/entry/start.5jAOamSU.js script     522      331         JS
+  load  /_app/immutable/chunks/DclECHGd.js      script     1630     846         JS
+  load  /_app/immutable/chunks/BkWlwxiv.js      script     4565     2062        JS
+  load  /_app/immutable/entry/app.BcNEHGYL.js   script     1063     553         JS
+  load  /_app/immutable/nodes/0.C_2CmG6R.js     script     2385     997         JS
+  load  /_app/immutable/chunks/qIcRdk-Q.js      script     33554    12905       JS
+  load  /_app/immutable/nodes/2.BVoc7T8z.js     script     377      297         JS
+  load  /_app/immutable/chunks/6DNSJHXv.js      script     39524    14472       JS
+  load  /_app/immutable/nodes/1.CvGvSBxk.js     script     322      262         JS
+  JavaScript: 11 pieces, 84537 B raw, 33178 B gzip -9 (32.4 KiB)
+  everything (each response once): 11 responses, 87880 B raw, 34302 B gzip -9

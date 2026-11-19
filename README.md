@@ -172,6 +172,7 @@ Quillo: https://quillolang.org
 | [04-check](shorts/04-check) | Caught before it runs \| quillo check | A greeting in two lines, for trying quillo check: pass a number where text belongs, or use \|\| on a string, and it tells you before anything runs. |
 | [05-hot-reload](shorts/05-hot-reload) | Change the code, keep the count \| Quillo hot reload | The click counter from shorts/01-counter, for trying quillo run --watch: change its code while it runs, and the open page takes the new code and keeps its count. |
 | [07-dice](shorts/07-dice) | A dice roller in 16 lines of Quillo | A dice roller: the roll in state, random_int(1, 6) on a button, the face from a list, and a cheer for a six. One component. |
+| [64-vs-svelte-counter](shorts/64-vs-svelte-counter) | Svelte 5 vs Quillo: $derived, or just a let? | The counter from Svelte's $derived docs, in Quillo: a count, a let that follows it, and a route, in one file. The Short sets it next to Svelte 5 and SvelteKit. |
 
 ## Learn to Code with Quillo (the course)
 
