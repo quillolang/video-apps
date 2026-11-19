@@ -1,0 +1,5 @@
+sycamore   26.9 KB  (JS 4.5 + wasm 22.3)
+leptos     34.6 KB  (JS 5.6 + wasm 29.0)
+quillo     39.0 KB  (JS 39.0 + wasm 0.0)
+yew        58.5 KB  (JS 6.2 + wasm 52.3)
+dioxus    216.3 KB  (JS 10.4 + wasm 205.9)
