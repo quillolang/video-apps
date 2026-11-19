@@ -11,6 +11,13 @@ Written for Quillo 0.8.6 (get it at https://quillolang.org). Run it with:
 # Windows (PowerShell), with Quillo from quillolang.org: quillo run main.qwe --port 8161
 ```
 
+## The versions in the video
+
+The video builds this app up step by step. Each step is a folder that runs on its own (`cd steps/v1 && ./run.sh --watch`):
+
+- [`steps/v1`](steps/v1): the board before the color check: a note's color goes into its style as given, and one can take over the page
+- this folder: the finished app
+
 ## The comparison
 
 The video compares this app with the same one in another framework. [`compare/`](compare) holds that project, made
