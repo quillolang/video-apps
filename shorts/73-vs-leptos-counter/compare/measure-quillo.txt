@@ -1,0 +1,8 @@
+  the page says: 2 1 doubled is 2
+  js   index.html (inline <script>)                     1317 B       765 B gzip -9
+  js   index.html (inline <script>)                     1982 B      1060 B gzip -9
+  js   d29a08502a4c90af.js                               848 B       496 B gzip -9
+  js   ec96c178b97a33f6.js                            133239 B     36671 B gzip -9
+  JavaScript: 4 pieces, 137386 B raw, 38992 B gzip -9
+  WebAssembly: 0 pieces, 0 B raw, 0 B gzip -9
+  both: 39.0 KB gzip -9

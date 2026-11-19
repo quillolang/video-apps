@@ -1,0 +1,13 @@
+[package]
+name = "counter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos = { version = "0.8.23", features = ["csr"] }
+
+# For size, as Leptos's book advises a client-rendered app (Deployment: Optimizing WASM Binary Size).
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
