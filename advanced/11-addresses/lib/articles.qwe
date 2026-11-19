@@ -1,0 +1,5 @@
+// The help center's articles. Every query runs in the database of the team the request came for.
+fn all_articles() -> list with db = db.query("select id, title from articles order by id")
+
+// One article, by its id: null when there's none.
+fn article(id: int) with db = db.one("select * from articles where id = ?", id)

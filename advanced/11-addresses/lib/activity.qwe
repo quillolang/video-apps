@@ -1,0 +1,25 @@
+// The team's activity: a line for everything that happens, and a feed of it for the page.
+fn note(what: str) with db =
+    db.exec("insert into activity (who, what) values (?, ?)", session().name ?? "Someone", what)
+
+// The feed, as Server-Sent Events: each new line once, with its id. A page that reconnects sends the last id it
+// had (Last-Event-ID), and the feed goes on from there.
+// A stream's function goes on after the route has answered, for no team: so the route says which team it's for,
+// and only for a team that's there (with_tenant would make a database for any name).
+route GET /activity with db, time {
+    let team = tenant()
+    if team == null || !db.tenant_exists(team) { reply 404 "No such team" }
+    let from = int(request.headers["last-event-id"] ?? "") ?? 0
+    events((send) => with_tenant(team, () => {
+        let last = from
+        while true {
+            let lines = db.query("select * from activity where id > ? order by id", last)
+            for a in lines {
+                send(a, { id: str(a.id) })
+                last = a.id
+            }
+            if len(lines) == 0 { send(null) }
+            sleep(1000)
+        }
+    }))
+}
