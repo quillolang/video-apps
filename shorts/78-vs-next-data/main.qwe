@@ -1,0 +1,12 @@
+// A page from a table: the trails, from SQLite.
+
+db.open("trails.db")
+db.migrate("migrations")
+
+route GET / with db {
+    let trails = db.query(
+        "select * from trails order by name")
+    <html><body><ul>{for t in trails =>
+        <li key={t.id}>{t.name}: {t.km} km</li>
+    }</ul></body></html>
+}

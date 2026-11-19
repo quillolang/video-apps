@@ -1,0 +1,3 @@
+before:        Coastal Path: 12.5 km · Fern Gully: 4.2 km · Ridge Loop: 8 km
+added a trail: Coastal Path: 12.5 km · Fern Gully: 4.2 km · Lake Trail: 6.1 km · Ridge Loop: 8 km
+2 s later:     Coastal Path: 12.5 km · Fern Gully: 4.2 km · Lake Trail: 6.1 km · Ridge Loop: 8 km
