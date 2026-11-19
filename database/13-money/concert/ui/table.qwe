@@ -1,0 +1,20 @@
+// Any rows, as a table: a column for each of the first row's keys. Above it, the question that asked for them,
+// when there is one, without the indent it had in the code.
+view Table(title: str, rows: list, sql: str = "", children = null) =
+    <html lang="en">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <h1>{title}</h1>
+            {children}
+            {sql != "" && <pre.sql>{replace(trim(sql), "\n    ", "\n")}</pre>}
+            {len(rows) == 0 ? <p>No rows.</p> :
+                <table>
+                    <tr>{for k in keys(rows[0]) => <th>{k}</th>}</tr>
+                    {for r in rows => <tr>{for k in keys(rows[0]) => <td>{str(r[k])}</td>}</tr>}
+                </table>}
+        </body>
+    </html>

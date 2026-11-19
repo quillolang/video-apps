@@ -1,0 +1,158 @@
+// The Corner Shop: its database, and a page for each question we ask it.
+db.open("shop.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every product", sql`
+    select * from products`)
+
+route GET /under-5 with db = answer("Under $5", sql`
+    select name, price_cents
+    from products
+    where price_cents < 500`)
+
+route GET /in-stock with db = answer("Under $5, and in stock", sql`
+    select name, price_cents, in_stock
+    from products
+    where price_cents < 500 and in_stock > 0`)
+
+route GET /cheapest with db = answer("The three cheapest", sql`
+    select name, price_cents
+    from products
+    order by price_cents
+    limit 3`)
+
+// A search box: what was typed goes in as a value, :q, never into the SQL itself.
+let SEARCH = sql`
+    select name, price_cents
+    from products
+    where name like :q`
+
+route GET /search ? { q: str = "" } with db =
+    <Table title="Search the shop" sql={SEARCH} rows={db.query(SEARCH, { q: `%${q}%` })}>
+        <form><input name="q" value={q} placeholder="tea, eggs..."/><button>Search</button></form>
+    </Table>
+
+// Customers sign up here. The table keeps the rules (one account per email); the page turns what it refuses
+// into a message.
+let CUSTOMERS = sql`
+    select * from customers`
+
+fn signup_page(message: str) with db =
+    <Table title="Sign up" sql={CUSTOMERS} rows={db.query(CUSTOMERS)}>
+        <form method="post" action="/signup">
+            <input name="name" placeholder="Your name"/>
+            <input name="email" placeholder="Your email"/>
+            <button>Sign up</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /signup with db = signup_page("")
+
+route POST /signup { form: { name: str, email: str } } with db {
+    let r = db.exec("insert into customers (name, email) values (?, ?)", name, email)
+    if db.error_kind(r) == "unique" { return signup_page("That email already has an account.") }
+    r?
+    redirect("/signup")
+}
+
+// What's in each order, and whose. Customers and products both have a name: each gets its own.
+route GET /orders with db = answer("Orders", sql`
+    select order_items.order_id,
+        customers.name as customer,
+        products.name as product,
+        order_items.quantity
+    from order_items
+    join orders on orders.id = order_items.order_id
+    join customers on customers.id = orders.customer_id
+    join products on products.id = order_items.product_id
+    order by order_items.id`)
+
+// The products on one shelf, through the table in between.
+let ON_SHELF = sql`
+    select products.name, products.price_cents
+    from categories
+    join product_categories on product_categories.category_id = categories.id
+    join products on products.id = product_categories.product_id
+    where categories.name = :shelf
+    order by products.name`
+
+route GET /shelf ? { shelf: str = "Breakfast" } with db =
+    <Table title={`On the ${shelf} shelf`} sql={ON_SHELF} rows={db.query(ON_SHELF, { shelf })}>
+        <form><input name="shelf" value={shelf} placeholder="A shelf"/><button>Show</button></form>
+    </Table>
+
+// Sales per day: the order items grouped by their order's day, a row for each day.
+route GET /sales with db = answer("Sales per day", sql`
+    select orders.placed as day,
+        sum(order_items.quantity) as items,
+        sum(order_items.quantity * products.price_cents) as total_cents
+    from orders
+    join order_items on order_items.order_id = orders.id
+    join products on products.id = order_items.product_id
+    group by orders.placed
+    order by orders.placed`)
+
+// The big days: having keeps only the groups whose total is $15 or more.
+route GET /big-days with db = answer("Days with $15 or more", sql`
+    select orders.placed as day,
+        sum(order_items.quantity * products.price_cents) as total_cents
+    from orders
+    join order_items on order_items.order_id = orders.id
+    join products on products.id = order_items.product_id
+    group by orders.placed
+    having sum(order_items.quantity * products.price_cents) >= 1500
+    order by orders.placed`)
+
+// The online shop: what's in stock, a form to buy one, and who bought what.
+let STOCK = sql`
+    select id, name, in_stock from products order by id`
+
+fn shop_page(message: str) with db =
+    <Table title="Buy online" sql={STOCK} rows={db.query(STOCK)}>
+        <form method="post" action="/buy">
+            <input name="id" placeholder="Product's id"/>
+            <input name="name" placeholder="Your name"/>
+            <button>Buy</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /buy with db = shop_page("")
+
+route GET /purchases with db = answer("Purchases", sql`
+    select purchases.id, products.name as product, purchases.name as buyer
+    from purchases join products on products.id = purchases.product_id
+    order by purchases.id`)
+
+// A purchase: first take one from the stock, in one statement that only changes a row with one left. Then the
+// card payment, which takes a second, and the purchase. Two buyers at once can't both take the last one.
+route POST /buy { form: { id: int, name: str } } with db, time {
+    let p = db.one("select name from products where id = ?", id) ?? reply 404 "No such product"
+    let taken = db.exec("update products set in_stock = in_stock - 1 where id = ? and in_stock > 0", id)?
+    if taken.changes == 0 {
+        // Sold out: the buyer joins the waiting list, and hears their place in it.
+        db.exec("insert into waitlist (product_id, name) values (?, ?)", id, name)?
+        let place = db.one("select count(*) as n from waitlist where product_id = ?", id).n
+        return shop_page(`Sorry, ${p.name} is sold out. You're number ${place} on its waiting list.`)
+    }
+    sleep(1000)
+    db.exec("insert into purchases (product_id, name) values (?, ?)", id, name)?
+    shop_page(`Thank you, ${name}: one ${p.name} is yours.`)
+}
+
+// Who's waiting for what, first come first.
+route GET /waitlist with db = answer("Waiting list", sql`
+    select products.name as product, waitlist.name as waiting
+    from waitlist join products on products.id = waitlist.product_id
+    order by waitlist.id`)
+
+// The orders' card references, for the card company's script. Sent as text: a JavaScript program reading JSON keeps
+// a number past 2^53 only roughly, and these must stay exact.
+route GET /orders.json with db = db.query("select id, cast(ref as text) as ref from orders order by id")
+
+route GET /static/*path = files("public", path)
