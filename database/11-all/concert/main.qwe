@@ -1,0 +1,59 @@
+// The Concert Hall: its bookings, and a form to book a seat. The table keeps the rule: one booking per seat.
+db.open("concert.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+let BOOKINGS = sql`
+    select * from bookings`
+
+fn hall_page(message: str) with db =
+    <Table title="Book a seat" sql={BOOKINGS} rows={db.query(BOOKINGS)}>
+        <form method="post" action="/book">
+            <input name="show" placeholder="Show"/>
+            <input name="seat" placeholder="Seat"/>
+            <input name="name" placeholder="Your name"/>
+            <button>Book</button>
+        </form>
+        <form method="post" action="/book-many">
+            <input name="show" placeholder="Show"/>
+            <input name="seats" placeholder="Seats: A1, A3, A4"/>
+            <input name="name" placeholder="Your name"/>
+            <button>Book them</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET / with db = hall_page("")
+
+route POST /book { form: { show: str, seat: str, name: str } } with db {
+    let r = db.exec("insert into bookings (show, seat, name) values (?, ?, ?)", show, seat, name)
+    if db.error_kind(r) == "unique" { return hall_page("That seat is taken.") }
+    r?
+    redirect("/")
+}
+
+// Seats for a group, and their payment. Each seat is a transaction inside the group's: a taken seat undoes only
+// its own part, and the group goes on. The payment goes in with the seats booked; with none, nothing does.
+route POST /book-many { form: { show: str, seats: str, name: str } } with db {
+    let wanted = split(seats, ",") | map((s) => trim(s)) | filter((s) => s != "")
+    let done = db.transaction(() => {
+        let booked = wanted | filter((seat) => !is_err(db.transaction(() =>
+            db.exec("insert into bookings (show, seat, name) values (?, ?, ?)", show, seat, name))))
+        if len(booked) == 0 { return err("every seat is taken") }
+        db.exec("insert into payments (name, seats, cents) values (?, ?, ?)",
+            name, join(booked, ", "), 2500 * len(booked))?
+        booked
+    })
+    if is_err(done) { return hall_page("Every one of those seats is taken: nothing was booked.") }
+    let taken = wanted | filter((s) => !contains(done, s))
+    let said = `Booked ${join(done, ", ")}.`
+    hall_page(len(taken) == 0 ? said : `${said} Taken already: ${join(taken, ", ")}.`)
+}
+
+// The payments, each with the seats it paid for.
+let PAYMENTS = sql`
+    select * from payments`
+
+route GET /payments with db = <Table title="Payments" sql={PAYMENTS} rows={db.query(PAYMENTS)}/>
+
+route GET /static/*path = files("public", path)
