@@ -1,0 +1,26 @@
+// A busy clinic, to see what's slow: more doctors, two thousand patients, a hundred thousand appointments.
+// Run it once, in this folder:  .quillo/bin/quillo run seed.qwe
+// (on Windows, in PowerShell:  .\.quillo\bin\quillo.exe run seed.qwe)
+db.open("clinic.db")
+db.migrate("migrations")
+let names = ["Abe", "Bell", "Cruz", "Diaz", "Ekko", "Fox", "Gray", "Hale", "Ito", "Jain", "Kerr", "Lowe", "Mori",
+    "Nash", "Ortiz", "Park", "Quinn"]
+db.transaction(() => {
+    for name in names { db.exec("insert into doctors (name) values (?)", `Dr. ${name}`)? }
+    let first = db.one("select max(id) + 1 as id from patients").id
+    for i in 0..2000 {
+        db.exec("insert into patients (name, birthday, phone) values (?, date('1950-01-01', ?), ?)",
+            `Patient ${first + i}`, `+${i * 11 % 25000} days`, `555-${1000 + i}`)?
+    }
+    // Every day, each of the twenty doctors sees ten patients, one every half hour from 9:00.
+    let doctors = db.one("select count(*) as n from doctors").n
+    for i in 0..100000 {
+        let day = floor(i / (doctors * 10))
+        let slot = floor(i % (doctors * 10) / doctors)
+        db.exec(sql`insert into appointments (patient_id, doctor_id, starts_at)
+            values (?, ?, strftime('%Y-%m-%d %H:%M', '2026-01-05 09:00', ?, ?))`,
+            first + i % 2000, 1 + i % doctors, `+${day} days`, `+${slot * 30} minutes`)?
+    }
+})?
+print(db.one("select count(*) as doctors from doctors"),
+    db.one("select count(*) as appointments from appointments"))

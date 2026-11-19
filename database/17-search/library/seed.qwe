@@ -1,0 +1,20 @@
+// A big city library, to see what's slow: twenty thousand more members, and a hundred thousand loans.
+// Run it once, in this folder:  .quillo/bin/quillo run seed.qwe
+// (on Windows, in PowerShell:  .\.quillo\bin\quillo.exe run seed.qwe)
+db.open("library.db")
+db.migrate("migrations")
+db.transaction(() => {
+    let first = db.one("select max(id) + 1 as id from members").id
+    for i in 0..20000 {
+        let n = first + i
+        db.exec("insert into members (name, joined, email) values (?, date('2020-01-01', ?), ?)",
+            `Member ${n}`, `+${i % 2000} days`, `member${n}@example.com`)?
+    }
+    // Each member in turn borrows a book, the next book each time round, due back over the next two months.
+    let books = db.one("select count(*) as n from books").n
+    for i in 0..100000 {
+        db.exec("insert into loans (book_id, member_id, due) values (?, ?, date('2026-12-01', ?))",
+            1 + floor(i / 20000) % books, first + i % 20000, `+${i * 7 % 60} days`)?
+    }
+})?
+print(db.one("select count(*) as members from members"), db.one("select count(*) as loans from loans"))
