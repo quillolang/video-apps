@@ -1,0 +1,6 @@
+compression
+  opened:      the board stays empty
+  two tabs:    tab A no, tab B no
+  late tab:    no
+  closed tabs: 2 open, sent to 2; tab A no
+  restart:     no

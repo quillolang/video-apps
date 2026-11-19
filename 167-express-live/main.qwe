@@ -1,0 +1,18 @@
+// Trail Club's conditions board: a ranger posts a trail's status, and every open page shows it at once.
+db.open("club.db")
+db.migrate("migrations")
+
+server fn conditions() -> list with db = db.query("select * from trails order by id")
+
+component Board() {
+    state trails = live(conditions)     // runs again whenever the trails table changes, on every open page
+    <ul>{for t in trails ?? [] => <li key={t.id}>{t.name}: <b>{t.status}</b></li>}</ul>
+}
+
+route GET / = <html><body><h1>Trail conditions</h1><Board/></body></html>
+
+// The rangers' form posts here (a ranger's own page isn't part of this video).
+route POST /status { form: { id: int, status: str } } with db {
+    db.exec("update trails set status = ? where id = ?", status, id)?
+    respond(204)
+}

@@ -1,0 +1,6 @@
+no-cleanup
+  opened:      the board shows
+  two tabs:    tab A yes, tab B yes
+  late tab:    yes
+  closed tabs: 2 open, sent to 13; tab A yes
+  restart:     yes

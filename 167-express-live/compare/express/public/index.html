@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<body>
+  <h1>Trail conditions</h1>
+  <ul id="board"></ul>
+  <script>
+    // Opens GET /events, and redraws the list each time the server sends the board.
+    const board = document.getElementById('board')
+    const events = new EventSource('/events')
+    events.onmessage = (e) => {
+      board.replaceChildren(...JSON.parse(e.data).map((t) => {
+        const li = document.createElement('li')
+        const b = document.createElement('b')
+        b.textContent = t.status
+        li.append(`${t.name}: `, b)
+        return li
+      }))
+    }
+  </script>
+</body>
+</html>
