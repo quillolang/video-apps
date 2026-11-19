@@ -1,0 +1,31 @@
+// What's new in Help Desk: a program of its own, mounted at /changelog. Every team sees the same releases, so it
+// has its own database, not a team's.
+db.open("changelog.db")
+db.migrate("migrations")
+
+view Frame(title: str, children) =
+    <html lang="en">
+        <head><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+// The releases, newest first, each a link to its own page: written as this program sees them.
+route GET / with db =
+    <Frame title="What's new">
+        <h1>What's new</h1>
+        <ul>{for r in db.query("select * from releases order by id desc") =>
+            <li><a href={`/${r.version}`}>Help Desk {r.version}</a> <span.meta>· {r.day}</span></li>}</ul>
+    </Frame>
+
+route GET /:version with db {
+    let r = db.one("select * from releases where version = ?", version) ?? reply 404 "No such release"
+    <Frame title={`Help Desk ${r.version}`}>
+        <p.meta><a href="/">What's new</a></p>
+        <h1>Help Desk {r.version}</h1>
+        <p.meta>{r.day}</p>
+        <p>{r.notes}</p>
+    </Frame>
+}
+
+route GET /static/*path = files("public", path)   // its own copy of the style
