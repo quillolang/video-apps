@@ -1,0 +1,14 @@
+// The help center's articles. Every query runs in the database of the team the request came for.
+fn all_articles() -> list with db = db.query("select id, title, slug from articles order by id")
+
+// One article, by its id or by its slug: null when there's none.
+fn article(id: int) with db = db.one("select * from articles where id = ?", id)
+fn article_by_slug(slug: str) with db = db.one("select * from articles where slug = ?", slug)
+
+// A title as an address: small letters and digits, a dash between words. "Print from your phone!" is
+// "print-from-your-phone".
+fn slug_of(title: str) -> str = re.replace(re.replace(lower(title), "[^a-z0-9]+", "-"), "^-|-$", "")
+
+// A new article, at the address its title makes. A title whose address is taken is refused.
+fn add_article(title: str, body: str) -> map ! str with db =
+    db.exec("insert into articles (title, body, slug) values (?, ?, ?)", trim(title), trim(body), slug_of(title))
