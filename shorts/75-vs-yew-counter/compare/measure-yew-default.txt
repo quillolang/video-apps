@@ -1,0 +1,7 @@
+  the page says: 2 1 doubled is 2
+  js   index.html (inline <script>)                      262 B       250 B gzip -9
+  wasm counter-9aff185fd5eb6b78_bg.wasm               340801 B     93486 B gzip -9
+  js   counter-c005255e4a1f52bd.js                     28619 B      5997 B gzip -9
+  JavaScript: 2 pieces, 28881 B raw, 6247 B gzip -9
+  WebAssembly: 1 pieces, 340801 B raw, 93486 B gzip -9
+  both: 99.7 KB gzip -9

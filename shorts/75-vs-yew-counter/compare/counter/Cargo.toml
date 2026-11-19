@@ -1,0 +1,14 @@
+[package]
+name = "counter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+yew = { version = "0.23.0", features = ["csr"] }
+
+# For size, as Yew's docs advise (Advanced topics: Optimizations, Reducing binary sizes).
+[profile.release]
+panic = 'abort'
+codegen-units = 1
+opt-level = 'z'
+lto = true
