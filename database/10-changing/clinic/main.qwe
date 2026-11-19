@@ -1,0 +1,90 @@
+// The Clinic: its database, and a page for each question we ask it.
+db.open("clinic.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every patient", sql`
+    select * from patients`)
+
+route GET /since-1990 with db = answer("Born in 1990 or later, youngest first", sql`
+    select name, birthday
+    from patients
+    where birthday >= '1990-01-01'
+    order by birthday desc`)
+
+// A search with two filters, each optional: an empty one matches everyone ('%%', and any birthday >= '').
+let SEARCH = sql`
+    select name, birthday, phone
+    from patients
+    where name like :name and birthday >= :after
+    order by name`
+
+route GET /search ? { name: str = "", after: str = "" } with db =
+    <Table title="Find a patient" sql={SEARCH} rows={db.query(SEARCH, { name: `%${name}%`, after })}>
+        <form>
+            <input name="name" value={name} placeholder="Name"/>
+            <input name="after" value={after} placeholder="Born on or after: 1990-01-01"/>
+            <button>Find</button>
+        </form>
+    </Table>
+
+// The appointments: each one points at a patient, and at a doctor.
+route GET /appointments with db = answer("Appointments", sql`
+    select * from appointments`)
+
+// Doctors can be removed here, but not while they still have appointments.
+let DOCTORS = sql`
+    select * from doctors`
+
+fn doctors_page(message: str) with db =
+    <Table title="Doctors" sql={DOCTORS} rows={db.query(DOCTORS)}>
+        <form method="post" action="/doctors/remove">
+            <input name="id" placeholder="Doctor's id"/>
+            <button>Remove</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /doctors with db = doctors_page("")
+
+route POST /doctors/remove { form: { id: int } } with db {
+    let r = db.exec("delete from doctors where id = ?", id)
+    if db.error_kind(r) == "foreign_key" { return doctors_page("That doctor still has appointments.") }
+    r?
+    redirect("/doctors")
+}
+
+// Patients who never came: a left join keeps every patient, with null where nothing matched.
+route GET /never-came with db = answer("Patients who never came", sql`
+    select patients.name, patients.phone
+    from patients
+    left join appointments on appointments.patient_id = patients.id
+    where appointments.id is null`)
+
+// The doctors for one specialty, through the table in between.
+let FOR_SPECIALTY = sql`
+    select doctors.name
+    from specialties
+    join doctor_specialties on doctor_specialties.specialty_id = specialties.id
+    join doctors on doctors.id = doctor_specialties.doctor_id
+    where specialties.name = :specialty
+    order by doctors.name`
+
+route GET /specialty ? { specialty: str = "Pediatrics" } with db =
+    <Table title={`Doctors for ${specialty}`} sql={FOR_SPECIALTY} rows={db.query(FOR_SPECIALTY, { specialty })}>
+        <form><input name="specialty" value={specialty} placeholder="A specialty"/><button>Show</button></form>
+    </Table>
+
+// Each doctor's appointments, busiest first. A doctor with none still gets a row: count(appointments.id) is 0.
+route GET /busiest with db = answer("Appointments per doctor", sql`
+    select doctors.name,
+        count(appointments.id) as appointments
+    from doctors
+    left join appointments on appointments.doctor_id = doctors.id
+    group by doctors.id
+    order by appointments desc, doctors.name`)
+
+route GET /static/*path = files("public", path)
