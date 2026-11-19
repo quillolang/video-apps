@@ -1,0 +1,16 @@
+$ dx build --release --platform web   (typo-dioxus/main.rs as src/main.rs)
+error[E0599]: no variant named `Trail` found for enum `Route`
+  --> src/main.rs:51:44
+   |
+22 | enum Route {
+   | ---------- variant `Trail` not found here
+...
+51 |                     li { Link { to: Route::Trail { id: i as u32 + 1 }, "{t.name}" } }
+   |                                            ^^^^^ variant not found in `Route`
+
+
+  7.30s  INFO  For more information about this error, try `rustc --explain E0599`.
+
+  7.33s  WARN error: could not compile `trails` (bin "trails") due to 1 previous error 
+
+ERROR dx build: cargo build finished with errors for target: trails [wasm32-unknown-unknown]

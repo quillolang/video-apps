@@ -1,0 +1,7 @@
+$ quillo check main.qwe
+main.qwe: ok (3 routes, 2 functions, 0 components)
+$ curl -s localhost:8153/ | grep -o "href=\"/trail[^\"]*\"" | head -2
+href="/trail/1"
+href="/trail/2"
+$ curl -s -o /dev/null -w "%{http_code}\n" localhost:8153/trail/2
+404

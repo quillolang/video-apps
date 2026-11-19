@@ -1,0 +1,9 @@
+quillo
+  /trails/2            200  Eagle Ridge
+  /trails/02           404  404: No such page
+  /trails/+2           404  404: No such page
+  /trails/abc          404  404: No such page
+  /trails/999          404  404: No such trail
+  /trails/0            404  404: No such trail
+  /trails/4294967296   404  404: No such trail
+  /nowhere             404  404: No such page

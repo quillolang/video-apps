@@ -1,0 +1,4 @@
+plain
+  open /               200  Trail Guide   (at /)
+  click Eagle Ridge         Eagle Ridge   (at /trails/2)
+  reload               404  Error response   (at /trails/2)

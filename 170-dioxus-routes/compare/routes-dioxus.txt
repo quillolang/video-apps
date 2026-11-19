@@ -1,0 +1,9 @@
+dioxus
+  /trails/2            200  Eagle Ridge
+  /trails/02           200  Eagle Ridge
+  /trails/+2           200  Eagle Ridge
+  /trails/abc          200  404: No such page
+  /trails/999          200  404: No such trail
+  /trails/0            200  404: No such trail
+  /trails/4294967296   200  404: No such page
+  /nowhere             200  404: No such page
