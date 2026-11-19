@@ -1,0 +1,6 @@
+  the list: Learn HTML, Learn JavaScript, Learn Vue, Make a Short
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   354      270         
+  load  /assets/index-D0aBTXMw.js               script     66392    25860       JS
+  JavaScript: 1 pieces, 66392 B raw, 25860 B gzip -9 (25.3 KiB)
+  everything (each response once): 2 responses, 66746 B raw, 26130 B gzip -9

@@ -173,6 +173,7 @@ Quillo: https://quillolang.org
 | [05-hot-reload](shorts/05-hot-reload) | Change the code, keep the count \| Quillo hot reload | The click counter from shorts/01-counter, for trying quillo run --watch: change its code while it runs, and the open page takes the new code and keeps its count. |
 | [07-dice](shorts/07-dice) | A dice roller in 16 lines of Quillo | A dice roller: the roll in state, random_int(1, 6) on a button, the face from a list, and a cheer for a six. One component. |
 | [64-vs-svelte-counter](shorts/64-vs-svelte-counter) | Svelte 5 vs Quillo: $derived, or just a let? | The counter from Svelte's $derived docs, in Quillo: a count, a let that follows it, and a route, in one file. The Short sets it next to Svelte 5 and SvelteKit. |
+| [66-vs-vue-todo](shorts/66-vs-vue-todo) | Vue vs Quillo: the to-do list from Vue's tutorial, without v-model | The to-do list from Vue's tutorial, in Quillo: two states, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Vue 3 and Vite. |
 
 ## Learn to Code with Quillo (the course)
 
