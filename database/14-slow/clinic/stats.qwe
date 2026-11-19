@@ -1,0 +1,7 @@
+// What the running Clinic asked its database, slowest first, one line each:
+//   .quillo/bin/quillo run stats.qwe      (on Windows: .\.quillo\bin\quillo.exe run stats.qwe)
+// Under --watch the stats are on, and this computer may see each statement. It asks this computer, on purpose.
+let r = http.get(`http://localhost:${env("PORT", "8080")}/_quillo/health/queries`, {}, { public_only: false })?
+for s in r.json.statements {
+    print(`${s.total} × ${s.avg_ms} ms   ${slice(s.sql, 0, 90)}`)
+}

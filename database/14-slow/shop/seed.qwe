@@ -1,0 +1,18 @@
+// A busy year at the Corner Shop, to see what's slow: a thousand more customers, a hundred thousand orders.
+// Run it once, in this folder:  .quillo/bin/quillo run seed.qwe
+// (on Windows, in PowerShell:  .\.quillo\bin\quillo.exe run seed.qwe)
+db.open("shop.db")
+db.migrate("migrations")
+db.transaction(() => {
+    let first = db.one("select max(id) + 1 as id from customers").id
+    for i in 0..1000 {
+        let n = first + i
+        db.exec("insert into customers (name, email) values (?, ?)", `Customer ${n}`, `customer${n}@example.com`)?
+    }
+    // Each customer in turn, a day at a time through the year.
+    for i in 0..100000 {
+        db.exec("insert into orders (customer_id, placed) values (?, date('2025-11-20', ?))",
+            first + i % 1000, `+${i % 365} days`)?
+    }
+})?
+print(db.one("select count(*) as customers from customers"), db.one("select count(*) as orders from orders"))
