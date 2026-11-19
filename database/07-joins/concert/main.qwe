@@ -1,0 +1,29 @@
+// The Concert Hall: its bookings, and a form to book a seat. The table keeps the rule: one booking per seat.
+db.open("concert.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+let BOOKINGS = sql`
+    select * from bookings`
+
+fn hall_page(message: str) with db =
+    <Table title="Book a seat" sql={BOOKINGS} rows={db.query(BOOKINGS)}>
+        <form method="post" action="/book">
+            <input name="show" placeholder="Show"/>
+            <input name="seat" placeholder="Seat"/>
+            <input name="name" placeholder="Your name"/>
+            <button>Book</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET / with db = hall_page("")
+
+route POST /book { form: { show: str, seat: str, name: str } } with db {
+    let r = db.exec("insert into bookings (show, seat, name) values (?, ?, ?)", show, seat, name)
+    if db.error_kind(r) == "unique" { return hall_page("That seat is taken.") }
+    r?
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)

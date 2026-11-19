@@ -1,0 +1,94 @@
+// The Library: its database, and a page for each question we ask it.
+db.open("library.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every book", sql`
+    select * from books`)
+
+route GET /austen with db = answer("Jane Austen's books", sql`
+    select title, year
+    from books
+    where author = 'Jane Austen'
+    order by year`)
+
+route GET /newest with db = answer("Newest first", sql`
+    select title, author, year
+    from books
+    order by year desc`)
+
+route GET /members with db = answer("Every member", sql`
+    select * from members`)
+
+route GET /no-email with db = answer("Members with no email", sql`
+    select name, joined
+    from members
+    where email is null`)
+
+// A member, by name, from a form: the name goes in as a value, never into the SQL.
+let FIND_MEMBER = sql`
+    select name, joined, email
+    from members
+    where name = :name`
+
+route GET /member ? { name: str = "" } with db =
+    <Table title="A member" sql={FIND_MEMBER} rows={db.query(FIND_MEMBER, { name })}>
+        <form><input name="name" value={name} placeholder="A member's name"/><button>Find</button></form>
+    </Table>
+
+// New members join here. The table keeps one member per email; no email at all is fine.
+let MEMBERS = sql`
+    select * from members`
+
+fn join_page(message: str) with db =
+    <Table title="Join the library" sql={MEMBERS} rows={db.query(MEMBERS)}>
+        <form method="post" action="/join">
+            <input name="name" placeholder="Your name"/>
+            <input name="email" placeholder="Your email, if you like"/>
+            <button>Join</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /join with db = join_page("")
+
+route POST /join { form: { name: str, email: str } } with db {
+    // An empty box is no email at all: null, which is never taken. "" is a value, and a second "" would be.
+    let address = email == "" ? null : email
+    let r = db.exec("insert into members (name, joined, email) values (?, date('now'), ?)", name, address)
+    if db.error_kind(r) == "unique" { return join_page("That email already belongs to a member.") }
+    r?
+    redirect("/join")
+}
+
+// The books out, and who has them: each loan, with its book's title and its member's name.
+route GET /loans with db = answer("Books out", sql`
+    select books.title, members.name, loans.due
+    from loans
+    join books on books.id = loans.book_id
+    join members on members.id = loans.member_id
+    order by loans.due`)
+
+// Members can be removed here, but not while they have books out: their loans point at them.
+fn remove_page(message: str) with db =
+    <Table title="Remove a member" sql={MEMBERS} rows={db.query(MEMBERS)}>
+        <form method="post" action="/remove">
+            <input name="id" placeholder="Member's id"/>
+            <button>Remove</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /remove with db = remove_page("")
+
+route POST /remove { form: { id: int } } with db {
+    let r = db.exec("delete from members where id = ?", id)
+    if db.error_kind(r) == "foreign_key" { return remove_page("That member has books out: they come back first.") }
+    r?
+    redirect("/remove")
+}
+
+route GET /static/*path = files("public", path)
