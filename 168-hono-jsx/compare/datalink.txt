@@ -1,0 +1,4 @@
+href:    data:text/html,<script>alert(1)</script>
+alerts:  none
+page:    http://127.0.0.1:8132/
+console: Not allowed to navigate top frame to data URL: data:text/html,<script>alert(1)</script>

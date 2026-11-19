@@ -1,0 +1,27 @@
+// Trail Club's notes board: visitors leave a note, with their name and a link, and the page shows them all, in one
+// layout. A view escapes what it puts in the page.
+db.open("club.db")
+db.migrate("migrations")
+
+// The layout, around every page that uses it.
+view Page(children) =
+    <html>
+        <head><title>Trail notes</title></head>
+        <body>
+            <header><b>Trail Club</b></header>
+            <main>{children}</main>
+            <footer>Happy trails!</footer>
+        </body>
+    </html>
+
+route GET / with db {
+    let notes = db.query("select * from notes order by id")
+    <Page>
+        <ul>{for n in notes => <li key={n.id} title={n.name}>{n.text} <a href={n.link}>{n.name}</a></li>}</ul>
+    </Page>
+}
+
+route POST /notes { form: { name: str, text: str, link: str } } with db {
+    db.exec("insert into notes (name, text, link) values (?, ?, ?)", name, text, link)?
+    redirect("/")
+}

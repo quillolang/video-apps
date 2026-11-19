@@ -1,0 +1,12 @@
+{
+  "name": "trailnotes",
+  "scripts": {
+    "start": "bun run src/index.tsx"
+  },
+  "dependencies": {
+    "hono": "^4.13.19"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

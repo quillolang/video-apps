@@ -1,0 +1,9 @@
+'javascript:alert(1)'                        -> about:blank#blocked
+'JavaScript:alert(1)'                        -> about:blank#blocked
+' javascript:alert(1)'                       -> about:blank#blocked
+'java\tscript:alert(1)'                      -> about:blank#blocked
+'data:text/html,<script>alert(1)</script>'   -> data:text/html,&lt;script&gt;alert(1)&lt;/script&gt;
+'vbscript:msgbox(1)'                         -> about:blank#blocked
+'https://example.com/'                       -> https://example.com/
+'/trails/2'                                  -> /trails/2
+'mailto:ranger@example.com'                  -> mailto:ranger@example.com
