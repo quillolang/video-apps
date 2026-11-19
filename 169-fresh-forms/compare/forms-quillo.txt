@@ -1,0 +1,10 @@
+quillo
+  guests=2        303  added "Ada: 2"
+  guests=abc      400  From 1 to 12
+  guests=1e1      400  From 1 to 12
+  guests=0x0A     400  From 1 to 12
+  guests=12.0     400  From 1 to 12
+  no guests       400  From 1 to 12
+  name=(spaces)   400  Your name, please
+  name=(a file)   400  Your name, please
+  other site      403  not added

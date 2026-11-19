@@ -1,0 +1,28 @@
+Download https://jsr.io/@fresh/init/meta.json
+Download https://jsr.io/@fresh/init/2.3.3_meta.json
+Download https://jsr.io/@fresh/init/2.3.3/deno.json
+Download https://jsr.io/@std/cli/meta.json
+Download https://jsr.io/@std/fmt/meta.json
+Download https://jsr.io/@std/path/meta.json
+Download https://jsr.io/@std/semver/meta.json
+Download https://jsr.io/@std/cli/1.0.32_meta.json
+Download https://jsr.io/@std/fmt/1.0.10_meta.json
+Download https://jsr.io/@std/path/1.1.6_meta.json
+Download https://jsr.io/@std/semver/1.0.8_meta.json
+Download https://jsr.io/@std/internal/meta.json
+Download https://jsr.io/@std/internal/1.0.14_meta.json
+
+ 🍋 Fresh: The next-gen web framework. 
+    version 2.3.3
+
+Installing dependencies...
+Installing dependencies...done!
+
+Project initialized!
+
+Enter your project directory using cd fresh.
+Run deno task dev to start the project. CTRL-C to stop.
+
+Stuck? Join our Discord https://discord.gg/deno 
+
+Happy hacking! 🦕

@@ -1,0 +1,12 @@
+<!doctype html>
+<!-- A page on another site (127.0.0.1:9000, while the club is at localhost): it posts a sign-up to the club's form
+     as it opens, the way a page that wants to post in a visitor's name would. ?to= is where the club's form posts. -->
+<html><head><title>Free trail maps</title></head><body>
+<h1>Free trail maps</h1>
+<form method="post"><input name="name" value="Someone else"><input name="guests" value="12"></form>
+<script>
+  const f = document.forms[0];
+  f.action = new URLSearchParams(location.search).get('to');
+  f.submit();
+</script>
+</body></html>

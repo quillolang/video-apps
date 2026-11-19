@@ -1,0 +1,38 @@
+// Trail Club's sign-up for Saturday's hike: a name and how many are coming. A form that's wrong comes back, with
+// what's wrong by its field and what was typed still in it; one that's right is added, and back to the list.
+db.open("club.db")
+db.migrate("migrations")
+
+// What each field needs: a message for each one that's wrong, none when all is well.
+fn problems(name: str, guests: str) -> map {
+    let n = int(guests)
+    let bad = {}
+    if trim(name) == "" { bad = { ...bad, name: "Your name, please" } }
+    if is_err(n) || n < 1 || n > 12 { bad = { ...bad, guests: "From 1 to 12" } }
+    bad
+}
+
+view Page(hikers: list, form: map, bad: map) =
+    <html><head><title>Saturday's hike</title></head><body>
+        <h1>Saturday's hike</h1>
+        <ul>{for h in hikers => <li key={h.id}>{h.name}: {h.guests}</li>}</ul>
+        <form method="post" action="/signup">
+            <p><label>Name <input name="name" value={get(form, "name", "")}/></label>
+                {has(bad, "name") && <strong> {bad.name}</strong>}</p>
+            <p><label>Guests <input name="guests" value={get(form, "guests", "")}/></label>
+                {has(bad, "guests") && <strong> {bad.guests}</strong>}</p>
+            <button>Sign up</button>
+        </form>
+    </body></html>
+
+route GET / with db = <Page hikers={db.query("select * from hikers order by id")} form={{}} bad={{}}/>
+
+route POST /signup { form: { name: str = "", guests: str = "" } } with db {
+    let bad = problems(name, guests)
+    if len(bad) > 0 {
+        let hikers = db.query("select * from hikers order by id")
+        return respond(400, <Page hikers={hikers} form={{ name, guests }} bad={bad}/>)
+    }
+    db.exec("insert into hikers (name, guests) values (?, ?)", trim(name), int(guests))?
+    redirect("/")
+}

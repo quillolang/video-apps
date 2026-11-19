@@ -1,0 +1,2 @@
+$ curl -s -F name=@hello.txt -F guests=2 http://127.0.0.1:8141/x
+{"form":{"guests":"2"},"files":{"name":{"field":"name","filename":"hello.txt","type":"text/plain","size":6,"start":145,"end":151}}}

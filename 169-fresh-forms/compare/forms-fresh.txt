@@ -1,0 +1,10 @@
+fresh
+  guests=2        303  added "Ada: 2"
+  guests=abc      400  From 1 to 12
+  guests=1e1      303  added "Cy: 10"
+  guests=0x0A     303  added "Dee: 10"
+  guests=12.0     303  added "Eli: 12"
+  no guests       400  From 1 to 12
+  name=(spaces)   400  Your name, please
+  name=(a file)   303  added "[object File]: 2"
+  other site      303  added "Someone else: 12"

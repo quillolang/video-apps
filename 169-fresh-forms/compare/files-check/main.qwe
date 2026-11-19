@@ -1,0 +1,2 @@
+// What a multipart post with a file in "name" puts in request.form and request.files.
+route POST /x = { form: request.form, files: request.files }
