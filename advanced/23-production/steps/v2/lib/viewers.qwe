@@ -1,0 +1,41 @@
+// Who's looking at which ticket, right now. It's about this moment, so it's kept in memory, not in the
+// database, and in a map keyed by tenant(), as lesson 1 said: each team's viewers are its own.
+//   { "acme": { "<connection id>": { name: "Ana", ticket: 1 } } }
+let viewers = {}
+
+fn team_viewers() -> map = viewers[tenant()] ?? {}
+
+// The names looking at one ticket, each once (two tabs are one person).
+fn names_on(ticket: int) -> list =
+    values(team_viewers()) | filter((v) => v.ticket == ticket) | map((v) => v.name) | unique
+
+// Everyone with Help Desk open, on any page.
+fn everyone() -> list = values(team_viewers()) | map((v) => v.name) | unique
+
+fn add_viewer(id: str, name: str, ticket: int) {
+    viewers = set(viewers, tenant(), set(team_viewers(), id, { name, ticket }))
+}
+
+fn remove_viewer(id: str) {
+    viewers = set(viewers, tenant(), remove(team_viewers(), id))
+}
+
+// Tells every page in the channel who's on a ticket now, and who's online; each page shows what it needs.
+fn tell(ticket: int) = channel.broadcast("viewers", { ticket, names: names_on(ticket), online: everyone() })
+
+channel.on("viewers", (msg, peer) => {
+    add_viewer(peer.id, peer.session.name ?? "Someone", msg.ticket)
+    tell(msg.ticket)
+}, {
+    // The server greets each page as it joins; the page answers with the ticket it shows.
+    join: (peer) => {
+        channel.send("viewers", peer, { hello: true })
+        true
+    },
+    // A page left, or closed: it's off the list, and the others are told.
+    leave: (peer) => {
+        let was = team_viewers()[peer.id]
+        remove_viewer(peer.id)
+        if was != null { tell(was.ticket) }
+    },
+})

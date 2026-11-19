@@ -1,0 +1,19 @@
+// The replies under a ticket, and a box to add one: live, so every page on the ticket sees a new reply.
+import lib/replies.qwe use load_replies, add_reply
+
+component Replies(ticket: int) {
+    state replies = live(load_replies, ticket)
+    state draft = ""
+    // Whose replies to show, from the address: ?by=Ana. A choice is an address, so Back brings the last one back.
+    let by = url().query.by ?? ""
+    let shown = by == "" ? replies : replies | filter((r) => r.author == by)
+    <section>
+        <p.meta>Show: <a href={url().path}>everyone</a>{for a in unique(replies | map((r) => r.author)) =>
+            <span> · <a href={`${url().path}?${url_encode({ by: a })}`}>{a}</a></span>}</p>
+        <ul.replies>{for r in shown => <li key={r.id}><b>{r.author}</b> {r.body}</li>}</ul>
+        <form onsubmit={() => { if !is_err(add_reply(ticket, draft)) { draft = "" } }}>
+            <input value={draft} placeholder="Write a reply" required/>
+            <button>Reply</button>
+        </form>
+    </section>
+}

@@ -1,0 +1,514 @@
+// Help Desk: one app, many teams, each with a database of its own.
+tenant_from("localhost")      // acme.localhost is the team "acme"
+db.open("data/{tenant}.db")   // a SQLite file per team
+db.migrate("migrations")      // run for each team's database when it's made
+
+use "lib/tickets.qwe"
+use "lib/settings.qwe"
+use "lib/viewers.qwe"
+use "lib/replies.qwe"
+use "lib/activity.qwe"
+use "lib/articles.qwe"
+use "lib/search.qwe"
+use "ui/page.qwe"
+use "ui/you.qwe"
+use "ui/viewers.qwe"
+use "ui/tickets.qwe"
+use "ui/replies.qwe"
+use "ui/feed.qwe"
+use "ui/ticket.qwe"
+service mailer = "mailer.qwe"    // the mail service, mailer.qwe: in the same process, or its own with --split
+service reports = "reports.qwe"  // the reports service: each team's tickets, day by day
+mount /status = "status/main.qwe"   // the status page, a program of its own, at /status
+mount /changelog = "changelog/main.qwe"   // what's new, another program of its own
+
+// The bare address, with no team: a page to start one.
+route GET / ? { taken: str = "" } {
+    if tenant() != null {
+        if !db.tenant_exists(tenant()) { reply 404 "No such team" }
+        reply 303 redirect("/help")
+    }
+    <Page title="Help Desk">
+        <h1>Help Desk</h1>
+        <p>A help desk for your team, with a database of its own.</p>
+        {taken != "" && <p.problem>"{taken}" is taken. Try another name.</p>}
+        <form method="post" action="/teams">
+            <input name="name" placeholder="your team's name: acme" pattern="[a-z0-9][a-z0-9_]*" required/>
+            <button>Start a team</button>
+        </form>
+    </Page>
+}
+
+// Starting a team makes its database, migrated, in one step: a name that's taken is refused.
+route POST /teams { form: { name: str } } {
+    let made = new_tenant(name, () => rename_team(name))
+    if is_err(made) { reply 303 redirect(`/?taken=${url_encode(name)}`) }
+    redirect(`http://${name}.${request.headers.host}/`)
+}
+
+// The address as it was asked for, its question too: /desk/tickets/search?q=printer&page=2.
+fn asked_for(r) = r.query_string == "" ? r.path : `${r.path}?${r.query_string}`
+
+// An agent: someone signed in to this team. Anyone else is sent to sign in, with the page they asked for in
+// `next`, to come back to it.
+fn agent(r) = session().role != null ? r : reply 303 redirect(`/sign-in?next=${url_encode(asked_for(r))}`)
+
+// Middleware that takes an argument: it lets in only someone with this role.
+fn role(name: str) = (r) => session().role == name ? r : reply 403 `Only an ${name} can open this.`
+
+// Agents sign in with just their name: fine for learning, not for real (passwords: the Security course).
+// `next` goes on with the form, in its address, to the page they asked for.
+fn sign_in_page(message: str, next: str) =
+    <Page title="Sign in">
+        <h1>Sign in</h1>
+        {message != "" && <p.problem>{message}</p>}
+        <form method="post" action={`/sign-in?next=${url_encode(next)}`}>
+            <input name="name" placeholder="Your name" aria-label="Name" required/>
+            <button>Sign in</button>
+        </form>
+    </Page>
+
+route GET /sign-in ? { next: str = "/desk" } = sign_in_page("", next)
+
+route POST /sign-in ? { next: str = "/desk" } { form: { name: str } } with db {
+    let a = db.one("select name, role from agents where name = ?", trim(name))
+    if a == null { return sign_in_page("No agent by that name.", next) }
+    set_session({ name: a.name, role: a.role })
+    // Only an address on this site: a link's //evil.example, https://... or javascript:... is null, so the desk.
+    redirect(local_path(next) ?? "/desk")
+}
+
+// A ticket's edit page: its title, status and tags, as they are now.
+fn edit_page(t: map, message: str) with db =
+    <Page title={`Edit: ${t.title}`}>
+        <p.meta><a href={`/desk/tickets/${t.id}`}>#{t.id}</a></p>
+        <h1>Edit the ticket</h1>
+        {message != "" && <p.problem>{message}</p>}
+        <form.edit method="post" action={`/desk/tickets/${t.id}/edit`}>
+            <input type="hidden" name="version" value={str(t.version)}/>
+            <input name="title" value={t.title} aria-label="Title" required/>
+            <select name="status" aria-label="Status">
+                <option selected={t.status == "open"}>open</option>
+                <option selected={t.status == "closed"}>closed</option>
+            </select>
+            <input name="tags" value={t.tags} placeholder="Tags, with commas" aria-label="Tags"/>
+            <button>Save</button>
+        </form>
+    </Page>
+
+// The agents' pages, all under /desk, and only for agents.
+routes /desk | agent {
+    // The desk's home: a form to add a ticket, and the tickets, live.
+    route GET / with db, random =
+        <Page title={`${tenant()} · Help Desk`}>
+            <h1>{display_name()}</h1>
+            <p.meta>
+                <a href="/desk/settings">Settings</a> · <a href="/desk/emails">Emails</a>
+                {" · "}<a href="/desk/reports">Reports</a> · <a href="/help">Help center</a>
+                {" · "}<a href="/desk/tickets/search">Search</a> · <a href="/desk/incidents">Incidents</a>
+            </p>
+            <You/>
+            <Online/>
+            <form method="post" action="/desk/tickets" idempotent>
+                <input name="title" placeholder="What's wrong?" required/>
+                <button>Add ticket</button>
+            </form>
+            <Feed/>
+            <TicketList/>
+        </Page>
+
+    // A new ticket runs once per form: the form carries a key, and the same form sent again gets the first
+    // answer. Its email is a call made later: kept in the team's database with the ticket, in the same
+    // transaction, and made in the background until the mail service takes it, even after a restart.
+    route POST /tickets { form: { title: str } } with db, http, time = idempotent(() => {
+        db.transaction(() => {
+            let t = add_ticket(title)?
+            note(`added a ticket: ${trim(title)}`)?
+            let link = `http://${request.headers.host}/desk/tickets/${t.last_id}`
+            let call = mailer.later.email(`${tenant()}@example.com`, `New ticket: ${trim(title)}`,
+                `Open it: ${link}`)
+            db.exec("update tickets set email_call = ? where id = ?", call, t.last_id)
+            reports.later.ticket_added(tenant(), date.today())
+        })?
+        redirect("/desk")
+    })
+
+    // A ticket for a script that asks for JSON: the same address, with Accept: application/json.
+    route GET /tickets/:id(int) { headers: { accept: "application/json" } } with db {
+        let t = ticket(id) ?? reply 404 { error: "no such ticket" }
+        { id: t.id, title: t.title, status: t.status, tags: t.tags }
+    }
+
+    // A ticket's own page: one page for every ticket. Its component reads the address, so moving to another ticket
+    // changes the page without loading a new one, and Back and Forward work. The server makes it whole for the
+    // address asked for, and a ticket that isn't there is a 404.
+    route GET /tickets/:id(int) with db, time {
+        ticket(id) ?? reply 404 "No such ticket"
+        <Page title={display_name()}><Tickets/></Page>
+    }
+
+    // Incidents, for the status page: post one, or mark it resolved.
+    route GET /incidents with db =
+        <Page title="Incidents">
+            <p.meta><a href="/desk">{display_name()}</a> · <a href="/status">The status page</a></p>
+            <h1>Incidents</h1>
+            <form method="post" action="/desk/incidents">
+                <input name="title" placeholder="What's wrong for everyone?" required/>
+                <button>Post</button>
+            </form>
+            <ul>{for i in db.query("select * from incidents order by id desc") =>
+                <li>{i.title} <span.meta>· {i.status}</span>
+                    {i.status != "resolved" &&
+                        <form.inline method="post" action={`/desk/incidents/${i.id}/resolve`}>
+                            <button.small>Resolved</button></form>}</li>}</ul>
+        </Page>
+
+    route POST /incidents { form: { title: str } } with db {
+        db.exec("insert into incidents (title) values (?)", trim(title))?
+        redirect("/desk/incidents")
+    }
+
+    route POST /incidents/:id(int)/resolve with db {
+        db.exec("update incidents set status = 'resolved' where id = ?", id)?
+        redirect("/desk/incidents")
+    }
+
+    route GET /tickets/:id(int)/edit with db {
+        let t = ticket(id) ?? reply 404 "No such ticket"
+        edit_page(t, "")
+    }
+
+    route POST /tickets/:id(int)/edit { form: { version: int, title: str, status: str, tags: str } } with db {
+        let saved = save_ticket(id, version, title, status, tags)?
+        if saved.changes == 0 {
+            // Someone saved it first. Keep what they saved, and add this form's tags to the ticket's.
+            let t = ticket(id) ?? reply 404 "No such ticket"
+            save_ticket(id, t.version, t.title, t.status, merge_tags(t.tags, tags))?
+            let now = ticket(id) ?? reply 404 "No such ticket"
+            return edit_page(now, "Someone else saved this ticket first: theirs is kept, and your tags are added.")
+        }
+        redirect(`/desk/tickets/${id}`)
+    }
+
+    // Settings are for an admin: middleware that takes an argument, in a group inside the group.
+    routes /settings | role("admin") {
+        route GET / with db =
+            <Page title="Settings">
+                <h1>Settings</h1>
+                <form method="post" action="/desk/settings">
+                    <input name="name" value={display_name()} aria-label="Team name" required/>
+                    <button>Save</button>
+                </form>
+                <p><a href="/desk">Back</a></p>
+            </Page>
+
+        route POST / { form: { name: str } } with db {
+            rename_team(name)?
+            redirect("/desk")
+        }
+    }
+
+    // The team's emails, as the mail service has them.
+    route GET /emails with db, http {
+        let sent = mailer.sent_to(`${tenant()}@example.com`)
+        <Page title="Emails">
+            <p.meta><a href="/desk">{display_name()}</a></p>
+            <h1>Emails sent</h1>
+            {len(sent) == 0 ? <p>None yet.</p> : <ul>{for e in sent =>
+                <li>{e.subject}<br/><small>{e.body}</small></li>}</ul>}
+        </Page>
+    }
+
+    // The team's tickets, day by day, as the reports service counted them.
+    route GET /reports with db, http {
+        let days = reports.by_day(tenant())
+        <Page title="Reports">
+            <p.meta><a href="/desk">{display_name()}</a></p>
+            <h1>Tickets by day</h1>
+            {len(days) == 0 ? <p>None yet.</p> : <ul>{for d in days => <li>{d.day}: {d.tickets}</li>}</ul>}
+        </Page>
+    }
+
+    // The ticket search, its question in the address: /tickets/search?q=printer&status=open&page=2. Each field
+    // has a default, so a blank one is one not sent; page is an int, so page=x is not this route's.
+    route GET /tickets/search ? { q: str = "", status: str = "", sort: Sort = "newest",
+        page: int = 1 } with db {
+        let r = search_tickets(q, status, sort, page)
+        // The address of another page of this search.
+        let at = (n) => `/desk/tickets/search?${url_encode({ q, status, sort, page: n })}`
+        <Page title={`Search · ${display_name()}`}>
+            <p.meta><a href="/desk">{display_name()}</a></p>
+            <h1>Search tickets</h1>
+            <form action="/desk/tickets/search">
+                <input name="q" value={q} placeholder="Words in the title" aria-label="Words"/>
+                <select name="status" aria-label="Status">
+                    <option value="" selected={status == ""}>any</option>
+                    <option selected={status == "open"}>open</option>
+                    <option selected={status == "closed"}>closed</option>
+                </select>
+                <select name="sort" aria-label="Sort">
+                    <option selected={sort == "newest"}>newest</option>
+                    <option selected={sort == "oldest"}>oldest</option>
+                </select>
+                <button>Search</button>
+            </form>
+            <p.meta>{r.found} tickets · page {page} of {r.pages}</p>
+            <ul>{for t in r.rows =>
+                <li><a href={`/desk/tickets/${t.id}`}>#{t.id} {t.title}</a> · {t.status}</li>}</ul>
+            <p.meta>
+                {page > 1 && <a href={at(page - 1)}>Previous</a>}
+                {" "}
+                {page < r.pages && <a href={at(page + 1)}>Next</a>}
+            </p>
+        </Page>
+    }
+
+    // A search whose question doesn't fit, like page=x, gets this, a 400, not the 404 page of the catch-all below.
+    route GET /tickets/search = respond(400, "That search can't be read: page is a number, sort newest or oldest.")
+
+    // The tickets opened on one day. :day(date) takes only a real date: 2026-02-30 is a 404.
+    route GET /tickets/on/:day(date) with db {
+        let opened = db.query("select id, title from tickets where date(created_at) = ? order by id", day)
+        <Page title={`Opened on ${day}`}>
+            <p.meta><a href="/desk">{display_name()}</a></p>
+            <h1>Opened on {day}</h1>
+            {len(opened) == 0 ? <p>None.</p> : <ul>{for t in opened =>
+                <li><a href={`/desk/tickets/${t.id}`}>{t.title}</a></li>}</ul>}
+        </Page>
+    }
+}
+
+// Pages that moved. A ticket's old address, from the emails sent before the desk moved under /desk: 308, moved
+// for good, the same request to the new address.
+route GET /tickets/:id(int) = redirect(`/desk/tickets/${id}`, 308)
+
+// The old help center's addresses, each sent on to the article that took its place, for good.
+route GET /kb/article.php ? { id: int } with db {
+    let moved = db.one("select slug from old_articles where old_id = ?", id)
+        ?? reply 404 not_found("kb/article.php")
+    redirect(`/help/${moved.slug}`, 301)
+}
+
+// The help center, for the team's customers: every article, each a link to its own address.
+// The help center, with an etag of its own: a fingerprint of everything the page shows, the team's name, how many
+// articles, and their versions added up. A new article, an edited one, or a new name changes it.
+route GET /help with db {
+    let v = db.one("select count(*) as n, sum(version) as versions from articles")
+    let tag = slice(crypto.sha256(`${display_name()}|${v.n}|${v.versions}`), 0, 16)
+    respond(200,
+        <Page title={`Help · ${display_name()}`}>
+            <h1>Help center</h1>
+            <p><a href="/help/new">Write an article</a> · <a href="/help/contact">Contact us</a></p>
+            <ul>{for a in all_articles() => <li><a href={`/help/${a.slug}`}>{a.title}</a></li>}</ul>
+        </Page>,
+        { etag: `"${tag}"` })
+}
+
+// A page for an address that has nothing: the articles whose titles share a word with it.
+fn not_found(path: str) with db {
+    let words = re.split(lower(path), "[^a-z0-9]+") | filter((w) => len(w) > 3)
+    let found = unique(flatten(words | map((w) =>
+        db.query("select slug, title from articles where lower(title) like ?", `%${w}%`))))
+    <Page title="Not found">
+        <p.meta><a href="/help">Help center</a></p>
+        <h1>Nothing at /{path}</h1>
+        {len(found) == 0 ? <p>Try the <a href="/help">help center</a>.</p> :
+            <div><p>Were you looking for one of these?</p>
+                <ul>{for a in found => <li><a href={`/help/${a.slug}`}>{a.title}</a></li>}</ul></div>}
+    </Page>
+}
+
+// Agents write a new article here: it goes up at the address its title makes.
+fn new_article_page(message: str) =
+    <Page title="New article">
+        <p.meta><a href="/help">Help center</a></p>
+        <h1>Write an article</h1>
+        {message != "" && <p.problem>{message}</p>}
+        <form.edit method="post" action="/help/new">
+            <input name="title" placeholder="Title" aria-label="Title" required/>
+            <textarea name="body" placeholder="What to do, step by step" aria-label="Body" required></textarea>
+            <button>Publish</button>
+        </form>
+    </Page>
+
+// Writing articles is for agents: a group with the help center's prefix, only for these two routes. It comes
+// before /help/:slug, so the slug route can't take /help/new.
+routes /help | agent {
+    route GET /new = new_article_page("")
+
+    route POST /new { form: { title: str, body: str } } with db {
+        let made = add_article(title, body)
+        if db.error_kind(made) == "unique" {
+            return new_article_page("An article with that title is there already.")
+        }
+        made?
+        redirect(`/help/${slug_of(title)}`)
+    }
+
+    // An agent changes an article's text: the form, and saving it.
+    route GET /:slug/edit with db {
+        let a = article_by_slug(slug) ?? reply 404 "No such article"
+        <Page title={`Edit · ${a.title}`}>
+            <p.meta><a href={`/help/${a.slug}`}>{a.title}</a></p>
+            <h1>Edit the article</h1>
+            <form.edit method="post">
+                <textarea name="body" aria-label="Body" required>{a.body}</textarea>
+                <button>Save</button>
+            </form>
+        </Page>
+    }
+
+    route POST /:slug/edit { form: { body: str } } with db {
+        save_article(slug, body)?
+        redirect(`/help/${slug}`)
+    }
+}
+
+// The help center's contact form: a customer's message becomes a ticket for the team.
+fn contact_page() =
+    <Page title="Contact us">
+        <p.meta><a href="/help">Help center</a></p>
+        <h1>Contact us</h1>
+        <form.edit method="post" action="/help/contact">
+            <input name="name" placeholder="Your name" aria-label="Name" required/>
+            <input name="email" type="email" placeholder="Your email" aria-label="Email" required/>
+            <textarea name="message" placeholder="How can we help?" aria-label="Message" required></textarea>
+            <label><input type="checkbox" name="updates"/> Email me updates</label>
+            <button>Send</button>
+        </form>
+    </Page>
+
+route GET /help/contact = contact_page()
+
+// A message sent: a ticket for the team, and, when the box is ticked, an email to the customer, made later and
+// kept with the ticket, as lesson 6's are.
+route POST /help/contact { form: { name: str, email: str, message: str, updates: bool = false } } with db, http {
+    let t = db.transaction(() => {
+        let made = add_ticket(`${trim(name)}: ${trim(message)}`)?
+        if updates { mailer.later.email(email, `Your ticket #${made.last_id}`, "We'll email you when it changes.") }
+        made
+    })?
+    <Page title="Thanks">
+        <p.meta><a href="/help">Help center</a></p>
+        <h1>Thanks, {trim(name)}</h1>
+        <p>We got your message: it's ticket #{t.last_id}.{updates ? " We'll email you when it changes." : ""}</p>
+    </Page>
+}
+
+// The same address, for a script: a message sent as JSON gets its ticket's number as JSON. The box is a field
+// it may leave out.
+route POST /help/contact { json: { name: str, email: str, message: str, updates: bool = false } } with db, http {
+    let t = db.transaction(() => {
+        let made = add_ticket(`${trim(name)}: ${trim(message)}`)?
+        if updates { mailer.later.email(email, `Your ticket #${made.last_id}`, "We'll email you when it changes.") }
+        made
+    })?
+    { ticket: t.last_id, updates }
+}
+
+// An article's number, its address from lesson 11: sent on to its readable one, for good, so each article has
+// one address, and old links still work.
+route GET /help/:id(int) with db {
+    let a = article(id) ?? reply 404 "No such article"
+    redirect(`/help/${a.slug}`, 301)
+}
+
+// One article, by its readable address: /help/reset-your-password.
+// With an etag: a browser that has this page already sends it back, and gets a 304, "you have it", with no body.
+// The etag names the article's version, so an article that changed is a new etag, and a 200.
+route GET /help/:slug with db {
+    let a = article_by_slug(slug) ?? reply 404 not_found(`help/${slug}`)
+    respond(200,
+        <Page title={a.title}>
+            <p.meta><a href="/help">Help center</a></p>
+            <h1>{a.title}</h1>
+            <p>{a.body}</p>
+        </Page>,
+        { etag: `"${a.slug}.${a.version}"` })
+}
+
+// The team's own address, from the site's address in the environment: http://acme.localhost:8080 here.
+fn site_url() -> str = `http://${tenant()}.${env("SITE", "localhost:8080")}`
+
+// Answers that aren't pages. A sitemap, for search engines: every page of the help center. Its root names a
+// namespace, so Quillo sends it as XML. Search engines may keep it an hour.
+route GET /sitemap.xml with db, env {
+    let base = site_url()
+    respond(200,
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            <url><loc>{`${base}/help`}</loc></url>
+            {for a in all_articles() => <url><loc>{`${base}/help/${a.slug}`}</loc></url>}
+        </urlset>,
+        { "cache-control": "public, max-age=3600" })
+}
+
+// A feed of the help center's articles, for feed readers: <rss> is sent as application/rss+xml. An RSS <link>
+// holds text, but HTML's <link> holds nothing, so Quillo 0.8.6 refuses text in it: written with raw, its
+// address made safe with escape.
+route GET /feed.xml with db, env {
+    let base = site_url()
+    respond(200,
+        <rss version="2.0"><channel>
+            <title>{`Help · ${display_name()}`}</title>
+            {raw(`<link>${escape(base)}/help</link>`)}
+            <description>Answers from the help desk</description>
+            {for a in all_articles() =>
+                <item><title>{a.title}</title><guid>{`${base}/help/${a.slug}`}</guid></item>}
+        </channel></rss>,
+        { "cache-control": "public, max-age=3600" })
+}
+
+route GET /static/*path = files("public", path)
+
+// Anything else a team's address doesn't have: our own 404 page. GET, not ANY, so the server still answers 405 and
+// 400 itself for the addresses it knows.
+// The API, for Acme's own website and phone app: JSON in and JSON out, under /api/v1. The version is in the
+// address, so a later one can change what it takes without breaking the apps already out there.
+// Calls from Acme's own site, in a browser, need its permission: these headers, on every answer.
+let CORS = {
+    "access-control-allow-origin": "https://www.acme.example",
+    "access-control-allow-methods": "GET, POST",
+    "access-control-allow-headers": "content-type",
+}
+
+routes /api/v1 {
+    // The help center's articles, for the phone app.
+    route GET /articles with db = respond(200, all_articles(), CORS)
+
+    // A ticket from a customer: { name, email, message }. 201: made, with its number.
+    route POST /tickets { json: { name: str, email: str, message: str } } with db {
+        let made = add_ticket(`${trim(name)}: ${trim(message)}`)?
+        respond(201, { ticket: made.last_id }, CORS)
+    }
+
+    // A ticket whose body isn't that JSON: say so, in JSON. (The route above takes the ones that are.)
+    route POST /tickets = respond(400, { error: "send name, email and message, as JSON" }, CORS)
+
+    // Before a call from another site, the browser asks: may it? This says yes, for Acme's site.
+    route OPTIONS /*rest = respond(204, null, CORS)
+
+    // Anything else under /api/v1: the API's own 404, in JSON, not the help center's page.
+    route ANY /*rest = respond(404, { error: `no such address in the API: /api/v1/${rest}` }, CORS)
+}
+
+// Version 2: a ticket has a subject and a body of its own, and the answer says its status too. Version 1 stays as
+// it was, for the apps that use it.
+routes /api/v2 {
+    route GET /articles with db = respond(200, all_articles(), CORS)
+
+    route POST /tickets { json: { name: str, email: str, subject: str, body: str } } with db {
+        let made = add_ticket(`${trim(name)}: ${trim(subject)}`)?
+        db.exec("insert into replies (ticket_id, author, body) values (?, ?, ?)",
+            made.last_id, trim(name), trim(body))?   // the body, as the ticket's first reply
+        respond(201, { id: made.last_id, status: "open" }, CORS)
+    }
+
+    route POST /tickets = respond(400, { error: "send name, email, subject and body, as JSON" }, CORS)
+    route OPTIONS /*rest = respond(204, null, CORS)
+    route ANY /*rest = respond(404, { error: `no such address in the API: /api/v2/${rest}` }, CORS)
+}
+
+route GET /*rest with db {
+    if tenant() == null { reply 404 "Nothing here" }
+    reply 404 not_found(rest)
+}

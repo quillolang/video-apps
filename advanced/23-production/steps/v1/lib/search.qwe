@@ -1,0 +1,16 @@
+// The two ways to sort a search. Anything else in the address is a 400.
+type Sort = "newest" | "oldest"
+
+// The ticket search: the tickets whose title has the words, in one status or any, five to a page, newest or
+// oldest first.
+fn search_tickets(q: str, status: str, sort: Sort, page: int) -> map with db {
+    let words = `%${trim(q)}%`
+    let found = db.one("select count(*) as n from tickets where title like ? and (? = '' or status = ?)",
+        words, status, status).n
+    let rows = db.query(sql`
+        select id, title, status from tickets
+        where title like ? and (? = '' or status = ?)
+        order by case when ? = 'oldest' then id else -id end
+        limit 5 offset ?`, words, status, status, sort, (page - 1) * 5)
+    { found, rows, pages: max([1, int((found + 4) / 5)]) }
+}

@@ -1,0 +1,54 @@
+// A team's tickets. Every query runs in the database of the team the request came for.
+fn all_tickets() -> list with db = db.query("select * from tickets order by id desc")
+
+fn add_ticket(title: str) -> map ! str with db =
+    db.exec("insert into tickets (title) values (?)", trim(title))
+
+// The list again, for a page that follows it, with each ticket's reply count and who wrote its last reply,
+// in one query. It reads replies, so a reply anywhere wakes it: here that's right, since the list shows them.
+// A server fn is an address of its own, POST /_quillo/rpc/load_tickets: the desk's guard doesn't cover it, so it
+// checks the session itself. Anyone else gets nothing.
+server fn load_tickets() -> list {
+    if session().role == null { return [] }
+    db.query(sql`
+        select t.*,
+            (select count(*) from replies r where r.ticket_id = t.id) as replies,
+            (select author from replies r where r.ticket_id = t.id order by r.id desc limit 1) as last_author
+        from tickets t
+        order by t.id desc`)
+}
+
+// One ticket, by its id: null when there's none.
+fn ticket(id: int) with db = db.one("select * from tickets where id = ?", id)
+
+// A ticket saved from its edit page, only if it's still the version the form was made from; then it's the next
+// version. changes: 0 means someone saved it first.
+fn save_ticket(id: int, version: int, title: str, status: str, tags: str) -> map ! str with db = db.exec(sql`
+    update tickets set title = ?, status = ?, tags = ?, version = version + 1
+    where id = ? and version = ?`, trim(title), status, trim(tags), id, version)
+
+// Two lists of tags as one: each tag once, in the order they came.
+fn merge_tags(a: str, b: str) -> str =
+    join(unique(filter(map(split(`${a},${b}`, ","), (x) => trim(x)), (x) => x != "")), ", ")
+
+// How long ago a time was, in words: "just now", "5 minutes ago", "3 hours ago", "2 days ago".
+fn ago(when: str) -> str with time {
+    let mins = int((now() - date.ms(when)) / 60000)
+    if mins < 1 { return "just now" }
+    if mins < 60 { return `${mins} minutes ago` }
+    if mins < 60 * 24 { return `${int(mins / 60)} hours ago` }
+    `${int(mins / (60 * 24))} days ago`
+}
+
+// One ticket, for its page: its details, its last reply, and what became of its email. Only for agents, as the
+// list is (lesson 15); { missing: true } when there's no such ticket.
+server fn load_ticket(id: int) -> map? {
+    if session().role == null { return null }
+    let t = ticket(id)
+    if t == null { return { missing: true } }
+    let last = db.one("select author, created_at from replies where ticket_id = ? order by id desc limit 1", id)
+    let email = t.email_call == null ? null : later.status(t.email_call)
+    { id: t.id, title: t.title, status: t.status, tags: t.tags,
+        last: last == null ? "none yet" : `${last.author}, ${ago(last.created_at)}`,
+        email: email == null ? null : `${email.state}${email.tries != null ? `, ${email.tries} tries` : ""}` }
+}

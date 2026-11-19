@@ -1,0 +1,9 @@
+# Help Desk's own policy: what it may do, and nothing more. Read by quillo run and quillo check, every time.
+[effects]
+allow = ["db", "http", "net", "time", "random", "env", "fs"]
+
+[env]
+names = ["SITE"]
+
+[plugins]
+build = false

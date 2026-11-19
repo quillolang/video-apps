@@ -1,0 +1,35 @@
+// The status page, for a team's customers: a program of its own, mounted at /status by Help Desk. It sees the team
+// from the address, as Help Desk does, and reads the team's incidents from Help Desk's database for that team.
+tenant_from("localhost")
+db.open("../data/{tenant}.db")   // its paths count from its own folder: Help Desk's data/ is one up
+
+view Frame(title: str, children) =
+    <html lang="en">
+        <head><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/></head>
+        <body><main>{children}</main></body>
+    </html>
+
+// Every incident, the open ones first, each a link to its own page, written as this program sees it: Quillo
+// puts /status in front.
+route GET / with db {
+    let all = db.query("select * from incidents order by status = 'resolved', id desc")
+    <Frame title="Status">
+        <h1>Status</h1>
+        {len(all) == 0 ? <p>All systems working.</p> :
+            <ul>{for i in all =>
+                <li><a href={`/incidents/${i.id}`}>{i.title}</a> <span.meta>· {i.status}</span></li>}</ul>}
+    </Frame>
+}
+
+// One incident.
+route GET /incidents/:id(int) with db {
+    let i = db.one("select * from incidents where id = ?", id) ?? reply 404 "No such incident"
+    <Frame title={i.title}>
+        <p.meta><a href="/">Status</a></p>
+        <h1>{i.title}</h1>
+        <p>{i.status == "resolved" ? "Resolved." : "We're looking into it."} Reported {i.created_at} UTC.</p>
+    </Frame>
+}
+
+route GET /static/*path = files("public", path)   // its own copy of the style

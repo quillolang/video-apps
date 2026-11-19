@@ -1,0 +1,44 @@
+// Every address Help Desk answers, and what each should answer. Quillo has no test runner: a script is one.
+// Run it before every change, with the program running (./run.sh --watch), in a second terminal:
+//   .quillo/bin/quillo run check.qwe      (on Windows: .\.quillo\bin\quillo.exe run check.qwe)
+let SITE = "http://acme.localhost:8080"
+
+// Each check: a method and a path (and a body to send), the status it should answer, for a redirect where it should
+// send you, and for the API the type of its answer.
+let CHECKS = [
+    { path: "/help", want: 200 },
+    { path: "/help/reset-your-password", want: 200 },
+    { path: "/help/no-such-article", want: 404 },
+    { path: "/help/1", want: 301, to: "/help/reset-your-password" },
+    { path: "/tickets/2", want: 308, to: "/desk/tickets/2" },
+    { path: "/kb/article.php?id=12", want: 301, to: "/help/reset-your-password" },
+    { path: "/desk", want: 303, to: "/sign-in?next=%2Fdesk" },
+    { path: "/status", want: 200 },
+    { path: "/changelog", want: 200 },
+    { path: "/feed.xml", want: 200 },
+    { path: "/feed.xml", method: "DELETE", want: 405 },
+    // The API, for the apps: its answers, and always JSON. These change nothing: an empty ticket is refused.
+    { path: "/api/v1/articles", want: 200, type: "application/json" },
+    { path: "/api/v1/tickets", method: "POST", body: {}, want: 400, type: "application/json" },
+    { path: "/api/v1/no-such-thing", want: 404, type: "application/json" },
+    { path: "/api/v1/tickets", method: "OPTIONS", want: 204 },
+    { path: "/api/v2/articles", want: 200, type: "application/json" },
+]
+
+// Ask each address, without following redirects, and compare.
+let results = CHECKS | map((c) => {
+    let method = c.method ?? "GET"
+    let r = http.request(method, SITE + c.path, c.body, {}, { redirects: 0, public_only: false })
+    if is_err(r) { return { ok: false, line: `${method} ${c.path}: ${r.error}` } }
+    let to = r.headers.location
+    let type = split(r.headers["content-type"] ?? "", ";")[0]
+    let ok = r.status == c.want && (c.to == null || to == c.to) && (c.type == null || type == c.type)
+    let got = `${r.status}${to == null ? "" : ` ${to}`}${c.type == null ? "" : ` ${type}`}`
+    let wanted = `${c.want}${c.to == null ? "" : ` ${c.to}`}${c.type == null ? "" : ` ${c.type}`}`
+    { ok, line: ok ? `${method} ${c.path} -> ${got}` : `${method} ${c.path} -> ${got}   (want ${wanted})` }
+})
+
+for r in results { print(`${r.ok ? "ok  " : "FAIL"}  ${r.line}`) }
+let failed = len(results | filter((r) => !r.ok))
+print(failed == 0 ? `All ${len(results)} addresses answer as they should.` : `${failed} of ${len(results)} failed.`)
+exit(failed == 0 ? 0 : 1)
