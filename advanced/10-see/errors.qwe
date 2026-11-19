@@ -1,0 +1,6 @@
+// How many requests the running Help Desk answered with a server error (5xx), from its metrics:
+//   .quillo/bin/quillo run errors.qwe      (on Windows: .\.quillo\bin\quillo.exe run errors.qwe)
+// The app runs with --metrics. This asks this computer, on purpose.
+let r = http.get(`http://localhost:${env("PORT", "8080")}/_quillo/metrics`, {}, { public_only: false })?
+let line = split(r.body, "\n") | find((l) => starts_with(l, "quillo_requests_total{status=\"5xx\"}"))
+print(line == null ? "start the app with --metrics" : `server errors so far: ${trim(split(line, "}")[1])}`)

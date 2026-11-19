@@ -1,0 +1,182 @@
+// Help Desk: one app, many teams, each with a database of its own.
+tenant_from("localhost")      // acme.localhost is the team "acme"
+db.open("data/{tenant}.db")   // a SQLite file per team
+db.migrate("migrations")      // run for each team's database when it's made
+
+use "lib/tickets.qwe"
+use "lib/settings.qwe"
+use "lib/viewers.qwe"
+use "lib/replies.qwe"
+use "lib/activity.qwe"
+use "ui/page.qwe"
+use "ui/you.qwe"
+use "ui/viewers.qwe"
+use "ui/tickets.qwe"
+use "ui/replies.qwe"
+use "ui/feed.qwe"
+service mailer = "mailer.qwe"    // the mail service, mailer.qwe: in the same process, or its own with --split
+service reports = "reports.qwe"  // the reports service: each team's tickets, day by day
+
+// The bare address, with no team: a page to start one.
+route GET / ? { taken: str = "" } {
+    if tenant() != null {
+        if !db.tenant_exists(tenant()) { reply 404 "No such team" }
+        return team_home()
+    }
+    <Page title="Help Desk">
+        <h1>Help Desk</h1>
+        <p>A help desk for your team, with a database of its own.</p>
+        {taken != "" && <p.problem>"{taken}" is taken. Try another name.</p>}
+        <form method="post" action="/teams">
+            <input name="name" placeholder="your team's name: acme" pattern="[a-z0-9][a-z0-9_]*" required/>
+            <button>Start a team</button>
+        </form>
+    </Page>
+}
+
+// Starting a team makes its database, migrated, in one step: a name that's taken is refused.
+route POST /teams { form: { name: str } } {
+    let made = new_tenant(name, () => rename_team(name))
+    if is_err(made) { reply 303 redirect(`/?taken=${url_encode(name)}`) }
+    redirect(`http://${name}.${request.headers.host}/`)
+}
+
+// A team's home: a form to add a ticket, and the tickets, live.
+fn team_home() with db, random {
+    <Page title={`${tenant()} · Help Desk`}>
+        <h1>{display_name()}</h1>
+        <p.meta>
+            <a href="/settings">Settings</a> · <a href="/emails">Emails</a> · <a href="/reports">Reports</a>
+        </p>
+        <You/>
+        <Online/>
+        <form method="post" action="/tickets" idempotent>
+            <input name="title" placeholder="What's wrong?" required/>
+            <button>Add ticket</button>
+        </form>
+        <Feed/>
+        <TicketList/>
+    </Page>
+}
+
+// A new ticket runs once per form: the form carries a key, and the same form sent again gets the first answer.
+// Its email is a call made later: kept in the team's database with the ticket, in the same transaction, and made
+// in the background until the mail service takes it, even after a restart.
+route POST /tickets { form: { title: str } } with db, http, time = idempotent(() => {
+    db.transaction(() => {
+        let t = add_ticket(title)?
+        note(`added a ticket: ${trim(title)}`)?
+        let link = `http://${request.headers.host}/tickets/${t.last_id}`
+        let call = mailer.later.email(`${tenant()}@example.com`, `New ticket: ${trim(title)}`,
+            `Open it: ${link}`)
+        db.exec("update tickets set email_call = ? where id = ?", call, t.last_id)
+        reports.later.ticket_added(tenant(), date.today())
+    })?
+    redirect("/")
+})
+
+// Your name, for this team.
+route POST /name { form: { name: str } } {
+    set_session({ name: trim(name) })
+    redirect("/")
+}
+
+// How long ago a time was, in words: "just now", "5 minutes ago", "3 hours ago", "2 days ago".
+fn ago(when: str) -> str with time {
+    let mins = int((now() - date.ms(when)) / 60000)
+    if mins < 1 { return "just now" }
+    if mins < 60 { return `${mins} minutes ago` }
+    if mins < 60 * 24 { return `${int(mins / 60)} hours ago` }
+    `${int(mins / (60 * 24))} days ago`
+}
+
+// A ticket's own page, with who else is looking at it, and its replies.
+route GET /tickets/:id(int) with db, time {
+    let t = ticket(id) ?? reply 404 "No such ticket"
+    // What became of its email: waiting (with its tries so far), done, or failed; null once it's a day old.
+    let email = t.email_call == null ? null : later.status(t.email_call)
+    // Its last reply: who wrote it, and how long ago.
+    let last = db.one("select author, created_at from replies where ticket_id = ? order by id desc limit 1", id)
+    <Page title={t.title}>
+        <p.meta><a href="/">{display_name()}</a> · <a href={`/tickets/${id}/edit`}>Edit</a></p>
+        <h1>{t.title}</h1>
+        <p.meta>#{t.id} · {t.status}{t.tags != "" ? ` · ${t.tags}` : ""}</p>
+        <p.meta>Last reply: {last == null ? "none yet" : `${last.author}, ${ago(last.created_at)}`}</p>
+        {email != null && <p.meta>Email: {email.state}{email.tries != null ? `, ${email.tries} tries` : ""}</p>}
+        <Viewers ticket={id}/>
+        <Replies ticket={id}/>
+    </Page>
+}
+
+// A ticket's edit page: its title, status and tags, as they are now.
+fn edit_page(t: map, message: str) with db =
+    <Page title={`Edit: ${t.title}`}>
+        <p.meta><a href={`/tickets/${t.id}`}>#{t.id}</a></p>
+        <h1>Edit the ticket</h1>
+        {message != "" && <p.problem>{message}</p>}
+        <form.edit method="post" action={`/tickets/${t.id}/edit`}>
+            <input type="hidden" name="version" value={str(t.version)}/>
+            <input name="title" value={t.title} aria-label="Title" required/>
+            <select name="status" aria-label="Status">
+                <option selected={t.status == "open"}>open</option>
+                <option selected={t.status == "closed"}>closed</option>
+            </select>
+            <input name="tags" value={t.tags} placeholder="Tags, with commas" aria-label="Tags"/>
+            <button>Save</button>
+        </form>
+    </Page>
+
+route GET /tickets/:id(int)/edit with db {
+    let t = ticket(id) ?? reply 404 "No such ticket"
+    edit_page(t, "")
+}
+
+route POST /tickets/:id(int)/edit { form: { version: int, title: str, status: str, tags: str } } with db {
+    let saved = save_ticket(id, version, title, status, tags)?
+    if saved.changes == 0 {
+        // Someone saved it first. Keep what they saved, and add this form's tags to the ticket's.
+        let t = ticket(id) ?? reply 404 "No such ticket"
+        save_ticket(id, t.version, t.title, t.status, merge_tags(t.tags, tags))?
+        let now = ticket(id) ?? reply 404 "No such ticket"
+        return edit_page(now, "Someone else saved this ticket first: theirs is kept, and your tags are added.")
+    }
+    redirect(`/tickets/${id}`)
+}
+
+route GET /settings with db =
+    <Page title="Settings">
+        <h1>Settings</h1>
+        <form method="post" action="/settings">
+            <input name="name" value={display_name()} aria-label="Team name" required/>
+            <button>Save</button>
+        </form>
+        <p><a href="/">Back</a></p>
+    </Page>
+
+route POST /settings { form: { name: str } } with db {
+    rename_team(name)?
+    redirect("/")
+}
+
+// The team's emails, as the mail service has them.
+route GET /emails with db, http {
+    let sent = mailer.sent_to(`${tenant()}@example.com`)
+    <Page title="Emails">
+        <p.meta><a href="/">{display_name()}</a></p>
+        <h1>Emails sent</h1>
+        {len(sent) == 0 ? <p>None yet.</p> : <ul>{for e in sent =>
+            <li>{e.subject}<br/><small>{e.body}</small></li>}</ul>}
+    </Page>
+}
+
+// The team's tickets, day by day, as the reports service counted them.
+route GET /reports with db, http {
+    let days = reports.by_day(tenant())
+    <Page title="Reports">
+        <p.meta><a href="/">{display_name()}</a></p>
+        <h1>Tickets by day</h1>
+        {len(days) == 0 ? <p>None yet.</p> : <ul>{for d in days => <li>{d.day}: {d.tickets}</li>}</ul>}
+    </Page>
+}
+
+route GET /static/*path = files("public", path)
