@@ -1,0 +1,34 @@
+// The to-do list, in Quillo.
+
+component Todos() {
+    state id = 3
+    state draft = ""
+    state todos = [
+        { id: 0, text: "Learn HTML" },
+        { id: 1, text: "Learn JavaScript" },
+        { id: 2, text: "Learn Quillo" }
+    ]
+    let add = () => {
+        todos = todos | push({ id, text: draft })
+        id += 1
+        draft = ""
+    }
+    let remove = (todo) => {
+        todos = filter(todos, (t) => t != todo)
+    }
+    <div>
+        <form onsubmit={add}>
+            <input value={draft} required
+                   placeholder="new todo"/>
+            <button>Add Todo</button>
+        </form>
+        <ul>{for t in todos => <li key={t.id}>
+            {t.text}
+            <button onclick={() => remove(t)}>
+                X
+            </button>
+        </li>}</ul>
+    </div>
+}
+
+route GET / = <html><body><Todos/></body></html>

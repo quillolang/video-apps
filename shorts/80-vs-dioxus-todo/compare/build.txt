@@ -1,0 +1,16 @@
+Thu Nov 19 17:04:19 +08 2026
+exit 0
+^D  0.01s  INFO Building project...
+  2.99s  INFO Compiled [168/175]: dioxus_cli_config
+  3.37s  INFO Compiled [169/175]: dioxus_devtools
+  4.29s  INFO Compiled [170/175]: manganis_core
+  4.38s  INFO Compiled [171/175]: manganis
+  4.44s  INFO Compiled [172/175]: dioxus_logger
+  4.56s  INFO Compiled [173/175]: dioxus
+  5.24s  INFO Compiled [174/175]: dioxus_web
+ 13.09s  INFO Compiled [175/175]: todo
+ 13.12s  INFO Bundling app...
+ 13.15s  INFO Running wasm-bindgen...
+ 16.23s  INFO Copying asset (1/2): <scratch>/target67/dx/todo/release/web/public/wasm/todo_bg.wasm
+ 16.61s  INFO Copying asset (2/2): <scratch>/target67/dx/todo/release/web/public/wasm/todo.js
+ 16.62s  INFO Client build completed successfully! 🚀 path="<scratch>/target67/dx/todo/release/web/public"

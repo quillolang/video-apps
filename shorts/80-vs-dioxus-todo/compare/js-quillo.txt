@@ -1,0 +1,9 @@
+  the list: Learn HTML, Learn JavaScript, Learn Quillo, Make a Short
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   3946     1783        
+  load  / (inline <script>)                     inline     1317     753         JS
+  load  / (inline <script>)                     inline     1982     1047        JS
+  load  /_quillo/b/53673cc2e78193e7.js          script     2082     894         JS
+  load  /_quillo/r/beceefbfb002660e.js          script     144388   40120       JS
+  JavaScript: 4 pieces, 149769 B raw, 42814 B gzip -9 (41.8 KiB)
+  everything (each response once): 3 responses, 150416 B raw, 42797 B gzip -9

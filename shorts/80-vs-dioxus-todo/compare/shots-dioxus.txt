@@ -1,0 +1,7 @@
+  assets/d0.png: Learn HTML, Learn JavaScript, Learn Dioxus
+  assets/d1.png: Learn HTML, Learn JavaScript, Learn Dioxus
+  assets/d2.png: Learn HTML, Learn JavaScript, Learn Dioxus, Make a Short
+  assets/d3.png: Learn JavaScript, Learn Dioxus, Make a Short
+  JavaScript: 45296 B raw, 11352 B gzip -9
+  WebAssembly: 648730 B raw, 215704 B gzip -9
+  both: 227.1 KB gzip -9
