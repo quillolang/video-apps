@@ -1,0 +1,15 @@
+## GET /
+HTTP/1.1 200 OK
+content-type: text/plain; charset=utf-8
+Hello, World!
+
+## POST /users {"username": "ada"}
+HTTP/1.1 201 Created
+content-type: application/json
+{"id":1337,"username":"ada"}
+
+## POST /users {"user": "ada"}
+HTTP/1.1 422 Unprocessable Entity
+content-type: text/plain; charset=utf-8
+Failed to deserialize the JSON body into the target type: missing field `username` at line 1 column 15
+

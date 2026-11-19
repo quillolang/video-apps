@@ -1,0 +1,8 @@
+// Axum's README example, in Quillo.
+type CreateUser = { username: str }
+type User = { id: int, username: str }
+
+route GET / = "Hello, World!"
+
+route POST /users { json: CreateUser } =
+    respond(201, User({ id: 1337, ...json }))

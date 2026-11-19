@@ -1,0 +1,29 @@
+Thu Nov 19 17:21:28 +08 2026
+   Compiling syn v3.0.10
+   Compiling bytes v1.12.1
+   Compiling serde_core v1.0.229
+   Compiling smallvec v1.16.5
+   Compiling parking_lot_core v0.9.12
+   Compiling http v1.5.0
+   Compiling tokio-macros v2.7.2
+   Compiling http-body v1.1.0
+   Compiling parking_lot v0.12.5
+   Compiling tokio v1.54.1
+   Compiling serde v1.0.229
+   Compiling tracing v0.1.44
+   Compiling serde_derive v1.0.229
+   Compiling slab v0.4.12
+   Compiling futures-task v0.3.34
+   Compiling hyper v1.12.0
+   Compiling futures-util v0.3.34
+   Compiling http-body-util v0.1.5
+   Compiling axum-core v0.5.6
+   Compiling serde_urlencoded v0.7.1
+   Compiling serde_json v1.0.154
+   Compiling tower v0.5.3
+   Compiling hyper-util v0.1.21
+   Compiling serde_path_to_error v0.1.20
+   Compiling axum v0.8.9
+   Compiling users v0.1.0 (/Users/you/dev/quillo-videos/shorts/65-vs-axum-json/compare/axum)
+    Finished `release` profile [optimized] target(s) in 52.09s
+exit 0
