@@ -1,0 +1,28 @@
+// The Bank: its accounts, and taking money out. The table keeps the rule: no balance below zero.
+db.open("bank.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+let ACCOUNTS = sql`
+    select * from accounts`
+
+fn bank_page(message: str) with db =
+    <Table title="The Bank" sql={ACCOUNTS} rows={db.query(ACCOUNTS)}>
+        <form method="post" action="/withdraw">
+            <input name="id" placeholder="Account"/>
+            <input name="cents" placeholder="Cents"/>
+            <button>Take out</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET / with db = bank_page("")
+
+route POST /withdraw { form: { id: int, cents: int } } with db {
+    let r = db.exec("update accounts set balance_cents = balance_cents - ? where id = ?", cents, id)
+    if db.error_kind(r) == "check" { return bank_page("Not enough money in that account.") }
+    r?
+    redirect("/")
+}
+
+route GET /static/*path = files("public", path)

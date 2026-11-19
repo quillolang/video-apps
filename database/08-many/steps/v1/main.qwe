@@ -1,0 +1,64 @@
+// The School: its database, and a page for each question we ask it.
+db.open("school.db")
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every student", sql`
+    select * from students`)
+
+route GET /year-7 with db = answer("Year 7, by name", sql`
+    select name, birthday
+    from students
+    where year_level = 7
+    order by name`)
+
+route GET /youngest with db = answer("The youngest", sql`
+    select name, birthday
+    from students
+    order by birthday desc
+    limit 1`)
+
+// The students in one year: the year comes from the address, as an int, and goes in as a value.
+let IN_YEAR = sql`
+    select name, birthday
+    from students
+    where year_level = :year
+    order by name`
+
+route GET /year ? { year: int = 7 } with db =
+    <Table title={`Year ${year}`} sql={IN_YEAR} rows={db.query(IN_YEAR, { year })}>
+        <form><input name="year" type="number" value={str(year)}/><button>Show</button></form>
+    </Table>
+
+// Who takes which class: each row of the table in between, with its class's name and its student's.
+let WHO_TAKES_WHAT = sql`
+    select classes.name as class, students.name as student
+    from enrollments
+    join classes on classes.id = enrollments.class_id
+    join students on students.id = enrollments.student_id
+    order by classes.name, students.name`
+
+route GET /classes with db = answer("Who takes what", WHO_TAKES_WHAT)
+
+// Enroll a student in a class, by their ids: one more row in the table in between.
+fn enroll_page(message: str) with db =
+    <Table title="Enroll a student" sql={WHO_TAKES_WHAT} rows={db.query(WHO_TAKES_WHAT)}>
+        <form method="post" action="/enroll">
+            <input name="student_id" placeholder="Student's id"/>
+            <input name="class_id" placeholder="Class's id"/>
+            <button>Enroll</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /enroll with db = enroll_page("")
+
+route POST /enroll { form: { student_id: int, class_id: int } } with db {
+    db.exec("insert into enrollments (student_id, class_id) values (?, ?)", student_id, class_id)?
+    redirect("/enroll")
+}
+
+route GET /static/*path = files("public", path)
