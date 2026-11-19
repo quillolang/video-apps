@@ -1,0 +1,22 @@
+// Trail Club's home page: the trails, and a like button that counts on the server.
+let likes = 0
+
+// Headers for every page: a policy for what the page may load and run, and where its links say they came from.
+site_headers({ "content-security-policy": "default-src 'self'", "referrer-policy": "same-origin" })
+
+server fn total() -> int = likes
+server fn like() -> int {
+    likes += 1
+    likes
+}
+
+component Like() {
+    state n = total()
+    <button onclick={() => { n = like() }}>♥ {n}</button>
+}
+
+route GET / = <html><head><title>Trail Club</title></head><body>
+    <h1>Trail Club</h1>
+    <p>Coastal Path · Fern Gully · Ridge Loop</p>
+    <Like/>
+</body></html>

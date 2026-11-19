@@ -1,0 +1,5 @@
+helmet-file
+  security headers  12: content-security-policy, strict-transport-security, x-frame-options, x-content-type-options, referrer-policy, cross-origin-opener-policy, cross-origin-resource-policy, origin-agent-cluster, x-dns-prefetch-control, x-download-options, x-permitted-cross-domain-policies, x-xss-protection
+  says who it is    nothing
+  framed by another site  refused
+  the like button   ♥ 0 -> ♥ 2

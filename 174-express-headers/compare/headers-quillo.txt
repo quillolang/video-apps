@@ -1,0 +1,5 @@
+quillo
+  security headers  4: content-security-policy, x-frame-options, x-content-type-options, referrer-policy
+  says who it is    server: Quillo
+  framed by another site  refused
+  the like button   ♥ 0 -> ♥ 2

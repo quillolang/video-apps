@@ -1,0 +1,19 @@
+// Trail Club's home page: the trails, and a like button that counts on the server.
+let likes = 0
+
+server fn total() -> int = likes
+server fn like() -> int {
+    likes += 1
+    likes
+}
+
+component Like() {
+    state n = total()
+    <button onclick={() => { n = like() }}>♥ {n}</button>
+}
+
+route GET / = <html><head><title>Trail Club</title></head><body>
+    <h1>Trail Club</h1>
+    <p>Coastal Path · Fern Gully · Ridge Loop</p>
+    <Like/>
+</body></html>
