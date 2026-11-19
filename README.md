@@ -196,6 +196,7 @@ Quillo: https://quillolang.org
 | [80-vs-dioxus-todo](shorts/80-vs-dioxus-todo) | Dioxus vs Quillo: a to-do list in Rust and WebAssembly, or one file? | The to-do list from Vue's tutorial, in Quillo: two states and an id, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Dioxus, client-side in WebAssembly. |
 | [81-vs-angular-form](shorts/81-vs-angular-form) | A form that checks as you type: Angular reactive forms vs Quillo | A sign-up form that checks as you type, in Quillo: plain states, two lets that check them, a note and a button that read them. The Short sets it next to Angular's reactive forms. |
 | [82-vs-leptos-todo](shorts/82-vs-leptos-todo) | Leptos vs Quillo: a to-do list in Rust and WebAssembly, or one file? | The to-do list from Vue's tutorial, in Quillo: two states and an id, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Leptos, client-side in WebAssembly. |
+| [83-live-clock](shorts/83-live-clock) | A live clock the server ticks: events() and listen() \| Quillo | A live clock the server keeps: GET /clock answers with events(f), Server-Sent Events, sending the time every second for an hour; the page's Clock component listen()s to it and shows each one. curl -N prints the events as they come, and when a tab closes, its stream ends at the next send. |
 
 ## Learn to Code with Quillo (the course)
 

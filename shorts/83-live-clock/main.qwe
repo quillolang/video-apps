@@ -1,0 +1,20 @@
+// The server's clock: the time, every second.
+
+route GET /clock = events((send) => {
+    for s in range(3600) {
+        let now = date.now()
+        send(date.format(now, "HH:mm:ss"))
+        sleep(1000)
+    }
+})
+
+component Clock() {
+    state time = "--:--:--"
+    listen("/clock", (t) => { time = t })
+    <h1>{time} UTC</h1>
+}
+
+route GET / =
+    <html><body style="font: 32px system-ui">
+        <Clock/>
+    </body></html>
