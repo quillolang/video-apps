@@ -1,0 +1,6 @@
+  the page says: 2 1 doubled is 2
+  js   counter-dxh79e2a3f5a5b79b.js                    57387 B     13670 B gzip -9
+  wasm counter_bg-dxh53cbbc74dfd9791e.wasm           1963845 B    476123 B gzip -9
+  JavaScript: 1 pieces, 57387 B raw, 13670 B gzip -9
+  WebAssembly: 1 pieces, 1963845 B raw, 476123 B gzip -9
+  both: 489.8 KB gzip -9

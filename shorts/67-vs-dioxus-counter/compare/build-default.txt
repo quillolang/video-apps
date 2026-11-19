@@ -1,0 +1,171 @@
+Thu Nov 19 16:40:08 +08 2026
+exit 0
+^D  0.01s  INFO Building project...
+warning: Waiting for cargo-metadata...
+warning: (Try 1) Taking a while...
+warning: (Try 2) Taking a while...
+  7.28s  INFO Installing wasm-bindgen-cli@0.2.130...
+  9.19s  INFO wasm-bindgen-cli@0.2.130 was successfully installed from GitHub.
+  9.19s  INFO Installing esbuild v0.27.3 from https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.27.3.tgz...
+  9.43s  INFO esbuild v0.27.3 installed successfully
+ 12.74s  INFO Compiled [  1/175]: unicode_ident
+ 13.15s  INFO Compiled [  2/175]: build-script-build
+ 13.15s  INFO Compiled [  3/175]: build-script-build
+ 14.33s  INFO Compiled [  6/175]: build-script-build
+ 14.73s  INFO Compiled [  7/175]: build-script-build
+ 14.99s  INFO Compiled [  8/175]: proc_macro2
+ 15.09s  INFO Compiled [  9/175]: quote
+ 22.39s  INFO Compiled [ 10/175]: syn
+ 22.50s  INFO Compiled [ 11/175]: syn
+ 22.59s  INFO Compiled [ 12/175]: cfg_if
+ 23.64s  INFO Compiled [ 15/175]: wasm_bindgen_shared
+ 23.67s  INFO Compiled [ 16/175]: rustversion
+ 23.98s  INFO Compiled [ 18/175]: bumpalo
+ 24.41s  INFO Compiled [ 19/175]: build-script-build
+ 24.62s  INFO Compiled [ 20/175]: unicode_ident
+ 25.42s  INFO Compiled [ 21/175]: wasm_bindgen_shared
+ 25.93s  INFO Compiled [ 23/175]: pin_project_lite
+ 30.52s  INFO Compiled [ 24/175]: serde_derive
+ 30.71s  INFO Compiled [ 25/175]: futures_core
+ 31.05s  INFO Compiled [ 26/175]: build-script-build
+ 32.09s  INFO Compiled [ 27/175]: memchr
+ 33.13s  INFO Compiled [ 29/175]: wasm_bindgen_macro_support
+ 33.50s  INFO Compiled [ 30/175]: futures_macro
+ 33.56s  INFO Compiled [ 31/175]: wasm_bindgen_macro
+ 33.71s  INFO Compiled [ 32/175]: futures_task
+ 33.92s  INFO Compiled [ 33/175]: slab
+ 33.99s  INFO Compiled [ 34/175]: futures_sink
+ 34.22s  INFO Compiled [ 35/175]: futures_io
+ 36.73s  INFO Compiled [ 36/175]: wasm_bindgen
+ 38.83s  INFO Compiled [ 37/175]: futures_util
+ 39.02s  INFO Compiled [ 38/175]: build-script-build
+ 42.57s  INFO Compiled [ 40/175]: serde_core
+ 42.99s  INFO Compiled [ 41/175]: version_check
+ 43.95s  INFO Compiled [ 42/175]: serde
+ 44.11s  INFO Compiled [ 43/175]: once_cell
+ 44.75s  INFO Compiled [ 44/175]: tracing_core
+ 52.73s  INFO Compiled [ 45/175]: tracing_attributes
+ 53.36s  INFO Compiled [ 46/175]: tracing
+ 53.66s  INFO Compiled [ 47/175]: build-script-build
+ 55.13s  INFO Compiled [ 49/175]: thiserror_impl
+ 55.34s  INFO Compiled [ 50/175]: build-script-build
+ 56.19s  INFO Compiled [ 52/175]: thiserror
+ 56.27s  INFO Compiled [ 53/175]: wasm_bindgen_futures
+ 66.82s  INFO Compiled [ 54/175]: js_sys
+ 67.11s  INFO Compiled [ 55/175]: smallvec
+ 67.22s  INFO Compiled [ 56/175]: scopeguard
+ 67.44s  INFO Compiled [ 57/175]: lock_api
+ 67.67s  INFO Compiled [ 58/175]: parking_lot_core
+ 67.90s  INFO Compiled [ 59/175]: build-script-build
+ 68.11s  INFO Compiled [ 60/175]: dioxus_core_types
+ 68.43s  INFO Compiled [ 61/175]: build-script-build
+ 68.68s  INFO Compiled [ 62/175]: konst_macro_rules
+ 68.80s  INFO Compiled [ 63/175]: unicode_xid
+ 69.85s  INFO Compiled [ 64/175]: const_format_proc_macros
+ 70.22s  INFO Compiled [ 65/175]: konst
+ 72.23s  INFO Compiled [ 68/175]: parking_lot
+ 72.31s  INFO Compiled [ 69/175]: subsecond_types
+ 72.42s  INFO Compiled [ 70/175]: futures_channel
+ 72.47s  INFO Compiled [ 71/175]: rustc_hash
+ 72.71s  INFO Compiled [ 72/175]: generational_box
+ 73.09s  INFO Compiled [ 73/175]: slotmap
+ 73.44s  INFO Compiled [ 74/175]: anyhow
+ 74.31s  INFO Compiled [ 75/175]: const_format
+ 74.53s  INFO Compiled [ 76/175]: subsecond
+ 74.58s  INFO Compiled [ 77/175]: longest_increasing_subsequence
+ 75.65s  INFO Compiled [ 78/175]: web_sys
+ 76.51s  INFO Compiled [ 79/175]: pin_project_internal
+ 76.80s  INFO Compiled [ 80/175]: lazy_js_bundle
+ 77.26s  INFO Compiled [ 81/175]: pin_project
+ 77.75s  INFO Compiled [ 82/175]: const_serialize_macro
+ 78.85s  INFO Compiled [ 83/175]: warnings_macro
+ 78.90s  INFO Compiled [ 84/175]: ident_case
+ 78.95s  INFO Compiled [ 85/175]: fnv
+ 79.34s  INFO Compiled [ 86/175]: unicode_segmentation
+ 79.73s  INFO Compiled [ 87/175]: convert_case
+ 83.34s  INFO Compiled [ 88/175]: dioxus_core
+ 83.47s  INFO Compiled [ 89/175]: darling_core
+ 83.58s  INFO Compiled [ 90/175]: build-script-build
+ 83.72s  INFO Compiled [ 91/175]: build-script-build
+ 83.77s  INFO Compiled [ 92/175]: warnings
+ 83.95s  INFO Compiled [ 93/175]: autocfg
+ 84.06s  INFO Compiled [ 94/175]: build-script-build
+ 84.18s  INFO Compiled [ 95/175]: dioxus_signals
+ 84.61s  INFO Compiled [ 97/175]: darling_macro
+ 84.82s  INFO Compiled [ 98/175]: const_serialize_macro
+ 84.96s  INFO Compiled [ 99/175]: build-script-build
+ 85.15s  INFO Compiled [100/175]: build-script-build
+ 85.34s  INFO Compiled [102/175]: proc_macro2_diagnostics
+ 86.49s  INFO Compiled [105/175]: darling
+ 87.02s  INFO Compiled [107/175]: dioxus_cli_config
+ 87.69s  INFO Compiled [108/175]: serde_core
+ 87.81s  INFO Compiled [109/175]: build-script-build
+ 92.66s  INFO Compiled [111/175]: regex_syntax
+ 93.18s  INFO Compiled [112/175]: serde
+ 94.00s  INFO Compiled [113/175]: num_traits
+ 94.96s  INFO Compiled [114/175]: enumset_derive
+ 95.18s  INFO Compiled [115/175]: zmij
+ 96.22s  INFO Compiled [116/175]: dioxus_rsx
+ 96.38s  INFO Compiled [117/175]: regex_automata
+ 96.44s  INFO Compiled [118/175]: lazy_static
+ 96.89s  INFO Compiled [119/175]: bitflags
+ 96.90s  INFO Compiled [120/175]: const_serialize
+ 97.06s  INFO Compiled [121/175]: itoa
+ 97.56s  INFO Compiled [122/175]: const_serialize
+ 98.35s  INFO Compiled [123/175]: keyboard_types
+ 98.94s  INFO Compiled [124/175]: sharded_slab
+ 99.21s  INFO Compiled [125/175]: serde_json
+100.05s  INFO Compiled [126/175]: enumset
+100.13s  INFO Compiled [127/175]: dioxus_core_macro
+100.24s  INFO Compiled [128/175]: matchers
+100.79s  INFO Compiled [129/175]: euclid
+100.99s  INFO Compiled [130/175]: dioxus_hooks
+101.05s  INFO Compiled [131/175]: dioxus_html_internal_macro
+101.18s  INFO Compiled [132/175]: build-script-build
+101.20s  INFO Compiled [133/175]: const_serialize
+101.31s  INFO Compiled [134/175]: build-script-build
+101.39s  INFO Compiled [135/175]: thread_local
+102.40s  INFO Compiled [136/175]: async_trait
+102.73s  INFO Compiled [137/175]: sledgehammer_bindgen_macro
+103.20s  INFO Compiled [138/175]: bytes
+103.28s  INFO Compiled [139/175]: rustc_hash
+103.67s  INFO Compiled [140/175]: sledgehammer_utils
+104.42s  INFO Compiled [141/175]: winnow
+105.21s  INFO Compiled [142/175]: manganis_core
+105.62s  INFO Compiled [143/175]: sledgehammer_bindgen
+105.95s  INFO Compiled [144/175]: dioxus_html
+107.17s  INFO Compiled [147/175]: const_serialize
+107.32s  INFO Compiled [148/175]: build-script-build
+107.63s  INFO Compiled [149/175]: dioxus_devtools_types
+107.89s  INFO Compiled [150/175]: macro_string
+107.94s  INFO Compiled [151/175]: dunce
+109.04s  INFO Compiled [152/175]: tracing_subscriber
+109.78s  INFO Compiled [153/175]: tracing_wasm
+109.91s  INFO Compiled [154/175]: winnow
+111.09s  INFO Compiled [155/175]: manganis_macro
+111.47s  INFO Compiled [156/175]: dioxus_devtools
+112.25s  INFO Compiled [158/175]: manganis_core
+112.87s  INFO Compiled [159/175]: dioxus_interpreter_js
+113.52s  INFO Compiled [160/175]: dioxus_stores_macro
+113.69s  INFO Compiled [161/175]: dioxus_document
+113.69s  INFO Compiled [162/175]: dioxus_history
+113.90s  INFO Compiled [163/175]: gloo_timers
+114.27s  INFO Compiled [164/175]: serde_wasm_bindgen
+114.34s  INFO Compiled [165/175]: send_wrapper
+115.30s  INFO Compiled [166/175]: wasm_streams
+115.80s  INFO Compiled [167/175]: dioxus_stores
+116.27s  INFO Compiled [168/175]: manganis
+116.36s  INFO Compiled [169/175]: dioxus_logger
+116.47s  INFO Compiled [170/175]: dioxus_asset_resolver
+116.66s  INFO Compiled [171/175]: dioxus_config_macro
+116.69s  INFO Compiled [172/175]: dioxus_config_macros
+117.24s  INFO Compiled [173/175]: dioxus
+118.17s  INFO Compiled [174/175]: dioxus_web
+118.91s  INFO Compiled [175/175]: counter
+118.94s  INFO Bundling app...
+119.00s  INFO Running wasm-bindgen...
+119.59s  INFO Installing wasm-opt
+121.06s  INFO wasm-opt installed from Github
+122.88s  INFO Copying asset (1/2): <scratch>/target67/dx/counter/release/web/public/wasm/counter_bg.wasm
+123.17s  INFO Copying asset (2/2): <scratch>/target67/dx/counter/release/web/public/wasm/counter.js
+123.18s  INFO Client build completed successfully! 🚀 path="<scratch>/target67/dx/counter/release/web/public"
