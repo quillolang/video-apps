@@ -182,6 +182,7 @@ Quillo: https://quillolang.org
 | [74-vs-angular-counter](shorts/74-vs-angular-counter) | Angular vs Quillo: signal() and computed(), or just a let? | A counter with a value that follows it, in Quillo: state and a plain let, and a route, in one file. The Short sets it next to Angular's signal() and computed(). |
 | [76-vs-solid-counter](shorts/76-vs-solid-counter) | SolidJS 2.0 vs Quillo: signals are functions, or just a let? | A counter with a value that follows it, in Quillo: state and a plain let, and a route, in one file. The Short sets it next to Solid 2.0's createSignal and a derived function. |
 | [78-vs-next-data](shorts/78-vs-next-data) | A page from a database: Next.js 16 vs Quillo, and the page that didn't update | A page from a table, in Quillo: a route that reads the trails from SQLite on each request, and the migration that makes the table. The Short sets it next to a Next.js server component, which next build prerendered. |
+| [81-vs-angular-form](shorts/81-vs-angular-form) | A form that checks as you type: Angular reactive forms vs Quillo | A sign-up form that checks as you type, in Quillo: plain states, two lets that check them, a note and a button that read them. The Short sets it next to Angular's reactive forms. |
 
 ## Learn to Code with Quillo (the course)
 

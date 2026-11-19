@@ -1,0 +1,14 @@
+@if (joined()) {
+  <p>Welcome, {{ joined() }}!</p>
+} @else {
+  <form [formGroup]="form" (ngSubmit)="join()">
+    <input formControlName="email" type="email">
+    <input formControlName="age" type="number">
+    @if (form.controls.age.hasError('min')) {
+      <p>13 or older, please</p>
+    }
+    <button [disabled]="form.invalid">
+      Join
+    </button>
+  </form>
+}

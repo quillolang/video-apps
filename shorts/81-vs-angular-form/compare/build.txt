@@ -1,0 +1,12 @@
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size | Estimated transfer size
+main-ABWDS3KQ.js    | main          | 232.71 kB |                61.84 kB
+styles-5INURTSO.css | styles        |   0 bytes |                 0 bytes
+
+                    | Initial total | 232.71 kB |                61.84 kB
+
+Application bundle generation complete. [4.370 seconds] - 2026-11-19T06:47:21.105Z
+
+Output location: /Users/you/dev/quillo-videos/shorts/81-vs-angular-form/compare/form/dist/form
+

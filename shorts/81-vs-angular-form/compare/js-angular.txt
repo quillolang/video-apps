@@ -1,0 +1,7 @@
+  the page says: Welcome, ada@example.com!
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   418      299         
+  load  /styles-5INURTSO.css                    stylesheet 0        43          
+  load  /main-ABWDS3KQ.js                       script     232712   69462       JS
+  JavaScript: 1 pieces, 232712 B raw, 69462 B gzip -9 (67.8 KiB)
+  everything (each response once): 3 responses, 233130 B raw, 69804 B gzip -9

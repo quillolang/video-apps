@@ -1,0 +1,21 @@
+// A sign-up form that checks as you type.
+
+component Join() {
+    state email = ""
+    state age = ""
+    state joined = ""
+    let young = age != "" && (int(age) ?? 0) < 13
+    let ok = re.test(email, "^[^@ ]+@[^@ ]+$")
+        && age != "" && !young
+    let join = () => { joined = email }
+    {joined != ""
+        ? <p>Welcome, {joined}!</p>
+        : <form onsubmit={join}>
+            <input value={email} type="email"/>
+            <input value={age} type="number"/>
+            {young && <p>13 or older, please</p>}
+            <button disabled={!ok}>Join</button>
+        </form>}
+}
+
+route GET / = <html><body><Join/></body></html>
