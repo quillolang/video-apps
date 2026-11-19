@@ -1,0 +1,71 @@
+/* The course's look: a page, and a table that looks like one. */
+body {
+    margin: 0;
+    padding: 24px;
+    background: #f4f1ea;
+    color: #2b2a27;
+    font: 17px/1.5 system-ui, sans-serif;
+}
+h1 {
+    margin: 0 0 16px;
+    color: #8a4b12;
+    font-size: 26px;
+}
+table {
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 8px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ece6da;
+}
+th {
+    background: #8a4b12;
+    color: white;
+    font: 600 14px/1.5 ui-monospace, Menlo, monospace;
+}
+tr:last-child td {
+    border-bottom: 0;
+}
+pre.sql {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    background: #2b2a27;
+    color: #f4d58d;
+    border-radius: 8px;
+    font: 14px/1.5 ui-monospace, Menlo, monospace;
+    white-space: pre-wrap;
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 16px;
+}
+input {
+    font: inherit;
+    padding: 6px 12px;
+    border: 1px solid #d8cfbf;
+    border-radius: 8px;
+    background: white;
+}
+button {
+    font: inherit;
+    padding: 6px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #8a4b12;
+    color: white;
+    cursor: pointer;
+}
+p.message {
+    margin: 0 0 16px;
+    padding: 8px 14px;
+    background: #fbe3d4;
+    color: #8a2c12;
+    border-radius: 8px;
+}
