@@ -1,0 +1,64 @@
+// The Bank, on PostgreSQL (DATABASE_URL, in .env): its accounts, and taking money out, never below zero.
+db.open(env("DATABASE_URL")) | unwrap
+db.migrate("migrations")
+use "ui/table.qwe"
+
+let ACCOUNTS = sql`
+    select * from accounts`
+
+fn bank_page(message: str) with db =
+    <Table title="The Bank" sql={ACCOUNTS} rows={db.query(ACCOUNTS)}>
+        <form method="post" action="/withdraw">
+            <input name="id" placeholder="Account"/>
+            <input name="cents" placeholder="Cents"/>
+            <button>Take out</button>
+        </form>
+        <form method="post" action="/transfer">
+            <input name="from" placeholder="From account"/>
+            <input name="to" placeholder="To account"/>
+            <input name="cents" placeholder="Cents"/>
+            <button>Move</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET / with db = bank_page("")
+
+route POST /withdraw { form: { id: int, cents: int } } with db {
+    let r = db.exec("update accounts set balance_cents = balance_cents - ? where id = ?", cents, id)
+    if db.error_kind(r) == "check" { return bank_page("Not enough money in that account.") }
+    r?
+    redirect("/")
+}
+
+// Money from one account to another, all or nothing: out of one and into the other in one transaction. An error
+// value from inside it rolls the whole thing back.
+route POST /transfer { form: { from: int, to: int, cents: int } } with db {
+    let moved = db.transaction(() => {
+        db.exec("update accounts set balance_cents = balance_cents - ? where id = ?", cents, from)?
+        let into = db.exec("update accounts set balance_cents = balance_cents + ? where id = ?", cents, to)?
+        if into.changes == 0 { return err("no such account") }
+        { moved: cents }
+    })
+    if db.error_kind(moved) == "check" { return bank_page("Not enough money in that account.") }
+    if is_err(moved) { return bank_page("No such account: nothing was moved.") }
+    redirect("/")
+}
+
+// An account's statement: each movement, and the balance after it. sum(...) over (...) adds up, for each row, the
+// rows up to it: a running total, with every row still there.
+let STATEMENT = sql`
+    select day, what, cents,
+        sum(cents) over (order by day, id) as balance
+    from movements
+    where account_id = :id
+    order by day, id`
+
+route GET /statement ? { id: int = 1 } with db {
+    let usd = (c) => money.format(money.from_minor(c, "USD"))
+    let rows = db.query(STATEMENT, { id }) | map((r) => { day: r.day, what: r.what, amount: usd(r.cents),
+        balance: usd(r.balance) })
+    <Table title="Statement" sql={STATEMENT} rows={rows}/>
+}
+
+route GET /static/*path = files("public", path)
