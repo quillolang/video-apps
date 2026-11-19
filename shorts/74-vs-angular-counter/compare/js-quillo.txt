@@ -1,0 +1,9 @@
+  the button says: 2
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   3540     1671        
+  load  / (inline <script>)                     inline     1317     753         JS
+  load  / (inline <script>)                     inline     1982     1048        JS
+  load  /_quillo/b/d29a08502a4c90af.js          script     848      496         JS
+  load  /_quillo/r/ec96c178b97a33f6.js          script     133239   36671       JS
+  JavaScript: 4 pieces, 137386 B raw, 38968 B gzip -9 (38.1 KiB)
+  everything (each response once): 3 responses, 137627 B raw, 38838 B gzip -9

@@ -1,0 +1,7 @@
+  the button says: 2
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   421      300         
+  load  /styles-5INURTSO.css                    stylesheet 0        43          
+  load  /main-6OCPU7DC.js                       script     190935   58246       JS
+  JavaScript: 1 pieces, 190935 B raw, 58246 B gzip -9 (56.9 KiB)
+  everything (each response once): 3 responses, 191356 B raw, 58589 B gzip -9

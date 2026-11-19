@@ -177,6 +177,7 @@ Quillo: https://quillolang.org
 | [68-vs-react-fullstack](shorts/68-vs-react-fullstack) | A to-do list that saves: React + Express + SQLite vs one Quillo file | A to-do list that saves in SQLite, in one Quillo file: three server functions beside a component that calls them, and a migration. The Short sets it next to React, Express and better-sqlite3. |
 | [70-vs-react-live](shorts/70-vs-react-live) | Live updates between tabs: React + socket.io vs Quillo's live() | A wall that every open tab sees at once, in one Quillo file: state items = live(notes) runs again whenever the notes table changes, on every page. The Short sets it next to React and socket.io. |
 | [71-vs-svelte-form](shorts/71-vs-svelte-form) | A form that checks its input: SvelteKit form actions vs a typed Quillo route | A sign-up form that checks the age, in Quillo: a route whose pattern { form: { email: str, age: int } } makes age an int, and a route for anything else. The Short sets it next to a SvelteKit form action. |
+| [74-vs-angular-counter](shorts/74-vs-angular-counter) | Angular vs Quillo: signal() and computed(), or just a let? | A counter with a value that follows it, in Quillo: state and a plain let, and a route, in one file. The Short sets it next to Angular's signal() and computed(). |
 
 ## Learn to Code with Quillo (the course)
 

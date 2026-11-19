@@ -1,0 +1,14 @@
+// The Angular counter, in Quillo.
+
+component Counter() {
+    state count = 0
+    let doubled = count * 2
+    <div>
+        <button onclick={() => { count += 1 }}>
+            {doubled}
+        </button>
+        <p>{count} doubled is {doubled}</p>
+    </div>
+}
+
+route GET / = <html><body><Counter/></body></html>
