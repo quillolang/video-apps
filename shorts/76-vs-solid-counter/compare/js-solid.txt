@@ -1,0 +1,6 @@
+  the button says: 2
+  when  what                                    type       raw B    gzip -9 B   JS?
+  load  /                                       document   303      250         
+  load  /assets/virtual_solid-ssr-entry-client-CuB-mLFF.jsscript     33810    13762       JS
+  JavaScript: 1 pieces, 33810 B raw, 13762 B gzip -9 (13.4 KiB)
+  everything (each response once): 2 responses, 34113 B raw, 14012 B gzip -9
