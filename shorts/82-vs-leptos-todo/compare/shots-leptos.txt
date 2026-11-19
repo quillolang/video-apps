@@ -1,0 +1,7 @@
+  assets/l0.png: Learn HTML, Learn JavaScript, Learn Leptos
+  assets/l1.png: Learn HTML, Learn JavaScript, Learn Leptos
+  assets/l2.png: Learn HTML, Learn JavaScript, Learn Leptos, Make a Short
+  assets/l3.png: Learn JavaScript, Learn Leptos, Make a Short
+  JavaScript: 31441 B raw, 6443 B gzip -9
+  WebAssembly: 108052 B raw, 44759 B gzip -9
+  both: 51.2 KB gzip -9

@@ -190,6 +190,7 @@ Quillo: https://quillolang.org
 | [79-vs-rust-wasm](shorts/79-vs-rust-wasm) | What a Rust counter downloads: Leptos, Yew, Sycamore, Dioxus and Quillo, measured | The counter the Short weighs against four Rust front ends, in Quillo: state, a let that follows it, and a route. compare/downloads.mjs builds and measures all five the same way. |
 | [80-vs-dioxus-todo](shorts/80-vs-dioxus-todo) | Dioxus vs Quillo: a to-do list in Rust and WebAssembly, or one file? | The to-do list from Vue's tutorial, in Quillo: two states and an id, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Dioxus, client-side in WebAssembly. |
 | [81-vs-angular-form](shorts/81-vs-angular-form) | A form that checks as you type: Angular reactive forms vs Quillo | A sign-up form that checks as you type, in Quillo: plain states, two lets that check them, a note and a button that read them. The Short sets it next to Angular's reactive forms. |
+| [82-vs-leptos-todo](shorts/82-vs-leptos-todo) | Leptos vs Quillo: a to-do list in Rust and WebAssembly, or one file? | The to-do list from Vue's tutorial, in Quillo: two states and an id, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Leptos, client-side in WebAssembly. |
 
 ## Learn to Code with Quillo (the course)
 

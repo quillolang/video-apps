@@ -1,0 +1,9 @@
+Thu Nov 19 17:02:23 +08 2026
+2026-11-19T09:02:23.596108Z  INFO 🚀 Starting trunk 0.22.2
+2026-11-19T09:02:23.923760Z  INFO 📦 starting build
+2026-11-19T09:02:23.925163Z  INFO node packages []
+   Compiling todo v0.1.0 (/Users/you/dev/quillo-videos/shorts/82-vs-leptos-todo/compare/todo)
+    Finished `release` profile [optimized] target(s) in 11.59s
+2026-11-19T09:02:36.883375Z  INFO applying new distribution
+2026-11-19T09:02:36.892133Z  INFO ✅ success
+exit 0
