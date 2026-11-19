@@ -1,0 +1,7 @@
+// A JSON API that reads a table, from SQLite.
+
+db.open("trails.db")
+db.migrate("migrations")
+
+route GET /api/trails with db =
+    db.query("select * from trails order by name")

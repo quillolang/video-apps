@@ -1,0 +1,10 @@
+## GET /api/trails
+HTTP/1.1 200 OK
+content-type: application/json
+[{"id":1,"name":"Coastal Path","km":12.5},{"id":2,"name":"Fern Gully","km":4.2},{"id":3,"name":"Ridge Loop","km":8.0}]
+
+## the table dropped, GET /api/trails again
+HTTP/1.1 500 Internal Server Error
+content-type: application/json
+{"error":"internal error"}
+
