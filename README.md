@@ -175,6 +175,7 @@ Quillo: https://quillolang.org
 | [64-vs-svelte-counter](shorts/64-vs-svelte-counter) | Svelte 5 vs Quillo: $derived, or just a let? | The counter from Svelte's $derived docs, in Quillo: a count, a let that follows it, and a route, in one file. The Short sets it next to Svelte 5 and SvelteKit. |
 | [66-vs-vue-todo](shorts/66-vs-vue-todo) | Vue vs Quillo: the to-do list from Vue's tutorial, without v-model | The to-do list from Vue's tutorial, in Quillo: two states, a form with its own onsubmit, value={draft} two-way by itself, and a for in the markup. The Short sets it next to Vue 3 and Vite. |
 | [68-vs-react-fullstack](shorts/68-vs-react-fullstack) | A to-do list that saves: React + Express + SQLite vs one Quillo file | A to-do list that saves in SQLite, in one Quillo file: three server functions beside a component that calls them, and a migration. The Short sets it next to React, Express and better-sqlite3. |
+| [70-vs-react-live](shorts/70-vs-react-live) | Live updates between tabs: React + socket.io vs Quillo's live() | A wall that every open tab sees at once, in one Quillo file: state items = live(notes) runs again whenever the notes table changes, on every page. The Short sets it next to React and socket.io. |
 
 ## Learn to Code with Quillo (the course)
 
