@@ -1,0 +1,19 @@
+// The club's trails API: the list of trails, for callers with a token for it. The token is opaque: on each
+// call, the provider is asked about it (introspection), with this API's own client id and secret.
+let trails = json.parse(read_file("trails.json"))
+let issuer = env("ISSUER", "http://localhost:4000")
+let provider = http.get(`${issuer}/.well-known/openid-configuration`, {}, { public_only: false }).json
+let audience = env("AUDIENCE", "http://localhost:5101")
+
+route GET /api/trails with env, http {
+    let header = request.headers.authorization ?? ""
+    if !starts_with(header, "Bearer ") { return respond(401, { error: "a token, please" }) }
+    // Is it live, and for this API? Only the provider knows.
+    let asked = http.post(provider.introspection_endpoint, url_encode({ token: slice(header, 7),
+        client_id: "trails-api-quillo", client_secret: env("API_SECRET", "") }),
+        { "content-type": "application/x-www-form-urlencoded" }, { public_only: false })?
+    if !asked.ok || asked.json.active != true || asked.json.aud != audience {
+        return respond(401, { error: "not a valid token" })
+    }
+    trails
+}
