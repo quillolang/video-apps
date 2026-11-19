@@ -1,0 +1,20 @@
+// The team's activity, as it happens: the page follows the server's feed, a line at a time. Paused, it keeps
+// listening, but holds new lines aside, and shows how many; Resume puts them on top, so none are missed.
+component Feed() {
+    state lines = []
+    state held = []
+    state paused = false
+    listen("/activity", (a) => { if paused { held = [a] + held } else { lines = take([a] + lines, 5) } })
+    let toggle = () => {
+        if paused { lines = take(held + lines, 5); held = [] }
+        paused = !paused
+    }
+    <section>
+        <h2>
+            Activity
+            <button.small onclick={toggle}>{paused ? "Resume" : "Pause"}</button>
+            {len(held) > 0 && <span.meta>{len(held)} new</span>}
+        </h2>
+        <ul.feed>{for a in lines => <li key={a.id}><b>{a.who}</b> {a.what}</li>}</ul>
+    </section>
+}
