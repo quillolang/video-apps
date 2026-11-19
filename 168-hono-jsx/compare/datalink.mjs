@@ -8,7 +8,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const app = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'app');
+const here = path.dirname(fileURLToPath(import.meta.url));
+const app = fs.existsSync(path.join(here, '..', 'app', 'main.qwe')) ? path.join(here, '..', 'app') : path.join(here, '..');
 const url = 'http://127.0.0.1:8132/';
 for (const f of ['club.db', 'club.db-wal', 'club.db-shm']) fs.rmSync(path.join(app, f), { force: true });
 const server = spawn(path.join(app, '.quillo/bin/quillo'), ['run', 'main.qwe', '--port', '8132'], { cwd: app, stdio: 'ignore', detached: true });
