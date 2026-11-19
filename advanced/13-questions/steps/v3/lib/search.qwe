@@ -1,0 +1,12 @@
+// The ticket search: the tickets whose title has the words, in one status or any, five to a page, newest first.
+fn search_tickets(q: str, status: str, page: int) -> map with db {
+    let words = `%${trim(q)}%`
+    let found = db.one("select count(*) as n from tickets where title like ? and (? = '' or status = ?)",
+        words, status, status).n
+    let rows = db.query(sql`
+        select id, title, status from tickets
+        where title like ? and (? = '' or status = ?)
+        order by id desc
+        limit 5 offset ?`, words, status, status, (page - 1) * 5)
+    { found, rows, pages: max([1, int((found + 4) / 5)]) }
+}

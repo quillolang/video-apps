@@ -1,0 +1,9 @@
+// Who you are, on this team: a name kept in your session (a cookie for this team's address).
+view You() {
+    let name = session().name
+    if name != null { return <p.meta>You're {name}.</p> }
+    <form method="post" action="/name">
+        <input name="name" placeholder="Your name" required/>
+        <button>That's me</button>
+    </form>
+}
