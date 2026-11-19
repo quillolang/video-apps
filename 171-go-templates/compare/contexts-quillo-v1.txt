@@ -1,0 +1,7 @@
+quillo-v1
+  text    stayed text
+  attr    stayed text
+  link    stayed text
+  style   took over the page (position: fixed, 800x600)
+  script  stayed text
+  latest  "Latest note: </script><script>alert('script')</script>"

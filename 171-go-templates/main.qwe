@@ -1,0 +1,40 @@
+// Trail Club's notes board: a visitor leaves a note (a name, a text, a link and a color), and the page shows them
+// all, in one layout. A view escapes each value for the place it goes.
+db.open("club.db")
+db.migrate("migrations")
+
+// The colors a note can have: a view escapes a value for HTML, not for CSS, so a style takes only these.
+let COLORS = ["green", "blue", "brown", "purple"]
+
+// The layout, around every page that uses it.
+view Page(children) =
+    <html>
+        <head><title>Trail notes</title></head>
+        <body>
+            <header><b>Trail Club</b></header>
+            <main>{children}</main>
+            <footer>Happy trails!</footer>
+        </body>
+    </html>
+
+route GET / with db {
+    let notes = db.query("select * from notes order by id")
+    let latest = len(notes) > 0 ? notes[len(notes) - 1].name : ""
+    <Page>
+        <ul>{for n in notes =>
+            <li key={n.id} style={`color: ${n.color}`} title={n.name}>
+                {n.text} <a href={n.link}>{n.name}</a>
+            </li>}</ul>
+        <p id="latest"></p>
+        <script>
+            const latest = {latest};
+            document.getElementById("latest").textContent = "Latest note: " + latest;
+        </script>
+    </Page>
+}
+
+route POST /notes { form: { name: str, text: str, link: str, color: str } } with db {
+    if !contains(COLORS, color) { return respond(400, "Pick a color: green, blue, brown or purple") }
+    db.exec("insert into notes (name, text, link, color) values (?, ?, ?, ?)", name, text, link, color)?
+    redirect("/")
+}

@@ -1,0 +1,14 @@
+{{define "content"}}
+<ul>
+  {{range .Notes}}
+  <li style="color: {{.Color}}" title="{{.Name}}">
+    {{.Text}} <a href="{{.Link}}">{{.Name}}</a>
+  </li>
+  {{end}}
+</ul>
+<p id="latest"></p>
+<script>
+  const latest = {{.Latest}};
+  document.getElementById("latest").textContent = "Latest note: " + latest;
+</script>
+{{end}}

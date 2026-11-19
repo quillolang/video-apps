@@ -1,0 +1,7 @@
+quillo
+  text    stayed text
+  attr    stayed text
+  link    stayed text
+  style   refused (400: Pick a color: green, blue, brown or purple)
+  script  stayed text
+  latest  "Latest note: </script><script>alert('script')</script>"
