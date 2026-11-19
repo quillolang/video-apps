@@ -1,0 +1,14 @@
+// The replies under a ticket, and a box to add one: live, so every page on the ticket sees a new reply.
+import lib/replies.qwe use load_replies, add_reply
+
+component Replies(ticket: int) {
+    state replies = live(load_replies, ticket)
+    state draft = ""
+    <section>
+        <ul.replies>{for r in replies => <li key={r.id}><b>{r.author}</b> {r.body}</li>}</ul>
+        <form onsubmit={() => { if !is_err(add_reply(ticket, draft)) { draft = "" } }}>
+            <input value={draft} placeholder="Write a reply" required/>
+            <button>Reply</button>
+        </form>
+    </section>
+}

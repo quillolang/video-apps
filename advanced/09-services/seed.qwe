@@ -1,0 +1,18 @@
+// A busy month for Acme: 100 more tickets, and 20,000 replies among them.
+//   .quillo/bin/quillo run seed.qwe      (on Windows: .\.quillo\bin\quillo.exe run seed.qwe)
+db.open("data/acme.db")
+let titles = ["Printer jams", "VPN keeps dropping", "Password reset", "Wi-Fi is slow", "Email bounces",
+    "Screen flickers", "Can't print PDFs", "Shared drive full", "New laptop", "Phone won't sync"]
+let names = ["Ana", "Ben", "Cara", "Dev"]
+db.transaction(() => {
+    let first = db.one("select coalesce(max(id), 0) + 1 as id from tickets").id
+    for i in 0..100 {
+        db.exec("insert into tickets (title) values (?)", `${titles[i % 10]} · room ${101 + i}`)?
+    }
+    // Replies come in all month long, a few for each ticket in turn.
+    for n in 0..20000 {
+        db.exec("insert into replies (ticket_id, author, body) values (?, ?, ?)",
+            first + n % 100, names[n % 4], `Reply ${n + 1}`)?
+    }
+})?
+print(db.one("select count(*) as tickets from tickets"), db.one("select count(*) as replies from replies"))

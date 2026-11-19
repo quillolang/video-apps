@@ -1,0 +1,9 @@
+// The mail service: it takes an email to send, and keeps it. Here it only writes it down, in its own database,
+// standing in for a real mail provider. Its table changes with migrations of its own.
+db.open("mailer.db")
+db.migrate("mailer-migrations")
+
+server fn email(to: str, subject: str, body: str) -> map =
+    db.one("insert into sent (to_addr, subject, body) values (?, ?, ?) returning id", to, subject, body)
+
+server fn sent_to(address: str) -> list = db.query("select * from sent where to_addr = ? order by id", address)
