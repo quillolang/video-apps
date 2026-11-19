@@ -1,0 +1,289 @@
+// The Corner Shop: its database, PostgreSQL now, from DATABASE_URL (in .env), and a page for each question.
+db.open(env("DATABASE_URL")) | unwrap
+db.migrate("migrations")
+use "ui/table.qwe"
+
+// A page with a question, and the database's answer.
+fn answer(title: str, question: str) with db = <Table title={title} sql={question} rows={db.query(question)}/>
+
+route GET / with db = answer("Every product", sql`
+    select * from products`)
+
+route GET /under-5 with db = answer("Under $5", sql`
+    select name, price_cents
+    from products
+    where price_cents < 500`)
+
+route GET /in-stock with db = answer("Under $5, and in stock", sql`
+    select name, price_cents, in_stock
+    from products
+    where price_cents < 500 and in_stock > 0`)
+
+route GET /cheapest with db = answer("The three cheapest", sql`
+    select name, price_cents
+    from products
+    order by price_cents
+    limit 3`)
+
+// A search box: what was typed goes in as a value, :q, never into the SQL itself.
+// like ignores case on SQLite, but not on PostgreSQL: lower() on both sides works on both.
+let SEARCH = sql`
+    select name, price_cents
+    from products
+    where lower(name) like lower(:q)`
+
+route GET /search ? { q: str = "" } with db =
+    <Table title="Search the shop" sql={SEARCH} rows={db.query(SEARCH, { q: `%${q}%` })}>
+        <form><input name="q" value={q} placeholder="tea, eggs..."/><button>Search</button></form>
+    </Table>
+
+// Customers sign up here. The table keeps the rules (one account per email); the page turns what it refuses
+// into a message.
+let CUSTOMERS = sql`
+    select * from customers`
+
+fn signup_page(message: str) with db =
+    <Table title="Sign up" sql={CUSTOMERS} rows={db.query(CUSTOMERS)}>
+        <form method="post" action="/signup">
+            <input name="name" placeholder="Your name"/>
+            <input name="email" placeholder="Your email"/>
+            <button>Sign up</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /signup with db = signup_page("")
+
+route POST /signup { form: { name: str, email: str } } with db {
+    // returning id: the new row's id, from the insert itself, on SQLite and on PostgreSQL alike.
+    let made = db.one("insert into customers (name, email) values (?, ?) returning id", name, email)
+    if db.error_kind(made) == "unique" { return signup_page("That email already has an account.") }
+    made?
+    // Off to the new customer's own page, by the id the database gave them.
+    redirect(`/customer?id=${made.id}`)
+}
+
+// What's in each order, and whose. Customers and products both have a name: each gets its own.
+route GET /orders with db = answer("Orders", sql`
+    select order_items.order_id,
+        customers.name as customer,
+        products.name as product,
+        order_items.quantity
+    from order_items
+    join orders on orders.id = order_items.order_id
+    join customers on customers.id = orders.customer_id
+    join products on products.id = order_items.product_id
+    order by order_items.id`)
+
+// The products on one shelf, through the table in between.
+let ON_SHELF = sql`
+    select products.name, products.price_cents
+    from categories
+    join product_categories on product_categories.category_id = categories.id
+    join products on products.id = product_categories.product_id
+    where categories.name = :shelf
+    order by products.name`
+
+route GET /shelf ? { shelf: str = "Breakfast" } with db =
+    <Table title={`On the ${shelf} shelf`} sql={ON_SHELF} rows={db.query(ON_SHELF, { shelf })}>
+        <form><input name="shelf" value={shelf} placeholder="A shelf"/><button>Show</button></form>
+    </Table>
+
+// Sales per day: the order items grouped by their order's day, a row for each day.
+route GET /sales with db = answer("Sales per day", sql`
+    select orders.placed as day,
+        sum(order_items.quantity) as items,
+        sum(order_items.quantity * products.price_cents) as total_cents
+    from orders
+    join order_items on order_items.order_id = orders.id
+    join products on products.id = order_items.product_id
+    group by orders.placed
+    order by orders.placed`)
+
+// The big days: having keeps only the groups whose total is $15 or more.
+route GET /big-days with db = answer("Days with $15 or more", sql`
+    select orders.placed as day,
+        sum(order_items.quantity * products.price_cents) as total_cents
+    from orders
+    join order_items on order_items.order_id = orders.id
+    join products on products.id = order_items.product_id
+    group by orders.placed
+    having sum(order_items.quantity * products.price_cents) >= 1500
+    order by orders.placed`)
+
+// The online shop: what's in stock, a form to buy one, and who bought what.
+let STOCK = sql`
+    select id, name, in_stock from products order by id`
+
+fn shop_page(message: str) with db =
+    <Table title="Buy online" sql={STOCK} rows={db.query(STOCK)}>
+        <form method="post" action="/buy">
+            <input name="id" placeholder="Product's id"/>
+            <input name="name" placeholder="Your name"/>
+            <button>Buy</button>
+        </form>
+        {message != "" && <p.message>{message}</p>}
+    </Table>
+
+route GET /buy with db = shop_page("")
+
+route GET /purchases with db = answer("Purchases", sql`
+    select purchases.id, products.name as product, purchases.name as buyer
+    from purchases join products on products.id = purchases.product_id
+    order by purchases.id`)
+
+// A purchase: first take one from the stock, in one statement that only changes a row with one left. Then the
+// card payment, which takes a second, and the purchase. Two buyers at once can't both take the last one.
+route POST /buy { form: { id: int, name: str } } with db, time {
+    let p = db.one("select name from products where id = ?", id) ?? reply 404 "No such product"
+    let taken = db.exec("update products set in_stock = in_stock - 1 where id = ? and in_stock > 0", id)?
+    if taken.changes == 0 {
+        // Sold out: the buyer joins the waiting list, and hears their place in it.
+        db.exec("insert into waitlist (product_id, name) values (?, ?)", id, name)?
+        let place = db.one("select count(*) as n from waitlist where product_id = ?", id).n
+        return shop_page(`Sorry, ${p.name} is sold out. You're number ${place} on its waiting list.`)
+    }
+    sleep(1000)
+    db.exec("insert into purchases (product_id, name) values (?, ?)", id, name)?
+    shop_page(`Thank you, ${name}: one ${p.name} is yours.`)
+}
+
+// Who's waiting for what, first come first.
+route GET /waitlist with db = answer("Waiting list", sql`
+    select products.name as product, waitlist.name as waiting
+    from waitlist join products on products.id = waitlist.product_id
+    order by waitlist.id`)
+
+// The orders' card references, for the card company's script. Sent as text: a JavaScript program reading JSON keeps
+// a number past 2^53 only roughly, and these must stay exact.
+route GET /orders.json with db = db.query("select id, cast(ref as text) as ref from orders order by id")
+
+// A statement for each month: its orders, and what they came to, added up in cents and shown as dollars.
+let STATEMENT = sql`
+    select substr(cast(orders.placed as text), 1, 7) as month,
+        count(distinct orders.id) as orders,
+        sum(order_items.quantity * products.price_cents) as cents
+    from orders
+    join order_items on order_items.order_id = orders.id
+    join products on products.id = order_items.product_id
+    group by month
+    order by month`
+
+route GET /statement with db {
+    let rows = db.query(STATEMENT) | map((r) => { month: r.month, orders: r.orders,
+        total: money.format(money.from_minor(r.cents, "USD")) })
+    <Table title="Monthly statement" sql={STATEMENT} rows={rows}/>
+}
+
+// A customer's orders, in the order they came.
+let CUSTOMER_ORDERS = sql`
+    select id, placed
+    from orders
+    where customer_id = :id
+    order by id`
+
+route GET /customer ? { id: int = 7 } with db =
+    <Table title="A customer's orders" sql={CUSTOMER_ORDERS} rows={db.query(CUSTOMER_ORDERS, { id })}>
+        <form><input name="id" value={str(id)} aria-label="A customer's number"/><button>Show</button></form>
+    </Table>
+
+// The latest hundred orders, each with its customer's name: one query, the names joined in.
+let RECENT = sql`
+    select orders.id, orders.placed, customers.name as customer
+    from orders
+    join customers on customers.id = orders.customer_id
+    order by orders.id desc
+    limit 100`
+
+route GET /recent with db = <Table title="The latest orders" sql={RECENT} rows={db.query(RECENT)}/>
+
+// Each customer's latest order. row_number() numbers each customer's orders, newest first, in a named step; the
+// question keeps number 1 of each.
+route GET /latest with db = answer("Latest orders", sql`
+    with numbered as (
+        select customer_id, id, placed,
+            row_number() over (partition by customer_id order by placed desc, id desc) as n
+        from orders
+    )
+    select customers.name, numbered.id, numbered.placed
+    from numbered
+    join customers on customers.id = numbered.customer_id
+    where numbered.n = 1
+    order by customers.id
+    limit 10`)
+
+// How many orders each month, and how many the month before: lag(...) over (...) takes a value from the row before.
+route GET /months with db = answer("Orders by month", sql`
+    with monthly as (
+        select substr(cast(placed as text), 1, 7) as month, count(*) as orders
+        from orders
+        group by month
+    )
+    select month, orders,
+        lag(orders) over (order by month) as month_before
+    from monthly
+    order by month`)
+
+// A product's own page: its price, and what's in its details and tags. jsonb comes back as a map, and an array as a
+// list, so the page goes through them like any other.
+route GET /product/:id(int) with db {
+    let p = db.one("select * from products where id = ?", id) ?? reply 404 "No such product"
+    <Table title={p.name} rows={keys(p.details) | map((k) => { detail: k, value: str(p.details[k]) })}>
+        <p>{money.format(money.from_minor(p.price_cents, "USD"))} · {for t in p.tags =>
+            <span><a href={`/tagged?${url_encode({ tag: t })}`}>{t}</a> </span>}</p>
+        <form method="post" action={`/product/${p.id}/tag`}>
+            <input name="tag" placeholder="A new tag"/> <button>Tag it</button>
+        </form>
+    </Table>
+}
+
+// A new tag, added to the end of the array with array_append, unless the product has it already.
+route POST /product/:id(int)/tag { form: { tag: str } } with db {
+    db.exec("update products set tags = array_append(tags, ?) where id = ? and not (? = any(tags))",
+        lower(trim(tag)), id, lower(trim(tag)))?
+    redirect(`/product/${id}`)
+}
+
+// Every product with a tag: any() asks whether the value is one of the array's.
+let TAGGED = sql`
+    select id, name, details->>'origin' as origin
+    from products
+    where :tag = any(tags)
+    order by name`
+
+route GET /tagged ? { tag: str = "organic" } with db =
+    <Table title={`Tagged ${tag}`} sql={TAGGED} rows={db.query(TAGGED, { tag })}/>
+
+// Store credit, in dollars as numeric: Quillo gets each amount as an exact decimal.
+fn usd(amount) -> str = money.format(money.of(amount, "USD"))
+
+route GET /credit with db {
+    let rows = db.query("select id, name, credit from customers where credit > 0 order by id")
+        | map((c) => { id: c.id, name: c.name, credit: usd(c.credit) })
+    <Table title="Store credit" rows={rows}>
+        <form method="post" action="/pay">
+            <input name="customer" placeholder="Customer's id"/> <input name="product" placeholder="Product's id"/>
+            <button>Pay with credit</button>
+        </form>
+    </Table>
+}
+
+// Paying with store credit: read the credit and the price, check there's enough, then take it, and record the
+// purchase, all in one transaction. A pause before the check, as a busy server has, lets two meet. Serializable:
+// PostgreSQL makes sure no two of these step on each other, and refuses one; retries runs it again, from the start.
+route POST /pay { form: { customer: int, product: int } } with db, time {
+    let paid = db.transaction({ isolation: "serializable", retries: 5 }, () => {
+        let c = db.one("select name, credit from customers where id = ?", customer)
+        let p = db.one("select name, price_cents / 100.0 as price from products where id = ?", product)
+        if c == null || p == null { return err("no such customer or product") }
+        sleep(500)
+        if c.credit < p.price { return err(`not enough credit: ${usd(c.credit)} left`) }
+        db.exec("update customers set credit = credit - ? where id = ?", p.price, customer)?
+        db.exec("insert into purchases (product_id, name) values (?, ?)", product, c.name)?
+        { name: c.name, product: p.name, left: c.credit - p.price }
+    })
+    if is_err(paid) { return `Not paid: ${paid.error}` }
+    `${paid.name} paid for ${paid.product}: ${usd(paid.left)} left.`
+}
+
+route GET /static/*path = files("public", path)
