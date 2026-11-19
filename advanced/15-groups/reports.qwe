@@ -1,0 +1,9 @@
+// The reports service: how many tickets each team added, day by day, in its own database.
+db.open("reports.db")
+db.exec("create table if not exists daily (team text, day text, tickets int, primary key (team, day))")
+
+server fn ticket_added(team: str, day: str) =
+    db.exec("insert into daily values (?, ?, 1) on conflict do update set tickets = tickets + 1", team, day)
+
+server fn by_day(team: str) -> list =
+    db.query("select day, tickets from daily where team = ? order by day desc", team)
