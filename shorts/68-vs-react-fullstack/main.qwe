@@ -1,0 +1,41 @@
+// A to-do list that saves, in one file.
+
+db.open("todos.db")
+db.migrate("migrations")
+
+server fn list_todos() with db =
+    db.query("select * from todos order by id")
+
+server fn add_todo(text: str) with db {
+    db.exec("insert into todos (text) values (?)",
+        text)?
+    list_todos()
+}
+
+server fn remove_todo(id: int) with db {
+    db.exec("delete from todos where id = ?", id)?
+    list_todos()
+}
+
+component Todos() {
+    state todos = list_todos()
+    state draft = ""
+    <div>
+        <form onsubmit={() => {
+            todos = add_todo(draft) ?? todos
+            draft = ""
+        }}>
+            <input value={draft} required
+                   placeholder="new todo"/>
+            <button>Add Todo</button>
+        </form>
+        <ul>{for t in todos => <li key={t.id}>
+            {t.text}
+            <button onclick={() => {
+                todos = remove_todo(t.id) ?? todos
+            }}>X</button>
+        </li>}</ul>
+    </div>
+}
+
+route GET / = <html><body><Todos/></body></html>
