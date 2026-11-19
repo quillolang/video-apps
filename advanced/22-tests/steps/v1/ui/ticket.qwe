@@ -1,0 +1,38 @@
+// The ticket pages, as one page: url() is the address, and a match on its pieces picks what to show.
+import lib/tickets.qwe use load_ticket
+import ui/viewers.qwe use Viewers
+import ui/replies.qwe use Replies
+
+component Tickets() {
+    let path = url().path
+    {match split(path, "/") | filter((s) => s != "") {
+        ["desk", "tickets", id] => <TicketPage key={id} id={int(id)}/>   // a new ticket, a new page: fresh state
+        _ => <p>No page at {path}</p>
+    }}
+}
+
+// One ticket: its details from the server, who else is on it, its replies, and the way to the next one.
+component TicketPage(id: int) {
+    state t = load_ticket(id)
+    state number = ""
+    <article>
+        <p.meta>
+            <a href="/desk" data-reload>Desk</a> · <a href={`/desk/tickets/${id}/edit`} data-reload>Edit</a>
+            {" · "}<a href={`/desk/tickets/${id - 1}`}>← Older</a>
+            {" · "}<a href={`/desk/tickets/${id + 1}`}>Newer →</a>
+        </p>
+        {t == null ? <p>Loading…</p> : t.missing == true ? <h1>No ticket #{id}</h1> :
+            <div>
+                <h1>{t.title}</h1>
+                <p.meta>#{t.id} · {t.status}{t.tags != "" ? ` · ${t.tags}` : ""}</p>
+                <p.meta>Last reply: {t.last}</p>
+                {t.email != null && <p.meta>Email: {t.email}</p>}
+            </div>}
+        <form onsubmit={() => navigate(`/desk/tickets/${trim(number)}`)}>
+            <input value={number} placeholder="Go to ticket #" aria-label="Ticket number"/>
+            <button>Go</button>
+        </form>
+        <Viewers ticket={id}/>
+        <Replies ticket={id}/>
+    </article>
+}
