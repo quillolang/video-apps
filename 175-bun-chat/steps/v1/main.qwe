@@ -1,0 +1,29 @@
+// Trail Club's chat: every page in the channel hears every line.
+
+channel.on("chat", (msg, peer) => {
+    channel.broadcast("chat", `${msg.name}: ${msg.text}`)
+})
+
+component Chat() {
+    state lines = []
+    state name = ""
+    state text = ""
+    let chat = channel.open("chat", (line) => { lines = lines + [line] })
+    <div>
+        <ul>{for l in lines => <li>{l}</li>}</ul>
+        <form onsubmit={() => {
+            chat.send({ name: name, text: text })
+            text = ""
+        }}>
+            <input value={name} placeholder="Your name"/>
+            <input value={text} placeholder="Say something"/>
+            <button>Send</button>
+        </form>
+    </div>
+}
+
+route GET / =
+    <html><head><title>Trail Club chat</title></head><body>
+        <h1>Trail Club chat</h1>
+        <Chat/>
+    </body></html>

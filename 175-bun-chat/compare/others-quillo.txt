@@ -1,0 +1,7 @@
+$ curl -si -d name=Bot -d "text=hi from the terminal" localhost:8175/say
+HTTP/1.1 204 No Content
+x-request-id: 662dd044d32dda16
+x-content-type-options: nosniff
+server: Quillo
+(exit 0)
+Ana's tab: ["Bot: hi from the terminal","Ana: hi bot"]

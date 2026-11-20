@@ -1,0 +1,15 @@
+Ana: hello
+  Ana's tab: ["Ana: hello"]
+  Ben's tab: ["Ana: hello"]
+server stopped; Ana: anyone there?
+  Ana's tab: ["Ana: hello"]
+  Ben's tab: ["Ana: hello"]
+server started; 5 s later, Ben: back again
+  Ana's tab: ["Ana: hello","Ana: anyone there?","Ben: back again"]
+  Ben's tab: ["Ana: hello","Ana: anyone there?","Ben: back again"]
+round 1: {"ana_back":true,"ben_back":true,"waiting_line_reached_ana":true,"waiting_line_reached_ben":true,"back_after":{"Ana":1.2,"Ben":1.1}}
+round 2: {"ana_back":true,"ben_back":true,"waiting_line_reached_ana":true,"waiting_line_reached_ben":true,"back_after":{"Ana":1.6,"Ben":1.6}}
+round 3: {"ana_back":true,"ben_back":true,"waiting_line_reached_ana":true,"waiting_line_reached_ben":true,"back_after":{"Ana":1.4,"Ben":1.3}}
+round 4: {"ana_back":true,"ben_back":true,"waiting_line_reached_ana":true,"waiting_line_reached_ben":true,"back_after":{"Ana":1.6,"Ben":1.3}}
+round 5: {"ana_back":true,"ben_back":true,"waiting_line_reached_ana":true,"waiting_line_reached_ben":true,"back_after":{"Ana":8.6,"Ben":8.6}}
+5 rounds: {"ana_back":5,"ben_back":5,"waiting_line_reached_ana":5,"waiting_line_reached_ben":5}

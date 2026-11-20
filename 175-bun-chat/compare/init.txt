@@ -1,0 +1,25 @@
+Fri Nov 20 16:56:08 +08 2026
+ + .gitignore
+ + .cursor/rules/use-bun-instead-of-node-vite-npm-pnpm.mdc
+ + index.ts
+ + tsconfig.json (for bun check and editor autocomplete)
+ + README.md
+
+To get started, run:
+
+    bun run index.ts
+
+To type check, run:
+
+    bun check
+
+bun install v1.4.3 (c6da4a4d3)
+Resolving dependencies
+Resolved, downloaded and extracted [0]
+Saved lockfile
+
++ @types/bun@1.4.5
++ typescript@7.0.2
+
+7 packages installed [40.00ms]
+

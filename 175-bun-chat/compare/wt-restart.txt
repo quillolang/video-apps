@@ -1,0 +1,4 @@
+before the restart: Ana's tab ["Ana: hello"], Ben's tab ["Ana: hello"]
+Ana first heard "Ben: ping 10", 23.7 s after the restart
+Ben's tab: ["Ana: hello","Ben: ping 2","Ben: ping 3","Ben: ping 4","Ben: ping 5","Ben: ping 6","Ben: ping 7","Ben: ping 8","Ben: ping 9","Ben: ping 10"]
+WebSockets opened: Ana 0, Ben 0 (WebTransport otherwise)

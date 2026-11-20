@@ -1,0 +1,5 @@
+$ bun talk.ts "hi from the terminal"
+Bot: hi from the terminal
+Ana: hi bot
+(exit 0)
+Ana's tab: ["Bot: hi from the terminal","Ana: hi bot"]
