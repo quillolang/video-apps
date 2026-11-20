@@ -1,6 +1,6 @@
-# We Took Away His Admin Role. He Kept the Admin Page: Sessions You Can Trust | Quillo Security #4
+# Admin Role Taken Away, Admin Page Kept: Sessions You Can Trust | Quillo Security #4
 
-Swap Board, lesson 4 of Quillo Security: sessions you can trust. A Quillo session is a cookie, base64url JSON and an HMAC signature: the visitor can read it (cut -d. -f1 | base64 -d), can't change it (a role edited to "admin" is thrown away: 403), and it's kept nowhere else. steps/v1 (lesson 3's app) copies the whole member, role included, into it at sign-in. steps/v2 adds Make admin / Remove admin to Rosa's admin page: Ben, made an admin and then not, keeps the admin page, since his cookie still says admin, for its 30 days. The fix (steps/v3): set_session({ member_id }) only, and me() reads the member from the database each time. The exercise: Sign out everywhere, with a session_version number in members, carried in the session and checked by me().
+Swap Board, lesson 4 of Quillo Security: sessions you can trust. A Quillo session is a cookie, base64url JSON and an HMAC signature: the visitor can read it (cut -d. -f1 | base64 -d), can't change it (a role edited to "admin" is thrown away: 403), and it's kept nowhere else. steps/v1 (lesson 3's app) copies the whole member, role included, into it at sign-in. steps/v2 adds Make admin / Remove admin to Rosa's admin page: Ben, made an admin and then not, keeps the admin page, since Ben's cookie still says admin, for its 30 days. The fix (steps/v3): set_session({ member_id }) only, and me() reads the member from the database each time. The exercise: Sign out everywhere, with a session_version number in members, carried in the session and checked by me().
 
 This lesson starts where [03-sign-in](../03-sign-in) ended.
 

@@ -1,6 +1,6 @@
-# One Extra Field in the Form Made Him an Admin: Mass Assignment | Quillo Security #6
+# One Extra Field in the Form Made a Member an Admin: Mass Assignment | Quillo Security #6
 
-Swap Board, lesson 6 of Quillo Security: one extra field. steps/v2 adds profiles (008_bio.sql, /account/profile, a member page at /members/:id) and saves the profile the quick way: every field in request.form to its column, with sql_name (so quillo check is quiet). The attack: Max's curl adds role=admin, and the admin page opens for him, every email on it (any column of members is his to set, his id too). The fix (steps/v3): type Profile = { name: str, bio: str }, the route takes { form: Profile } (a record drops fields it doesn't have), and save_profile names its columns. The exercise: "Show my email on my page", show_email: bool = false in the record and the update.
+Swap Board, lesson 6 of Quillo Security: one extra field. steps/v2 adds profiles (008_bio.sql, /account/profile, a member page at /members/:id) and saves the profile the quick way: every field in request.form to its column, with sql_name (so quillo check is quiet). The attack: Max's curl adds role=admin, and the admin page opens for Max, every email on it (any column of Max's row is Max's to set, the id too). The fix (steps/v3): type Profile = { name: str, bio: str }, the route takes { form: Profile } (a record drops fields it doesn't have), and save_profile names its columns. The exercise: "Show my email on my page", show_email: bool = false in the record and the update.
 
 This lesson starts where [05-whose](../05-whose) ended.
 
