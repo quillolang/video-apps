@@ -1,0 +1,114 @@
+// Every attack from Quillo Security, sent to your own Swap Board, each one expecting a no. Run it before each
+// change, with the board running:  .quillo/bin/quillo run attacks/attack.qwe   Exit 0 if all are refused, else 1.
+import ../lib/accounts.qwe use start_reset
+db.open("../swap.db")
+let SITE = "http://localhost:8080"
+// Your own board, on this machine: reaching inside is what this script is for.
+let INSIDE = { redirects: 0, public_only: false }
+
+// A request as a visitor sends it: a form (or none), and headers. A redirect is the answer, not followed.
+fn send(path: str, form: map?, headers: map) -> map with http {
+    let h = { "content-type": "application/x-www-form-urlencoded", ...headers }
+    form == null ? http.get(`${SITE}${path}`, h, INSIDE) : http.post(`${SITE}${path}`, url_encode(form), h, INSIDE)
+}
+
+// Max, a member like any other: joins the first time, then signs in. MAX is the cookie that says so.
+send("/sign-up", { name: "Max", email: "max@example.com", password: "password1" }, {})
+let signed_in = send("/sign-in", { email: "max@example.com", password: "password1" }, {})
+let MAX = { cookie: first(split(signed_in.cookies[0], ";")) }
+let LISTING = send("/listings", { title: "attack.qwe was here", condition: "good", description: "" }, MAX)
+    .headers.location
+
+// 1. A title of 10,000 characters: maxlength is the browser's.
+fn long_title() -> bool with http =
+    send("/listings", { title: repeat("x", 10000), condition: "good", description: "" }, MAX).status == 400
+
+// 2. swap.db read by anyone with a copy: is any password kept as typed?
+fn typed_passwords() -> bool with db =
+    db.one("select count(*) as n from members where password_hash not like '$argon2id$%'").n == 0
+
+// 3. Guessing passwords as fast as it likes: the sixth wrong try in a row is turned away.
+fn guessing() -> bool with http, random {
+    let email = `${crypto.token(6)}@example.com`
+    let tries = range(6) | map((i) => send("/sign-in", { email, password: `guess${i}` }, {}).body)
+    contains(tries[5], "Too many tries")
+}
+
+// 4. A session cookie, changed: no one is signed in.
+fn changed_cookie() -> bool with http =
+    send("/account", null, { cookie: replace(MAX.cookie, "quillo_session=e", "quillo_session=f") }).status == 303
+
+// 5. Someone else's listing, edited: Ana's listing 1 keeps its title.
+fn someone_elses() -> bool with http {
+    send("/listings/1", { title: "Max was here", condition: "good", description: "" }, MAX)
+    !contains(send("/listings/1", null, {}).body, "Max was here")
+}
+
+// 6. One extra field, role=admin: the admin page still says no.
+fn extra_field() -> bool with http {
+    send("/account/profile", { name: "Max", bio: "", role: "admin" }, MAX)
+    send("/admin", null, MAX).status == 403
+}
+
+// 7. A bio with a script in it: shown as text.
+fn script_bio() -> bool with http {
+    let page = send("/account/profile", { name: "Max", bio: "<img src=x onerror=alert(1)>" }, MAX).headers.location
+    !contains(send(page, null, {}).body, "<img src=x onerror")
+}
+
+// 8. A search that is SQL: no member's email comes back.
+fn sql_search() -> bool with http {
+    let q = "x' union select id, email, password_hash, name from members --"
+    !contains(send(`/?${url_encode({ q })}`, null, {}).body, "@example.com")
+}
+
+// 9. A form posted from another site's page: 403.
+fn other_site() -> bool with http =
+    send("/listings", { title: "From evil", condition: "good", description: "" },
+        { ...MAX, origin: "http://evil.example" }).status == 403
+
+// 10. A page uploaded as a photo: 415.
+fn page_as_photo() -> bool with http {
+    let part = `content-disposition: form-data; name="photo"; filename="page.html"\r\n\r\n<h1>Sign in again</h1>`
+    let headers = { ...MAX, "content-type": "multipart/form-data; boundary=b" }
+    http.post(`${SITE}${LISTING}/photo`, `--b\r\n${part}\r\n--b--\r\n`, headers, INSIDE).status == 415
+}
+
+// 11. A link to this machine, for the server to fetch: refused before it connects, by public_only or the policy.
+fn link_inside() -> bool with http {
+    let says = send(`${LISTING}/link`, { url: "https://127.0.0.1:9090/" }, MAX).body
+    contains(says, "not on the public internet") || contains(says, "does not let a program reach")
+}
+
+// 12. A reset link from the request log, used a second time. The link comes from the program's own start_reset,
+// as the email would carry it; Max uses it, and then it's tried again.
+fn reset_twice() -> bool with db, http, random {
+    let token = start_reset("max@example.com")
+    send("/reset", { token, password: "password1" }, {})
+    send("/reset", { token, password: "password1" }, {}).status != 303
+}
+
+fn check(n: int, what: str, refused: bool) -> bool {
+    print(`${refused ? "refused    " : "GOT THROUGH"}  ${n < 10 ? " " : ""}${n}  ${what}`)
+    refused
+}
+
+let results = [
+    check(1, "a title of 10,000 characters", long_title()),
+    check(2, "a password kept as typed", typed_passwords()),
+    check(3, "guessing passwords, fast", guessing()),
+    check(4, "a session cookie, changed", changed_cookie()),
+    check(5, "editing someone else's listing", someone_elses()),
+    check(6, "one extra field: role=admin", extra_field()),
+    check(7, "a script in a bio", script_bio()),
+    check(8, "a search that is SQL", sql_search()),
+    check(9, "a form from another site", other_site()),
+    check(10, "a page as a photo", page_as_photo()),
+    check(11, "a link to this machine", link_inside()),
+    check(12, "a reset link, used twice", reset_twice()),
+]
+
+send(`${LISTING}/delete`, {}, MAX)
+let through = count(results, (r) => !r)
+print(through == 0 ? `${len(results)} attacks, all refused` : `${len(results)} attacks, ${through} got through`)
+exit(through == 0 ? 0 : 1)

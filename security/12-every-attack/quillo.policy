@@ -1,0 +1,4 @@
+# Swap Board's policy: a second wall behind public_only. No http call anywhere in the program reaches this machine
+# or its network, whatever its own options say.
+[http]
+private = false
