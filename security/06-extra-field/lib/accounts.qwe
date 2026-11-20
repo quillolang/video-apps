@@ -1,0 +1,75 @@
+// Members: signing up, signing in, and who is signed in now. A password is kept only as a salted Argon2id hash.
+fn sign_up(name: str, email: str, password: str) -> map ! str with db, random {
+    let r = db.exec("insert into members (name, email, password_hash) values (?, ?, ?)",
+        trim(name), lower(trim(email)), crypto.hash_password(password))
+    if db.error_kind(r) == "unique" { return err("That email already has an account. Sign in instead?") }
+    let id = r?.last_id
+    { id, name: trim(name), role: "member", session_version: 1 }
+}
+
+fn sign_in(email: str, password: str) -> map ! str with db {
+    let e = lower(trim(email))
+    // Quillo has no rate limit: five wrong tries in 15 minutes, counted here, and the email waits, account or not.
+    let recent = db.one(`select count(*) as n from failed_sign_ins
+        where email = ? and at > datetime('now', '-15 minutes')`, e).n
+    if recent >= 5 { return err("Too many tries. Wait 15 minutes, then try again.") }
+    let m = db.one("select id, name, password_hash, role, session_version from members where email = ?", e)
+    // One answer for both, so the page doesn't say who has an account. And the same work for both: verify_password
+    // runs every time, before m is looked at. With no hash (null) it takes as long, and says false.
+    let ok = crypto.verify_password(password, m?.password_hash)
+    if m == null || !ok {
+        db.exec("insert into failed_sign_ins (email) values (?)", e)?
+        return err("Wrong email or password.")
+    }
+    db.exec("delete from failed_sign_ins where email = ?", e)?
+    { id: m.id, name: m.name, role: m.role, session_version: m.session_version }
+}
+
+// Passwords kept as typed, from before: SQL can't make an Argon2id hash, so the program hashes them, once.
+fn hash_old_passwords() with db, random {
+    for m in db.query("select id, password_hash from members where password_hash not like '$argon2%'") {
+        db.exec("update members set password_hash = ? where id = ?", crypto.hash_password(m.password_hash), m.id)?
+    }
+}
+
+// Who is signed in, as the database says now. The session keeps only the member's id: a name or a role copied into
+// it would stay there, as it was, until the cookie ran out.
+fn me() -> map? with db {
+    let s = session()
+    // A session from before "Sign out everywhere" carries an older number, and finds no one.
+    s.member_id == null ? null
+        : db.one("select id, name, role from members where id = ? and session_version = ?", s.member_id, s.v)
+}
+
+// Every session this member has, anywhere, stops counting.
+fn sign_out_everywhere(id: int) -> map ! str with db =
+    db.exec("update members set session_version = session_version + 1 where id = ?", id)
+
+// A route group's guard: on when someone is signed in; otherwise, off to sign in.
+fn signed_in(r) = me() != null ? r : reply 303 redirect(`/sign-in?next=${url_encode(r.path)}`)
+
+// A new password, once the current one is right: hashed, as at sign-up.
+fn change_password(id: int, current: str, new_password: str) -> map ! str with db, random {
+    let m = db.one("select password_hash from members where id = ?", id)
+    if m == null || !crypto.verify_password(current, m.password_hash) {
+        return err("That's not your current password.")
+    }
+    if len(new_password) < 8 { return err("A password is at least 8 characters.") }
+    db.exec("update members set password_hash = ? where id = ?", crypto.hash_password(new_password), id)
+}
+
+// A member's public page: who they are, in their own words.
+fn member_page(id: int) -> map? with db =
+    db.one("select id, name, bio, email, show_email from members where id = ?", id)
+
+fn listings_of(id: int) -> list with db =
+    db.query("select id, title, condition from listings where owner_id = ?", id)
+
+// What the profile form may change: a name, a few words, and whether the email shows. Profile(v) drops any other
+// field a request adds. An unchecked box sends nothing, so show_email is false unless it came.
+type Profile = { name: str, bio: str, show_email: bool = false }
+
+// Those three columns, by name, and no others: a role, a hash or an id can't come in from the form.
+fn save_profile(id: int, p: Profile) -> map ! str with db =
+    db.exec("update members set name = ?, bio = ?, show_email = ? where id = ?",
+        trim(p.name), p.bio, p.show_email, id)
