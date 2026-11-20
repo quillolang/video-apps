@@ -1,0 +1,21 @@
+// Members: signing up, signing in, and who is signed in now.
+fn sign_up(name: str, email: str, password: str) -> map ! str with db {
+    let r = db.exec("insert into members (name, email, password) values (?, ?, ?)",
+        trim(name), lower(trim(email)), password)
+    if db.error_kind(r) == "unique" { return err("That email already has an account. Sign in instead?") }
+    let id = r?.last_id
+    { id, name: trim(name), role: "member" }
+}
+
+fn sign_in(email: str, password: str) -> map ! str with db {
+    let m = db.one("select id, name, password, role from members where email = ?", lower(trim(email)))
+    if m == null { return err("No account with that email.") }
+    if m.password != password { return err("Wrong password.") }
+    { id: m.id, name: m.name, role: m.role }
+}
+
+// Who is signed in: what the session says, or null.
+fn me() -> map? = session().member
+
+// A route group's guard: on when someone is signed in; otherwise, off to sign in.
+fn signed_in(r) = me() != null ? r : reply 303 redirect(`/sign-in?next=${url_encode(r.path)}`)
