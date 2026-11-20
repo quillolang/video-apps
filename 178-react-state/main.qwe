@@ -1,0 +1,84 @@
+// React Quirks #1, in Quillo: the five React pages, each written the Quillo way, at /score, /greeting,
+// /groceries, /clicks and /later. The styles are the React pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Score() {
+    state score = 0
+
+    fn add_three() {
+        score += 1
+        score += 1
+        score += 1
+    }
+
+    <main>
+        <h1>Score</h1>
+        <p class="big">{score}</p>
+        <button onclick={add_three}>+3</button>
+    </main>
+}
+
+component Greeting() {
+    state name = "Ana"
+    state message = "Hi, Ana"
+
+    fn rename() {
+        name = "Max"
+        message = "Hi, " + name
+    }
+
+    <main>
+        <h1>Greeting</h1>
+        <p>Name: <b>{name}</b></p>
+        <p class="big">{message}</p>
+        <button onclick={rename}>Rename to Max</button>
+    </main>
+}
+
+component Groceries() {
+    state items = ["milk", "bread"]
+
+    <main>
+        <h1>Groceries</h1>
+        <ul>
+            {for item in items => <li key={item}>{item}</li>}
+        </ul>
+        <button onclick={() => {
+            items = items | push("eggs")
+        }}>Add eggs</button>
+    </main>
+}
+
+component Clicks() {
+    state clicks = 0
+
+    <main>
+        <h1>Clicks</h1>
+        <p class="big">{clicks}</p>
+        <button onclick={() => { clicks += 1 }}>Click me</button>
+    </main>
+}
+
+fn say_thanks() = "Thanks for waiting!"
+
+component Later() {
+    state later = null
+
+    <main>
+        <h1>Later</h1>
+        <p class="big">{later == null ? "…" : later()}</p>
+        <button onclick={() => { later = say_thanks }}>Keep it for later</button>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/score")
+route GET /score = Page(<Score/>)
+route GET /greeting = Page(<Greeting/>)
+route GET /groceries = Page(<Groceries/>)
+route GET /clicks = Page(<Clicks/>)
+route GET /later = Page(<Later/>)
