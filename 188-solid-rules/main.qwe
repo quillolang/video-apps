@@ -1,0 +1,89 @@
+// Solid 2.0 Quirks #1, in Quillo: the five Solid pages, each written the Quillo way, at /score, /likes,
+// /tickets, /groceries and /note. The styles are the Solid pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Score() {
+    state score = 0
+
+    fn add_two() {
+        score += 1
+        score += 1
+    }
+
+    <main>
+        <h1>Score</h1>
+        <p class="big">{score}</p>
+        <button onclick={add_two}>+2</button>
+    </main>
+}
+
+component Likes() {
+    state likes = 0
+
+    <main>
+        <h1>Likes</h1>
+        <p class="big">{likes}</p>
+        <button onclick={() => { likes += 1 }}>Like</button>
+    </main>
+}
+
+component Tickets() {
+    state qty = 1
+    let total = qty * 5
+
+    <main>
+        <h1>Tickets</h1>
+        <p>{qty} × {"$"}5</p>
+        <p class="big">{"$"}{total}</p>
+        <button onclick={() => { qty += 1 }}>One more</button>
+    </main>
+}
+
+component Groceries() {
+    state items = ["milk", "bread"]
+
+    <main>
+        <h1>Groceries</h1>
+        <ul>
+            {for item in items => <li key={item}>{item}</li>}
+        </ul>
+        <button onclick={() => {
+            items = items | push("eggs")
+        }}>Add eggs</button>
+    </main>
+}
+
+component Note() {
+    state editing = false
+    state ran = []
+
+    fn edit() {
+        editing = true
+        ran = ran | push("edit")
+    }
+    fn save() {
+        editing = false
+        ran = ran | push("save")
+    }
+
+    <main>
+        <h1>Note</h1>
+        <p class="big">{editing ? "Editing…" : "Saved"}</p>
+        <p>Ran: {join(ran, ", ")}</p>
+        <button onclick={editing ? save : edit}>
+            {editing ? "Save" : "Edit"}
+        </button>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/score")
+route GET /score = Page(<Score/>)
+route GET /likes = Page(<Likes/>)
+route GET /tickets = Page(<Tickets/>)
+route GET /groceries = Page(<Groceries/>)
+route GET /note = Page(<Note/>)

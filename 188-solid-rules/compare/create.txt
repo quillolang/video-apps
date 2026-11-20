@@ -1,0 +1,16 @@
+
+> npx
+> "create-solid" -p solid --solid -t bare --js --no-devtools
+
+┌  
+ Create-Solid v0.13.0
+[?25l│
+◒  Creating project[1G[J◐  Creating project[1G[J◓  Creating project[1G[J◑  Creating project[1G[J◒  Creating project[1G[J◇  Project created 🎉
+[?25h│
+◇  To get started, run: ─╮
+│                        │
+│  cd solid              │
+│  npm install           │
+│  npm run dev           │
+│                        │
+├────────────────────────╯
