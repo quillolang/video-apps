@@ -1,0 +1,87 @@
+// React Quirks #3, in Quillo: the five React component pages, each written the Quillo way, at /players,
+// /seating, /likes, /clicker and /profile. The styles are the React pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Counter(person: str) {
+    state score = 0
+    <div class="counter">
+        <h2>{person}</h2>
+        <p class="big">{score}</p>
+        <button onclick={() => { score += 1 }}>+1</button>
+    </div>
+}
+
+component Players() {
+    state is_ana = true
+    <main>
+        <h1>Players</h1>
+        {is_ana ? <Counter person="Ana"/> : <Counter person="Max"/>}
+        <button onclick={() => { is_ana = !is_ana }}>Next player</button>
+    </main>
+}
+
+component Seating() {
+    state guests = ["Ana", "Ben", "Cy"]
+    <main>
+        <h1>Seating notes</h1>
+        <ul class="rows">
+            {for guest in guests => <li key={guest}>
+                <b>{guest}</b>
+                <input placeholder="A note"/>
+                <button onclick={() => { guests = guests | filter((g) => g != guest) }}>✕</button>
+            </li>}
+        </ul>
+    </main>
+}
+
+component LikeButton(label: str, on_like) {
+    <button onclick={on_like}>{label}</button>
+}
+
+component Likes() {
+    state likes = 0
+    <main>
+        <h1>Likes</h1>
+        <p class="big">{likes} likes</p>
+        <LikeButton label="Like" on_like={() => { likes += 1 }}/>
+    </main>
+}
+
+component Clicker() {
+    state count = 0
+
+    fn add() {
+        count += 1
+    }
+
+    <main>
+        <h1>Clicker</h1>
+        <p class="big">{count}</p>
+        <button onclick={add}>Add one</button>
+    </main>
+}
+
+component BioField(bio: str, on_bio) {
+    <input value={bio} oninput={(e) => { on_bio(e.value) }} placeholder="Your bio"/>
+}
+
+component Profile() {
+    state bio = ""
+    <main>
+        <h1>Profile</h1>
+        <BioField bio={bio} on_bio={(text) => { bio = text }}/>
+        <p>{len(bio)} of 80 letters</p>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/players")
+route GET /players = Page(<Players/>)
+route GET /seating = Page(<Seating/>)
+route GET /likes = Page(<Likes/>)
+route GET /clicker = Page(<Clicker/>)
+route GET /profile = Page(<Profile/>)

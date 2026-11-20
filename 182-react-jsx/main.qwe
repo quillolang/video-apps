@@ -1,0 +1,62 @@
+// React Quirks #5, in Quillo: the five React JSX pages, each written the Quillo way, at /note, /profile,
+// /likes, /welcome and /inbox. The styles are the React pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Note() {
+    <main>
+        <h1>Note</h1>
+        <p class="note" style="color: crimson">Don't forget the cake!</p>
+    </main>
+}
+
+let user = { name: "Ana", city: "Cebu" }
+
+component Profile() {
+    <main>
+        <h1>Profile</h1>
+        <p class="big">{user}</p>
+    </main>
+}
+
+component Likes() {
+    state likes = 0
+
+    <main>
+        <h1>Likes</h1>
+        <p class="big">{likes} likes</p>
+        <button class="like" onclick={() => { likes += 1 }}>Like</button>
+    </main>
+}
+
+component Welcome() {
+    let name = "Ana"
+
+    <main>
+        <h1>Welcome</h1>
+        <p class="big">
+            Hello{" "}
+            <b>{name}</b>!
+        </p>
+    </main>
+}
+
+component Inbox() {
+    state count = 0
+
+    <main>
+        <h1>Inbox</h1>
+        {count != 0 && <p class="big">You have {count} new messages</p>}
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/note")
+route GET /note = Page(<Note/>)
+route GET /profile = Page(<Profile/>)
+route GET /likes = Page(<Likes/>)
+route GET /welcome = Page(<Welcome/>)
+route GET /inbox = Page(<Inbox/>)

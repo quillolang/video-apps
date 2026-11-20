@@ -1,0 +1,89 @@
+// React Quirks #4, in Quillo: the five React effect pages, each written the Quillo way, at /chat, /seats,
+// /room, /menu and /stopwatch. The styles are the React pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+// The chat's messages, on the server, for everyone.
+let chat = []
+
+server fn join_chat() -> list {
+    chat = chat | push("Ana joined the chat")
+    chat
+}
+
+component Chat() {
+    state messages = []
+
+    <main onmount={() => { messages = join_chat() }}>
+        <h1>Chat</h1>
+        <ul>
+            {for message in messages => <li>{message}</li>}
+        </ul>
+    </main>
+}
+
+fn make_seats() {
+    print("make_seats runs")
+    range(1, 201) | map((i) => `Seat ${i}`)
+}
+
+component Seats() {
+    state seats = make_seats()
+    state name = ""
+
+    <main>
+        <h1>Seats</h1>
+        <input value={name} placeholder="Your name"/>
+        <p>{len(seats)} seats, one for {name == "" ? "…" : name}</p>
+    </main>
+}
+
+component Room() {
+    state room = "general"
+    state draft = ""
+    let options = { room: room }
+
+    if options.room != "" { print(`connecting to #${options.room}`) }
+
+    <main>
+        <h1>#{room}</h1>
+        <input value={draft} placeholder="A message"/>
+    </main>
+}
+
+server fn load_menu() -> list = ["Pizza", "Pasta", "Salad"]
+
+component Menu() {
+    state menu = load_menu()
+
+    <main>
+        <h1>Menu</h1>
+        <ul>
+            {for dish in menu => <li key={dish}>{dish}</li>}
+        </ul>
+    </main>
+}
+
+component Stopwatch() {
+    state running = false
+    state seconds = 0
+
+    if running { every(1000, () => { seconds += 1 }) }
+
+    <main>
+        <h1>Stopwatch</h1>
+        <p class="big">{seconds} s</p>
+        <button onclick={() => { running = !running }}>{running ? "Stop" : "Start"}</button>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/chat")
+route GET /chat = Page(<Chat/>)
+route GET /seats = Page(<Seats/>)
+route GET /room = Page(<Room/>)
+route GET /menu = Page(<Menu/>)
+route GET /stopwatch = Page(<Stopwatch/>)
