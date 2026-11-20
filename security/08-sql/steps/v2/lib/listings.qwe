@@ -1,0 +1,25 @@
+// Listings: what members give away.
+fn all_listings() -> list with db = db.query(`
+    select l.id, l.title, l.condition, m.name as owner from listings l
+    join members m on m.id = l.owner_id order by l.id desc`)
+
+// The listings whose title has the words searched for, put into the SQL as they came.
+fn search_listings(q: str) -> list with db = db.query(`
+    select l.id, l.title, l.condition, m.name as owner from listings l
+    join members m on m.id = l.owner_id where l.title like '%${q}%' order by l.id desc`)
+
+fn listing(id: int) -> map? with db = db.one(`
+    select l.*, m.name as owner from listings l join members m on m.id = l.owner_id where l.id = ?`, id)
+
+fn add_listing(owner_id: int, title: str, condition: str, description: str) -> int ! str with db =
+    db.exec("insert into listings (owner_id, title, condition, description) values (?, ?, ?, ?)",
+        owner_id, title, condition, description)?.last_id
+
+// A listing of this member's own, or null: to anyone else, it is as if it weren't there.
+fn my_listing(id: int, owner_id: int) -> map? with db =
+    db.one("select * from listings where id = ? and owner_id = ?", id, owner_id)
+
+// Only the owner's listing changes: the owner is part of the where, not just of the page.
+fn update_listing(id: int, owner_id: int, title: str, condition: str, description: str) -> map ! str with db =
+    db.exec("update listings set title = ?, condition = ?, description = ? where id = ? and owner_id = ?",
+        title, condition, description, id, owner_id)
