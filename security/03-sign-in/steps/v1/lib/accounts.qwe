@@ -1,0 +1,38 @@
+// Members: signing up, signing in, and who is signed in now. A password is kept only as a salted Argon2id hash.
+fn sign_up(name: str, email: str, password: str) -> map ! str with db, random {
+    let r = db.exec("insert into members (name, email, password_hash) values (?, ?, ?)",
+        trim(name), lower(trim(email)), crypto.hash_password(password))
+    if db.error_kind(r) == "unique" { return err("That email already has an account. Sign in instead?") }
+    let id = r?.last_id
+    { id, name: trim(name), role: "member" }
+}
+
+fn sign_in(email: str, password: str) -> map ! str with db {
+    let m = db.one("select id, name, password_hash, role from members where email = ?", lower(trim(email)))
+    if m == null { return err("No account with that email.") }
+    if !crypto.verify_password(password, m.password_hash) { return err("Wrong password.") }
+    { id: m.id, name: m.name, role: m.role }
+}
+
+// Passwords kept as typed, from before: SQL can't make an Argon2id hash, so the program hashes them, once.
+fn hash_old_passwords() with db, random {
+    for m in db.query("select id, password_hash from members where password_hash not like '$argon2%'") {
+        db.exec("update members set password_hash = ? where id = ?", crypto.hash_password(m.password_hash), m.id)?
+    }
+}
+
+// Who is signed in: what the session says, or null.
+fn me() -> map? = session().member
+
+// A route group's guard: on when someone is signed in; otherwise, off to sign in.
+fn signed_in(r) = me() != null ? r : reply 303 redirect(`/sign-in?next=${url_encode(r.path)}`)
+
+// A new password, once the current one is right: hashed, as at sign-up.
+fn change_password(id: int, current: str, new_password: str) -> map ! str with db, random {
+    let m = db.one("select password_hash from members where id = ?", id)
+    if m == null || !crypto.verify_password(current, m.password_hash) {
+        return err("That's not your current password.")
+    }
+    if len(new_password) < 8 { return err("A password is at least 8 characters.") }
+    db.exec("update members set password_hash = ? where id = ?", crypto.hash_password(new_password), id)
+}
