@@ -1,0 +1,147 @@
+// Swap Board: neighbours give away what they don't need. Members post listings; Rosa runs the board.
+db.open("swap.db")
+db.migrate("migrations")
+
+use "lib/accounts.qwe"
+use "lib/listings.qwe"
+use "ui/page.qwe"
+use "ui/forms.qwe"
+
+// As the program starts: any password still as typed becomes a hash.
+hash_old_passwords()
+
+// A listing's condition: one of three, whatever a request says.
+type Condition = "new" | "good" | "worn"
+
+// What a member may be: a member, or an admin, who runs the board.
+type Role = "member" | "admin"
+
+// A listing's title and words, as the form promises them: refused with a 400 otherwise.
+fn check_listing(title: str, description: str) {
+    if len(trim(title)) == 0 || len(title) > 80 { reply 400 "A title is 1 to 80 characters." }
+    if len(description) > 500 { reply 400 "A few words: 500 characters at most." }
+}
+
+route GET /static/*path = files("public", path)
+
+route GET / {
+    <Page title="Swap Board">
+        <h1>Free to a good home</h1>
+        {me() != null && <p><a.button href="/listings/new">Give something away</a></p>}
+        <ul.listings>
+            {for l in all_listings() => <li>
+                <a href={`/listings/${l.id}`}>{l.title}</a> <ConditionTag c={l.condition}/>
+                <span.meta>from {l.owner}</span>
+            </li>}
+        </ul>
+    </Page>
+}
+
+route GET /listings/:id(int) {
+    let l = listing(id) ?? reply 404 "No such listing"
+    <Page title={l.title}>
+        <h1>{l.title}</h1>
+        <p><ConditionTag c={l.condition}/> <span.meta>from {l.owner}</span></p>
+        <p>{l.description}</p>
+        {me()?.id == l.owner_id && <p><a href={`/listings/${id}/edit`}>Edit</a></p>}
+    </Page>
+}
+
+// Joining and signing in. The session keeps who you are: your id, name and role.
+route GET /sign-up = <SignUpPage problem={null}/>
+
+route POST /sign-up { form: { name: str, email: str, password: str } } {
+    // The form's required, maxlength and minlength, again on the server.
+    let problem = len(trim(name)) == 0 || len(name) > 40 ? "A name is 1 to 40 characters."
+        : len(password) < 8 ? "A password is at least 8 characters." : null
+    if problem != null { return respond(400, <SignUpPage problem={problem}/>) }
+    let m = sign_up(name, email, password)
+    if is_err(m) { return respond(400, <SignUpPage problem={m.error}/>) }
+    set_session({ member: m })
+    redirect("/")
+}
+
+route GET /sign-in ? { next: str = "/" } = <SignInPage problem={null} next={next}/>
+
+route POST /sign-in { form: { email: str, password: str, next: str = "/" } } {
+    let m = sign_in(email, password)
+    if is_err(m) { return respond(401, <SignInPage problem={m.error} next={next}/>) }
+    set_session({ member: m })
+    redirect(local_path(next) ?? "/")
+}
+
+route POST /sign-out {
+    end_session()
+    redirect("/")
+}
+
+// What only members do: post and edit listings.
+routes /listings | signed_in {
+    route GET /new =
+        <Page title="Give something away">
+            <h1>Give something away</h1>
+            <form.stack method="post" action="/listings">
+                <ListingFields l={{ title: "", condition: "good", description: "" }}/>
+                <button>Post it</button>
+            </form>
+        </Page>
+
+    // The browser's maxlength and select are help for honest visitors. The server decides what a listing may be.
+    route POST / { form: { title: str, condition: Condition, description: str } } {
+        check_listing(title, description)
+        let id = add_listing(me().id, title, condition, description)?
+        redirect(`/listings/${id}`)
+    }
+
+    route GET /:id(int)/edit {
+        let l = listing(id) ?? reply 404 "No such listing"
+        <Page title="Edit listing">
+            <h1>Edit listing</h1>
+            <form.stack method="post" action={`/listings/${id}`}>
+                <ListingFields l={l}/>
+                <button>Save</button>
+            </form>
+        </Page>
+    }
+
+    route POST /:id(int) { form: { title: str, condition: Condition, description: str } } {
+        check_listing(title, description)
+        update_listing(id, title, condition, description)?
+        redirect(`/listings/${id}`)
+    }
+}
+
+// Your account: a new password, once the current one is right.
+routes /account | signed_in {
+    route GET / ? { done: bool = false } = <AccountPage problem={null} done={done}/>
+
+    route POST /password { form: { current: str, new_password: str } } {
+        let r = change_password(me().id, current, new_password)
+        if is_err(r) { return respond(400, <AccountPage problem={r.error} done={false}/>) }
+        redirect("/account?done=true")
+    }
+}
+
+// Rosa's page: every member, and who else helps run the board.
+route GET /admin with db {
+    if me()?.role != "admin" { reply 403 "Admins only" }
+    <Page title="Admin">
+        <h1>Members</h1>
+        <ul.listings>
+            {for m in db.query("select id, name, email, role from members order by id") => <li>
+                {m.name} <span.meta>{m.email} · {m.role}</span>
+                {m.id != me().id && <form.inline method="post" action={`/admin/members/${m.id}/role`}>
+                    <input type="hidden" name="role" value={m.role == "admin" ? "member" : "admin"}/>
+                    <button>{m.role == "admin" ? "Remove admin" : "Make admin"}</button>
+                </form>}
+            </li>}
+        </ul>
+    </Page>
+}
+
+// An admin makes a member an admin, or takes it back.
+route POST /admin/members/:id(int)/role { form: { role: Role } } with db {
+    if me()?.role != "admin" { reply 403 "Admins only" }
+    db.exec("update members set role = ? where id = ?", role, id)?
+    redirect("/admin")
+}
