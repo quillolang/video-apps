@@ -1,0 +1,53 @@
+// PHP 8.6 Quirks #3, in Quillo: the PHP pages and API, each written the Quillo way, at /badge, /dessert,
+// /username, /door and /api/total (and /api/total-float). The styles are the PHP pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+route GET /badge ? { name: str = "Zoë Smith" } = Page(<main>
+    <h1>Badge</h1>
+    <p>{name}</p>
+    <p class="big">Hi, {slice(name, 0, 3)}!</p>
+</main>)
+
+route GET /dessert = Page(<main>
+    <h1>Today's dessert</h1>
+    <p class="result">{upper("Crème brûlée")}</p>
+</main>)
+
+view Username(result) = <main>
+    <h1>Pick a username</h1>
+    <form method="post">
+        <input name="name" placeholder="Up to 10 letters"/>
+        <button>Save</button>
+    </form>
+    {result}
+</main>
+
+route GET /username = Page(<Username result={null}/>)
+route POST /username { form: { name: str } } = Page(<Username result={
+    <p class="result">{len(name) <= 10 ? `Saved: ${name}` : `Too long: ${len(name)} of 10`}</p>
+}/>)
+
+view Door(result) = <main>
+    <h1>Door code</h1>
+    <form method="post">
+        <input name="code" placeholder="Code"/>
+        <button>Open</button>
+    </form>
+    {result}
+</main>
+
+route GET /door = Page(<Door result={null}/>)
+route POST /door { form: { code: str } } =
+    Page(<Door result={<p class="result">{code == "1000" ? "Door open" : "Wrong code"}</p>}/>)
+
+let cart = { pencil: 0.10m, eraser: 0.20m }
+
+route GET /api/total = { total: sum(values(cart)) }
+route GET /api/total-float = { total: 0.10 + 0.20 }
+
+view Page(body) = <html>
+    <head><meta charset="utf-8"/><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/badge")
