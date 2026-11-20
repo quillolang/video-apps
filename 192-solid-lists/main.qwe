@@ -1,0 +1,102 @@
+// Solid 2.0 Quirks #3, in Quillo: the Solid pages, each written the Quillo way, at /guests, /team,
+// /pantry, /menu and /news (and /menu-waits, /news-raw). The styles are the Solid pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Guests() {
+    state guests = ["Ana", "Ben"]
+
+    <main>
+        <h1>Guests</h1>
+        {for [i, name] in enumerate(guests) =>
+            <input value={name} oninput={(e) => { guests = set(guests, i, e.value) }}/>}
+        <p>Coming: {join(guests, ", ")}</p>
+    </main>
+}
+
+// The team, as an API gives it: a new list on every call.
+fn load_team() = [{ id: 1, name: "Ana" }, { id: 2, name: "Ben" }]
+
+component Team() {
+    state team = load_team()
+
+    <main>
+        <h1>Team</h1>
+        {for m in team => <label key={m.id}>{m.name} <input placeholder="A note"/></label>}
+        <button onclick={() => { team = load_team() }}>Refresh</button>
+    </main>
+}
+
+component Pantry() {
+    state items = ["rice", "tea"]
+
+    <main>
+        <h1>Pantry</h1>
+        <ul>{for item in items => <li key={item}>{item}</li>}</ul>
+        <button onclick={() => { items = items | push("jam") }}>Add jam</button>
+    </main>
+}
+
+// A stand-in for an API that takes two seconds.
+server fn load_menu() -> list {
+    sleep(2000)
+    ["Soup", "Pie"]
+}
+
+component Menu() {
+    state menu = defer(load_menu())
+
+    <main>
+        <h1>Menu</h1>
+        <p>Welcome! Today we have:</p>
+        {menu == null
+            ? <p>Loading the menu…</p>
+            : <ul>{for dish in menu => <li>{dish}</li>}</ul>}
+    </main>
+}
+
+component MenuWaits() {
+    state menu = load_menu()
+
+    <main>
+        <h1>Menu</h1>
+        <p>Welcome! Today we have:</p>
+        <ul>{for dish in menu => <li>{dish}</li>}</ul>
+    </main>
+}
+
+// A stand-in for a news API that's down.
+server fn load_news() -> str ! str = err("503 Service Unavailable")
+
+component News() {
+    state news = load_news()
+
+    <main>
+        <h1>Home</h1>
+        <p>Welcome back!</p>
+        <p>{is_err(news) ? "No news right now." : `News: ${news}`}</p>
+    </main>
+}
+
+component NewsRaw() {
+    state news = load_news()
+
+    <main>
+        <h1>Home</h1>
+        <p>Welcome back!</p>
+        <p>News: {news}</p>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/guests")
+route GET /guests = Page(<Guests/>)
+route GET /team = Page(<Team/>)
+route GET /pantry = Page(<Pantry/>)
+route GET /menu = Page(<Menu/>)
+route GET /menu-waits = Page(<MenuWaits/>)
+route GET /news = Page(<News/>)
+route GET /news-raw = Page(<NewsRaw/>)
