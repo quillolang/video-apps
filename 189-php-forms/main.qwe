@@ -1,0 +1,66 @@
+// PHP 8.6 Quirks #1, in Quillo: the five PHP pages, each written the Quillo way, at /pizza, /signup,
+// /booking, /hello and /api/hello. The styles are the PHP pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+view Pizza(result) = <main>
+    <h1>Pizza</h1>
+    <form method="post">
+        <label><input type="checkbox" name="topping" value="ham"/> Ham</label>
+        <label><input type="checkbox" name="topping" value="olives"/> Olives</label>
+        <label><input type="checkbox" name="topping" value="basil"/> Basil</label>
+        <button>Order</button>
+    </form>
+    {result}
+</main>
+
+route GET /pizza = Page(<Pizza result={null}/>)
+route POST /pizza { form: { topping: [str] } } =
+    Page(<Pizza result={<p class="result">Your pizza: {join(topping, ", ")}</p>}/>)
+
+view Signup(result) = <main>
+    <h1>Newsletter</h1>
+    <form method="post">
+        <input name="user.email" placeholder="Your email"/>
+        <button>Sign up</button>
+    </form>
+    {result}
+</main>
+
+route GET /signup = Page(<Signup result={null}/>)
+route POST /signup { form: { "user.email": str } } {
+    let email = request.form["user.email"]
+    Page(<Signup result={<p class="result">Thanks, {email}</p>}/>)
+}
+
+view Booking(result) = <main>
+    <h1>Booking</h1>
+    <form method="post">
+        <label>Kids <input name="kids" type="number" min="0"/></label>
+        <button>Book</button>
+    </form>
+    {result}
+</main>
+
+route GET /booking = Page(<Booking result={null}/>)
+route POST /booking { form: { kids: int } } =
+    Page(<Booking result={<p class="result">Booked, with {kids} kids</p>}/>)
+
+view Hello(name: str) = <main>
+    <h1>Hello</h1>
+    <form>
+        <input name="name" placeholder="Your name"/>
+        <button>Say hi</button>
+    </form>
+    {name != "" && <p class="result">Hi, {name}!</p>}
+</main>
+
+route GET /hello ? { name: str = "" } = Page(<Hello name={name}/>)
+
+route POST /api/hello { json: { name: str } } = { greeting: `Hi, ${name}!` }
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/pizza")
