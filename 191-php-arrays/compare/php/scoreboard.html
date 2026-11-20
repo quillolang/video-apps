@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Scoreboard</title>
+<link rel="stylesheet" href="quirks.css">
+<main>
+  <h1>Scoreboard</h1>
+  <ul id="games"></ul>
+</main>
+<script>
+  // The scores API's games, as a page's script reads them: ?api=scores-fixed.php for the fixed one.
+  const api = new URLSearchParams(location.search).get('api') ?? 'scores.php';
+  fetch(api)
+    .then((r) => r.json())
+    .then((played) => {
+      document.getElementById('games').innerHTML =
+        played.map((s, i) => `<li>Game ${i + 1}: ${s} points</li>`).join('');
+    });
+</script>
