@@ -1,0 +1,83 @@
+// React Quirks #2, in Quillo: the five React form pages, each written the Quillo way, at /guests, /name,
+// /notes, /sign-up and /code. The styles are the React pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Guests() {
+    state adults = 2
+    state kids = 0
+
+    <main>
+        <h1>Guests</h1>
+        <label>Adults
+            <input type="number" value={adults}/>
+        </label>
+        <label>Kids
+            <input type="number" value={kids}/>
+        </label>
+        <p class="big">{adults + kids} guests</p>
+    </main>
+}
+
+component Name() {
+    state name = "Ana"
+
+    <main>
+        <h1>Your name</h1>
+        <input value={name}/>
+        <p class="big">Hi, {name}!</p>
+    </main>
+}
+
+component Notes() {
+    state notes = ["Buy milk"]
+
+    <main>
+        <h1>Notes</h1>
+        <ul>
+            {for note in notes => <li key={note}>{note}</li>}
+        </ul>
+        <form onsubmit={(e) => { notes = notes | push(e.form.note) }}>
+            <input name="note" placeholder="A note, then Enter"/>
+        </form>
+    </main>
+}
+
+component SignUp() {
+    state message = ""
+
+    fn sign_up(form) {
+        message = contains(form.email, "@") ? "Welcome!" : "That email needs an @"
+    }
+
+    <main>
+        <h1>Sign up</h1>
+        <form onsubmit={(e) => { sign_up(e.form) }}>
+            <input name="name" placeholder="Name"/>
+            <input name="email" placeholder="Email"/>
+            <button>Sign up</button>
+        </form>
+        <p class="msg">{message}</p>
+    </main>
+}
+
+component Code() {
+    state code = "HELLO"
+
+    <main>
+        <h1>Coupon code</h1>
+        <input value={code} oninput={(e) => { code = upper(e.value) }}/>
+        <p>Your code: <b>{code}</b></p>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/guests")
+route GET /guests = Page(<Guests/>)
+route GET /name = Page(<Name/>)
+route GET /notes = Page(<Notes/>)
+route GET /sign-up = Page(<SignUp/>)
+route GET /code = Page(<Code/>)
