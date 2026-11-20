@@ -1,0 +1,63 @@
+// Solid 2.0 Quirks #2, in Quillo: the Solid pages, each written the Quillo way, at /cart, /welcome,
+// /ranking and /profile. The styles are the Solid pages' own (quirks.css).
+let css = read_file("quirks.css")
+
+component Price(amount: int) {
+    <p class="big">{"$"}{amount}</p>
+}
+
+component Cart() {
+    state qty = 1
+
+    <main>
+        <h1>Cart</h1>
+        <p>{qty} × {"$"}5</p>
+        <Price amount={qty * 5}/>
+        <button onclick={() => { qty += 1 }}>One more</button>
+    </main>
+}
+
+component Welcome() {
+    state user = null
+
+    if user == null {
+        return <main>
+            <h1>Welcome</h1>
+            <button onclick={() => { user = "Ana" }}>Log in as Ana</button>
+        </main>
+    }
+    <main>
+        <h1>Welcome</h1>
+        <p class="big">Hi, {user}!</p>
+    </main>
+}
+
+let names = ["Ana", "Ben", "Cy"]
+
+view Ranking() = <main>
+    <h1>Ranking</h1>
+    <ul class="plain">
+        {for [i, name] in enumerate(names) => <li>{i + 1}. {name}</li>}
+    </ul>
+</main>
+
+component Profile() {
+    state user = { name: "Ana" }
+
+    <main>
+        <h1>Profile</h1>
+        {user != null ? <p class="big">Hi, {user.name}!</p> : <p>Nobody here</p>}
+        <button onclick={() => { user = { name: "Ben" } }}>Switch to Ben</button>
+    </main>
+}
+
+view Page(body) = <html>
+    <head><title>Quillo Quirks</title><style>{raw(css)}</style></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/cart")
+route GET /cart = Page(<Cart/>)
+route GET /welcome = Page(<Welcome/>)
+route GET /ranking = Page(<Ranking/>)
+route GET /profile = Page(<Profile/>)
