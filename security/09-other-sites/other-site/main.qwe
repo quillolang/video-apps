@@ -1,0 +1,14 @@
+// A neighbour's site, on another port: the street's page, with Swap Board's listings in a frame. And Swap Board's
+// front page in another frame, which it refuses.
+//   .quillo/bin/quillo run other-site/main.qwe --port 8081
+route GET / =
+    <html lang="en">
+        <head><title>Our street</title></head>
+        <body style="font: 18px/1.5 system-ui; padding: 16px 24px; background: #eef6ee">
+            <h1 style="margin: 0 0 8px">Our street</h1>
+            <p style="margin: 0 0 8px">What the neighbours give away:</p>
+            <iframe src="http://localhost:8080/embed/listings" width="540" height="240"></iframe>
+            <p style="margin: 8px 0">And Swap Board's front page:</p>
+            <iframe src="http://localhost:8080/" width="540" height="120"></iframe>
+        </body>
+    </html>

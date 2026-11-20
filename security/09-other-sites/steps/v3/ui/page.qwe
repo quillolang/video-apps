@@ -1,0 +1,32 @@
+// The frame every page shares: the board's name, who is signed in, and the stylesheet.
+import lib/accounts.qwe use me
+
+view Page(title: str, children) {
+    let m = me()
+    <html lang="en">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>{title}</title>
+            <link rel="stylesheet" href="/static/style.css"/>
+        </head>
+        <body>
+            <header.top>
+                <a.brand href="/">Swap Board</a>
+                {m != null
+                    ? <form method="post" action="/sign-out">
+                        <a href="/messages">Messages</a>
+                        {m.role == "admin" && <a href="/admin">Admin</a>}
+                        <a href="/account">{m.name}</a>
+                        <button>Sign out</button>
+                    </form>
+                    : <span><a href="/sign-in">Sign in</a> · <a href="/sign-up">Join</a></span>}
+            </header>
+            <main>{children}</main>
+        </body>
+    </html>
+}
+
+// A listing's condition, as a small tag.
+view ConditionTag(c: str) {
+    <span.condition>{c}</span>
+}

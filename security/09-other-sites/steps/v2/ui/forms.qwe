@@ -1,0 +1,74 @@
+// The forms: joining, signing in, and a listing's fields (new or edited).
+import ui/page.qwe use Page
+view SignUpPage(problem: str?) {
+    <Page title="Join Swap Board">
+        <h1>Join Swap Board</h1>
+        {problem != null && <p.problem>{problem}</p>}
+        <form.stack method="post" action="/sign-up">
+            <label>Your name <input name="name" required maxlength="40"/></label>
+            <label>Email <input type="email" name="email" required/></label>
+            <label>Password <input type="password" name="password" required minlength="8"/></label>
+            <button>Join</button>
+        </form>
+    </Page>
+}
+
+view SignInPage(problem: str?, next: str) {
+    <Page title="Sign in">
+        <h1>Sign in</h1>
+        {problem != null && <p.problem>{problem}</p>}
+        <form.stack method="post" action="/sign-in">
+            <input type="hidden" name="next" value={next}/>
+            <label>Email <input type="email" name="email" required/></label>
+            <label>Password <input type="password" name="password" required/></label>
+            <button>Sign in</button>
+        </form>
+    </Page>
+}
+
+// A listing's fields. The browser keeps a title to 80 characters, and a condition to one of three.
+view ListingFields(l: map) {
+    <div.fields>
+    <label>Title <input name="title" value={l.title} required maxlength="80"/></label>
+    <label>Condition
+        <select name="condition">
+            {for c in ["new", "good", "worn"] => <option value={c} selected={l.condition == c}>{c}</option>}
+        </select>
+    </label>
+    <label>A few words <textarea name="description" maxlength="500">{l.description}</textarea></label>
+    </div>
+}
+
+// Your account: a new password, with the current one first.
+view AccountPage(problem: str?, done: bool) {
+    <Page title="Your account">
+        <h1>Your account</h1>
+        <p><a href="/account/profile">Your profile</a></p>
+        {done && <p.done>Password changed.</p>}
+        {problem != null && <p.problem>{problem}</p>}
+        <form.stack method="post" action="/account/password">
+            <label>Current password <input type="password" name="current" required/></label>
+            <label>New password <input type="password" name="new_password" required minlength="8"/></label>
+            <button>Change password</button>
+        </form>
+        <h2>Signed in somewhere else?</h2>
+        <form method="post" action="/account/sign-out-everywhere">
+            <button>Sign out everywhere</button>
+        </form>
+    </Page>
+}
+
+// Your profile: your name, and a few words about you, for your page.
+view ProfilePage(m: map) {
+    <Page title="Your profile">
+        <h1>Your profile</h1>
+        <form.stack method="post" action="/account/profile">
+            <label>Your name <input name="name" value={m.name} required maxlength="40"/></label>
+            <label>About you <textarea name="bio" maxlength="500">{m.bio}</textarea></label>
+            <label.check>
+                <input type="checkbox" name="show_email" checked={m.show_email == 1}/> Show my email on my page
+            </label>
+            <button>Save</button>
+        </form>
+    </Page>
+}

@@ -1,0 +1,14 @@
+// Somebody else's site, on another port: a page about kittens. Its refresh sends the visitor on to Swap Board,
+// as following a link would, and the browser takes the visitor's own cookie along.
+//   .quillo/bin/quillo run other-site/main.qwe --port 8081
+route GET / =
+    <html lang="en">
+        <head>
+            <meta http-equiv="refresh" content="2; url=http://localhost:8080/listings/1/delete"/>
+            <title>Free kittens</title>
+        </head>
+        <body style="font: 20px/1.5 system-ui; padding: 24px; background: #fff8e7">
+            <h1>Free kittens!</h1>
+            <p>Six of them, all stripy. Loading the photos...</p>
+        </body>
+    </html>
