@@ -122,7 +122,7 @@ its islands' style), as the guide says (since 0.8.6), so the component ran.
 
 `site_headers({ "server": null })` does not take away `server: Quillo` (on 0.8.6 and 0.8.8, while
 `"x-frame-options": null` does take its header away); a route's own `respond(200, "hi", { "server": null })` does.
-Reported as Q-1256 in the Quillo repository's feedback (FEEDBACK88).
+Reported as Q-1256 in the Quillo repository's feedback (FEEDBACK79).
 
 ## The screenshots (../shots.mjs)
 
