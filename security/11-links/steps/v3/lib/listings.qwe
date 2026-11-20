@@ -1,0 +1,52 @@
+// Listings: what members give away.
+fn all_listings() -> list with db = db.query(`
+    select l.id, l.title, l.condition, m.name as owner from listings l
+    join members m on m.id = l.owner_id order by l.id desc`)
+
+// How the board may be sorted: one of four, whatever the address says.
+type Sort = "newest" | "title" | "condition" | "owner"
+
+// The listings whose title has the words searched for. The words go in as a value, after the SQL, never into it:
+// whatever they hold, they are only ever searched for. A column can't be a ? value: it goes in as a name, with
+// sql_name, and only one of the four a Sort can be.
+fn search_listings(q: str, sort: Sort) -> list with db = db.query(`
+    select l.id, l.title, l.condition, m.name as owner from listings l
+    join members m on m.id = l.owner_id where l.title like ?
+    order by ${sort == "newest" ? "l.id desc" : sql_name(sort)}`, `%${q}%`)
+
+fn listing(id: int) -> map? with db = db.one(`
+    select l.*, m.name as owner from listings l join members m on m.id = l.owner_id where l.id = ?`, id)
+
+fn add_listing(owner_id: int, title: str, condition: str, description: str) -> int ! str with db =
+    db.exec("insert into listings (owner_id, title, condition, description) values (?, ?, ?, ?)",
+        owner_id, title, condition, description)?.last_id
+
+// A listing of this member's own, or null: to anyone else, it is as if it weren't there.
+fn my_listing(id: int, owner_id: int) -> map? with db =
+    db.one("select * from listings where id = ? and owner_id = ?", id, owner_id)
+
+// Only the owner's listing changes: the owner is part of the where, not just of the page.
+fn update_listing(id: int, owner_id: int, title: str, condition: str, description: str) -> map ! str with db =
+    db.exec("update listings set title = ?, condition = ?, description = ? where id = ? and owner_id = ?",
+        title, condition, description, id, owner_id)
+
+// A listing gone, the owner's only.
+fn delete_listing(id: int, owner_id: int) -> map ! str with db =
+    db.exec("delete from listings where id = ? and owner_id = ?", id, owner_id)
+
+// A listing's photo: the file's name in uploads/.
+fn set_photo(id: int, owner_id: int, name: str) -> map ! str with db =
+    db.exec("update listings set photo = ? where id = ? and owner_id = ?", name, id, owner_id)
+
+// A link's preview: the page's title and its first paragraph, fetched by the server. A member chooses the address,
+// so public_only: true: the public internet only, never this machine or its network, checked as it connects.
+fn preview(url: str) -> map ! str with http {
+    let r = http.get(url, {}, { public_only: true, timeout: 3 })?
+    if r.status != 200 { return err(`the page answered ${r.status}`) }
+    let title = re.find(r.body, "<title>([^<]*)</title>")?.groups[0] ?? url
+    { title, text: re.find(r.body, "<p>([^<]*)</p>")?.groups[0] ?? "" }
+}
+
+fn set_link(id: int, owner_id: int, url: str, p: map) -> map ! str with db =
+    db.exec("update listings set link = ?, link_title = ?, link_text = ? where id = ? and owner_id = ?",
+        url, p.title, p.text, id, owner_id)

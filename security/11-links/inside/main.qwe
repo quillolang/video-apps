@@ -1,0 +1,11 @@
+// A service on this machine that only this machine should reach: the board's back office, on 127.0.0.1:9090. It
+// trusts whoever reaches it, as services inside a network often do.
+//   .quillo/bin/quillo run inside/main.qwe --port 9090
+route GET / =
+    <html lang="en">
+        <head><title>Back office</title></head>
+        <body>
+            <p>Backup password: kitchen-sink-4417</p>
+            <p>Mail server: smtp.internal, user board</p>
+        </body>
+    </html>

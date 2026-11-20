@@ -1,0 +1,16 @@
+// Messages: a member asks a listing's owner about it.
+fn send_message(listing_id: int, from_id: int, to_id: int, body: str) -> int ! str with db =
+    db.exec("insert into messages (listing_id, from_id, to_id, body) values (?, ?, ?, ?)",
+        listing_id, from_id, to_id, body)?.last_id
+
+// A member's messages, sent and received.
+fn my_messages(member_id: int) -> list with db = db.query(`
+    select ms.id, l.title, f.name as sender, t.name as recipient from messages ms
+    join listings l on l.id = ms.listing_id join members f on f.id = ms.from_id join members t on t.id = ms.to_id
+    where ms.from_id = ? or ms.to_id = ? order by ms.id desc`, member_id, member_id)
+
+// One message, by its number, for the two members in it only: to anyone else, it isn't there.
+fn message(id: int, member_id: int) -> map? with db = db.one(`
+    select ms.*, l.title, f.name as sender, t.name as recipient from messages ms
+    join listings l on l.id = ms.listing_id join members f on f.id = ms.from_id join members t on t.id = ms.to_id
+    where ms.id = ? and (ms.from_id = ? or ms.to_id = ?)`, id, member_id, member_id)
