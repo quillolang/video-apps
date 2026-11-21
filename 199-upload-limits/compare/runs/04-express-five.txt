@@ -1,0 +1,5 @@
+$ for i in 1 2 3 4; do curl -s -F photo=@big.jpg localhost:3000/photos; echo; done
+Saved 209715200 bytes
+Saved 209715200 bytes
+Saved 209715200 bytes
+Saved 209715200 bytes

@@ -1,0 +1,2 @@
+$ curl -s -F photo=@big.jpg localhost:3000/photos; echo
+Saved 209715200 bytes

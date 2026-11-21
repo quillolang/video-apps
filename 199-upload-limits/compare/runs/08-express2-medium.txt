@@ -1,0 +1,2 @@
+$ curl -s -w ' (%{http_code})\n' -F photo=@medium.jpg localhost:3000/photos
+Photos up to 2 MB (413)

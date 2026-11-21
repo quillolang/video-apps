@@ -1,0 +1,2 @@
+$ du -sh uploads | awk '{ print $1, $2 }'
+1.0G uploads

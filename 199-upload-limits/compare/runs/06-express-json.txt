@@ -1,0 +1,3 @@
+$ ls -lh note.json | awk '{ print $5, $9 }' && curl -s -o /dev/null -w '%{http_code}\n' -H 'content-type: application/json' --data-binary @note.json localhost:3000/notes
+195K note.json
+413

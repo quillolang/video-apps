@@ -1,0 +1,3 @@
+$ curl -s -w ' (%{http_code})\n' -F photo=@big.jpg localhost:8080/photos
+request body too large
+ (413)

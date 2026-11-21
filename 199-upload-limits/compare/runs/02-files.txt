@@ -1,0 +1,4 @@
+$ head -c 209715200 /dev/zero > big.jpg && head -c 3000000 /dev/zero > medium.jpg && head -c 500000 /dev/zero > photo.jpg && ls -lh *.jpg | awk '{ print $5, $9 }'
+200M big.jpg
+2.9M medium.jpg
+488K photo.jpg

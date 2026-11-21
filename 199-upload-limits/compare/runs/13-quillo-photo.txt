@@ -1,0 +1,2 @@
+$ curl -s -w ' (%{http_code})\n' -F photo=@photo.jpg localhost:8080/photos
+Saved 500000 bytes (200)
