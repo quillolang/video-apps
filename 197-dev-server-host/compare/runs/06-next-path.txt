@@ -1,0 +1,2 @@
+$ curl -s http://192.168.1.48:3000/ | grep -o '/[a-zA-Z0-9_./-]*/[.]next/dev/server' | head -1
+/private/var/folders/sn/97ygtwxj5cd6f9p3lq42mdc00000gn/T/trail-notes.uzX7Jj/next/.next/dev/server

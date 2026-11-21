@@ -1,0 +1,7 @@
+$ npx next dev -H localhost
+▲ Next.js 16.4.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://localhost:3000
+✓ Ready in 1128ms
+✓ Running next.config.mjs took 21ms
+- Cache Components enabled

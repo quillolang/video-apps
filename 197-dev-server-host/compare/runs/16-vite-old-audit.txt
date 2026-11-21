@@ -1,0 +1,3 @@
+$ npm ls vite | grep '── vite@' && npm audit | grep -c github.com/advisories
+└── vite@6.2.2
+17

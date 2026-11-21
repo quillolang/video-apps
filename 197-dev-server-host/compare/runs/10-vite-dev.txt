@@ -1,0 +1,4 @@
+$ npx vite
+  VITE v8.3.8  ready in 443 ms
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose

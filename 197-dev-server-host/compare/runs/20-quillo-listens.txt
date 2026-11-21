@@ -1,0 +1,2 @@
+$ lsof -nP -iTCP:8080 -sTCP:LISTEN | awk 'NR > 1 { print $1, $9 }'
+quillo 127.0.0.1:8080

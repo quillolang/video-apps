@@ -1,0 +1,10 @@
+// Trail notes: the page reads notes.json, which isn't there yet, so the page fails.
+// While we work (--watch), Quillo shows the error on the page, with the file and line.
+route GET / {
+    let notes = json.parse(read_file("notes.json")?)?
+    <html><head><title>Trail notes</title></head>
+    <body style="font: 24px system-ui; margin: 32px">
+        <h1>🥾 Trail notes</h1>
+        <p>{len(notes)} notes</p>
+    </body></html>
+}

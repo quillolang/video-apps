@@ -1,0 +1,4 @@
+$ quillo run main.qwe --watch
+quillo: sessions are signed with .quillo/.quillo-secret (development only; set QUILLO_SECRET in production)
+quillo: 1 route listening on http://127.0.0.1:8080
+quillo: watching for changes

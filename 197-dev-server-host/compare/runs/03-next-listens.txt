@@ -1,0 +1,2 @@
+$ lsof -nP -iTCP:3000 -sTCP:LISTEN | awk 'NR > 1 { print $1, $9 }'
+node *:3000

@@ -1,0 +1,5 @@
+$ quillo run main.qwe --watch --host 0.0.0.0
+quillo: sessions are signed with .quillo/.quillo-secret (development only; set QUILLO_SECRET in production)
+quillo: 1 route listening on http://0.0.0.0:8080
+quillo: watching for changes
+quillo: warning: --watch listens on 0.0.0.0, not this machine alone: anyone on its network can reach the program's routes and server fns, and sees its errors in full. Leave out --host to keep it to this machine

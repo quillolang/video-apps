@@ -1,0 +1,2 @@
+$ gh api /advisories/GHSA-x574-m823-4x7w --jq .description | grep 'Only apps'
+Only apps explicitly exposing the Vite dev server to the network (using `--host` or [`server.host` config option](https://vitejs.dev/config/server-options.html#server-host)) are affected.
