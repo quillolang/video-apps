@@ -1,0 +1,2 @@
+$ npm install --silent --save-exact next@15.2.3 && npm ls next | grep next@
+└── next@15.2.3

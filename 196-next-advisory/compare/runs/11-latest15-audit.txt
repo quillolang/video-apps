@@ -1,0 +1,4 @@
+$ npm audit | grep -E '^[a-z@/.-]+ +[<>=]|^Severity|vulnerabilit'
+postcss  <=8.5.22
+Severity: high
+2 vulnerabilities (1 moderate, 1 high)

@@ -1,0 +1,2 @@
+$ grep -c '^### Security' CHANGELOG.md
+4

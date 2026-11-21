@@ -1,0 +1,2 @@
+$ gh api /repos/quillolang/quillo/contents/SECURITY.md --jq .content | base64 -d | grep 'before 1.0'
+Quillo is before 1.0: fixes go into the latest release only.

@@ -1,0 +1,2 @@
+$ gh api /repos/quillolang/quillo/security-advisories --jq length
+0

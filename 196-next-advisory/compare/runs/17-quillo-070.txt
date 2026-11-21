@@ -1,0 +1,3 @@
+$ grep -A1 'One viewer.s .live. answer' CHANGELOG.md
+- **One viewer's `live` answer could reach another, for up to two seconds, in 0.7.0 and
+  before: upgrade.** A `live` run is shared between viewers unless its code read the request.

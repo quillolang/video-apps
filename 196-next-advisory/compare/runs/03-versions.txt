@@ -1,0 +1,3 @@
+$ node --version && npm ls next | grep next@
+v26.13.1
+└── next@15.2.2

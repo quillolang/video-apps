@@ -1,0 +1,7 @@
+$ gh api /advisories/GHSA-223j-4rm8-mrmf --jq '.severity, .published_at, .vulnerabilities[].vulnerable_version_range'
+low
+2025-04-02T22:35:37Z
+= 12.3.5
+= 13.5.9
+= 14.2.25
+= 15.2.3

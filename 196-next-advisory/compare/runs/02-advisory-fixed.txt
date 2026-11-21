@@ -1,0 +1,5 @@
+$ gh api /advisories/GHSA-f82v-jwr5-mffw --jq '.vulnerabilities[].first_patched_version'
+13.5.9
+14.2.25
+15.2.3
+12.3.5

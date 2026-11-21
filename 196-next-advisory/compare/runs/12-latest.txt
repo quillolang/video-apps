@@ -1,0 +1,2 @@
+$ npm install --silent --save-exact next@16 && npm ls next | grep next@
+└── next@16.4.6

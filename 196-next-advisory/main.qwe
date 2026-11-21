@@ -1,0 +1,28 @@
+// Trail Club's admin page in Quillo: the group's check runs before each of its routes,
+// and the page checks again, close to the data.
+fn signed_in(r) = session().user != null ? r : reply 303 redirect("/login")
+
+routes /admin | signed_in {
+    route GET / {
+        let me = session().user ?? reply 403 "members only"
+        <html><head><title>Trail Club</title></head>
+        <body style="font: 24px system-ui; margin: 32px">
+            <h1>🥾 Trail Club admin</h1>
+            <p>3 members waiting for approval</p>
+            <p>Signed in as {me}</p>
+        </body></html>
+    }
+}
+
+route GET /login =
+    <html><head><title>Trail Club</title></head>
+    <body style="font: 24px system-ui; margin: 32px">
+        <h1>🥾 Trail Club</h1>
+        <p>Please sign in to see the admin page.</p>
+        <form method="post" action="/login"><button>Sign in as Ana</button></form>
+    </body></html>
+
+route POST /login {
+    set_session({ user: "Ana" })
+    redirect("/admin")
+}

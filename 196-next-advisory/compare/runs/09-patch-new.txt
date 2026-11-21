@@ -1,0 +1,2 @@
+$ npm audit | grep 223j
+Next.js may leak x-middleware-subrequest-id to external hosts - https://github.com/advisories/GHSA-223j-4rm8-mrmf

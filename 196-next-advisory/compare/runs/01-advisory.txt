@@ -1,0 +1,4 @@
+$ gh api /advisories/GHSA-f82v-jwr5-mffw --jq '.summary, .severity, .published_at'
+Authorization Bypass in Next.js Middleware
+critical
+2025-03-21T15:20:12Z

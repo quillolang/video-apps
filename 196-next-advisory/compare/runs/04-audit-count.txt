@@ -1,0 +1,2 @@
+$ npm audit | grep -c github.com/advisories
+47
