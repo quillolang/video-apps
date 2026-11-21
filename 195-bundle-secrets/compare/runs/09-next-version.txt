@@ -1,0 +1,2 @@
+$ npx next --version
+Next.js v16.4.6

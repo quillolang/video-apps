@@ -1,0 +1,2 @@
+$ cat .env
+PAYLY_SECRET=payly_secret_demo_9c71

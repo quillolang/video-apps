@@ -1,0 +1,8 @@
+$ npm run build --silent | tail -7
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

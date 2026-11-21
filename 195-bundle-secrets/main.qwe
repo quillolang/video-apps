@@ -1,0 +1,25 @@
+// The bake sale's Pay page: Payly's publishable key may go to the page; its secret key stays on the server.
+// (Payly is made up: pay() is where the server calls it with the secret.)
+server fn pay() -> str with env, http {
+    let r = http.post("https://api.payly.example/v1/charges", { amount: 450 },
+        { authorization: `Bearer ${env("PAYLY_SECRET")}` })
+    r.ok ? "Paid $4.50 ✓" : "Payment failed"
+}
+
+component Pay() {
+    let key = env("PUBLIC_PAYLY_KEY")
+    state result = ""
+    <div>
+        <button onclick={() => { result = pay() }}>Pay $4.50</button>
+        <p class="status">Payly key: {key}</p>
+        {result != "" && <p class="paid">{result}</p>}
+    </div>
+}
+
+route GET / =
+    <html><head><title>Bake sale</title></head>
+    <body style="font: 24px system-ui; margin: 32px">
+        <h1>🧁 Bake sale</h1>
+        <p>Lemon cupcake · $4.50</p>
+        <Pay/>
+    </body></html>

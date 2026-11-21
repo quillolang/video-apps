@@ -1,0 +1,2 @@
+$ grep -rl payly_secret .next/static || echo 'no match'
+no match

@@ -1,0 +1,5 @@
+$ npm run build --silent | tail -4
+dist/assets/index-Bk7lim_S.css    0.03 kB │ gzip:  0.05 kB
+dist/assets/index-CsaJGzjR.js   219.92 kB │ gzip: 68.83 kB
+
+✓ built in 193ms

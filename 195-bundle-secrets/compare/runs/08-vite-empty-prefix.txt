@@ -1,0 +1,3 @@
+$ npx vite build --config vite.everything.config.js 2>&1 | head -2
+error during build:
+Error: envPrefix option contains value '', which could lead unexpected exposure of sensitive information.

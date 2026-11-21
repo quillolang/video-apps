@@ -1,0 +1,19 @@
+// The bake sale's Pay page, first try: the page charges the card with Payly's secret key.
+component Pay() {
+    let secret = env("PAYLY_SECRET")
+    <div>
+        <button onclick={() => {
+            http.post("https://api.payly.example/v1/charges", { amount: 450 },
+                { authorization: `Bearer ${secret}` })
+        }}>Pay $4.50</button>
+        <p class="status">Payly secret: {secret != null ? "loaded ✓" : "missing"}</p>
+    </div>
+}
+
+route GET / =
+    <html><head><title>Bake sale</title></head>
+    <body style="font: 24px system-ui; margin: 32px">
+        <h1>🧁 Bake sale</h1>
+        <p>Lemon cupcake · $4.50</p>
+        <Pay/>
+    </body></html>

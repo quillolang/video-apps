@@ -1,0 +1,2 @@
+$ grep -rho 'payly_pub_[a-z0-9_]*' .next/static | sort -u
+payly_pub_demo_4f2a
