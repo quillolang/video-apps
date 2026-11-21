@@ -1,0 +1,17 @@
+open /             /                  loads 1  calls none              tab "Trail Guide"  ★ 0 saved
+click Eagle Ridge  /trails/2          loads 0  calls prefetch /trails/2, load_trail tab "Trail Guide"  ★ 0 saved
+click Reviews      /trails/2/reviews  loads 0  calls prefetch /trails/2/reviews, load_reviews tab "Trail Guide"  ★ 0 saved
+click Save         /trails/2/reviews  loads 0  calls none              tab "Trail Guide"  ★ 1 saved
+click Overview     /trails/2          loads 0  calls prefetch /trails/2 tab "Trail Guide"  ★ 1 saved
+Back               /trails/2/reviews  loads 0  calls load_reviews      tab "Trail Guide"  ★ 1 saved
+click Trail Guide  /                  loads 0  calls prefetch /, list_trails tab "Trail Guide"  ★ 1 saved
+reload             /                  loads 1  calls none              tab "Trail Guide"  ★ 0 saved
+downloads /_quillo/b/41aa6934ff9463ca.js                   12081 bytes,    2892 gzipped
+downloads /_quillo/r/6c835c423309e21a.js                  165338 bytes,   47084 gzipped
+downloads all of it                                       177419 bytes,   49976 gzipped
+no JS  open /             /                  loads 1  calls none              shows "Trails Fern Gully Loop eas"
+no JS  click Eagle Ridge  /trails/2          loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  open /trails/2     /trails/2          loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  click Reviews      /trails/2/reviews  loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  click Save         /trails/2/reviews  loads 0  calls none              shows "Eagle Ridge hard Overview "
+no JS  open /trails/2/reviews  /trails/2/reviews  loads 1  calls none              shows "Eagle Ridge hard Overview "

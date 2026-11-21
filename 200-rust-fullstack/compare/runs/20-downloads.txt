@@ -1,0 +1,5 @@
+$ for s in leptos dioxus dioxus-tuned quillo; do printf '%-13s' $s; grep 'all of it' runs/probe-$s.txt | awk '{ print $(NF-3), $(NF-2), $(NF-1), $NF }'; done
+leptos       640095 bytes, 245630 gzipped
+dioxus       2773424 bytes, 744649 gzipped
+dioxus-tuned 1429767 bytes, 512918 gzipped
+quillo       177419 bytes, 49976 gzipped

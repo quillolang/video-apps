@@ -1,0 +1,4 @@
+$ for p in /trails/2 /trails/99 /nope; do curl -s -o /dev/null -w "$p %{http_code}\\n" localhost:8200$p; done
+/trails/2 200
+/trails/99 404
+/nope 404

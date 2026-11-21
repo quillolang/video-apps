@@ -1,0 +1,9 @@
+component Home() {
+    state items = list_trails()
+    <div>
+        <h1>Trails</h1>
+        {items == null
+            ? <p.muted>Loading…</p>
+            : <ul.trails>{for t in items => <TrailItem key={t.id} trail={t}/>}</ul>}
+    </div>
+}

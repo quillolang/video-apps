@@ -1,0 +1,7 @@
+$ wc -l leptos/src/*.rs dioxus/src/main.rs quillo/main.qwe
+     262 leptos/src/app.rs
+       9 leptos/src/lib.rs
+      39 leptos/src/main.rs
+     223 dioxus/src/main.rs
+     118 quillo/main.qwe
+     651 total

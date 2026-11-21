@@ -1,0 +1,9 @@
+leptos-async
+  /trails/2           200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Eagle Ridge · Trail Guide
+  /trails/2/reviews   200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Eagle Ridge · Trail Guide
+  /trails/02          200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Eagle Ridge · Trail Guide
+  /trails/+2          200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Eagle Ridge · Trail Guide
+  /trails/abc         404 404: No such trail   no JS: 404: No such trail ← A tab: No such trail
+  /trails/99          404 404: No such trail   no JS: 404: No such trail ← A tab: No such trail
+  /trails/4294967296  404 404: No such trail   no JS: 404: No such trail ← A tab: No such trail
+  /nope               404 404: No such page    no JS: 404: No such page ← Al tab: No such page

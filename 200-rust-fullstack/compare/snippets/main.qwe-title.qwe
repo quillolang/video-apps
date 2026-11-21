@@ -1,0 +1,5 @@
+// Quillo has no <Title>: in the browser, set the page's own title element (js() is null on the server).
+fn show_title(text: str) {
+    let el = js("document.querySelector", "title")
+    if el != null { el.textContent = text }
+}

@@ -1,0 +1,6 @@
+component SaveButton(id: int) {
+    let on = contains(saved, id)
+    <button.save class={on && "on"} onclick={() => {
+        saved = on ? saved | filter((s) => s != id) : saved + [id]
+    }}>{on ? "★ Saved" : "☆ Save"}</button>
+}

@@ -1,0 +1,2 @@
+$ quillo check main.qwe
+main.qwe: ok (1 route, 8 functions, 6 components)

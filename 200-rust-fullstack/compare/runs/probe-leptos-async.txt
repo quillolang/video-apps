@@ -1,0 +1,17 @@
+open /             /                  loads 1  calls none              tab "Trail Guide"  ★ 0 saved
+click Eagle Ridge  /trails/2          loads 0  calls load_trail        tab "Eagle Ridge · Trail Guide"  ★ 0 saved
+click Reviews      /trails/2/reviews  loads 0  calls load_reviews      tab "Eagle Ridge · Trail Guide"  ★ 0 saved
+click Save         /trails/2/reviews  loads 0  calls none              tab "Eagle Ridge · Trail Guide"  ★ 1 saved
+click Overview     /trails/2          loads 0  calls none              tab "Eagle Ridge · Trail Guide"  ★ 1 saved
+Back               /trails/2/reviews  loads 0  calls load_reviews      tab "Eagle Ridge · Trail Guide"  ★ 1 saved
+click Trail Guide  /                  loads 0  calls list_trails       tab "Trail Guide"  ★ 1 saved
+reload             /                  loads 1  calls none              tab "Trail Guide"  ★ 0 saved
+downloads /pkg/trails.js                                   23729 bytes,    6686 gzipped
+downloads /pkg/trails.wasm                                616366 bytes,  238947 gzipped
+downloads all of it                                       640095 bytes,  245633 gzipped
+no JS  open /             /                  loads 1  calls none              shows "Trails Fern Gully Loop eas"
+no JS  click Eagle Ridge  /trails/2          loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  open /trails/2     /trails/2          loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  click Reviews      /trails/2/reviews  loads 1  calls none              shows "Eagle Ridge hard Overview "
+no JS  click Save         /trails/2/reviews  loads 0  calls none              shows "Eagle Ridge hard Overview "
+no JS  open /trails/2/reviews  /trails/2/reviews  loads 1  calls none              shows "Eagle Ridge hard Overview "

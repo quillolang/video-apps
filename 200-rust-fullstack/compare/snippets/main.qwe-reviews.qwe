@@ -1,0 +1,11 @@
+component Reviews(id: int) {
+    state list = load_reviews(id)
+    {list == null
+        ? <p.muted>Loading…</p>
+        : <Card title="Reviews" footer={<span>{len(list)} reviews</span>}>
+            <ul.reviews>{for r in list => <li key={r.who}>
+                <b>{r.who}</b> <span.stars>{repeat("★", r.stars)}</span>
+                <p>{r.text}</p>
+            </li>}</ul>
+        </Card>}
+}

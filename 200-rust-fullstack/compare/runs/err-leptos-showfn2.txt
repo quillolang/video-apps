@@ -1,0 +1,18 @@
+$ cargo leptos build --release
+    Metadata keys ["env"] from metadata.leptos are not recognized and will be ignored
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+    Finished `wasm-release` profile [optimized] target(s) in 19.91s
+       Cargo finished cargo build --package=trails --lib --target-dir=/Users/you/dev/quillo-videos/.cache/rust-target/v200-target/leptos/front --target=wasm32-unknown-unknown --no-default-features --features=hydrate --profile=wasm-release
+       Front generating JS/WASM with wasm-bindgen
+       Using wasm-bindgen version 0.2.130 detected in project
+    Finished generating JS/WASM for front in 5.812458584s
+    Finished `release` profile [optimized] target(s) in 55.78s
+       Cargo finished cargo build --package=trails --bin=trails --no-default-features --features=ssr --release
+(exit 0)

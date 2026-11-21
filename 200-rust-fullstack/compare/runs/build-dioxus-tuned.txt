@@ -1,0 +1,646 @@
+$ dx build --release --platform web
+  0.00s  INFO Building project...
+  2.13s  INFO Compiled [  1/306]: unicode_ident
+  2.14s  INFO Compiled [  1/400]: unicode_ident
+  2.26s  INFO Compiled [  2/306]: build-script-build
+  2.27s  INFO Compiled [  2/400]: build-script-build
+  2.32s  INFO Compiled [  3/306]: build-script-build
+  2.32s  INFO Compiled [  3/400]: build-script-build
+  3.26s  INFO Compiled [  6/306]: quote
+  3.29s  INFO Compiled [  7/306]: proc_macro2
+  3.36s  INFO Compiled [  6/400]: proc_macro2
+  3.47s  INFO Compiled [  7/400]: quote
+  3.62s  INFO Compiled [  8/400]: build-script-build
+  8.10s  INFO Compiled [  8/306]: syn
+  8.16s  INFO Compiled [  9/306]: cfg_if
+  8.28s  INFO Compiled [  9/400]: syn
+  8.35s  INFO Compiled [ 10/306]: syn
+  8.43s  INFO Compiled [ 11/306]: build-script-build
+  8.52s  INFO Compiled [ 10/400]: syn
+  9.17s  INFO Compiled [ 12/400]: cfg_if
+  9.42s  INFO Compiled [ 13/400]: build-script-build
+  9.92s  INFO Compiled [ 13/306]: rustversion
+  9.98s  INFO Compiled [ 14/306]: pin_project_lite
+ 10.17s  INFO Compiled [ 15/306]: build-script-build
+ 10.39s  INFO Compiled [ 16/306]: serde_derive
+ 10.52s  INFO Compiled [ 15/400]: serde_derive
+ 10.61s  INFO Compiled [ 17/306]: version_check
+ 10.78s  INFO Compiled [ 19/306]: build-script-build
+ 11.26s  INFO Compiled [ 20/306]: build-script-build
+ 11.61s  INFO Compiled [ 16/400]: libc
+ 11.79s  INFO Compiled [ 17/400]: build-script-build
+ 12.11s  INFO Compiled [ 22/306]: futures_core
+ 12.47s  INFO Compiled [ 18/400]: serde_core
+ 12.62s  INFO Compiled [ 20/400]: version_check
+ 12.67s  INFO Compiled [ 21/400]: pin_project_lite
+ 12.76s  INFO Compiled [ 22/400]: futures_core
+ 26.35s  INFO Compiled [ 24/306]: serde_core
+ 48.57s  INFO Compiled [ 25/306]: wasm_bindgen_shared
+ 62.31s  INFO Compiled [ 27/306]: bumpalo
+ 62.44s  INFO Compiled [ 23/400]: memchr
+ 62.49s  INFO Compiled [ 24/400]: serde
+ 62.52s  INFO Compiled [ 25/400]: futures_sink
+ 66.50s  INFO Compiled [ 26/400]: futures_channel
+ 66.65s  INFO Compiled [ 27/400]: slab
+ 66.77s  INFO Compiled [ 28/400]: futures_io
+ 66.86s  INFO Compiled [ 28/306]: serde
+ 66.97s  INFO Compiled [ 29/400]: futures_task
+ 67.20s  INFO Compiled [ 30/400]: futures_macro
+ 67.43s  INFO Compiled [ 29/306]: build-script-build
+ 67.52s  INFO Compiled [ 30/306]: unicode_ident
+ 67.72s  INFO Compiled [ 31/400]: bytes
+ 69.62s  INFO Compiled [ 32/400]: build-script-build
+ 69.63s  INFO Compiled [ 31/306]: wasm_bindgen_shared
+ 69.95s  INFO Compiled [ 34/400]: itoa
+ 70.22s  INFO Compiled [ 33/306]: futures_sink
+ 70.27s  INFO Compiled [ 35/400]: rustversion
+ 70.38s  INFO Compiled [ 36/400]: once_cell
+ 70.55s  INFO Compiled [ 37/400]: smallvec
+ 70.70s  INFO Compiled [ 34/306]: memchr
+ 70.86s  INFO Compiled [ 35/306]: futures_channel
+ 71.25s  INFO Compiled [ 38/400]: tracing_core
+ 71.69s  INFO Compiled [ 39/400]: futures_util
+ 71.93s  INFO Compiled [ 36/306]: futures_macro
+ 71.95s  INFO Compiled [ 40/400]: build-script-build
+ 72.03s  INFO Compiled [ 37/306]: futures_task
+ 72.12s  INFO Compiled [ 38/306]: slab
+ 72.23s  INFO Compiled [ 39/306]: futures_io
+ 72.44s  INFO Compiled [ 41/400]: tracing_attributes
+ 72.85s  INFO Compiled [ 40/306]: wasm_bindgen_macro_support
+ 73.06s  INFO Compiled [ 41/306]: wasm_bindgen_macro
+ 73.54s  INFO Compiled [ 43/400]: http
+ 73.74s  INFO Compiled [ 44/400]: tracing
+ 73.90s  INFO Compiled [ 45/400]: build-script-build
+ 73.99s  INFO Compiled [ 46/400]: scopeguard
+ 74.77s  INFO Compiled [ 47/400]: synstructure
+ 74.78s  INFO Compiled [ 48/400]: thiserror_impl
+ 75.27s  INFO Compiled [ 49/400]: thiserror
+ 75.92s  INFO Compiled [ 50/400]: build-script-build
+ 76.03s  INFO Compiled [ 42/306]: wasm_bindgen
+ 76.07s  INFO Compiled [ 43/306]: futures_util
+ 76.13s  INFO Compiled [ 51/400]: zerofrom_derive
+ 76.19s  INFO Compiled [ 44/306]: smallvec
+ 76.23s  INFO Compiled [ 45/306]: scopeguard
+ 76.33s  INFO Compiled [ 46/306]: itoa
+ 76.45s  INFO Compiled [ 47/306]: once_cell
+ 76.84s  INFO Compiled [ 53/400]: zerofrom
+ 77.30s  INFO Compiled [ 48/306]: tracing_core
+ 77.55s  INFO Compiled [ 54/400]: yoke_derive
+ 77.93s  INFO Compiled [ 55/400]: socket2
+ 79.28s  INFO Compiled [ 56/400]: mio
+ 79.60s  INFO Compiled [ 57/400]: tokio_macros
+ 79.64s  INFO Compiled [ 58/400]: stable_deref_trait
+ 79.73s  INFO Compiled [ 59/400]: unicode_xid
+ 79.85s  INFO Compiled [ 49/306]: tracing_attributes
+ 80.39s  INFO Compiled [ 60/400]: yoke
+ 80.61s  INFO Compiled [ 50/306]: synstructure
+ 82.36s  INFO Compiled [ 51/306]: build-script-build
+ 82.44s  INFO Compiled [ 52/306]: unicode_xid
+ 82.70s  INFO Compiled [ 61/400]: zerocopy_derive
+ 83.48s  INFO Compiled [ 54/306]: tracing
+ 84.78s  INFO Compiled [ 55/306]: thiserror_impl
+ 85.21s  INFO Compiled [ 56/306]: thiserror
+ 86.21s  INFO Compiled [ 57/306]: zerofrom_derive
+ 87.90s  INFO Compiled [ 58/306]: bytes
+ 87.94s  INFO Compiled [ 62/400]: zerocopy
+ 88.16s  INFO Compiled [ 63/400]: build-script-build
+ 89.12s  INFO Compiled [ 65/400]: tokio
+ 89.46s  INFO Compiled [ 66/400]: build-script-build
+ 89.65s  INFO Compiled [ 59/306]: js_sys
+ 89.73s  INFO Compiled [ 60/306]: wasm_bindgen_futures
+ 89.75s  INFO Compiled [ 67/400]: zerovec_derive
+ 89.94s  INFO Compiled [ 61/306]: build-script-build
+ 90.09s  INFO Compiled [ 69/400]: parking_lot_core
+ 90.69s  INFO Compiled [ 70/400]: const_format_proc_macros
+ 90.81s  INFO Compiled [ 71/400]: zerovec
+ 90.92s  INFO Compiled [ 72/400]: lock_api
+ 90.93s  INFO Compiled [ 63/306]: zerofrom
+ 91.58s  INFO Compiled [ 74/400]: displaydoc
+ 91.70s  INFO Compiled [ 64/306]: const_format_proc_macros
+ 91.99s  INFO Compiled [ 75/400]: httparse
+ 92.15s  INFO Compiled [ 76/400]: typenum
+ 92.48s  INFO Compiled [ 77/400]: build-script-build
+ 92.86s  INFO Compiled [ 78/400]: build-script-build
+ 93.07s  INFO Compiled [ 79/400]: generic_array
+ 93.11s  INFO Compiled [ 80/400]: konst_macro_rules
+ 93.22s  INFO Compiled [ 81/400]: dioxus_core_types
+ 93.38s  INFO Compiled [ 65/306]: yoke_derive
+ 93.77s  INFO Compiled [ 82/400]: percent_encoding
+103.43s  INFO Compiled [ 83/400]: build-script-build
+103.63s  INFO Compiled [ 66/306]: build-script-build
+104.03s  INFO Compiled [ 85/400]: konst
+104.04s  INFO Compiled [ 67/306]: stable_deref_trait
+106.24s  INFO Compiled [ 68/306]: yoke
+106.37s  INFO Compiled [ 88/400]: subsecond_types
+106.41s  INFO Compiled [ 89/400]: parking_lot
+108.33s  INFO Compiled [ 90/400]: libloading
+108.40s  INFO Compiled [ 91/400]: memmap2
+108.95s  INFO Compiled [ 92/400]: build-script-build
+109.74s  INFO Compiled [ 93/400]: build-script-build
+110.90s  INFO Compiled [ 69/306]: parking_lot_core
+112.98s  INFO Compiled [ 70/306]: lock_api
+113.16s  INFO Compiled [ 95/400]: unicode_segmentation
+113.37s  INFO Compiled [ 96/400]: subsecond
+115.07s  INFO Compiled [ 71/306]: build-script-build
+119.81s  INFO Compiled [ 97/400]: generational_box
+120.21s  INFO Compiled [ 72/306]: konst_macro_rules
+122.42s  INFO Compiled [ 98/400]: getrandom
+122.53s  INFO Compiled [ 99/400]: slotmap
+122.62s  INFO Compiled [ 73/306]: dioxus_core_types
+128.80s  INFO Compiled [100/400]: anyhow
+131.18s  INFO Compiled [ 74/306]: build-script-build
+131.27s  INFO Compiled [101/400]: const_format
+132.06s  INFO Compiled [102/400]: crypto_common
+132.78s  INFO Compiled [103/400]: block_buffer
+133.70s  INFO Compiled [ 75/306]: unicode_segmentation
+135.78s  INFO Compiled [104/400]: tinystr
+137.57s  INFO Compiled [105/400]: rustc_hash
+138.60s  INFO Compiled [ 77/306]: konst
+139.83s  INFO Compiled [106/400]: build-script-build
+140.58s  INFO Compiled [107/400]: longest_increasing_subsequence
+146.36s  INFO Compiled [108/400]: writeable
+147.74s  INFO Compiled [109/400]: pin_project_internal
+149.26s  INFO Compiled [110/400]: utf_types
+149.85s  INFO Compiled [ 79/306]: parking_lot
+153.02s  INFO Compiled [111/400]: bitflags
+153.04s  INFO Compiled [112/400]: litemap
+153.14s  INFO Compiled [ 80/306]: subsecond_types
+153.20s  INFO Compiled [113/400]: utf8_iter
+153.87s  INFO Compiled [114/400]: pin_project
+166.06s  INFO Compiled [115/400]: icu_locale_core
+166.06s  INFO Compiled [ 81/306]: zerovec_derive
+166.22s  INFO Compiled [ 82/306]: rustc_hash
+166.54s  INFO Compiled [117/400]: digest
+166.68s  INFO Compiled [118/400]: rand_core
+166.90s  INFO Compiled [119/400]: zmij
+171.76s  INFO Compiled [120/400]: zerotrie
+172.04s  INFO Compiled [121/400]: potential_utf
+173.45s  INFO Compiled [122/400]: ppv_lite86
+174.80s  INFO Compiled [ 83/306]: zerovec
+175.83s  INFO Compiled [123/400]: http_body
+177.40s  INFO Compiled [124/400]: cpufeatures
+177.42s  INFO Compiled [ 84/306]: web_sys
+177.78s  INFO Compiled [125/400]: build-script-build
+178.09s  INFO Compiled [126/400]: log
+178.25s  INFO Compiled [ 85/306]: generational_box
+178.36s  INFO Compiled [ 86/306]: subsecond
+178.47s  INFO Compiled [127/400]: build-script-build
+180.89s  INFO Compiled [130/400]: dioxus_core
+183.35s  INFO Compiled [131/400]: sha1
+183.54s  INFO Compiled [ 87/306]: const_format
+183.58s  INFO Compiled [ 88/306]: slotmap
+184.22s  INFO Compiled [ 89/306]: anyhow
+185.95s  INFO Compiled [132/400]: icu_collections
+187.95s  INFO Compiled [133/400]: rand_chacha
+189.24s  INFO Compiled [134/400]: icu_provider
+189.50s  INFO Compiled [ 90/306]: http
+189.61s  INFO Compiled [135/400]: mime
+189.79s  INFO Compiled [ 91/306]: pin_project_internal
+189.88s  INFO Compiled [ 92/306]: longest_increasing_subsequence
+189.95s  INFO Compiled [136/400]: core_foundation_sys
+190.06s  INFO Compiled [137/400]: tower_service
+190.36s  INFO Compiled [138/400]: tower_layer
+190.88s  INFO Compiled [ 93/306]: displaydoc
+191.19s  INFO Compiled [139/400]: fnv
+191.45s  INFO Compiled [140/400]: equivalent
+191.93s  INFO Compiled [ 94/306]: pin_project
+192.44s  INFO Compiled [141/400]: serde_json
+192.80s  INFO Compiled [ 95/306]: build-script-build
+193.29s  INFO Compiled [142/400]: rand
+193.64s  INFO Compiled [143/400]: icu_normalizer_data
+193.87s  INFO Compiled [144/400]: icu_properties_data
+194.12s  INFO Compiled [ 97/306]: convert_case
+194.35s  INFO Compiled [146/400]: convert_case
+194.95s  INFO Compiled [ 98/306]: warnings_macro
+195.00s  INFO Compiled [147/400]: warnings_macro
+195.09s  INFO Compiled [ 99/306]: build-script-build
+195.13s  INFO Compiled [148/400]: shlex
+195.30s  INFO Compiled [100/306]: lazy_js_bundle
+195.37s  INFO Compiled [101/306]: ident_case
+195.45s  INFO Compiled [102/306]: fnv
+195.48s  INFO Compiled [149/400]: autocfg
+195.62s  INFO Compiled [150/400]: find_msvc_tools
+195.71s  INFO Compiled [151/400]: ident_case
+196.27s  INFO Compiled [152/400]: tokio_util
+196.57s  INFO Compiled [153/400]: fnv
+205.43s  INFO Compiled [154/400]: data_encoding
+206.71s  INFO Compiled [103/306]: dioxus_core
+207.97s  INFO Compiled [105/306]: warnings
+208.59s  INFO Compiled [106/306]: zmij
+208.84s  INFO Compiled [107/306]: darling_core
+209.99s  INFO Compiled [108/306]: tinystr
+210.15s  INFO Compiled [109/306]: build-script-build
+210.48s  INFO Compiled [110/306]: litemap
+210.60s  INFO Compiled [155/400]: cc
+210.67s  INFO Compiled [111/306]: writeable
+210.81s  INFO Compiled [112/306]: utf_types
+210.85s  INFO Compiled [156/400]: darling_core
+210.89s  INFO Compiled [157/400]: build-script-build
+210.97s  INFO Compiled [113/306]: utf8_iter
+211.01s  INFO Compiled [114/306]: autocfg
+211.10s  INFO Compiled [158/400]: wasm_bindgen_shared
+211.24s  INFO Compiled [115/306]: build-script-build
+211.34s  INFO Compiled [159/400]: warnings
+212.43s  INFO Compiled [160/400]: icu_normalizer
+212.82s  INFO Compiled [162/400]: form_urlencoded
+212.85s  INFO Compiled [117/306]: darling_macro
+212.95s  INFO Compiled [163/400]: sync_wrapper
+213.39s  INFO Compiled [164/400]: build-script-build
+213.46s  INFO Compiled [165/400]: atomic_waker
+213.49s  INFO Compiled [118/306]: icu_locale_core
+213.63s  INFO Compiled [166/400]: lazy_js_bundle
+213.68s  INFO Compiled [167/400]: icu_properties
+213.82s  INFO Compiled [168/400]: build-script-build
+213.95s  INFO Compiled [169/400]: base64
+213.97s  INFO Compiled [119/306]: dioxus_signals
+214.03s  INFO Compiled [170/400]: httpdate
+214.22s  INFO Compiled [171/400]: bumpalo
+214.27s  INFO Compiled [120/306]: zerotrie
+214.38s  INFO Compiled [121/306]: potential_utf
+214.51s  INFO Compiled [172/400]: hashbrown
+214.75s  INFO Compiled [122/306]: build-script-build
+214.83s  INFO Compiled [123/306]: serde_json
+214.97s  INFO Compiled [124/306]: build-script-build
+215.02s  INFO Compiled [125/306]: percent_encoding
+215.34s  INFO Compiled [128/306]: mime
+215.41s  INFO Compiled [173/400]: indexmap
+215.85s  INFO Compiled [129/306]: icu_provider
+216.03s  INFO Compiled [130/306]: icu_collections
+216.08s  INFO Compiled [176/400]: idna_adapter
+216.18s  INFO Compiled [131/306]: proc_macro2_diagnostics
+216.38s  INFO Compiled [132/306]: darling
+216.51s  INFO Compiled [133/306]: dioxus_cli_config
+216.60s  INFO Compiled [177/400]: dioxus_signals
+216.96s  INFO Compiled [134/306]: const_serialize_macro
+217.45s  INFO Compiled [136/306]: build-script-build
+218.21s  INFO Compiled [179/400]: darling_macro
+218.41s  INFO Compiled [138/306]: num_traits
+218.84s  INFO Compiled [180/400]: build-script-build
+219.04s  INFO Compiled [139/306]: enumset_derive
+219.05s  INFO Compiled [181/400]: http_body_util
+219.09s  INFO Compiled [140/306]: icu_normalizer_data
+219.18s  INFO Compiled [182/400]: build-script-build
+219.23s  INFO Compiled [141/306]: icu_properties_data
+219.33s  INFO Compiled [183/400]: build-script-build
+219.38s  INFO Compiled [184/400]: try_lock
+219.46s  INFO Compiled [185/400]: unicode_ident
+219.46s  INFO Compiled [144/306]: sync_wrapper
+219.49s  INFO Compiled [145/306]: dioxus_rsx
+219.57s  INFO Compiled [146/306]: build-script-build
+220.06s  INFO Compiled [186/400]: wasm_bindgen_shared
+220.40s  INFO Compiled [147/306]: build-script-build
+220.43s  INFO Compiled [187/400]: want
+222.02s  INFO Compiled [190/400]: wasm_bindgen_macro_support
+222.35s  INFO Compiled [148/306]: typenum
+223.14s  INFO Compiled [149/306]: zerocopy_derive
+223.22s  INFO Compiled [191/400]: wasm_bindgen_macro
+223.75s  INFO Compiled [150/306]: typenum
+224.07s  INFO Compiled [151/306]: base64
+224.33s  INFO Compiled [152/306]: bitflags
+224.35s  INFO Compiled [192/400]: darling
+224.64s  INFO Compiled [153/306]: generic_array
+224.85s  INFO Compiled [154/306]: keyboard_types
+224.96s  INFO Compiled [193/400]: num_traits
+225.54s  INFO Compiled [155/306]: generic_array
+227.26s  INFO Compiled [194/400]: idna
+228.17s  INFO Compiled [195/400]: proc_macro2_diagnostics
+228.87s  INFO Compiled [196/400]: system_configuration_sys
+229.98s  INFO Compiled [158/306]: dioxus_core_macro
+230.32s  INFO Compiled [198/400]: core_foundation
+230.73s  INFO Compiled [200/400]: const_serialize_macro
+230.88s  INFO Compiled [201/400]: simdutf8
+231.58s  INFO Compiled [202/400]: typenum
+231.58s  INFO Compiled [159/306]: icu_properties
+231.85s  INFO Compiled [160/306]: zerocopy
+231.96s  INFO Compiled [203/400]: multiversion_no_op
+232.62s  INFO Compiled [204/400]: zeroize
+233.14s  INFO Compiled [205/400]: dioxus_cli_config
+233.36s  INFO Compiled [161/306]: enumset
+233.80s  INFO Compiled [162/306]: icu_normalizer
+234.56s  INFO Compiled [163/306]: form_urlencoded
+235.22s  INFO Compiled [206/400]: rustls_pki_types
+236.33s  INFO Compiled [164/306]: euclid
+238.46s  INFO Compiled [165/306]: dioxus_html_internal_macro
+238.68s  INFO Compiled [166/306]: http_body
+238.78s  INFO Compiled [167/306]: dioxus_hooks
+240.96s  INFO Compiled [207/400]: h2
+241.13s  INFO Compiled [168/306]: const_serialize_macro
+241.47s  INFO Compiled [169/306]: tower_layer
+241.71s  INFO Compiled [170/306]: multiversion_no_op
+241.84s  INFO Compiled [171/306]: async_trait
+241.96s  INFO Compiled [172/306]: build-script-build
+242.07s  INFO Compiled [173/306]: tower_service
+242.29s  INFO Compiled [174/306]: build-script-build
+242.48s  INFO Compiled [208/400]: hyper
+242.90s  INFO Compiled [209/400]: generic_array
+243.15s  INFO Compiled [210/400]: system_configuration
+253.12s  INFO Compiled [211/400]: dioxus_rsx
+253.21s  INFO Compiled [212/400]: encoding_rs
+254.42s  INFO Compiled [177/306]: dioxus_html
+255.13s  INFO Compiled [178/306]: http_body_util
+255.43s  INFO Compiled [213/400]: enumset_derive
+255.45s  INFO Compiled [179/306]: idna_adapter
+255.62s  INFO Compiled [214/400]: getrandom
+255.99s  INFO Compiled [215/400]: build-script-build
+256.02s  INFO Compiled [180/306]: half
+256.09s  INFO Compiled [216/400]: utf8
+256.56s  INFO Compiled [181/306]: encoding_rs
+256.58s  INFO Compiled [217/400]: wasm_bindgen
+256.67s  INFO Compiled [218/400]: ipnet
+256.71s  INFO Compiled [182/306]: build-script-build
+256.98s  INFO Compiled [219/400]: build-script-build
+256.99s  INFO Compiled [220/400]: base64
+257.07s  INFO Compiled [221/400]: untrusted
+257.14s  INFO Compiled [222/400]: unicase
+257.57s  INFO Compiled [223/400]: build-script-build
+258.27s  INFO Compiled [183/306]: serde_core
+258.32s  INFO Compiled [184/306]: ciborium_io
+258.58s  INFO Compiled [185/306]: build-script-build
+258.71s  INFO Compiled [186/306]: unicase
+258.94s  INFO Compiled [187/306]: build-script-build
+259.25s  INFO Compiled [189/306]: ciborium_ll
+259.55s  INFO Compiled [225/400]: ring
+259.62s  INFO Compiled [226/400]: hyper_util
+259.68s  INFO Compiled [190/306]: serde
+260.39s  INFO Compiled [228/400]: enumset
+260.45s  INFO Compiled [191/306]: regex_syntax
+261.89s  INFO Compiled [229/400]: dioxus_core_macro
+262.27s  INFO Compiled [193/306]: idna
+262.70s  INFO Compiled [230/400]: url
+263.25s  INFO Compiled [231/400]: euclid
+263.63s  INFO Compiled [194/306]: axum_core
+264.60s  INFO Compiled [195/306]: libc
+264.70s  INFO Compiled [196/306]: crypto_common
+264.80s  INFO Compiled [197/306]: block_buffer
+264.96s  INFO Compiled [232/400]: axum_core
+264.99s  INFO Compiled [198/306]: crypto_common
+265.08s  INFO Compiled [199/306]: block_buffer
+265.40s  INFO Compiled [233/400]: dioxus_hooks
+265.47s  INFO Compiled [200/306]: regex_automata
+265.55s  INFO Compiled [234/400]: build-script-build
+265.72s  INFO Compiled [201/306]: const_serialize
+265.80s  INFO Compiled [202/306]: dioxus_history
+265.90s  INFO Compiled [203/306]: build-script-build
+266.19s  INFO Compiled [235/400]: tower
+266.46s  INFO Compiled [204/306]: uuid
+266.68s  INFO Compiled [205/306]: lazy_static
+266.72s  INFO Compiled [236/400]: dioxus_html_internal_macro
+266.76s  INFO Compiled [206/306]: fnv
+267.07s  INFO Compiled [207/306]: byteorder
+267.23s  INFO Compiled [208/306]: ryu
+267.24s  INFO Compiled [237/400]: keyboard_types
+267.47s  INFO Compiled [209/306]: build-script-build
+267.59s  INFO Compiled [238/400]: half
+267.62s  INFO Compiled [210/306]: konst_macro_rules
+267.71s  INFO Compiled [239/400]: build-script-build
+267.77s  INFO Compiled [211/306]: konst
+268.06s  INFO Compiled [212/306]: tokio
+268.34s  INFO Compiled [214/306]: serde_urlencoded
+268.69s  INFO Compiled [240/400]: async_trait
+269.22s  INFO Compiled [215/306]: sharded_slab
+269.28s  INFO Compiled [241/400]: const_serialize_macro
+269.32s  INFO Compiled [216/306]: cfb
+269.41s  INFO Compiled [242/400]: js_sys
+269.43s  INFO Compiled [243/400]: num_conv
+269.46s  INFO Compiled [244/400]: ciborium_io
+269.60s  INFO Compiled [245/400]: build-script-build
+269.68s  INFO Compiled [246/400]: ryu
+269.76s  INFO Compiled [218/306]: digest
+269.79s  INFO Compiled [247/400]: build-script-build
+269.82s  INFO Compiled [248/400]: time_core
+269.87s  INFO Compiled [219/306]: digest
+269.92s  INFO Compiled [220/306]: cpufeatures
+270.00s  INFO Compiled [221/306]: matchers
+270.14s  INFO Compiled [222/306]: const_serialize
+270.31s  INFO Compiled [250/400]: serde_urlencoded
+270.80s  INFO Compiled [251/400]: time_macros
+271.03s  INFO Compiled [253/400]: ciborium_ll
+271.21s  INFO Compiled [223/306]: url
+271.73s  INFO Compiled [224/306]: dioxus_document
+272.10s  INFO Compiled [225/306]: ciborium
+272.13s  INFO Compiled [226/306]: httparse
+272.33s  INFO Compiled [227/306]: const_serialize
+272.47s  INFO Compiled [228/306]: build-script-build
+272.67s  INFO Compiled [230/306]: convert_case
+272.77s  INFO Compiled [231/306]: inventory
+272.93s  INFO Compiled [232/306]: thread_local
+273.52s  INFO Compiled [256/400]: dioxus_html
+274.03s  INFO Compiled [257/400]: serde_core
+274.10s  INFO Compiled [233/306]: thiserror_impl
+274.31s  INFO Compiled [234/306]: wasm_streams
+274.40s  INFO Compiled [235/306]: rustc_hash
+274.47s  INFO Compiled [236/306]: spin
+274.73s  INFO Compiled [258/400]: libc
+274.91s  INFO Compiled [260/400]: crypto_common
+275.00s  INFO Compiled [261/400]: block_buffer
+275.00s  INFO Compiled [237/306]: sledgehammer_bindgen_macro
+275.03s  INFO Compiled [262/400]: webpki
+275.18s  INFO Compiled [238/306]: unicase
+275.19s  INFO Compiled [263/400]: build-script-build
+275.22s  INFO Compiled [239/306]: cfg_if
+275.41s  INFO Compiled [240/306]: sha2
+275.66s  INFO Compiled [241/306]: mime_guess
+275.88s  INFO Compiled [242/306]: winnow
+276.06s  INFO Compiled [243/306]: sledgehammer_bindgen
+276.27s  INFO Compiled [264/400]: tungstenite
+276.59s  INFO Compiled [244/306]: manganis_core
+276.63s  INFO Compiled [245/306]: multer
+276.73s  INFO Compiled [246/306]: sledgehammer_utils
+277.09s  INFO Compiled [265/400]: deranged
+277.15s  INFO Compiled [247/306]: thiserror
+277.23s  INFO Compiled [266/400]: unicase
+277.33s  INFO Compiled [267/400]: subtle
+277.37s  INFO Compiled [268/400]: regex_syntax
+277.42s  INFO Compiled [269/400]: spin
+277.53s  INFO Compiled [270/400]: time_core
+277.53s  INFO Compiled [271/400]: powerfmt
+277.63s  INFO Compiled [272/400]: num_conv
+278.03s  INFO Compiled [273/400]: multer
+278.35s  INFO Compiled [248/306]: dioxus_fullstack_core
+278.49s  INFO Compiled [249/306]: tracing_subscriber
+279.09s  INFO Compiled [251/306]: const_serialize
+279.36s  INFO Compiled [252/306]: sha1
+279.97s  INFO Compiled [253/306]: infer
+280.09s  INFO Compiled [254/306]: derive_more_impl
+280.09s  INFO Compiled [274/400]: time
+280.20s  INFO Compiled [255/306]: const_format
+280.23s  INFO Compiled [256/306]: charset
+280.32s  INFO Compiled [275/400]: mime_guess
+280.37s  INFO Compiled [257/306]: gloo_utils
+280.50s  INFO Compiled [258/306]: build-script-build
+280.52s  INFO Compiled [259/306]: tower
+280.58s  INFO Compiled [260/306]: headers_core
+280.66s  INFO Compiled [261/306]: dioxus_devtools_types
+280.84s  INFO Compiled [262/306]: futures_executor
+280.85s  INFO Compiled [263/306]: serde_path_to_error
+280.90s  INFO Compiled [264/306]: send_wrapper
+281.12s  INFO Compiled [265/306]: macro_string
+281.18s  INFO Compiled [266/306]: xxhash_rust
+281.20s  INFO Compiled [267/306]: async_stream_impl
+281.32s  INFO Compiled [268/306]: slab
+281.36s  INFO Compiled [269/306]: dunce
+281.41s  INFO Compiled [270/306]: httpdate
+281.44s  INFO Compiled [271/306]: base16
+281.73s  INFO Compiled [272/306]: matchit
+283.11s  INFO Compiled [273/306]: winnow
+283.96s  INFO Compiled [276/400]: regex_automata
+284.25s  INFO Compiled [277/400]: tokio_tungstenite
+284.37s  INFO Compiled [274/306]: manganis_core
+284.54s  INFO Compiled [278/400]: rustls
+284.66s  INFO Compiled [279/400]: digest
+284.72s  INFO Compiled [280/400]: cpufeatures
+285.00s  INFO Compiled [275/306]: axum
+285.13s  INFO Compiled [282/400]: serde
+285.42s  INFO Compiled [276/306]: dioxus_router_macro
+285.63s  INFO Compiled [283/400]: ciborium
+285.74s  INFO Compiled [277/306]: manganis_macro
+285.83s  INFO Compiled [284/400]: dioxus_document
+286.24s  INFO Compiled [278/306]: headers
+286.44s  INFO Compiled [279/306]: async_stream
+286.49s  INFO Compiled [280/306]: futures
+286.78s  INFO Compiled [281/306]: dioxus_devtools
+286.88s  INFO Compiled [282/306]: dioxus_fullstack_macro
+286.94s  INFO Compiled [285/400]: tungstenite
+287.29s  INFO Compiled [284/306]: gloo_net
+287.59s  INFO Compiled [286/400]: const_serialize
+287.59s  INFO Compiled [285/306]: content_disposition
+287.71s  INFO Compiled [287/400]: dioxus_history
+287.84s  INFO Compiled [286/306]: dioxus_asset_resolver
+287.93s  INFO Compiled [287/306]: derive_more
+287.96s  INFO Compiled [288/400]: serde_path_to_error
+288.22s  INFO Compiled [288/306]: dioxus_interpreter_js
+288.53s  INFO Compiled [289/306]: tracing_wasm
+288.87s  INFO Compiled [290/306]: reqwest
+288.97s  INFO Compiled [289/400]: axum_macros
+289.12s  INFO Compiled [290/400]: byteorder
+289.14s  INFO Compiled [291/306]: serde_qs
+289.28s  INFO Compiled [291/400]: build-script-build
+289.36s  INFO Compiled [292/306]: dioxus_stores_macro
+289.47s  INFO Compiled [293/306]: serde_wasm_bindgen
+289.47s  INFO Compiled [292/400]: build-script-build
+289.52s  INFO Compiled [294/306]: gloo_timers
+289.53s  INFO Compiled [293/400]: inventory
+289.57s  INFO Compiled [294/400]: lazy_static
+289.61s  INFO Compiled [295/306]: xxhash_rust
+289.89s  INFO Compiled [295/400]: matchit
+289.96s  INFO Compiled [296/306]: const_str
+290.21s  INFO Compiled [296/400]: uuid
+290.62s  INFO Compiled [297/400]: litrs
+290.82s  INFO Compiled [298/400]: http_range_header
+290.89s  INFO Compiled [299/400]: psl_types
+290.98s  INFO Compiled [300/400]: konst_macro_rules
+291.02s  INFO Compiled [301/400]: cfg_if
+291.18s  INFO Compiled [302/400]: sha2
+291.36s  INFO Compiled [303/400]: konst
+291.47s  INFO Compiled [304/400]: publicsuffix
+291.73s  INFO Compiled [305/400]: web_sys
+291.73s  INFO Compiled [297/306]: dioxus_fullstack
+291.89s  INFO Compiled [298/306]: dioxus_web
+291.95s  INFO Compiled [299/306]: dioxus_logger
+292.09s  INFO Compiled [306/400]: document_features
+292.37s  INFO Compiled [307/400]: tower_http
+292.71s  INFO Compiled [308/400]: cfb
+292.89s  INFO Compiled [300/306]: manganis
+292.91s  INFO Compiled [301/306]: dioxus_stores
+293.05s  INFO Compiled [302/306]: dioxus_config_macro
+293.07s  INFO Compiled [309/400]: sharded_slab
+293.08s  INFO Compiled [303/306]: dioxus_config_macros
+293.96s  INFO Compiled [310/400]: dioxus_fullstack_core
+294.58s  INFO Compiled [304/306]: dioxus_router
+295.07s  INFO Compiled [305/306]: dioxus
+295.69s  INFO Compiled [313/400]: const_serialize
+296.70s  INFO Compiled [314/400]: cookie
+296.78s  INFO Compiled [315/400]: matchers
+296.81s  INFO Compiled [316/400]: axum
+296.87s  INFO Compiled [317/400]: wasm_bindgen_futures
+296.92s  INFO Compiled [318/400]: webpki_roots
+296.97s  INFO Compiled [319/400]: tokio_rustls
+297.06s  INFO Compiled [320/400]: const_serialize
+297.09s  INFO Compiled [321/400]: build-script-build
+297.14s  INFO Compiled [322/400]: headers_core
+297.23s  INFO Compiled [323/400]: convert_case
+297.31s  INFO Compiled [324/400]: futures_executor
+297.42s  INFO Compiled [325/400]: thread_local
+297.82s  INFO Compiled [326/400]: build-script-build
+298.03s  INFO Compiled [327/400]: foldhash
+300.77s  INFO Compiled [328/400]: slab
+301.29s  INFO Compiled [329/400]: allocator_api2
+301.51s  INFO Compiled [330/400]: thiserror_impl
+301.62s  INFO Compiled [331/400]: base16
+303.29s  INFO Compiled [332/400]: dioxus_router_macro
+303.55s  INFO Compiled [333/400]: winnow
+303.76s  INFO Compiled [334/400]: thiserror
+304.39s  INFO Compiled [335/400]: hashbrown
+304.50s  INFO Compiled [336/400]: manganis_core
+306.82s  INFO Compiled [338/400]: derive_more_impl
+306.88s  INFO Compiled [339/400]: futures
+306.89s  INFO Compiled [340/400]: tracing_subscriber
+307.60s  INFO Compiled [342/400]: const_serialize
+307.90s  INFO Compiled [343/400]: headers
+308.02s  INFO Compiled [344/400]: hyper_rustls
+308.53s  INFO Compiled [345/400]: crossbeam_utils
+309.09s  INFO Compiled [346/400]: infer
+309.29s  INFO Compiled [347/400]: cookie_store
+309.32s  INFO Compiled [348/400]: const_format
+309.44s  INFO Compiled [349/400]: gloo_utils
+309.55s  INFO Compiled [350/400]: tokio_tungstenite
+309.74s  INFO Compiled [351/400]: charset
+309.83s  INFO Compiled [352/400]: iana_time_zone
+310.00s  INFO Compiled [353/400]: dioxus_devtools_types
+310.49s  INFO Compiled [354/400]: serde_qs
+310.68s  INFO Compiled [355/400]: tungstenite
+310.80s  INFO Compiled [356/400]: async_stream_impl
+310.88s  INFO Compiled [357/400]: macro_string
+310.96s  INFO Compiled [358/400]: askama_escape
+311.03s  INFO Compiled [359/400]: same_file
+311.55s  INFO Compiled [360/400]: hashbrown
+311.59s  INFO Compiled [361/400]: dunce
+312.02s  INFO Compiled [362/400]: objc2_encode
+312.07s  INFO Compiled [363/400]: xxhash_rust
+312.48s  INFO Compiled [364/400]: winnow
+312.79s  INFO Compiled [365/400]: dioxus_fullstack_macro
+313.54s  INFO Compiled [366/400]: manganis_core
+313.75s  INFO Compiled [367/400]: objc2
+314.03s  INFO Compiled [368/400]: dashmap
+314.21s  INFO Compiled [369/400]: manganis_macro
+314.31s  INFO Compiled [370/400]: walkdir
+314.52s  INFO Compiled [371/400]: dioxus_ssr
+314.68s  INFO Compiled [372/400]: async_tungstenite
+314.74s  INFO Compiled [373/400]: async_stream
+315.82s  INFO Compiled [374/400]: dioxus_devtools
+316.26s  INFO Compiled [375/400]: content_disposition
+316.30s  INFO Compiled [376/400]: chrono
+316.64s  INFO Compiled [377/400]: gloo_net
+316.88s  INFO Compiled [378/400]: dioxus_asset_resolver
+317.25s  INFO Compiled [379/400]: axum_extra
+317.30s  INFO Compiled [380/400]: dioxus_interpreter_js
+317.82s  INFO Compiled [381/400]: derive_more
+318.09s  INFO Compiled [382/400]: dioxus_logger
+318.19s  INFO Compiled [383/400]: lru
+321.90s  INFO Compiled [306/306]: trails
+321.97s  INFO Bundling app...
+322.05s  INFO Running wasm-bindgen...
+322.26s  INFO Compiled [384/400]: dioxus_router
+325.94s  INFO Copying asset (1/4): /Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/dioxus/assets/favicon.ico
+325.95s  INFO Copying asset (2/4): /Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus-tuned/dx/trails/release/web/public/wasm/trails_bg.wasm
+325.98s  INFO Copying asset (3/4): /Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/dioxus/assets/trails.css
+326.05s  INFO Copying asset (4/4): /Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus-tuned/dx/trails/release/web/public/wasm/trails.js
+326.05s  INFO Compiled [385/400]: wasm_streams
+326.17s  INFO Client build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus-tuned/dx/trails/release/web/public"
+329.00s  INFO Compiled [386/400]: tokio_stream
+329.12s  INFO Compiled [387/400]: reqwest
+329.20s  INFO Compiled [388/400]: tracing_futures
+329.27s  INFO Compiled [389/400]: send_wrapper
+330.54s  INFO Compiled [390/400]: dioxus_stores_macro
+330.72s  INFO Compiled [391/400]: const_str
+330.74s  INFO Compiled [392/400]: xxhash_rust
+331.98s  INFO Compiled [393/400]: dioxus_stores
+334.48s  INFO Compiled [394/400]: dioxus_fullstack
+335.13s  INFO Compiled [395/400]: manganis
+335.48s  INFO Compiled [396/400]: dioxus_config_macro
+335.58s  INFO Compiled [397/400]: dioxus_config_macros
+336.39s  INFO Compiled [398/400]: dioxus
+339.15s  INFO Compiled [399/400]: dioxus_server
+360.36s  INFO Compiled [400/400]: trails
+360.39s  INFO Bundling app...
+360.43s  INFO Server build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus-tuned/dx/trails/release/web"

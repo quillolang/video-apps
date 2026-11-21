@@ -1,0 +1,2 @@
+$ curl -s localhost:8200/trails/2 | grep -o '<h1>[^<]*'
+<h1>Eagle Ridge 

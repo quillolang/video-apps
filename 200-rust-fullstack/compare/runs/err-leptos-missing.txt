@@ -1,0 +1,91 @@
+$ cargo leptos build --release
+    Metadata keys ["env"] from metadata.leptos are not recognized and will be ignored
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+warning: use of deprecated method `app::BadgePropsBuilder::build`: Missing required field level
+   --> src/app.rs:119:5
+    |
+119 | /     view! {
+120 | |         <li>
+121 | |             <a href=format!("/trails/{}", trail.id)>{trail.name}</a>
+122 | |             <Badge/>
+123 | |             <span class="facts">{trail.km} " km · " {trail.climb} " m climb"</span>
+124 | |         </li>
+125 | |     }
+    | |_____^
+    |
+    = note: `#[warn(deprecated)]` on by default
+    = note: this warning originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+error[E0061]: this method takes 1 argument but 0 arguments were supplied
+   --> src/app.rs:119:5
+    |
+119 | /     view! {
+120 | |         <li>
+121 | |             <a href=format!("/trails/{}", trail.id)>{trail.name}</a>
+122 | |             <Badge/>
+123 | |             <span class="facts">{trail.km} " km · " {trail.climb} " m climb"</span>
+124 | |         </li>
+125 | |     }
+    | |_____^ argument #1 of type `BadgePropsBuilder_Error_Missing_required_field_level` is missing
+    |
+note: method defined here
+   --> src/app.rs:112:1
+    |
+112 | #[component]
+    | ^^^^^^^^^^^^
+    = note: this error originates in the macro `view` which comes from the expansion of the derive macro `::leptos::typed_builder_macro::TypedBuilder` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: use of deprecated method `app::BadgePropsBuilder::build`: Missing required field level
+   --> src/app.rs:119:5
+    |
+119 | /     view! {
+120 | |         <li>
+121 | |             <a href=format!("/trails/{}", trail.id)>{trail.name}</a>
+122 | |             <Badge/>
+123 | |             <span class="facts">{trail.km} " km · " {trail.climb} " m climb"</span>
+124 | |         </li>
+125 | |     }
+    | |_____^
+    |
+    = note: `#[warn(deprecated)]` on by default
+    = note: this warning originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0061`.
+warning: `trails` (lib) generated 1 warning
+error: could not compile `trails` (lib) due to 1 previous error; 1 warning emitted
+error[E0061]: this method takes 1 argument but 0 arguments were supplied
+   --> src/app.rs:119:5
+    |
+119 | /     view! {
+120 | |         <li>
+121 | |             <a href=format!("/trails/{}", trail.id)>{trail.name}</a>
+122 | |             <Badge/>
+123 | |             <span class="facts">{trail.km} " km · " {trail.climb} " m climb"</span>
+124 | |         </li>
+125 | |     }
+    | |_____^ argument #1 of type `BadgePropsBuilder_Error_Missing_required_field_level` is missing
+    |
+note: method defined here
+   --> src/app.rs:112:1
+    |
+112 | #[component]
+    | ^^^^^^^^^^^^
+    = note: this error originates in the macro `view` which comes from the expansion of the derive macro `::leptos::typed_builder_macro::TypedBuilder` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0061`.
+warning: `trails` (lib) generated 1 warning
+error: could not compile `trails` (lib) due to 1 previous error; 1 warning emitted
+Error: 
+   0: Failed to build trails
+
+Location:
+   /Users/you/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cargo-leptos-0.3.12/src/command/build.rs:25
+
+Backtrace omitted. Run with RUST_BACKTRACE=1 environment variable to display it.
+Run with RUST_BACKTRACE=full to include source snippets.
+(exit 1)

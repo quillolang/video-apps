@@ -1,0 +1,7 @@
+view Card(title: str, footer = null, children) = <section.card>
+    <h2>{title}</h2>
+    {children}
+    {footer != null && <footer>{footer}</footer>}
+</section>
+
+view Badge(level: str) = <span class={`badge ${level}`}>{level}</span>

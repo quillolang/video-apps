@@ -1,0 +1,2 @@
+$ curl -s localhost:8212/trails/2 | grep -o '<main[^>]*>.\{0,52\}'
+<main><h1>Eagle Ridge<!> <span class="badge hard">hard</sp

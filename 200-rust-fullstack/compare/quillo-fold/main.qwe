@@ -1,0 +1,121 @@
+// Trail Guide: a single-page app made on the server first. Every address renders whole on the
+// server; then url() picks the page in the browser, and links change it without a reload.
+let css = read_file("trails.css")
+let trails = json.parse(read_file("trails.json"))
+let reviews = json.parse(read_file("reviews.json"))
+
+server fn list_trails() -> list = trails
+server fn load_trail(id: int) -> map ! str = find(trails, (t) => t.id == id) ?? err("no such trail")
+server fn load_reviews(id: int) -> list = reviews | filter((r) => r.trail == id)
+
+state saved = []                         // the page's own: the header and the Save button share it
+
+// The page for an address, on the server and in the browser alike.
+fn page_of(path: str) = match split(path, "/") | filter((s) => s != "") {
+    [] => "home"
+    ["trails", id] => is_err(int(id)) ? "missing" : "overview"
+    ["trails", id, "reviews"] => is_err(int(id)) ? "missing" : "reviews"
+    _ => "missing"
+}
+
+component Card(title: str, footer = null, children) {
+    state open = true
+    <section.card>
+        <h2 onclick={() => { open = !open }}>{title}</h2>
+        {open && children}
+        {footer != null && <footer>{footer}</footer>}
+    </section>
+}
+
+view Badge(level: str) = <span class={`badge ${level}`}>{level}</span>
+
+view TrailItem(trail: map) = <li>
+    <a href={`/trails/${trail.id}`}>{trail.name}</a>
+    <Badge level={trail.level}/>
+    <span.facts>{trail.km} km · {trail.climb} m climb</span>
+</li>
+
+view Missing(what: str) = <div>
+    <h1.missing>404: {what}</h1>
+    <a href="/">← All trails</a>
+</div>
+
+component Home() {
+    state items = list_trails()
+    <div>
+        <h1>Trails</h1>
+        {items == null
+            ? <p.muted>Loading…</p>
+            : <ul.trails>{for t in items => <TrailItem key={t.id} trail={t}/>}</ul>}
+    </div>
+}
+
+component SaveButton(id: int) {
+    let on = contains(saved, id)
+    <button.save class={on && "on"} onclick={() => {
+        saved = on ? saved | filter((s) => s != id) : saved + [id]
+    }}>{on ? "★ Saved" : "☆ Save"}</button>
+}
+
+component Reviews(id: int) {
+    state list = load_reviews(id)
+    {list == null
+        ? <p.muted>Loading…</p>
+        : <Card title="Reviews" footer={<span>{len(list)} reviews</span>}>
+            <ul.reviews>{for r in list => <li key={r.who}>
+                <b>{r.who}</b> <span.stars>{repeat("★", r.stars)}</span>
+                <p>{r.text}</p>
+            </li>}</ul>
+        </Card>}
+}
+
+component TrailPage(id: int, tab: str) {
+    state trail = load_trail(id)
+    {trail == null ? <p.muted>Loading…</p>
+        : is_err(trail) ? <Missing what="No such trail"/>
+        : <div>
+            <h1>{trail.name} <Badge level={trail.level}/></h1>
+            <nav.tabs>
+                <a href={`/trails/${id}`} class={tab == "overview" && "active"}>Overview</a>
+                <a href={`/trails/${id}/reviews`} class={tab == "reviews" && "active"}>Reviews</a>
+                <SaveButton {id}/>
+            </nav>
+            {tab == "overview"
+                ? <Card title="Overview" footer={<span>Kept by the trail club</span>}>
+                    <p>{trail.about}</p>
+                </Card>
+                : <Reviews {id}/>}
+        </div>}
+}
+
+component App() {
+    let path = url().path
+    let page = page_of(path)
+    let segs = split(path, "/") | filter((s) => s != "")
+    <div>
+        <header>
+            <a.brand href="/">Trail Guide</a>
+            <span.saved>★ {len(saved)} saved</span>
+        </header>
+        <main>{match page {
+            "home" => <Home/>
+            "missing" => <Missing what="No such page"/>
+            _ => <TrailPage key={segs[1]} id={int(segs[1])} tab={page}/>
+        }}</main>
+    </div>
+}
+
+// What the server answers: every address renders the app, and an unknown one says 404.
+fn found(path: str) = match page_of(path) {
+    "missing" => false
+    "home" => true
+    _ => !is_err(load_trail(int((split(path, "/") | filter((s) => s != ""))[1])))
+}
+
+route GET /*rest {
+    let page = <html>
+        <head><meta charset="utf-8"/><title>Trail Guide</title><style>{raw(css)}</style></head>
+        <body><App/></body>
+    </html>
+    found(request.path) ? page : respond(404, page)
+}

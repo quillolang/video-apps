@@ -1,0 +1,16 @@
+component App() {
+    let path = url().path
+    let page = page_of(path)
+    let segs = split(path, "/") | filter((s) => s != "")
+    <div>
+        <header>
+            <a.brand href="/">Trail Guide</a>
+            <span.saved>★ {len(saved)} saved</span>
+        </header>
+        <main>{match page {
+            "home" => <Home/>
+            "missing" => <Missing what="No such page"/>
+            _ => <TrailPage key={segs[1]} id={int(segs[1])} tab={page}/>
+        }}</main>
+    </div>
+}

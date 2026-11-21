@@ -1,0 +1,9 @@
+let css = read_file("trails.css")
+let trails = json.parse(read_file("trails.json"))
+let reviews = json.parse(read_file("reviews.json"))
+
+server fn list_trails() -> list = trails
+server fn load_trail(id: int) -> map ! str = find(trails, (t) => t.id == id) ?? err("no such trail")
+server fn load_reviews(id: int) -> list = reviews | filter((r) => r.trail == id)
+
+state saved = []                         // the page's own: the header and the Save button share it

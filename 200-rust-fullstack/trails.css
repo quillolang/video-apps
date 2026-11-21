@@ -1,0 +1,28 @@
+body { margin: 0; font: 19px/1.45 system-ui, sans-serif; background: #f1f6ef; color: #1e2b1c; }
+header { display: flex; align-items: center; gap: 18px; padding: 14px 24px; background: #2e6b2a; }
+header a { color: #fff; text-decoration: none; }
+.brand { font-size: 22px; font-weight: 800; }
+.saved { margin-left: auto; color: #fff; font-weight: 600; }
+main { max-width: 620px; margin: 0 auto; padding: 22px 24px; }
+h1 { margin: 6px 0 14px; font-size: 32px; }
+h2 { margin: 0 0 8px; font-size: 21px; }
+a { color: #2e6b2a; font-weight: 600; }
+ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.trails li { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; background: #fff; box-shadow: 0 1px 2px #0001; }
+.trails .facts { margin-left: auto; color: #4d5e4a; font-size: 16px; }
+.badge { padding: 2px 10px; border-radius: 99px; font-size: 14px; font-weight: 700; background: #dfeedd; color: #2e6b2a; }
+.badge.medium { background: #fbefd3; color: #8a5a00; }
+.badge.hard { background: #f8dcd6; color: #8a3b2a; }
+.tabs { display: flex; align-items: center; gap: 16px; margin: 0 0 16px; }
+.tabs a { text-decoration: none; padding-bottom: 3px; border-bottom: 3px solid transparent; }
+.tabs a.active, .tabs a[aria-current] { border-bottom-color: #2e6b2a; }
+.save { margin-left: auto; font: inherit; font-weight: 700; padding: 6px 14px; border-radius: 10px; border: 2px solid #2e6b2a; background: #fff; color: #2e6b2a; cursor: pointer; }
+.save.on { background: #2e6b2a; color: #fff; }
+.card { padding: 16px 18px; border-radius: 14px; background: #fff; box-shadow: 0 1px 3px #0002; }
+.card p { margin: 0 0 8px; }
+.card footer { margin-top: 10px; padding-top: 8px; border-top: 1px solid #e3ebe1; color: #66765f; font-size: 15px; }
+.reviews li { padding: 6px 0; }
+.reviews p { margin: 2px 0 0; }
+.stars { color: #c98a00; }
+.muted { color: #7a8a76; }
+.missing { color: #8a3b2a; }

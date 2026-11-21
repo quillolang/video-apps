@@ -1,0 +1,107 @@
+$ cargo leptos build --release
+    Metadata keys ["env"] from metadata.leptos are not recognized and will be ignored
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:225:47
+    |
+225 |                   trail.await.map(|t| t.map(|t| view! {
+    |  _______________________________________________^
+226 | |                     <Card title="Overview">
+227 | |                         <Footer slot>"Kept by the trail club"</Footer>
+228 | |                         <p>{t.about}</p>
+    | |                          -  ------- closure is `FnOnce` because it moves the variable `t.about` out of its environment
+    | |                          |
+    | |                          required by a bound introduced by this call
+229 | |                     </Card>
+230 | |                 }))
+    | |                 ^
+    | |                 |
+    | |_________________this closure implements `FnOnce`, not `Fn`
+    |                   the requirement to implement `Fn` derives from here
+    |
+    = note: required for `Arc<dyn Fn() -> AnyView + Send + std::marker::Sync>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:225:47: 230:18}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:245:21
+    |
+245 | /                     view! {
+246 | |                         <Card title="Reviews">
+247 | |                             <Footer slot>{n} " reviews"</Footer>
+248 | |                             <ul class="reviews">
+    | |                              - required by a bound introduced by this call
+249 | |                                 {list.into_iter().map(|r| view! {
+    | |                                  ---- closure is `FnOnce` because it moves the variable `list` out of its environment
+...   |
+257 | |                         </Card>
+258 | |                     }
+    | |                     ^
+    | |                     |
+    | |_____________________this closure implements `FnOnce`, not `Fn`
+    |                       the requirement to implement `Fn` derives from here
+    |
+    = note: required for `Arc<dyn Fn() -> AnyView + Send + std::marker::Sync>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:245:21: 258:22}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:225:47
+    |
+225 |                   trail.await.map(|t| t.map(|t| view! {
+    |  _______________________________________________^
+226 | |                     <Card title="Overview">
+227 | |                         <Footer slot>"Kept by the trail club"</Footer>
+228 | |                         <p>{t.about}</p>
+    | |                          -  ------- closure is `FnOnce` because it moves the variable `t.about` out of its environment
+    | |                          |
+    | |                          required by a bound introduced by this call
+229 | |                     </Card>
+230 | |                 }))
+    | |                 ^
+    | |                 |
+    | |_________________this closure implements `FnOnce`, not `Fn`
+    |                   the requirement to implement `Fn` derives from here
+    |
+    = note: required for `Arc<dyn Fn() -> AnyView + Send + std::marker::Sync>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:225:47: 230:18}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:245:21
+    |
+245 | /                     view! {
+246 | |                         <Card title="Reviews">
+247 | |                             <Footer slot>{n} " reviews"</Footer>
+248 | |                             <ul class="reviews">
+    | |                              - required by a bound introduced by this call
+249 | |                                 {list.into_iter().map(|r| view! {
+    | |                                  ---- closure is `FnOnce` because it moves the variable `list` out of its environment
+...   |
+257 | |                         </Card>
+258 | |                     }
+    | |                     ^
+    | |                     |
+    | |_____________________this closure implements `FnOnce`, not `Fn`
+    |                       the requirement to implement `Fn` derives from here
+    |
+    = note: required for `Arc<dyn Fn() -> AnyView + Send + std::marker::Sync>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:245:21: 258:22}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0525`.
+error: could not compile `trails` (lib) due to 2 previous errors
+For more information about this error, try `rustc --explain E0525`.
+error: could not compile `trails` (lib) due to 2 previous errors
+Error: 
+   0: Failed to build trails
+
+Location:
+   /Users/you/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cargo-leptos-0.3.12/src/command/build.rs:25
+
+Backtrace omitted. Run with RUST_BACKTRACE=1 environment variable to display it.
+Run with RUST_BACKTRACE=full to include source snippets.
+(exit 1)

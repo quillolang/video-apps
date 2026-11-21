@@ -1,0 +1,2 @@
+$ curl -s localhost:8200/trails/2 | grep -o '<main[^>]*>.\{0,96\}'
+<main><quillo-island style="display:contents" data-c="TrailPage" data-p="{}" data-s="{&quot;trail&quot

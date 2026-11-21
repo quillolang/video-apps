@@ -1,0 +1,5 @@
+$ rustc --version && cargo leptos --version && dx --version && quillo version
+rustc 1.99.0 (b940084d7 2026-09-28)
+cargo-leptos 0.3.12
+dioxus 0.7.10 (57d6794)
+quillo 0.8.8 (f35bf2d, 2026-11-19)

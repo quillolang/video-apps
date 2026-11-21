@@ -1,0 +1,18 @@
+component TrailPage(id: int, tab: str) {
+    state trail = load_trail(id)
+    {trail == null ? <p.muted>Loading…</p>
+        : is_err(trail) ? <Missing what="No such trail"/>
+        : <div>
+            <h1>{trail.name} <Badge level={trail.level}/></h1>
+            <nav.tabs>
+                <a href={`/trails/${id}`} class={tab == "overview" && "active"}>Overview</a>
+                <a href={`/trails/${id}/reviews`} class={tab == "reviews" && "active"}>Reviews</a>
+                <SaveButton {id}/>
+            </nav>
+            {tab == "overview"
+                ? <Card title="Overview" footer={<span>Kept by the trail club</span>}>
+                    <p>{trail.about}</p>
+                </Card>
+                : <Reviews {id}/>}
+        </div>}
+}

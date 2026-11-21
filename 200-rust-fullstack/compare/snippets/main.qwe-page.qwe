@@ -1,0 +1,7 @@
+// The page for an address, on the server and in the browser alike.
+fn page_of(path: str) = match split(path, "/") | filter((s) => s != "") {
+    [] => "home"
+    ["trails", id] => is_err(int(id)) ? "missing" : "overview"
+    ["trails", id, "reviews"] => is_err(int(id)) ? "missing" : "reviews"
+    _ => "missing"
+}

@@ -1,0 +1,157 @@
+$ cargo leptos build --release
+    Metadata keys ["env"] from metadata.leptos are not recognized and will be ignored
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+   Compiling trails v0.1.0 (/Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/leptos)
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+    | |                                            -------- closure is `FnOnce` because it moves the variable `children` out of its environment
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |     ^
+    | |     |
+    | |_____this closure implements `FnOnce`, not `Fn`
+    |       the requirement to implement `Fn` derives from here
+    |
+    = note: required for `TypedChildrenFn<AnyView>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:104:5: 110:6}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `dyn FnOnce() -> AnyView + Send` cannot be shared between threads safely
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |_____^ `dyn FnOnce() -> AnyView + Send` cannot be shared between threads safely
+    |
+    = help: the trait `std::marker::Sync` is not implemented for `dyn FnOnce() -> AnyView + Send`
+help: the following other types implement trait `leptos::prelude::ToChildren<F>`
+   --> /Users/you/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/leptos-0.8.23/src/children.rs:415:1
+    |
+415 | / impl<F, C> ToChildren<F> for TypedChildrenFn<C>
+416 | | where
+417 | |     F: Fn() -> C + Send + Sync + 'static,
+418 | |     C: IntoView,
+419 | |     C::AsyncOutput: Send,
+    | |_________________________^ `TypedChildrenFn<C>` implements `leptos::prelude::ToChildren<F>`
+...
+427 | / impl<T> ToChildren<ChildrenOptContainer<T>> for TypedChildrenFn<T>
+428 | | where
+429 | |     T: IntoView + Clone + Sync + 'static,
+    | |_________________________________________^ `TypedChildrenFn<T>` implements `leptos::prelude::ToChildren<ChildrenOptContainer<T>>`
+    = note: required for `std::ptr::Unique<dyn FnOnce() -> AnyView + Send>` to implement `std::marker::Sync`
+note: required because it appears within the type `Box<dyn FnOnce() -> AnyView + Send>`
+   --> /Users/you/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:236:12
+    |
+236 | pub struct Box<
+    |            ^^^
+note: required because it's used within this closure
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |_____^
+    = note: required for `TypedChildrenFn<AnyView>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:104:5: 110:6}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+    | |                                            -------- closure is `FnOnce` because it moves the variable `children` out of its environment
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |     ^
+    | |     |
+    | |_____this closure implements `FnOnce`, not `Fn`
+    |       the requirement to implement `Fn` derives from here
+    |
+    = note: required for `TypedChildrenFn<AnyView>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:104:5: 110:6}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `dyn FnOnce() -> AnyView + Send` cannot be shared between threads safely
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |_____^ `dyn FnOnce() -> AnyView + Send` cannot be shared between threads safely
+    |
+    = help: the trait `std::marker::Sync` is not implemented for `dyn FnOnce() -> AnyView + Send`
+help: the following other types implement trait `leptos::prelude::ToChildren<F>`
+   --> /Users/you/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/leptos-0.8.23/src/children.rs:415:1
+    |
+415 | / impl<F, C> ToChildren<F> for TypedChildrenFn<C>
+416 | | where
+417 | |     F: Fn() -> C + Send + Sync + 'static,
+418 | |     C: IntoView,
+419 | |     C::AsyncOutput: Send,
+    | |_________________________^ `TypedChildrenFn<C>` implements `leptos::prelude::ToChildren<F>`
+...
+427 | / impl<T> ToChildren<ChildrenOptContainer<T>> for TypedChildrenFn<T>
+428 | | where
+429 | |     T: IntoView + Clone + Sync + 'static,
+    | |_________________________________________^ `TypedChildrenFn<T>` implements `leptos::prelude::ToChildren<ChildrenOptContainer<T>>`
+    = note: required for `std::ptr::Unique<dyn FnOnce() -> AnyView + Send>` to implement `std::marker::Sync`
+note: required because it appears within the type `Box<dyn FnOnce() -> AnyView + Send>`
+   --> /Users/you/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:236:12
+    |
+236 | pub struct Box<
+    |            ^^^
+note: required because it's used within this closure
+   --> src/app.rs:104:5
+    |
+104 | /     view! {
+105 | |         <section class="card">
+106 | |             <h2 on:click=move |_| open.update(|o| *o = !*o)>{title}</h2>
+107 | |             <Show when=move || open.get()>{children()}</Show>
+108 | |             {footer.map(|f| view! { <footer>{(f.children)()}</footer> })}
+109 | |         </section>
+110 | |     }
+    | |_____^
+    = note: required for `TypedChildrenFn<AnyView>` to implement `leptos::prelude::ToChildren<{closure@src/app.rs:104:5: 110:6}>`
+    = note: this error originates in the macro `view` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0277, E0525.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `trails` (lib) due to 2 previous errors
+Some errors have detailed explanations: E0277, E0525.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `trails` (lib) due to 2 previous errors
+Error: 
+   0: Failed to build trails
+
+Location:
+   /Users/you/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cargo-leptos-0.3.12/src/command/build.rs:25
+
+Backtrace omitted. Run with RUST_BACKTRACE=1 environment variable to display it.
+Run with RUST_BACKTRACE=full to include source snippets.
+(exit 1)

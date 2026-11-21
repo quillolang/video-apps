@@ -1,0 +1,3 @@
+$ quillo check main.qwe
+main.qwe:31: error: <Badge> needs `level`
+quillo: 1 error

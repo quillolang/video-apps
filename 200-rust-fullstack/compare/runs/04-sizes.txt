@@ -1,0 +1,6 @@
+$ ls -l leptos/trails leptos/site/pkg/trails.wasm dioxus/server dioxus/public/assets/*.wasm dioxus-tuned/public/assets/*.wasm | awk '{ print $5, $9 }'
+1375736 dioxus-tuned/public/assets/trails_bg-dxhff6df3d46c06ef.wasm
+2704648 dioxus/public/assets/trails_bg-dxh43c38e728ccfe3fa.wasm
+7052448 dioxus/server
+616366 leptos/site/pkg/trails.wasm
+9973472 leptos/trails

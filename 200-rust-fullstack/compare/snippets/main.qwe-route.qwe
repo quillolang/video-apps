@@ -1,0 +1,14 @@
+// What the server answers: every address renders the app, and an unknown one says 404.
+fn found(path: str) = match page_of(path) {
+    "missing" => false
+    "home" => true
+    _ => !is_err(load_trail(int((split(path, "/") | filter((s) => s != ""))[1])))
+}
+
+route GET /*rest {
+    let page = <html>
+        <head><meta charset="utf-8"/><title>Trail Guide</title><style>{raw(css)}</style></head>
+        <body><App/></body>
+    </html>
+    found(request.path) ? page : respond(404, page)
+}

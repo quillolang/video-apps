@@ -1,0 +1,9 @@
+quillo
+  /trails/2           200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Trail Guide
+  /trails/2/reviews   200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Trail Guide
+  /trails/02          200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Trail Guide
+  /trails/+2          200 Eagle Ridge hard     no JS: Eagle Ridge hard Overv tab: Trail Guide
+  /trails/abc         404 404: No such page    no JS: 404: No such page ← Al tab: Trail Guide
+  /trails/99          404 404: No such trail   no JS: 404: No such trail ← A tab: Trail Guide
+  /trails/4294967296  404 404: No such trail   no JS: 404: No such trail ← A tab: Trail Guide
+  /nope               404 404: No such page    no JS: 404: No such page ← Al tab: Trail Guide

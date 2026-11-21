@@ -1,0 +1,50 @@
+[
+ {
+  "id": 1,
+  "name": "Fern Gully Loop",
+  "km": 4.2,
+  "climb": 120,
+  "level": "easy",
+  "about": "A shady loop under tree ferns, with a creek crossing on stepping stones."
+ },
+ {
+  "id": 2,
+  "name": "Eagle Ridge",
+  "km": 9.8,
+  "climb": 640,
+  "level": "hard",
+  "about": "A steady climb to a bare ridge. Eagles ride the wind above the last switchback."
+ },
+ {
+  "id": 3,
+  "name": "Lantern Lake",
+  "km": 6.5,
+  "climb": 210,
+  "level": "easy",
+  "about": "Flat shoreline paths around a still lake. Bring a lantern for the sunset walk back."
+ },
+ {
+  "id": 4,
+  "name": "Old Mill Path",
+  "km": 3.1,
+  "climb": 60,
+  "level": "easy",
+  "about": "A short stroll along the mill race to the old waterwheel."
+ },
+ {
+  "id": 5,
+  "name": "Granite Steps",
+  "km": 7.4,
+  "climb": 520,
+  "level": "hard",
+  "about": "Hundreds of granite steps cut into the hillside, and a view worth every one."
+ },
+ {
+  "id": 6,
+  "name": "Cedar Hollow",
+  "km": 5.6,
+  "climb": 300,
+  "level": "medium",
+  "about": "A cool valley of old cedars, with a mossy bridge halfway."
+ }
+]

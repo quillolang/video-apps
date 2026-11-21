@@ -1,0 +1,2 @@
+$ curl -s localhost:8211/trails/2 | grep -o '<main[^>]*>.\{0,64\}'
+<main data-node-hydration="6"><!--placeholder7--><h1 data-node-hydration="8"><!--node-id9-->Ea

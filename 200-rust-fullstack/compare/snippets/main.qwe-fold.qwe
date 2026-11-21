@@ -1,0 +1,8 @@
+component Card(title: str, footer = null, children) {
+    state open = true
+    <section.card>
+        <h2 onclick={() => { open = !open }}>{title}</h2>
+        {open && children}
+        {footer != null && <footer>{footer}</footer>}
+    </section>
+}

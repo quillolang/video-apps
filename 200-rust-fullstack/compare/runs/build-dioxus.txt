@@ -1,0 +1,13 @@
+$ dx build --release --platform web
+  0.00s  INFO Building project...
+ 11.82s  INFO Compiled [306/306]: trails
+ 11.86s  INFO Bundling app...
+ 11.96s  INFO Running wasm-bindgen...
+ 14.90s  INFO Compiled [400/400]: trails
+ 14.93s  INFO Bundling app...
+ 14.97s  INFO Server build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus/dx/trails/release/web"
+ 15.28s  INFO Copying asset (1/4): /Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/dioxus/assets/trails.css
+ 15.28s  INFO Copying asset (2/4): /Users/you/dev/quillo-videos/videos/200-rust-fullstack/compare/dioxus/assets/favicon.ico
+ 15.28s  INFO Copying asset (3/4): /Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus/dx/trails/release/web/public/wasm/trails_bg.wasm
+ 15.32s  INFO Copying asset (4/4): /Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus/dx/trails/release/web/public/wasm/trails.js
+ 15.32s  INFO Client build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v200-target/dioxus/dx/trails/release/web/public"

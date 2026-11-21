@@ -1,0 +1,2 @@
+$ curl -s localhost:8211/trails/2 | grep -o '<title>[^<]*</title>'
+<title>Eagle Ridge · Trail Guide</title>
