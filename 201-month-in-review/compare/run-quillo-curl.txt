@@ -1,0 +1,6 @@
+$ curl -i -X POST 127.0.0.1:8091/api/login
+HTTP/1.1 200 OK
+content-type: application/json
+set-cookie: __Host-quillo_session=eyJlIjoxNzk3OTE4NDA2LCJkIjp7InVzZXIiOiJhbmEifSwiaSI6IjFkYmFjMjVkN2I3ZDA2Yjk5OGJiOTRlMTQ2MjhhZWNiIn0.U2URODij-fTLIz4YWfxrdxzfvj4bvtsJYa8tW9LHsM8; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax
+cache-control: private
+vary: Cookie

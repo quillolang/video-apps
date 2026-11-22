@@ -1,0 +1,3 @@
+$ quillo check main.qwe
+main.qwe:23: warning: this route reads who the visitor is (the session, a cookie, a header) and its `cache-control` lets a shared cache keep the answer: Quillo sends it as `private`, as a cache in front would give it to the next visitor, and the time stays for the visitor's own browser. Write `private` in it to say so
+main.qwe: ok (8 routes, 2 functions, 1 component), 1 warning

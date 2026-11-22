@@ -1,0 +1,7 @@
+// A key read inside a component: quillo check refuses it, as a component's code runs in the browser too.
+component Pay() {
+    let key = env("PAYMENTS_SECRET_KEY")
+    <button onclick={() => js("startPayment", key)}>Pay</button>
+}
+
+route GET / = <html><body><Pay/></body></html>

@@ -1,0 +1,3 @@
+$ quillo check main.qwe
+main.qwe:3: error: `env` is not available in the browser, where <Pay> also runs; use a `server fn` (or name the variable PUBLIC_..., which says the browser may see it)
+quillo: 1 error

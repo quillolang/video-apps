@@ -1,0 +1,60 @@
+// This Month in Web Stacks, November 2026: the Quillo side of each story.
+//   /leak            the same login button as the Next.js page: what can the page's JavaScript see?
+//   /greeting        a page made for one visitor, asked to be cached "public"
+//   /checkout        a card form with a third-party reviews script, and no policy
+//   /checkout-safe   the same page, with a Content-Security-Policy
+
+route POST /api/login {
+    set_session({ user: "ana" })
+    { ok: true }
+}
+
+route GET /assets/*path = files("public", path)
+
+route GET /leak = Page("Log in", <main>
+    <h1>Log in</h1>
+    <button id="login">Log in</button>
+    <pre id="seen"></pre>
+    <script src="/assets/leak.js"></script>
+</main>)
+
+route GET /greeting {
+    let user = session().user ?? "guest"
+    respond(200, Page("Welcome", <main><h1>Welcome back, {user}!</h1></main>),
+        { "cache-control": "public, max-age=60" })
+}
+
+component Total(price: dec) {
+    state qty = 1
+    <p class="total">
+        <button onclick={() => { if qty > 1 { qty -= 1 } }}>−</button>
+        <span>{qty} ticket{qty == 1 ? "" : "s"}: {"$"}{price * qty}</span>
+        <button onclick={() => { qty += 1 }}>+</button>
+    </p>
+}
+
+view Checkout(title) = <main>
+    <h1>{title}</h1>
+    <Total price={12.50m}/>
+    <form method="post" action="/pay">
+        <label>Card number <input id="card" name="card" autocomplete="off"/></label>
+        <label>Expiry <input name="expiry" placeholder="MM/YY"/></label>
+        <button>Pay</button>
+    </form>
+    <section id="reviews"><p>Loading reviews…</p></section>
+    <script src="http://127.0.0.1:9900/reviews.js"></script>
+</main>
+
+route GET /checkout = Page("Checkout", <Checkout title="Checkout"/>)
+route GET /checkout-safe = Page("Checkout", <Checkout title="Checkout (with a policy)"/>)
+
+site_headers("/checkout-safe", { "content-security-policy": "default-src 'self'" })
+
+route POST /pay { form: { card: str, expiry: str } } = Page("Paid", <main><h1>Thanks!</h1></main>)
+
+view Page(title, body) = <html>
+    <head><meta charset="utf-8"/><title>{title}</title><link rel="stylesheet" href="/assets/news.css"/></head>
+    <body>{body}</body>
+</html>
+
+route GET / = redirect("/leak")

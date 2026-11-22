@@ -1,0 +1,5 @@
+$ curl -i -b session=ana-7f3c9e21 127.0.0.1:3013/greeting
+HTTP/1.1 200 OK
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+cache-control: public, max-age=60
+content-type: text/html

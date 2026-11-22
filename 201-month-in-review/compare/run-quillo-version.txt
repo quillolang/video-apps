@@ -1,0 +1,2 @@
+$ quillo version
+quillo 0.8.10 (61997ab, 2026-11-22)

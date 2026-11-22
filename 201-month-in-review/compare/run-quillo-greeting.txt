@@ -1,0 +1,5 @@
+$ curl -i 127.0.0.1:8091/greeting
+HTTP/1.1 200 OK
+cache-control: private, max-age=60
+content-type: text/html; charset=utf-8
+x-frame-options: SAMEORIGIN

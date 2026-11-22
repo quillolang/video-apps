@@ -1,0 +1,4 @@
+$ curl -i -X POST 127.0.0.1:3012/api/login
+HTTP/1.1 200 OK
+content-type: application/json
+set-cookie: session=ana-7f3c9e21; Path=/; HttpOnly; SameSite=lax

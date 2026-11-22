@@ -1,0 +1,5 @@
+$ npm audit --audit-level=moderate > /dev/null; echo $?
+1
+$ cd ../next-fixed
+$ npm audit --audit-level=moderate > /dev/null; echo $?
+0
