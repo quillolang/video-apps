@@ -1,0 +1,7 @@
+quillo: 10 routes listening on http://127.0.0.1:8240
+GET /fast -> 200 (0.7ms)
+GET /todos/7 -> 200 (0.3ms)
+GET /todos/milk -> 200 (0.0ms)
+GET /todos/ -> 404 (0.0ms)
+POST /fast -> 405 (0.2ms)
+quillo: stopping once the requests in progress are answered (again to stop now)

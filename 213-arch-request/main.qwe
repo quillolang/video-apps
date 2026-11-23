@@ -1,0 +1,32 @@
+// main.qwe: the routes we send requests to, to watch one request's journey.
+
+let hits = 0                               // one value for the whole server
+
+fn spin(ms: int) -> int {                  // only computes, for ms milliseconds
+    let start = now()
+    let rounds = 0
+    while now() - start < ms { rounds += 1 }
+    rounds
+}
+
+route GET /fast = "fast"
+route GET /slow { sleep(1000); "slow" }     // waits a second
+route GET /busy = `spun ${spin(800)} rounds`
+route GET /both = `${len(parallel([() => spin(800), () => spin(800)]))} spins`
+route GET /weather with http = http.get("http://127.0.0.1:8242/").body   // a slow API: 1 s
+
+route GET /count { hits += 1; hits }        // no wait in between
+route GET /lost {                          // a wait in between
+    let seen = hits
+    sleep(5)
+    hits = seen + 1
+    hits
+}
+route GET /safe {                          // the wait first, then read and write
+    sleep(5)
+    hits += 1
+    hits
+}
+
+route GET /todos/:id(int) = `todo number ${id}`
+route GET /todos/:name = `a todo called ${name}`

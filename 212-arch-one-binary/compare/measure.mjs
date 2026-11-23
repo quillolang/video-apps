@@ -8,8 +8,8 @@
 //   fresh    the same, with no app.db: the migration runs first
 //   rss      the server's memory after that first answer (ps's RSS)
 //   reload   under --watch: main.qwe saved with a new heading, until GET / shows it
-// Writes MEASURE.json beside this file, and prints each run. Run ./run.sh once first, so .quillo/bin/quillo is there,
-// and npm install in compare/express.
+// Writes MEASURE.json beside this file, and prints each run. sh get-quillo.sh first, so .quillo/bin/quillo is there,
+// and npm install in compare/express. macOS or Linux (it uses ps).
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';

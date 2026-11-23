@@ -1,0 +1,5 @@
+quillo waits: /fast 0.8 0.5 0.5 0.5 1.4 | last slow 1022 1018 1022 1016 1015 | done within 1.5 s 100 100 100 100 100
+quillo network: /fast 0.4 0.7 0.6 0.5 0.9 | last 2043 2033 2023 2020 2010 | done within 1.5 s 65 65 65 65 65
+quillo --workers 128 network: /fast 7.8 0.4 2.8 0.4 5.3 | last 1023 1011 1016 1008 1020 | done within 1.5 s 100 100 100 100 100
+express waits: /fast 0.7 0.7 0.7 0.5 0.6 | last slow 1011 1010 1014 1008 1008 | done within 1.5 s 100 100 100 100 100
+express network: /fast 1.5 0.7 1.0 1.8 0.7 | last 1041 1033 1057 1035 1035 | done within 1.5 s 100 100 100 100 100
