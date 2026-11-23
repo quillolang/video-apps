@@ -1,0 +1,48 @@
+2026-11-23 16:03
+16:03  up 3 days, 22:26, 1 user, load averages: 6.67 9.80 8.97
+$ node measure.mjs react=http://127.0.0.1:5181 vue=http://127.0.0.1:5182 svelte=http://127.0.0.1:5183 solid=http://127.0.0.1:5184 dioxus=http://127.0.0.1:5185 quillo=http://127.0.0.1:8096 react-compiler=http://127.0.0.1:5186 dioxus-signal=http://127.0.0.1:5187
+Chromium 153.0.8010.12, 21 rounds of each change; counts from the median round, time the median
+
+draft
+  app     code runs                 DOM writes                                    ms to last change
+  react   App 1, Row 50             157 (0 nodes, 157 attrs, 0 texts) net 1       0.5
+  vue     App 1                     0 (0 nodes, 0 attrs, 0 texts) net 0           0
+  svelte  none                      0 (0 nodes, 0 attrs, 0 texts) net 0           0
+  solid   none                      0 (0 nodes, 0 attrs, 0 texts) net 0           0
+  dioxus  App 1, Row 50             0 (0 nodes, 0 attrs, 0 texts) net 0           0
+  quillo  none                      0 (0 nodes, 0 attrs, 0 texts) net 0           0
+  react-compilerApp 1, Row 50             5 (0 nodes, 5 attrs, 0 texts) net 1           0.4
+  dioxus-signalApp 1                     0 (0 nodes, 0 attrs, 0 texts) net 0           0
+
+filter
+  app     code runs                 DOM writes                                    ms to last change
+  react   App 1, Row 29             115 (21 nodes, 94 attrs, 0 texts) net 22      0.5
+  vue     App 1                     21 (21 nodes, 0 attrs, 0 texts) net 21        0.4
+  svelte  none                      21 (21 nodes, 0 attrs, 0 texts) net 21        0.4
+  solid   none                      21 (21 nodes, 0 attrs, 0 texts) net 21        0.4
+  dioxus  App 1, Row 29             21 (21 nodes, 0 attrs, 0 texts) net 21        0.5
+  quillo  none                      21 (21 nodes, 0 attrs, 0 texts) net 21        0.4
+  react-compilerApp 1, Row 29             26 (21 nodes, 5 attrs, 0 texts) net 22        0.5
+  dioxus-signalApp 1                     21 (21 nodes, 0 attrs, 0 texts) net 21        0.4
+
+tick
+  app     code runs                 DOM writes                                    ms to last change
+  react   App 1, Row 50             160 (0 nodes, 158 attrs, 2 texts) net 3       0.3
+  vue     App 1, Row 1              4 (2 nodes, 2 attrs, 0 texts) net 4           0.2
+  svelte  none                      2 (0 nodes, 1 attrs, 1 texts) net 2           0.2
+  solid   none                      3 (0 nodes, 1 attrs, 2 texts) net 3           0.2
+  dioxus  App 1, Row 50             2 (0 nodes, 1 attrs, 1 texts) net 2           0.3
+  quillo  none                      5 (0 nodes, 3 attrs, 2 texts) net 4           0.2
+  react-compilerApp 1, Row 50             156 (0 nodes, 154 attrs, 2 texts) net 3       0.4
+  dioxus-signalApp 1, Row 1              2 (0 nodes, 1 attrs, 1 texts) net 2           0.2
+
+add
+  app     code runs                 DOM writes                                    ms to last change
+  react   App 1, Row 51             158 (1 nodes, 155 attrs, 2 texts) net 4       0.4
+  vue     App 1, Row 1              3 (3 nodes, 0 attrs, 0 texts) net 3           0.3
+  svelte  Row 1                     2 (1 nodes, 0 attrs, 1 texts) net 2           0.3
+  solid   Row 1                     3 (1 nodes, 0 attrs, 2 texts) net 3           0.4
+  dioxus  App 1, Row 51             2 (1 nodes, 0 attrs, 1 texts) net 2           0.4
+  quillo  Row 1                     3 (1 nodes, 0 attrs, 2 texts) net 3           0.3
+  react-compilerApp 1, Row 51             156 (1 nodes, 153 attrs, 2 texts) net 4       0.6
+  dioxus-signalApp 1, Row 1              2 (1 nodes, 0 attrs, 1 texts) net 2           0.4

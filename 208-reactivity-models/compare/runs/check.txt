@@ -1,0 +1,57 @@
+react:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+vue:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+svelte:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+solid:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+dioxus:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+quillo:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+react-compiler:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+dioxus-signal:
+  50 | 40 left · $555.52 | 10
+  3 | 40 left · $555.52 | 1 | Apples,Grapes,Soap
+  50 | 39 left · $552.78 | 11
+  49 | 38 left · $547.56 | 11
+  50 | 39 left · $548.56 | 11 | Basil | draft ""
+
+react          the same as react, step by step
+vue            the same as react, step by step
+svelte         the same as react, step by step
+solid          the same as react, step by step
+dioxus         the same as react, step by step
+quillo         the same as react, step by step
+react-compiler the same as react, step by step
+dioxus-signal  the same as react, step by step

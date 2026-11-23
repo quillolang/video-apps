@@ -1,0 +1,6 @@
+  2.31s  INFO Generated project at /Users/you/dev/quillo-videos/videos/208-reactivity-models/compare/dioxus
+
+`cd` to your project and run `dx serve` to start developing.
+More information is available in the generated `README.md`.
+
+Build cool things! ✌️ 

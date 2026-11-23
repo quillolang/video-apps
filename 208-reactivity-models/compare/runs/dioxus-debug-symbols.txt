@@ -1,0 +1,4 @@
+$ dx build --release --platform web                       # dx 0.7.10 as it comes: debug symbols kept
+wasm: 2081669 bytes, gzipped (gzip -9): 514554 bytes
+$ dx build --release --platform web --debug-symbols false   # what build.sh builds
+wasm: 575464 bytes, gzipped (gzip -9): 235514 bytes

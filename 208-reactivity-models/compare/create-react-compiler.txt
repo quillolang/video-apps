@@ -1,0 +1,16 @@
+
+> npx
+> "cva" react-compiler --template react-compiler --no-interactive --no-immediate
+
+
+create-vite v9.3.4
+
+│
+◇  Scaffolding project in /Users/you/dev/quillo-videos/videos/208-reactivity-models/compare/react-compiler...
+│
+└  Done. Now run:
+
+  cd react-compiler
+  npm install
+  npm run dev
+
