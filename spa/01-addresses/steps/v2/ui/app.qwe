@@ -1,0 +1,18 @@
+// The whole guide as one component: the address picks the page, and a link changes it without loading one.
+import lib/trails.qwe use list_trails
+import ui/trails.qwe use Header, TrailList, TrailPage, Missing
+
+component App() {
+    state trails = list_trails()            // all six come with the page
+    let path = url().path
+    <div>
+        <Header {path}/>
+        {match split(path, "/") | filter((s) => s != "") {
+            [] => <TrailList {trails}/>
+            ["trails", id] => trail_page(find(trails, (t) => str(t.id) == id))
+            _ => <Missing/>
+        }}
+    </div>
+}
+
+fn trail_page(trail) = trail == null ? <Missing/> : <TrailPage {trail}/>

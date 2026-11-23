@@ -1,0 +1,14 @@
+// Fernhill Trails: the town's trail guide. A page from the server for each address.
+db.open("trails.db")
+db.migrate("migrations")
+
+use "lib/trails.qwe"
+use "ui/page.qwe"
+use "ui/trails.qwe"
+
+route GET / with db = <Page title="Fernhill Trails"><Header path="/"/><TrailList trails={list_trails()}/></Page>
+
+route GET /trails/:id(int) with db {
+    let trail = load_trail(id) ?? reply 404 <Page title="No such trail"><Header path=""/><Missing/></Page>
+    <Page title={trail.name}><Header path={request.path}/><TrailPage {trail}/></Page>
+}
