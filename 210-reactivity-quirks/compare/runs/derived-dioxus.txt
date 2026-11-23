@@ -1,0 +1,9 @@
+$ dx build --release --platform web --debug-symbols false
+  0.00s  INFO Building project...
+  1.95s  INFO Compiled [175/175]: groceries
+  1.97s  INFO Bundling app...
+  1.99s  INFO Running wasm-bindgen...
+  2.98s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries_bg.wasm
+  2.99s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/210-reactivity-quirks/compare/build/derived-dioxus/assets/groceries.css
+  3.01s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries.js
+  3.01s  INFO Client build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public"

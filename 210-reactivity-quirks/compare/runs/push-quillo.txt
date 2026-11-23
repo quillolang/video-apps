@@ -1,0 +1,3 @@
+$ quillo check main.qwe
+main.qwe: ok (2 routes, 1 function, 2 components, in 2 files), 1 warning
+main.qwe:46: warning: `push` gives a new value and changes nothing, and it is dropped here: write `items = items | push(...)`

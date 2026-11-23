@@ -1,0 +1,13 @@
+$ npx eslint src
+
+$ npx vite build
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 14 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.42 kB │ gzip:  0.28 kB
+dist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB
+dist/assets/index-B9CRobI-.js   70.20 kB │ gzip: 27.48 kB
+
+✓ built in 64ms

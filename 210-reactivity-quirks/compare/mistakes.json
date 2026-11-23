@@ -1,0 +1,319 @@
+{
+  "_": "Each mistake is a change to one file of videos/208-reactivity-models' Groceries app: [file, from, to] edits, applied in order. make.mjs copies the app, applies them, builds it, and keeps what the linter, the compiler and quillo check say.",
+  "inplace": {
+    "react": [
+      [
+        "src/App.jsx",
+        "  const toggle = (id) => setItems(items.map((i) => (i.id === id ? { ...i, done: !i.done } : i)));",
+        "  const toggle = (id) => {\n    const item = items.find((i) => i.id === id);\n    item.done = !item.done;\n    setItems(items);\n  };"
+      ]
+    ],
+    "vue": [],
+    "svelte": [],
+    "solid": [
+      [
+        "src/App.jsx",
+        "  const toggle = (id) => setItems((s) => { const item = s.find((i) => i.id === id); item.done = !item.done; });",
+        "  const toggle = (id) => { const item = items.find((i) => i.id === id); item.done = !item.done; };"
+      ]
+    ],
+    "dioxus": [
+      [
+        "src/main.rs",
+        "        if let Some(i) = items.write().iter_mut().find(|i| i.id == id) {",
+        "        if let Some(i) = items.read().iter_mut().find(|i| i.id == id) {"
+      ]
+    ],
+    "quillo": [
+      [
+        "main.qwe",
+        "        items = items | map((i) => i.id == id ? { ...i, done: !i.done } : i)",
+        "        items | map((i) => i.id == id ? { ...i, done: !i.done } : i)"
+      ]
+    ]
+  },
+  "push": {
+    "react": [
+      [
+        "src/App.jsx",
+        "    setItems([...items, { id, name: draft.trim(), cents: 100, qty: 1, done: false }]);",
+        "    items.push({ id, name: draft.trim(), cents: 100, qty: 1, done: false });\n    setItems(items);"
+      ]
+    ],
+    "vue": [],
+    "svelte": [],
+    "solid": [
+      [
+        "src/App.jsx",
+        "    setItems((s) => { s.push({ id, name, cents: 100, qty: 1, done: false }); });",
+        "    items.push({ id, name, cents: 100, qty: 1, done: false });"
+      ]
+    ],
+    "dioxus": [
+      [
+        "src/main.rs",
+        "        items.write().push(Item { id, name, cents: 100, qty: 1, done: false });",
+        "        items.read().push(Item { id, name, cents: 100, qty: 1, done: false });"
+      ]
+    ],
+    "quillo": [
+      [
+        "main.qwe",
+        "            items = items | push({ id, name: trim(draft), cents: 100, qty: 1, done: false })",
+        "            push(items, { id, name: trim(draft), cents: 100, qty: 1, done: false })"
+      ]
+    ]
+  },
+  "derived": {
+    "react": [
+      [
+        "src/App.jsx",
+        "import { useState } from 'react';",
+        "import { useState, useMemo } from 'react';"
+      ],
+      [
+        "src/App.jsx",
+        "  const total = open.reduce((sum, i) => sum + i.cents * i.qty, 0);",
+        "  const total = useMemo(() => open.reduce((sum, i) => sum + i.cents * i.qty, 0), []);"
+      ]
+    ],
+    "vue": [
+      [
+        "src/App.vue",
+        "const total = computed(() => open.value.reduce((sum, i) => sum + i.cents * i.qty, 0))",
+        "const total = open.value.reduce((sum, i) => sum + i.cents * i.qty, 0)"
+      ]
+    ],
+    "svelte": [
+      [
+        "src/App.svelte",
+        "  let total = $derived(open.reduce((sum, i) => sum + i.cents * i.qty, 0))",
+        "  let total = open.reduce((sum, i) => sum + i.cents * i.qty, 0)"
+      ]
+    ],
+    "solid": [
+      [
+        "src/App.jsx",
+        "  const total = createMemo(() => open().reduce((sum, i) => sum + i.cents * i.qty, 0));",
+        "  const total = open().reduce((sum, i) => sum + i.cents * i.qty, 0);"
+      ],
+      [
+        "src/App.jsx",
+        "{money(total())}",
+        "{money(total)}"
+      ]
+    ],
+    "dioxus": [
+      [
+        "src/main.rs",
+        "    let total = use_memo(move || items.read().iter().filter(|i| !i.done).map(|i| i.cents * i.qty).sum::<u32>());",
+        "    let total = use_hook(move || items.read().iter().filter(|i| !i.done).map(|i| i.cents * i.qty).sum::<u32>());"
+      ],
+      [
+        "src/main.rs",
+        "{money(total())}",
+        "{money(total)}"
+      ]
+    ],
+    "quillo": [
+      [
+        "main.qwe",
+        "    let total = open | map((i) => i.cents * i.qty) | sum()",
+        "    state total = open | map((i) => i.cents * i.qty) | sum()"
+      ]
+    ]
+  },
+  "effect": {
+    "react": [
+      [
+        "src/App.jsx",
+        "import { useState } from 'react';",
+        "import { useState, useEffect } from 'react';"
+      ],
+      [
+        "src/App.jsx",
+        "  const [draft, setDraft] = useState('');\n",
+        "  const [draft, setDraft] = useState('');\n  const [changes, setChanges] = useState(0);\n  useEffect(() => {\n    setChanges(changes + 1);\n  }, [items, changes]);\n"
+      ],
+      [
+        "src/App.jsx",
+        "{open.length} left · {money(total)}",
+        "{open.length} left · {money(total)} · {changes} changes"
+      ]
+    ],
+    "vue": [
+      [
+        "src/App.vue",
+        "import { ref, computed, onBeforeUpdate } from 'vue'",
+        "import { ref, computed, onBeforeUpdate, watchEffect } from 'vue'"
+      ],
+      [
+        "src/App.vue",
+        "const draft = ref('')\n",
+        "const draft = ref('')\nconst changes = ref(0)\nwatchEffect(() => {\n  items.value.map((i) => i.done)\n  changes.value++\n})\n"
+      ],
+      [
+        "src/App.vue",
+        "{{ open.length }} left · {{ money(total) }}",
+        "{{ open.length }} left · {{ money(total) }} · {{ changes }} changes"
+      ]
+    ],
+    "svelte": [
+      [
+        "src/App.svelte",
+        "  let draft = $state('')\n",
+        "  let draft = $state('')\n  let changes = $state(0)\n  $effect(() => {\n    items.map((i) => i.done)\n    changes++\n  })\n"
+      ],
+      [
+        "src/App.svelte",
+        "{open.length} left · {money(total)}",
+        "{open.length} left · {money(total)} · {changes} changes"
+      ]
+    ],
+    "solid": [
+      [
+        "src/App.jsx",
+        "import { createSignal, createMemo, createStore, For } from 'solid-js';",
+        "import { createSignal, createMemo, createStore, createEffect, For } from 'solid-js';"
+      ],
+      [
+        "src/App.jsx",
+        "  const [draft, setDraft] = createSignal('');\n",
+        "  const [draft, setDraft] = createSignal('');\n  const [changes, setChanges] = createSignal(0);\n  createEffect(() => {\n    items.map((i) => i.done);\n    setChanges(changes() + 1);\n  });\n"
+      ],
+      [
+        "src/App.jsx",
+        "{open().length} left · {money(total())}",
+        "{open().length} left · {money(total())} · {changes()} changes"
+      ]
+    ],
+    "dioxus": [
+      [
+        "src/main.rs",
+        "    let mut draft = use_signal(String::new);\n",
+        "    let mut draft = use_signal(String::new);\n    let mut changes = use_signal(|| 0);\n    use_effect(move || {\n        items.read().iter().for_each(|i| { let _ = i.done; });\n        changes += 1;\n    });\n"
+      ],
+      [
+        "src/main.rs",
+        "\"{left} left · {money(total())}\"",
+        "\"{left} left · {money(total())} · {changes} changes\""
+      ]
+    ],
+    "quillo": [
+      [
+        "main.qwe",
+        "    state draft = \"\"\n",
+        "    state draft = \"\"\n    state changes = 0\n    if all(items, (i) => i.done || !i.done) {\n        changes += 1\n    }\n"
+      ],
+      [
+        "main.qwe",
+        "<p.summary>{len(open)} left · {dollars(total)}</p>",
+        "<p.summary>{len(open)} left · {dollars(total)} · {changes} changes</p>"
+      ]
+    ]
+  },
+  "race": {
+    "react": [
+      [
+        "src/App.jsx",
+        "import { useState } from 'react';",
+        "import { useState, useEffect } from 'react';\nimport { search } from './search.js';"
+      ],
+      [
+        "src/App.jsx",
+        "  const [draft, setDraft] = useState('');\n",
+        "  const [draft, setDraft] = useState('');\n  const [found, setFound] = useState(null);\n  useEffect(() => {\n    search(filter).then(setFound);\n  }, [filter]);\n"
+      ],
+      [
+        "src/App.jsx",
+        "{open.length} left · {money(total)}",
+        "{open.length} left · {money(total)} · {found ?? '…'} found"
+      ]
+    ],
+    "vue": [
+      [
+        "src/App.vue",
+        "import { ref, computed, onBeforeUpdate } from 'vue'",
+        "import { ref, computed, onBeforeUpdate, watch } from 'vue'\nimport { search } from './search.js'"
+      ],
+      [
+        "src/App.vue",
+        "const draft = ref('')\n",
+        "const draft = ref('')\nconst found = ref(null)\nwatch(filter, async (q) => {\n  found.value = await search(q)\n}, { immediate: true })\n"
+      ],
+      [
+        "src/App.vue",
+        "{{ open.length }} left · {{ money(total) }}",
+        "{{ open.length }} left · {{ money(total) }} · {{ found ?? '…' }} found"
+      ]
+    ],
+    "svelte": [
+      [
+        "src/App.svelte",
+        "  import Row from './Row.svelte'\n",
+        "  import Row from './Row.svelte'\n  import { search } from './search.js'\n"
+      ],
+      [
+        "src/App.svelte",
+        "  let draft = $state('')\n",
+        "  let draft = $state('')\n  let found = $state(null)\n  $effect(() => {\n    search(filter).then((n) => { found = n })\n  })\n"
+      ],
+      [
+        "src/App.svelte",
+        "{open.length} left · {money(total)}",
+        "{open.length} left · {money(total)} · {found ?? '…'} found"
+      ]
+    ],
+    "solid": [
+      [
+        "src/App.jsx",
+        "import { createSignal, createMemo, createStore, For } from 'solid-js';",
+        "import { createSignal, createMemo, createStore, For, Loading } from 'solid-js';\nimport { search } from './search.js';"
+      ],
+      [
+        "src/App.jsx",
+        "  const total = createMemo(",
+        "  const found = createMemo(() => search(filter()));\n  const total = createMemo("
+      ],
+      [
+        "src/App.jsx",
+        "{open().length} left · {money(total())}",
+        "{open().length} left · {money(total())} · <Loading fallback=\"…\">{found()}</Loading> found"
+      ]
+    ],
+    "dioxus": [
+      [
+        "src/main.rs",
+        "    let mut draft = use_signal(String::new);\n",
+        "    let mut draft = use_signal(String::new);\n    let found = use_resource(move || async move { search(filter()).await });\n"
+      ],
+      [
+        "src/main.rs",
+        "\"{left} left · {money(total())}\"",
+        "\"{left} left · {money(total())} · {found_text(&found)} found\""
+      ],
+      [
+        "src/main.rs",
+        "fn main() {",
+        "// A slow search, as a server would answer: one letter takes 900 ms, more take 150 ms.\nasync fn search(q: String) -> usize {\n    let ms = if q.chars().count() == 1 { 900 } else { 150 };\n    let _ = document::eval(&format!(\"await new Promise((ok) => setTimeout(ok, {ms})); return 0;\")).await;\n    let q = q.to_lowercase();\n    items::items().iter().filter(|i| i.name.to_lowercase().contains(&q)).count()\n}\n\nfn found_text(found: &Resource<usize>) -> String {\n    match *found.read() { Some(n) => n.to_string(), None => \"…\".to_string() }\n}\n\nfn main() {"
+      ]
+    ],
+    "quillo": [
+      [
+        "main.qwe",
+        "fn dollars(",
+        "// A slow search, as a server would answer: one letter takes 900 ms, more take 150 ms.\nserver fn search(q: str) -> int {\n    sleep(len(q) == 1 ? 900 : 150)\n    count(ITEMS, (i) => contains(lower(i.name), lower(q)))\n}\n\nfn dollars("
+      ],
+      [
+        "main.qwe",
+        "    state draft = \"\"\n",
+        "    state draft = \"\"\n    state found = live(search, query)\n"
+      ],
+      [
+        "main.qwe",
+        "<p.summary>{len(open)} left · {dollars(total)}</p>",
+        "<p.summary>{len(open)} left · {dollars(total)} · {found ?? \"…\"} found</p>"
+      ]
+    ]
+  }
+}

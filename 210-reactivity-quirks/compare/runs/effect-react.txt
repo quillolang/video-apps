@@ -1,0 +1,13 @@
+$ npx oxlint src/App.jsx src/count.js src/items.js src/main.jsx src/search.js
+src/App.jsx:30:5: warning react(set-state-in-effect): Calling setState synchronously within an effect can trigger cascading renders help: Effects should synchronize React with external systems. Calling setState synchronously inside an effect starts another render and is usually unnecessary. Derive the value during render, initialize state directly, or update it from the event that caused the change. Use an effect only when synchronizing with an external system.
+$ npx vite build
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:  0.29 kB
+dist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB
+dist/assets/index-DkG2DO-s.js   223.52 kB │ gzip: 69.99 kB
+
+✓ built in 82ms

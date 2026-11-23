@@ -1,0 +1,19 @@
+$ npx vite build
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 116 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.45 kB │ gzip:  0.29 kB
+dist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB
+dist/assets/index-DpE8hF13.js   50.68 kB │ gzip: 19.74 kB
+
+✓ built in 85ms
+5:05:53 PM [vite-plugin-svelte] src/App.svelte:14:14 This reference only captures the initial value of `open`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+12:   let shown = $derived(items.filter((i) => i.name.toLowerCase().includes(filter.toLowerCase())))
+13:   let open = $derived(items.filter((i) => !i.done))
+14:   let total = open.reduce((sum, i) => sum + i.cents * i.qty, 0)
+                      ^
+15:   const money = (cents) => `$${(cents / 100).toFixed(2)}`
+16:

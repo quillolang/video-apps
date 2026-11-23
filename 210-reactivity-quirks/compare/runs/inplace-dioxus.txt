@@ -1,0 +1,17 @@
+$ dx build --release --platform web --debug-symbols false
+  0.00s  INFO Building project...
+  1.48s  INFO  error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable
+  --> src/main.rs:58:26
+   |
+58 |         if let Some(i) = items.read().iter_mut().find(|i| i.id == id) {
+   |                          ^^^^^^^^^^^^ cannot borrow as mutable
+   |
+   = help: trait `DerefMut` is required to modify through a dereference, but it is not implemented for `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>`
+
+
+  1.49s  INFO  For more information about this error, try `rustc --explain E0596`.
+
+  1.49s  WARN error: could not compile `groceries` (bin "groceries") due to 1 previous error 
+  1.49s  WARN Caused by: 
+
+ERROR dx build: cargo build finished with errors for target: groceries [wasm32-unknown-unknown]

@@ -1,0 +1,18 @@
+$ dx build --release --platform web --debug-symbols false
+  0.00s  INFO Building project...
+  1.74s  INFO  error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable
+  --> src/main.rs:70:9
+   |
+70 |         items.read().push(Item { id, name, cents: 100, qty: 1, done: false });
+   |         ^^^^^^^^^^^^ cannot borrow as mutable
+   |
+   = help: trait `DerefMut` is required to modify through a dereference, but it is not implemented for `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>`
+
+
+  1.74s  INFO  For more information about this error, try `rustc --explain E0596`.
+
+  1.74s  WARN error: could not compile `groceries` (bin "groceries") due to 1 previous error 
+  1.74s  WARN Caused by: 
+  1.74s  WARN   process didn't exit successfully: `/Users/you/dev/quillo-videos/.cache/rust-tools/bin/dx /Users/you/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc --crate-name groceries --edition=2021 src/main.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type bin --emit=dep-info,link -C opt-level=s -C embed-bitcode=no --cfg 'feature="web"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "desktop", "mobile", "web"))' -C metadata=240127751b7b7369 -C extra-filename=-5e8e76aa68fcb905 --out-dir /Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps --target wasm32-unknown-unknown -L dependency=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps -L dependency=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm-release/deps --extern dioxus=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps/libdioxus-32f905239dd64896.rlib --extern wasm_bindgen=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps/libwasm_bindgen-e1f75b63a90a9d2b.rlib --cfg 'getrandom_backend="wasm_js"'` (exit status: 1) 
+
+ERROR dx build: cargo build finished with errors for target: groceries [wasm32-unknown-unknown]

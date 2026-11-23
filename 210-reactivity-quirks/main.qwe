@@ -1,0 +1,70 @@
+// Groceries, Quillo's: the same app as ../compare/react, vue, svelte, solid and dioxus. The 50 items are in
+// items.qwe and the styles in public/groceries.css (the same file in all six). count.js holds the one line of
+// measuring: js("ran", ...) counts a component's code running, as ran("Row") does in the others.
+use "items.qwe"
+
+route GET /assets/*path = files("public", path)
+
+fn dollars(cents: int) -> str = `$${floor(cents / 100)}.${slice(str(100 + cents % 100), 1, 3)}`
+
+component Row(item: map, on_toggle, on_remove) {
+    js("ran", ["Row"])
+    <li class={item.done && "done"}>
+        <label>
+            <input type="checkbox" checked={item.done} onchange={() => { on_toggle(item.id) }}/>
+            <span.name>{item.name}</span>
+        </label>
+        <span.qty>×{item.qty}</span>
+        <span.price>{dollars(item.cents)}</span>
+        <button.remove aria-label={`Remove ${item.name}`} onclick={() => { on_remove(item.id) }}>×</button>
+    </li>
+}
+
+component Groceries(start: list) {
+    state items = start
+    state query = ""
+    state draft = ""
+
+    let shown = items | filter((i) => contains(lower(i.name), lower(query)))
+    let open = items | filter((i) => !i.done)
+    let total = open | map((i) => i.cents * i.qty) | sum()
+    js("ran", ["App"])
+
+    fn toggle(id) {
+        items = items | map((i) => i.id == id ? { ...i, done: !i.done } : i)
+    }
+    fn remove(id) {
+        items = items | filter((i) => i.id != id)
+    }
+
+    <main.groceries>
+        <h1>Groceries</h1>
+        <form.add onsubmit={(e) => {
+            e.preventDefault()
+            if trim(draft) == "" { return null }
+            let id = (max(map(items, (i) => i.id)) ?? 0) + 1
+            items = items | push({ id, name: trim(draft), cents: 100, qty: 1, done: false })
+            draft = ""
+        }}>
+            <input value={draft} placeholder="Add an item" aria-label="New item"/>
+            <button>Add</button>
+        </form>
+        <input.filter value={query} placeholder="Filter" aria-label="Filter"/>
+        <p.summary>{len(open)} left · {dollars(total)}</p>
+        <ul.list>
+            {for item in shown => <Row key={item.id} item={item} on_toggle={toggle} on_remove={remove}/>}
+        </ul>
+    </main>
+}
+
+route GET / =
+    <html lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Groceries</title>
+            <link rel="stylesheet" href="/assets/groceries.css"/>
+            <script src="/assets/count.js"></script>
+        </head>
+        <body><Groceries start={ITEMS}/></body>
+    </html>

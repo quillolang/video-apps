@@ -1,0 +1,801 @@
+{
+  "inplace-react": {
+    "round": "inplace",
+    "app": "react",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB\ndist/assets/index-CBGm3txQ.js   223.44 kB │ gzip: 69.96 kB\n\n✓ built in 78ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5281/",
+      "rowDone": false,
+      "boxChecked": false,
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5282/",
+      "rowDone": false,
+      "boxChecked": false,
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "shot": "inplace-react",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "inplace-vue": {
+    "round": "inplace",
+    "app": "vue",
+    "changed": false,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 14 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-DYz7uShl.js   70.21 kB │ gzip: 27.48 kB\n\n✓ built in 70ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5283/",
+      "rowDone": true,
+      "boxChecked": true,
+      "summary": "39 left · $552.78",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5284/",
+      "rowDone": true,
+      "boxChecked": true,
+      "summary": "39 left · $552.78",
+      "alive": "yes",
+      "shot": "inplace-vue",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "inplace-svelte": {
+    "round": "inplace",
+    "app": "svelte",
+    "changed": false,
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-Bprq8e8X.js   50.69 kB │ gzip: 19.74 kB\n\n✓ built in 69ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5285/",
+      "rowDone": true,
+      "boxChecked": true,
+      "summary": "39 left · $552.78",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5286/",
+      "rowDone": true,
+      "boxChecked": true,
+      "summary": "39 left · $552.78",
+      "alive": "yes",
+      "shot": "inplace-svelte",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "inplace-solid": {
+    "round": "inplace",
+    "app": "solid",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/client/assets/virtual_solid-ssr-entry-client-DCxa-pu7.js   68.64 kB │ gzip: 26.55 kB\n\n✓ built in 104ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.15 kB │ gzip: 2.87 kB\n\n✓ built in 11ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5287/",
+      "rowDone": false,
+      "boxChecked": true,
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "console": [
+        "warning: [STORE_WRITE_OUTSIDE_SETTER] Writing store property \"done\" outside its setter was ignored. Stores are read-only outside the setter's draft: use `setStore(s => { s.done = value })`."
+      ],
+      "consoleCount": 1
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5288/",
+      "rowDone": false,
+      "boxChecked": true,
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "shot": "inplace-solid",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "inplace-dioxus": {
+    "round": "inplace",
+    "app": "dioxus",
+    "changed": true,
+    "build": {
+      "code": 1,
+      "out": "  0.00s  INFO Building project...\n  1.48s  INFO  error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable\n  --> src/main.rs:58:26\n   |\n58 |         if let Some(i) = items.read().iter_mut().find(|i| i.id == id) {\n   |                          ^^^^^^^^^^^^ cannot borrow as mutable\n   |\n   = help: trait `DerefMut` is required to modify through a dereference, but it is not implemented for `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>`\n\n\n  1.49s  INFO  For more information about this error, try `rustc --explain E0596`.\n\n  1.49s  WARN error: could not compile `groceries` (bin \"groceries\") due to 1 previous error \n  1.49s  WARN Caused by: \n\nERROR dx build: cargo build finished with errors for target: groceries [wasm32-unknown-unknown]"
+    },
+    "compileError": [
+      "error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable"
+    ]
+  },
+  "inplace-quillo": {
+    "round": "inplace",
+    "app": "quillo",
+    "changed": true,
+    "check": {
+      "code": 0,
+      "out": "main.qwe: ok (2 routes, 1 function, 2 components, in 2 files)"
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5289/",
+      "rowDone": false,
+      "boxChecked": false,
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "shot": "inplace-quillo",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "push-react": {
+    "round": "push",
+    "app": "react",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB\ndist/assets/index-DNysdkrT.js   223.44 kB │ gzip: 69.95 kB\n\n✓ built in 82ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5290/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5291/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "shot": "push-react",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "push-vue": {
+    "round": "push",
+    "app": "vue",
+    "changed": false,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 14 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-DYz7uShl.js   70.21 kB │ gzip: 27.48 kB\n\n✓ built in 68ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5292/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5293/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "shot": "push-vue",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "push-svelte": {
+    "round": "push",
+    "app": "svelte",
+    "changed": false,
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-Bprq8e8X.js   50.69 kB │ gzip: 19.74 kB\n\n✓ built in 67ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5294/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5295/",
+      "rows": 51,
+      "last": "Basil",
+      "draft": "",
+      "summary": "41 left · $556.52",
+      "alive": "yes",
+      "shot": "push-svelte",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "push-solid": {
+    "round": "push",
+    "app": "solid",
+    "changed": true,
+    "lint": {
+      "code": 1,
+      "out": "src/App.jsx:40:5: error solid(no-store-mutation-outside-setter): 'items' is a store's read proxy, which is read-only; this mutation is silently ignored — no error, no update, the write just vanishes. Mutate the draft inside the setter instead: `setItems(draft => { ... })`."
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BkzmwRJH.js   68.64 kB │ gzip: 26.54 kB\n\n✓ built in 60ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.15 kB │ gzip: 2.87 kB\n\n✓ built in 8ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5296/",
+      "rows": 50,
+      "last": "Zucchini",
+      "draft": "",
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "console": [
+        "warning: [STORE_WRITE_OUTSIDE_SETTER] Writing store property \"50\" outside its setter was ignored. Stores are read-only outside the setter's draft: use `setStore(s => { s[50] = value })`.",
+        "warning: [STORE_WRITE_OUTSIDE_SETTER] Writing store property \"length\" outside its setter was ignored. Stores are read-only outside the setter's draft: use `setStore(s => { s.length = value })`."
+      ],
+      "consoleCount": 2
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5297/",
+      "rows": 50,
+      "last": "Zucchini",
+      "draft": "",
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "shot": "push-solid",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "push-dioxus": {
+    "round": "push",
+    "app": "dioxus",
+    "changed": true,
+    "build": {
+      "code": 1,
+      "out": "  0.00s  INFO Building project...\n  1.74s  INFO  error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable\n  --> src/main.rs:70:9\n   |\n70 |         items.read().push(Item { id, name, cents: 100, qty: 1, done: false });\n   |         ^^^^^^^^^^^^ cannot borrow as mutable\n   |\n   = help: trait `DerefMut` is required to modify through a dereference, but it is not implemented for `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>`\n\n\n  1.74s  INFO  For more information about this error, try `rustc --explain E0596`.\n\n  1.74s  WARN error: could not compile `groceries` (bin \"groceries\") due to 1 previous error \n  1.74s  WARN Caused by: \n  1.74s  WARN   process didn't exit successfully: `/Users/you/dev/quillo-videos/.cache/rust-tools/bin/dx /Users/you/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc --crate-name groceries --edition=2021 src/main.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type bin --emit=dep-info,link -C opt-level=s -C embed-bitcode=no --cfg 'feature=\"web\"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values(\"default\", \"desktop\", \"mobile\", \"web\"))' -C metadata=240127751b7b7369 -C extra-filename=-5e8e76aa68fcb905 --out-dir /Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps --target wasm32-unknown-unknown -L dependency=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps -L dependency=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm-release/deps --extern dioxus=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps/libdioxus-32f905239dd64896.rlib --extern wasm_bindgen=/Users/you/dev/quillo-videos/.cache/rust-target/v210/wasm32-unknown-unknown/wasm-release/deps/libwasm_bindgen-e1f75b63a90a9d2b.rlib --cfg 'getrandom_backend=\"wasm_js\"'` (exit status: 1) \n\nERROR dx build: cargo build finished with errors for target: groceries [wasm32-unknown-unknown]"
+    },
+    "compileError": [
+      "error[E0596]: cannot borrow data in dereference of `dioxus::dioxus_core::internal::generational_box::GenerationalRef<Ref<'_, Vec<Item>>>` as mutable"
+    ]
+  },
+  "push-quillo": {
+    "round": "push",
+    "app": "quillo",
+    "changed": true,
+    "check": {
+      "code": 0,
+      "out": "main.qwe: ok (2 routes, 1 function, 2 components, in 2 files), 1 warning\nmain.qwe:46: warning: `push` gives a new value and changes nothing, and it is dropped here: write `items = items | push(...)`"
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5298/",
+      "rows": 50,
+      "last": "Zucchini",
+      "draft": "",
+      "summary": "40 left · $555.52",
+      "alive": "yes",
+      "shot": "push-quillo",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-react": {
+    "round": "derived",
+    "app": "react",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": "src/App.jsx:31:31: warning react-hooks(exhaustive-deps): React Hook useMemo has a missing dependency: 'open' help: Either include it or remove the dependency array."
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB\ndist/assets/index-CMStNYzM.js   223.46 kB │ gzip: 69.96 kB\n\n✓ built in 80ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5299/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5300/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-react",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-vue": {
+    "round": "derived",
+    "app": "vue",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 14 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-B9CRobI-.js   70.20 kB │ gzip: 27.48 kB\n\n✓ built in 64ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5301/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5302/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-vue",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-svelte": {
+    "round": "derived",
+    "app": "svelte",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-DpE8hF13.js   50.68 kB │ gzip: 19.74 kB\n\n✓ built in 85ms\n5:05:53 PM [vite-plugin-svelte] src/App.svelte:14:14 This reference only captures the initial value of `open`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally\n12:   let shown = $derived(items.filter((i) => i.name.toLowerCase().includes(filter.toLowerCase())))\n13:   let open = $derived(items.filter((i) => !i.done))\n14:   let total = open.reduce((sum, i) => sum + i.cents * i.qty, 0)\n                      ^\n15:   const money = (cents) => `$${(cents / 100).toFixed(2)}`\n16:"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5303/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5304/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-svelte",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-solid": {
+    "round": "derived",
+    "app": "solid",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": "src/App.jsx:31:17: warning solid(reactivity): The reactive variable 'open' should be used within JSX, a tracked scope (like createEffect), or inside an event handler function, or else changes will be ignored."
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/client/assets/virtual_solid-ssr-entry-client-0HlolaDN.js   68.63 kB │ gzip: 26.54 kB\n\n✓ built in 62ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.15 kB │ gzip: 2.87 kB\n\n✓ built in 9ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5305/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "console": [
+        "warning: [STRICT_READ_UNTRACKED] Reactive value \"open\" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function).",
+        "warning: [STRICT_READ_UNTRACKED] Reactive value \"cents\" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function).",
+        "warning: [STRICT_READ_UNTRACKED] Reactive value \"qty\" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function)."
+      ],
+      "consoleCount": 81
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5306/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-solid",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-dioxus": {
+    "round": "derived",
+    "app": "dioxus",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "  0.00s  INFO Building project...\n  1.95s  INFO Compiled [175/175]: groceries\n  1.97s  INFO Bundling app...\n  1.99s  INFO Running wasm-bindgen...\n  2.98s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries_bg.wasm\n  2.99s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/210-reactivity-quirks/compare/build/derived-dioxus/assets/groceries.css\n  3.01s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries.js\n  3.01s  INFO Client build completed successfully! 🚀 path=\"/Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public\""
+    },
+    "compileError": [],
+    "prod": {
+      "url": "http://127.0.0.1:5307/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-dioxus",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "derived-quillo": {
+    "round": "derived",
+    "app": "quillo",
+    "changed": true,
+    "check": {
+      "code": 0,
+      "out": "main.qwe: ok (2 routes, 1 function, 2 components, in 2 files)"
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5308/",
+      "summary": "39 left · $555.52",
+      "alive": "yes",
+      "shot": "derived-quillo",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "effect-react": {
+    "round": "effect",
+    "app": "react",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": "src/App.jsx:30:5: warning react(set-state-in-effect): Calling setState synchronously within an effect can trigger cascading renders help: Effects should synchronize React with external systems. Calling setState synchronously inside an effect starts another render and is usually unnecessary. Derive the value during render, initialize state directly, or update it from the event that caused the change. Use an effect only when synchronizing with an external system."
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB\ndist/assets/index-DkG2DO-s.js   223.52 kB │ gzip: 69.99 kB\n\n✓ built in 82ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5309/",
+      "before": "40 left · $555.52 · 2629 changes",
+      "summary": "39 left · $552.78 · 4712 changes",
+      "alive": "yes",
+      "console": [
+        "error: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render."
+      ],
+      "consoleCount": 90
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5310/",
+      "before": "40 left · $555.52 · 24577 changes",
+      "summary": "39 left · $552.78 · 42968 changes",
+      "alive": "yes",
+      "shot": "effect-react",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "effect-vue": {
+    "round": "effect",
+    "app": "vue",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 14 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-nVZH2xKV.js   70.33 kB │ gzip: 27.53 kB\n\n✓ built in 61ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5311/",
+      "before": "40 left · $555.52 · 1 changes",
+      "summary": "39 left · $552.78 · 2 changes",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5312/",
+      "before": "40 left · $555.52 · 1 changes",
+      "summary": "39 left · $552.78 · 2 changes",
+      "alive": "yes",
+      "shot": "effect-vue",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "effect-svelte": {
+    "round": "effect",
+    "app": "svelte",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 116 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-Cw5wqyNl.js   51.21 kB │ gzip: 19.91 kB\n\n✓ built in 89ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5313/",
+      "before": "40 left · $555.52 · 1000 changes",
+      "summary": "39 left · $552.78 · 2001 changes",
+      "alive": "yes",
+      "console": [
+        "error: updated at",
+        "pageerror: effect_update_depth_exceeded"
+      ],
+      "consoleCount": 4
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5314/",
+      "before": "40 left · $555.52 · 1000 changes",
+      "summary": "39 left · $552.78 · 2001 changes",
+      "alive": "yes",
+      "shot": "effect-svelte",
+      "console": [
+        "pageerror: https://svelte.dev/e/effect_update_depth_exceeded"
+      ],
+      "consoleCount": 2
+    }
+  },
+  "effect-solid": {
+    "round": "effect",
+    "app": "solid",
+    "changed": true,
+    "lint": {
+      "code": 1,
+      "out": "src/App.jsx:29:3: error solid(no-single-arg-create-effect): In Solid 2.0, createEffect takes separate compute and effect functions: `createEffect(() => signal(), (value) => doWork(value))`. For a derived value use `createMemo`; for a one-shot side effect, just call the function directly."
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/client/assets/virtual_solid-ssr-entry-client-DL6KFrNW.js   68.83 kB │ gzip: 26.61 kB\n\n✓ built in 96ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.15 kB │ gzip: 2.88 kB\n\n✓ built in 9ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5281/",
+      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "console": [
+        "error: [REACTIVITY_HALTED] An uncaught error halted the reactive system. No further updates will be processed. Handle errors with <Errored> or treat this as a crash.",
+        "pageerror: [MISSING_EFFECT_FN] createEffect requires both a compute function and an effect function. Use `createEffect(() => signal(), value => doWork(value))`. If you want a derived value, use `createMemo`. If you want a one-shot side effect, just call the function directly.",
+        "warning: [MISSING_EFFECT_FN] what it means and how to fix it: https://docs.solidjs.com/reference/solid-js/diagnostics/missing-effect-fn",
+        "warning: [REACTIVITY_HALTED] what it means and how to fix it: https://docs.solidjs.com/reference/solid-js/diagnostics/reactivity-halted"
+      ],
+      "consoleCount": 5
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5282/",
+      "error": "page.waitForFunction: Timeout 15000ms exceeded.",
+      "shot": "effect-solid",
+      "console": [
+        "error: TypeError: Cannot read properties of undefined (reading 'effect')"
+      ],
+      "consoleCount": 1
+    }
+  },
+  "effect-dioxus": {
+    "round": "effect",
+    "app": "dioxus",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "  0.00s  INFO Building project...\n  2.05s  INFO Compiled [175/175]: groceries\n  2.06s  INFO Bundling app...\n  2.09s  INFO Running wasm-bindgen...\n  3.04s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries_bg.wasm\n  3.04s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/210-reactivity-quirks/compare/build/effect-dioxus/assets/groceries.css\n  3.06s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries.js\n  3.07s  INFO Client build completed successfully! 🚀 path=\"/Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public\""
+    },
+    "compileError": [],
+    "prod": {
+      "url": "http://127.0.0.1:5317/",
+      "before": "40 left · $555.52 · 1 changes",
+      "summary": "39 left · $552.78 · 2 changes",
+      "alive": "yes",
+      "shot": "effect-dioxus",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "effect-quillo": {
+    "round": "effect",
+    "app": "quillo",
+    "changed": true,
+    "check": {
+      "code": 0,
+      "out": "main.qwe: ok (2 routes, 1 function, 2 components, in 2 files)"
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5318/",
+      "before": "40 left · $555.52 · 1 changes",
+      "summary": "39 left · $552.78 · 2 changes",
+      "alive": "yes",
+      "shot": "effect-quillo",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-react": {
+    "round": "race",
+    "app": "react",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 19 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css    1.17 kB │ gzip:  0.58 kB\ndist/assets/index-C72Jlm3t.js   223.69 kB │ gzip: 70.07 kB\n\n✓ built in 88ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5319/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5320/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "shot": "race-react",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-vue": {
+    "round": "race",
+    "app": "vue",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 15 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-BqnLcvS7.js   70.47 kB │ gzip: 27.59 kB\n\n✓ built in 73ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5321/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5322/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "shot": "race-vue",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-svelte": {
+    "round": "race",
+    "app": "svelte",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 117 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/assets/index-pWFxQHcW.js   51.31 kB │ gzip: 19.95 kB\n\n✓ built in 74ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5323/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "console": [],
+      "consoleCount": 0
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5324/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 29 found",
+      "alive": "yes",
+      "shot": "race-svelte",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-solid": {
+    "round": "race",
+    "app": "solid",
+    "changed": true,
+    "lint": {
+      "code": 0,
+      "out": ""
+    },
+    "build": {
+      "code": 0,
+      "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 55 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-ByN8c5Kk.css   1.17 kB │ gzip:  0.58 kB\ndist/client/assets/virtual_solid-ssr-entry-client-D5DE9Sqs.js   69.07 kB │ gzip: 26.70 kB\n\n✓ built in 100ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.15 kB │ gzip: 2.88 kB\n\n✓ built in 13ms"
+    },
+    "dev": {
+      "url": "http://127.0.0.1:5325/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 3 found",
+      "alive": "yes",
+      "console": [
+        "warning: [SILENT_HOLD] input on input wrote \"filter\" (\"a\" → \"ap\"); the write was held 216ms waiting on \"boundary\", \"value\" and the screen showed nothing for the wait: no isPending()/latest() reader downstream, no optimistic value, no affects() mark, and no effect ran while it was held — the interaction was d"
+      ],
+      "consoleCount": 1
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5326/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 3 found",
+      "alive": "yes",
+      "shot": "race-solid",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-dioxus": {
+    "round": "race",
+    "app": "dioxus",
+    "changed": true,
+    "build": {
+      "code": 0,
+      "out": "  0.00s  INFO Building project...\n  2.62s  INFO Compiled [175/175]: groceries\n  2.64s  INFO Bundling app...\n  2.67s  INFO Running wasm-bindgen...\n  3.91s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries_bg.wasm\n  3.92s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/210-reactivity-quirks/compare/build/race-dioxus/assets/groceries.css\n  3.94s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public/wasm/groceries.js\n  3.94s  INFO Client build completed successfully! 🚀 path=\"/Users/you/dev/quillo-videos/.cache/rust-target/v210/dx/groceries/release/web/public\""
+    },
+    "compileError": [],
+    "prod": {
+      "url": "http://127.0.0.1:5327/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 3 found",
+      "alive": "yes",
+      "shot": "race-dioxus",
+      "console": [],
+      "consoleCount": 0
+    }
+  },
+  "race-quillo": {
+    "round": "race",
+    "app": "quillo",
+    "changed": true,
+    "check": {
+      "code": 0,
+      "out": "main.qwe: ok (2 routes, 2 functions, 2 components, in 2 files)"
+    },
+    "prod": {
+      "url": "http://127.0.0.1:5328/",
+      "early": "40 left · $555.52 · 3 found",
+      "rows": 3,
+      "summary": "40 left · $555.52 · 3 found",
+      "alive": "yes",
+      "shot": "race-quillo",
+      "console": [],
+      "consoleCount": 0
+    }
+  }
+}

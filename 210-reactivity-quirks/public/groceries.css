@@ -1,0 +1,18 @@
+/* The same stylesheet in all six Groceries apps. */
+* { box-sizing: border-box; }
+body { margin: 0; background: #f6f7f9; color: #1d2433; font: 18px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.groceries { max-width: 640px; margin: 24px auto; padding: 24px 28px; background: #fff; border-radius: 14px; box-shadow: 0 2px 10px #0001; }
+.groceries h1 { margin: 0 0 14px; font-size: 30px; }
+.add { display: flex; gap: 8px; margin-bottom: 10px; }
+.add input, .filter { flex: 1; width: 100%; padding: 9px 12px; font: inherit; border: 1px solid #c9cfda; border-radius: 8px; }
+.add button { padding: 9px 18px; font: inherit; color: #fff; background: #2f6fde; border: 0; border-radius: 8px; }
+.summary { margin: 12px 0 8px; font-weight: 600; }
+.list { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow: auto; }
+.list li { display: flex; align-items: center; gap: 10px; padding: 7px 4px; border-bottom: 1px solid #eef0f4; }
+.list li.done .name { color: #8a93a5; text-decoration: line-through; }
+.list label { display: flex; align-items: center; gap: 10px; flex: 1; }
+.list input { width: 18px; height: 18px; }
+.qty { color: #5b6476; min-width: 34px; }
+.price { min-width: 70px; text-align: right; font-variant-numeric: tabular-nums; }
+.remove { width: 30px; height: 30px; font: inherit; color: #8a93a5; background: none; border: 0; border-radius: 6px; }
+.remove:hover { color: #c2312f; background: #fbeaea; }

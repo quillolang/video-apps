@@ -1,0 +1,90 @@
+inplace/react: lint 0 build 0 check -
+  dev:  40 left · $555.52  alive yes console 0
+  prod: 40 left · $555.52  alive yes console 0
+inplace/vue: lint 0 build 0 check -
+  dev:  39 left · $552.78  alive yes console 0
+  prod: 39 left · $552.78  alive yes console 0
+inplace/svelte: lint - build 0 check -
+  dev:  39 left · $552.78  alive yes console 0
+  prod: 39 left · $552.78  alive yes console 0
+inplace/solid: lint 0 build 0 check -
+  dev:  40 left · $555.52  alive yes console 1: warning: [STORE_WRITE_OUTSIDE_SETTER] Writing store property "done" outside its setter was ignored. Stores are read-only outside the setter's draft: use `setStore(s => { s.done = value })`.
+  prod: 40 left · $555.52  alive yes console 0
+inplace/dioxus: lint - build 1 check -
+  dev:  -
+  prod: -
+inplace/quillo: lint - build - check 0
+  dev:  -
+  prod: 40 left · $555.52  alive yes console 0
+push/react: lint 0 build 0 check -
+  dev:  41 left · $556.52 rows 51 last Basil alive yes console 0
+  prod: 41 left · $556.52 rows 51 last Basil alive yes console 0
+push/vue: lint 0 build 0 check -
+  dev:  41 left · $556.52 rows 51 last Basil alive yes console 0
+  prod: 41 left · $556.52 rows 51 last Basil alive yes console 0
+push/svelte: lint - build 0 check -
+  dev:  41 left · $556.52 rows 51 last Basil alive yes console 0
+  prod: 41 left · $556.52 rows 51 last Basil alive yes console 0
+push/solid: lint 1 build 0 check -
+  dev:  40 left · $555.52 rows 50 last Zucchini alive yes console 2: warning: [STORE_WRITE_OUTSIDE_SETTER] Writing store property "50" outside its setter was ignored. Stores are read-only outside the setter's draft: use `setStore(s => { s[50] = value })`.
+  prod: 40 left · $555.52 rows 50 last Zucchini alive yes console 0
+push/dioxus: lint - build 1 check -
+  dev:  -
+  prod: -
+push/quillo: lint - build - check 0
+  dev:  -
+  prod: 40 left · $555.52 rows 50 last Zucchini alive yes console 0
+derived/react: lint 0 build 0 check -
+  dev:  39 left · $555.52  alive yes console 0
+  prod: 39 left · $555.52  alive yes console 0
+derived/vue: lint 0 build 0 check -
+  dev:  39 left · $555.52  alive yes console 0
+  prod: 39 left · $555.52  alive yes console 0
+derived/svelte: lint - build 0 check -
+  dev:  39 left · $555.52  alive yes console 0
+  prod: 39 left · $555.52  alive yes console 0
+derived/solid: lint 0 build 0 check -
+  dev:  39 left · $555.52  alive yes console 81: warning: [STRICT_READ_UNTRACKED] Reactive value "open" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function).
+  prod: 39 left · $555.52  alive yes console 0
+derived/dioxus: lint - build 0 check -
+  dev:  -
+  prod: 39 left · $555.52  alive yes console 0
+derived/quillo: lint - build - check 0
+  dev:  -
+  prod: 39 left · $555.52  alive yes console 0
+effect/react: lint 0 build 0 check -
+  dev:  39 left · $552.78 · 4712 changes  alive yes console 90: error: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+  prod: 39 left · $552.78 · 42968 changes  alive yes console 0
+effect/vue: lint 0 build 0 check -
+  dev:  39 left · $552.78 · 2 changes  alive yes console 0
+  prod: 39 left · $552.78 · 2 changes  alive yes console 0
+effect/svelte: lint - build 0 check -
+  dev:  39 left · $552.78 · 2001 changes  alive yes console 4: error: updated at
+  prod: 39 left · $552.78 · 2001 changes  alive yes console 2: pageerror: https://svelte.dev/e/effect_update_depth_exceeded
+effect/solid: lint 1 build 0 check -
+  dev:  page.waitForFunction: Timeout 15000ms exceeded.  alive undefined console 5: error: [REACTIVITY_HALTED] An uncaught error halted the reactive system. No further updates will be processed. Handle errors with <Errored> or treat this as a crash.
+  prod: page.waitForFunction: Timeout 15000ms exceeded.  alive undefined console 1: error: TypeError: Cannot read properties of undefined (reading 'effect')
+effect/dioxus: lint - build 0 check -
+  dev:  -
+  prod: 39 left · $552.78 · 2 changes  alive yes console 0
+effect/quillo: lint - build - check 0
+  dev:  -
+  prod: 39 left · $552.78 · 2 changes  alive yes console 0
+race/react: lint 0 build 0 check -
+  dev:  40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+  prod: 40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+race/vue: lint 0 build 0 check -
+  dev:  40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+  prod: 40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+race/svelte: lint - build 0 check -
+  dev:  40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+  prod: 40 left · $555.52 · 29 found rows 3 last undefined alive yes console 0
+race/solid: lint 0 build 0 check -
+  dev:  40 left · $555.52 · 3 found rows 3 last undefined alive yes console 1: warning: [SILENT_HOLD] input on input wrote "filter" ("a" → "ap"); the write was held 216ms waiting on "boundary", "value" and the screen showed nothing for the wait: no isPending()/latest() reader downstream, no optimistic value, no affects() mark, and no effect ran while it was held — the interaction was d
+  prod: 40 left · $555.52 · 3 found rows 3 last undefined alive yes console 0
+race/dioxus: lint - build 0 check -
+  dev:  -
+  prod: 40 left · $555.52 · 3 found rows 3 last undefined alive yes console 0
+race/quillo: lint - build - check 0
+  dev:  -
+  prod: 40 left · $555.52 · 3 found rows 3 last undefined alive yes console 0
