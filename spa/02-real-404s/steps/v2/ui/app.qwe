@@ -1,0 +1,31 @@
+// The whole guide as one component: the address picks the page, and a link changes it without loading one.
+import lib/trails.qwe use list_trails
+import ui/trails.qwe use Header, TrailList, TrailPage, About, NotFound
+
+// Which page an address is. The App shows it, and the server answers with its status.
+fn page_of(path: str) -> map = match split(path, "/") | filter((s) => s != "") {
+    [] => { page: "list" }
+    ["trails", piece] => {
+        let id = int(piece)                   // an error value for "abc"
+        is_err(id) ? { page: "missing" } : { page: "trail", id }
+    }
+    ["about"] => { page: "about" }
+    _ => { page: "missing" }
+}
+
+component App() {
+    state trails = list_trails()            // all six come with the page
+    let path = url().path
+    let at = page_of(path)
+    <div>
+        <Header {path}/>
+        {match at.page {
+            "list" => <TrailList {trails}/>
+            "trail" => trail_page(find(trails, (t) => t.id == at.id), path)
+            "about" => <About/>
+            _ => <NotFound {path}/>
+        }}
+    </div>
+}
+
+fn trail_page(trail, path: str) = trail == null ? <NotFound {path}/> : <TrailPage {trail}/>

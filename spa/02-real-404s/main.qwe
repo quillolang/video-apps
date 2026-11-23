@@ -1,0 +1,16 @@
+// Fernhill Trails: the town's trail guide, as a single-page app.
+db.open("trails.db")
+db.migrate("migrations")
+
+use "lib/trails.qwe"
+use "ui/page.qwe"
+use "ui/trails.qwe"
+use "ui/app.qwe"
+
+// Every address is made here, and one that is no page says so: 404.
+route GET /*rest with db {
+    let page = <Page title="Fernhill Trails"><App/></Page>
+    let at = page_of(request.path)
+    let gone = at.page == "missing" || (at.page == "trail" && load_trail(at.id) == null)
+    gone ? respond(404, page) : page
+}

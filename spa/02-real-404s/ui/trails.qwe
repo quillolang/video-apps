@@ -1,0 +1,54 @@
+// What the guide shows: the header, the list of trails, one trail with its climb drawn, the About page, and Not found.
+view Header(path: str) =
+    <header>
+        <b>Fernhill Trails</b>
+        <a href="/" class={path == "/" && "here"}>All trails</a>
+        <a href="/about" class={path == "/about" && "here"}>About</a>
+    </header>
+
+view Level(level: str) = <span class={`level ${level}`}>{level}</span>
+
+view TrailList(trails: list) =
+    <main>
+        <h1>Trails around Fernhill</h1>
+        <p.facts>{len(trails)} trails, shortest first.</p>
+        <ul.trails>{for t in trails =>
+            <li key={t.id}><a href={`/trails/${t.id}`}>{t.name}</a> <Level level={t.level}/> <span.facts>{t.km} km · {t.climb} m up</span></li>}</ul>
+    </main>
+
+// The heights as a line: across 600, and up to 110 from the lowest to the highest.
+fn profile_points(profile: str) -> str {
+    let hs = split(profile, ",") | map((h) => int(h) ?? 0)
+    let lo = min(hs)
+    let span = max([max(hs) - lo, 1])
+    let step = 600 / max([len(hs) - 1, 1])
+    join(for [i, h] in enumerate(hs) => `${round(i * step, 1)},${round(120 - (h - lo) * 100 / span, 1)}`, " ")
+}
+
+view Elevation(profile: str) =
+    <svg.profile viewBox="0 0 600 130" preserveAspectRatio="none">
+        <polyline points={profile_points(profile)} fill="none" stroke="#2f5d46" stroke-width="3"/>
+    </svg>
+
+view TrailPage(trail: map) =
+    <main>
+        <a.back href="/">← All trails</a>
+        <h1>{trail.name}</h1>
+        <p><Level level={trail.level}/> <span.facts>{trail.km} km · {trail.climb} m up · starts at {trail.start}</span></p>
+        <Elevation profile={trail.profile}/>
+        <p.about>{trail.about}</p>
+    </main>
+
+view NotFound(path: str) =
+    <main>
+        <h1>Nothing here</h1>
+        <p.about>There's no page at <code>{path}</code>.</p>
+        <p><a.back href="/">← All trails</a></p>
+    </main>
+
+view About() =
+    <main>
+        <h1>About Fernhill Trails</h1>
+        <p.about>Six walks around Fernhill, from a flat loop round the millpond to the beacon on the hill.</p>
+        <p.facts>Made by the town's walking club. Found a fallen tree or a missing sign? Tell us at the library.</p>
+    </main>

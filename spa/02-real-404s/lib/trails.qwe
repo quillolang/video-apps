@@ -1,0 +1,5 @@
+// The trails, from the database. A server fn: the page's components may call it too.
+server fn list_trails() -> list with db = db.query("select * from trails order by km")
+
+// One trail, or null when there's none with that id.
+fn load_trail(id: int) -> map? with db = db.one("select * from trails where id = ?", id)
