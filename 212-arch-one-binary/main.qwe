@@ -1,0 +1,29 @@
+// main.qwe: one file, one binary. A page from the server, a button that
+// runs in the browser, and a count kept in SQLite.
+db.open("app.db")
+db.migrate("migrations")
+
+server fn likes() -> int with db = db.one("select n from likes where id = 1").n
+
+server fn add_like() -> int ! str with db {
+    db.exec("update likes set n = n + 1 where id = 1")?
+    likes()
+}
+
+component Like() {
+    state n = likes()
+    <button onclick={() => { n = add_like() }}>♥ {n ?? 0}</button>
+}
+
+view Page(title: str, children) =
+    <html>
+        <head><title>{title}</title></head>
+        <body style="font: 22px system-ui; margin: 2rem">{children}</body>
+    </html>
+
+route GET / =
+    <Page title="One binary">
+        <h1>Hello from one binary</h1>
+        <p>This page, its button and its database come from one program.</p>
+        <Like/>
+    </Page>
