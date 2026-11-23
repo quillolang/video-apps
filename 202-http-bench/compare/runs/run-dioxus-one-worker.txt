@@ -1,0 +1,7 @@
+$ TOKIO_WORKER_THREADS=1 ./server   (Dioxus 0.7.10, on 10 cores)
+threads in the server: 12
+/text: 72368 requests a second, 2.0 cores used
+/fortunes: 18998 requests a second, 2.8 cores used
+/db: 19467 requests a second, 3.6 cores used
+/compute: 60305 requests a second, 3.5 cores used
+threads in the server: 12

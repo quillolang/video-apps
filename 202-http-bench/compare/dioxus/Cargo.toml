@@ -1,0 +1,14 @@
+[package]
+name = "bench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dioxus = { version = "0.7.10", features = ["router", "fullstack"] }
+serde = { version = "1", features = ["derive"] }
+rusqlite = { version = "0.32.1", features = ["bundled"], optional = true }
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+server = ["dioxus/server", "dep:rusqlite"]

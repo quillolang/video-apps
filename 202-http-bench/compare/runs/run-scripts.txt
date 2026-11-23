@@ -1,0 +1,8 @@
+$ curl -s localhost:8095/fortunes | grep -o "<script" | wc -l
+0
+$ curl -s localhost:8096/fortunes | grep -o "<script" | wc -l
+3
+$ curl -s localhost:8096/axum/fortunes | grep -o "<script" | wc -l
+0
+$ curl -s localhost:8096/fortunes | grep -o "data-node-hydration" | wc -l
+14

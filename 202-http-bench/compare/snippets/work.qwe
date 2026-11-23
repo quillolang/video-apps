@@ -1,0 +1,8 @@
+fn work(n: int) -> int {
+    let total = 0
+    for i in range(n) {
+        total = (total + i * i) % 1000003
+    }
+    total
+}
+route GET /compute = { total: work(10000) }

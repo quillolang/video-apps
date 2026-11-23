@@ -1,0 +1,2 @@
+route GET /text = "Hello, World!"
+route GET /json = { message: "Hello, World!" }

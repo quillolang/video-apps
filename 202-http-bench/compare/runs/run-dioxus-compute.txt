@@ -1,0 +1,2 @@
+$ curl -s localhost:8096/compute
+{"total":335154}

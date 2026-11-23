@@ -1,0 +1,10 @@
+
+requests a second, median of 3 (p99 latency in ms; cores used; memory under load in MB)
+                                quillo-1                      quillo-4                      dioxus-4                dioxus-default
+text           167.9k (0.84; 0.9c; 16.9)     186.1k (0.66; 3.0c; 19.2)     125.8k (1.32; 4.1c; 13.7)     130.8k (1.75; 4.3c; 14.1)
+json           163.8k (0.86; 0.9c; 13.9)     185.3k (0.70; 3.0c; 19.3)     135.4k (1.08; 4.5c; 13.8)     124.8k (1.99; 4.0c; 14.1)
+fortunes       156.7k (0.95; 0.9c; 14.5)     183.5k (0.67; 3.0c; 16.2)      24.4k (4.71; 3.8c; 15.5)      24.1k (4.84; 3.7c; 15.1)
+db                84.7k (1.65; 0.9c; 15)     131.7k (0.85; 3.2c; 17.4)        22.5k (5.04; 4.4c; 17)      21.6k (5.53; 4.1c; 17.4)
+compute           25.4k (3.47; 0.9c; 17)      80.7k (1.22; 3.5c; 20.3)      86.4k (2.20; 5.3c; 16.7)      84.5k (2.47; 5.2c; 17.1)
+
+load average during the runs: 7.7 to 18.2; 10 cores, Apple M5

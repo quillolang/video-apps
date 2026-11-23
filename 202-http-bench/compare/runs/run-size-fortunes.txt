@@ -1,0 +1,6 @@
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8095/fortunes
+1226 bytes
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8096/fortunes
+3073 bytes
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8096/axum/fortunes
+1228 bytes

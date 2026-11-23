@@ -1,0 +1,2 @@
+$ curl -s localhost:8095/text
+Hello, World!

@@ -1,0 +1,6 @@
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8095/db
+1226 bytes
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8096/db
+5309 bytes
+$ curl -s -o /dev/null -w "%{size_download} bytes\n" localhost:8096/axum/db
+1228 bytes
