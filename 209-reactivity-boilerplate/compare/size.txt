@@ -1,0 +1,8 @@
+2026-11-23T08:31
+app      starter files  code files/lines  direct/installed  node_modules  build cold/again (s)  shipped JS+wasm / all (KB)
+react    15             3 / 69            7 / 74            55.2 MB       0.6 / 0.5             67.6 / 68.4
+vue      26             4 / 73            12 / 271          104.7 MB      1.0 / 0.7             26.5 / 27.4
+svelte   17             4 / 72            3 / 71            39.0 MB       0.9 / 0.6             19.0 / 19.9
+solid    14             2 / 69            8 / 128           111.8 MB      0.7 / 0.5             25.6 / 26.5
+dioxus   10             1 / 78            1 / 175           target 343.3 MB40.7 / 2.8            244.5 / 245.4
+quillo   4              1 / 59            0 / 0             0.0 MB        none                  47.2 / 51.3

@@ -1,0 +1,256 @@
+{
+  "result": {
+    "react": {
+      "starterFiles": [
+        ".gitignore",
+        ".oxlintrc.json",
+        "README.md",
+        "index.html",
+        "package.json",
+        "public/favicon.svg",
+        "public/icons.svg",
+        "src/App.css",
+        "src/App.jsx",
+        "src/assets/hero.png",
+        "src/assets/react.svg",
+        "src/assets/vite.svg",
+        "src/index.css",
+        "src/main.jsx",
+        "vite.config.js"
+      ],
+      "code": [
+        {
+          "file": "react/index.html",
+          "lines": 13,
+          "chars": 360
+        },
+        {
+          "file": "react/src/App.jsx",
+          "lines": 48,
+          "chars": 2068
+        },
+        {
+          "file": "react/src/main.jsx",
+          "lines": 8,
+          "chars": 206
+        }
+      ],
+      "codeLines": 69,
+      "codeFiles": 3,
+      "direct": 7,
+      "installed": 74,
+      "modulesBytes": 57917440,
+      "buildCold": 0.5987425,
+      "buildAgain": 0.4645915419999999,
+      "shippedCode": 69191,
+      "shippedAll": 70070
+    },
+    "vue": {
+      "starterFiles": [
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".oxlintrc.json",
+        ".vscode/extensions.json",
+        ".vscode/settings.json",
+        "README.md",
+        "eslint.config.js",
+        "index.html",
+        "jsconfig.json",
+        "package.json",
+        "public/favicon.ico",
+        "src/App.vue",
+        "src/assets/base.css",
+        "src/assets/logo.svg",
+        "src/assets/main.css",
+        "src/components/HelloWorld.vue",
+        "src/components/TheWelcome.vue",
+        "src/components/WelcomeItem.vue",
+        "src/components/icons/IconCommunity.vue",
+        "src/components/icons/IconDocumentation.vue",
+        "src/components/icons/IconEcosystem.vue",
+        "src/components/icons/IconSupport.vue",
+        "src/components/icons/IconTooling.vue",
+        "src/main.js",
+        "vite.config.js"
+      ],
+      "code": [
+        {
+          "file": "vue/index.html",
+          "lines": 13,
+          "chars": 329
+        },
+        {
+          "file": "vue/src/App.vue",
+          "lines": 40,
+          "chars": 1545
+        },
+        {
+          "file": "vue/src/components/GroceryRow.vue",
+          "lines": 17,
+          "chars": 617
+        },
+        {
+          "file": "vue/src/main.js",
+          "lines": 3,
+          "chars": 88
+        }
+      ],
+      "codeLines": 73,
+      "codeFiles": 4,
+      "direct": 12,
+      "installed": 271,
+      "modulesBytes": 109801472,
+      "buildCold": 1.0048587079999998,
+      "buildAgain": 0.6774805000000002,
+      "shippedCode": 27164,
+      "shippedAll": 28034
+    },
+    "svelte": {
+      "starterFiles": [
+        ".gitignore",
+        ".vscode/extensions.json",
+        "README.md",
+        "index.html",
+        "jsconfig.json",
+        "package.json",
+        "public/favicon.svg",
+        "public/icons.svg",
+        "src/App.svelte",
+        "src/app.css",
+        "src/assets/hero.png",
+        "src/assets/svelte.svg",
+        "src/assets/vite.svg",
+        "src/lib/Counter.svelte",
+        "src/main.js",
+        "svelte.config.js",
+        "vite.config.js"
+      ],
+      "code": [
+        {
+          "file": "svelte/index.html",
+          "lines": 13,
+          "chars": 358
+        },
+        {
+          "file": "svelte/src/App.svelte",
+          "lines": 40,
+          "chars": 1370
+        },
+        {
+          "file": "svelte/src/Row.svelte",
+          "lines": 13,
+          "chars": 494
+        },
+        {
+          "file": "svelte/src/main.js",
+          "lines": 6,
+          "chars": 150
+        }
+      ],
+      "codeLines": 72,
+      "codeFiles": 4,
+      "direct": 3,
+      "installed": 71,
+      "modulesBytes": 40857600,
+      "buildCold": 0.8908297089999997,
+      "buildAgain": 0.5675360840000003,
+      "shippedCode": 19473,
+      "shippedAll": 20350
+    },
+    "solid": {
+      "starterFiles": [
+        ".gitignore",
+        "AGENTS.md",
+        "README.md",
+        "jsconfig.json",
+        "oxlint.config.js",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "public/favicon.ico",
+        "src/App.css",
+        "src/App.jsx",
+        "src/Document.jsx",
+        "src/logo.svg",
+        "vite.config.js"
+      ],
+      "code": [
+        {
+          "file": "solid/src/App.jsx",
+          "lines": 49,
+          "chars": 2263
+        },
+        {
+          "file": "solid/src/Document.jsx",
+          "lines": 20,
+          "chars": 756
+        }
+      ],
+      "codeLines": 69,
+      "codeFiles": 2,
+      "direct": 8,
+      "installed": 128,
+      "modulesBytes": 117198848,
+      "buildCold": 0.711921875,
+      "buildAgain": 0.5351982499999994,
+      "shippedCode": 26257,
+      "shippedAll": 27103
+    },
+    "dioxus": {
+      "starterFiles": [
+        ".gitignore",
+        "AGENTS.md",
+        "Cargo.toml",
+        "Dioxus.toml",
+        "README.md",
+        "assets/favicon.ico",
+        "assets/header.svg",
+        "assets/main.css",
+        "clippy.toml",
+        "src/main.rs"
+      ],
+      "code": [
+        {
+          "file": "dioxus/src/main.rs",
+          "lines": 78,
+          "chars": 2987
+        }
+      ],
+      "codeLines": 78,
+      "codeFiles": 1,
+      "direct": 1,
+      "locked": 617,
+      "buildCold": 40.733591874999995,
+      "crates": 175,
+      "installed": 175,
+      "buildAgain": 2.7831996660000002,
+      "targetBytes": 359940096,
+      "shippedCode": 250366,
+      "shippedAll": 251318
+    },
+    "quillo": {
+      "starterFiles": [
+        ".gitignore",
+        "lib/greet.qwe",
+        "main.qwe",
+        "ui/page.qwe"
+      ],
+      "code": [
+        {
+          "file": "main.qwe",
+          "lines": 59,
+          "chars": 2481
+        }
+      ],
+      "codeLines": 59,
+      "codeFiles": 1,
+      "direct": 0,
+      "installed": 0,
+      "modulesBytes": 0,
+      "check": 0.01824550000000454,
+      "shippedCode": 48304,
+      "shippedAll": 52560
+    }
+  }
+}
