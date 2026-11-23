@@ -1,0 +1,6 @@
+$ curl -s 127.0.0.1:8096/text
+Hello, World!
+$ curl -s 127.0.0.1:8096/json
+{"message":"Hello, World!"}
+$ curl -s 127.0.0.1:8096/compute
+{"total":335154}

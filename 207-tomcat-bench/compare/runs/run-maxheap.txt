@@ -1,0 +1,2 @@
+$ java -XX:+PrintFlagsFinal -version | grep -w MaxHeapSize
+ size_t MaxHeapSize = 4294967296 {product} {ergonomic}

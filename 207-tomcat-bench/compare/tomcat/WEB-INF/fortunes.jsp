@@ -1,0 +1,3 @@
+<%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!doctype html><html><head><title>Fortunes</title></head><body><table><tr><th>id</th><th>message</th></tr><c:forEach var="f" items="${fortunes}"><tr><td>${f.id}</td><td><c:out value="${f.message}"/></td></tr></c:forEach></table></body></html>

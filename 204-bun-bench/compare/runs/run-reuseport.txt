@@ -1,0 +1,4 @@
+Bun process 1: 0.01 s of CPU
+Bun process 2: 0.01 s of CPU
+Bun process 3: 0.00 s of CPU
+Bun process 4: 4.66 s of CPU

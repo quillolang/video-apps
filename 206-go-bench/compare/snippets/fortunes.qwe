@@ -1,0 +1,16 @@
+view Fortunes(list: list) {
+    let all = list + [{ id: 0, message: "Additional fortune added at request time." }] | sort_by((f) => f.message)
+    <html>
+        <head><title>Fortunes</title></head>
+        <body><table>
+            <tr><th>id</th><th>message</th></tr>
+            {for f in all => <tr><td>{f.id}</td><td>{f.message}</td></tr>}
+        </table></body>
+    </html>
+}
+
+route GET /fortunes = <Fortunes list={fortunes}/>
+
+// The same page, its fortunes read from SQLite.
+db.open("fortunes.db")
+route GET /db with db = <Fortunes list={db.query("select id, message from fortune")?}/>
