@@ -6,7 +6,7 @@ Other work was running on the machine at the same time (load average about 15), 
 
 ## Times and memory: `measure.mjs`
 
-`node measure.mjs` (in the video's folder) copies `app/` to a scratch folder and runs each step 11 times,
+`node compare/measure.mjs` copies the app to a scratch folder and runs each step 11 times,
 keeping the median:
 
 | Number | What is timed |
