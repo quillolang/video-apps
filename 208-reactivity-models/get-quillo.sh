@@ -16,7 +16,7 @@
 # to download from (a mirror, or a folder as file:///...).
 set -eu
 
-version=${QUILLO_VERSION:-v0.8.6}
+version=${QUILLO_VERSION:-v0.8.10}
 releases=${QUILLO_RELEASES:-https://github.com/quillolang/quillo/releases/download}
 here=$(cd "$(dirname "$0")" && pwd)
 bin="$here/.quillo/bin"
