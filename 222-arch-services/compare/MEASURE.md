@@ -29,5 +29,4 @@ What the run shows:
 - scale: invoices #1 to #7; the summaries `{"served": 2, "invoices": 7}`, `{"served": 2, "invoices": 7}`, `{"served": 3, "invoices": 7}`.
 
 The terminal scenes' output is in `logs/`, as the programs printed it: `split.txt`, `wire.txt` (peek.mjs),
-`refused.txt` (the replay commands, `replay.mjs`), `down.txt`, `hanging.txt`, `scale.txt`, `miss.txt` (the shop with its
-`??` line deleted: check says ok, the request is a 500), `docs-contracts.txt` (`quillo docs billing.qwe`, its contracts).
+`refused.txt` (the replay commands, `replay.mjs`), `down.txt`, `hanging.txt`, `scale.txt`, `docs-contracts.txt` (`quillo docs billing.qwe`, its contracts).
