@@ -1,0 +1,12 @@
+quillo 0.8.10 (61997ab, 2026-11-22) | Apple M5, 10 cores, darwin 25.6.0
+v1 twice: {"first":"200 Invoice #1 for Ada: $12.00","second":"200 Invoice #2 for Ada: $12.00","invoices":2}
+final twice: {"first":"200 Invoice #1 for Ada: $12.00","second":"200 Invoice #1 for Ada: $12.00 (replayed)","invoices":1}
+v1 crash: {"first":"503 Billing is busy. Try again in a moment.","first_ms":927.5459579999999,"after_crash":1,"same_key":"200 Invoice #2 for Ada: $12.00","after_same_key":2,"new_key":"200 Invoice #3 for Ada: $12.00","invoices":3}
+final crash: {"first":"503 Billing is busy. Try again","first_ms":939.0186659999999,"after_crash":0,"same_key":"503 Billing is busy. Try again (replayed)","after_same_key":0,"new_key":"200 Invoice #1 for Ada: $12.00","invoices":1}
+v1 cost round 1 {"median":1.1791249999987485,"p99":10.596083000000363,"again":1.2483749999992142,"invoices":650}
+v1 cost round 2 {"median":1.8152499999996508,"p99":11.741750000001048,"again":1.3311670000002778,"invoices":650}
+v1 cost round 3 {"median":1.8079579999975977,"p99":15.649916999998823,"again":1.201082999999926,"invoices":650}
+final cost round 1 {"median":1.4487499999995634,"p99":14.967667000000802,"again":0.13716700000077253,"invoices":351}
+final cost round 2 {"median":1.4702090000027965,"p99":14.386167000000569,"again":0.11924999999973807,"invoices":351}
+final cost round 3 {"median":1.5289169999996375,"p99":14.85870900000009,"again":0.13462500000241562,"invoices":351}
+wrote compare/MEASURE.json

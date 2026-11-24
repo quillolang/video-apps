@@ -1,0 +1,10 @@
+quillo: 3 routes listening on http://127.0.0.1:8250
+GET / -> 200 (0.1ms)
+quillo: service billing: no answer from http://127.0.0.1:8251 (http://127.0.0.1:8251/_quillo/service/invoice: Network Error: Unexpected EOF); trying again (request 492c4b013c000747)
+POST /buy -> 503 (927.0ms)
+GET /summary -> 200 (1.6ms)
+POST /buy -> 200 (0.8ms)
+GET /summary -> 200 (0.9ms)
+POST /buy -> 200 (5.2ms)
+GET /summary -> 200 (1.2ms)
+quillo: stopping once the requests in progress are answered (again to stop now)

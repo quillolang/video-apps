@@ -1,0 +1,9 @@
+// ui/page.qwe: the shop's page around what each route shows.
+let css = "body{font:20px system-ui;background:#f6f3ee;margin:0}
+main{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}
+input,button{font:inherit;padding:10px 14px}
+button{background:#6b4eff;color:#fff;border:0;border-radius:8px}"
+
+view Page(body) =
+    <html><head><title>Shop</title><style>{css}</style></head>
+    <body><main>{body}</main></body></html>

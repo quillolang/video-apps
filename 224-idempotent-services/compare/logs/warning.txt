@@ -1,0 +1,3 @@
+$ quillo check
+main.qwe:15: warning: `idempotent` reaches `billing.invoice`, which may change data in another program, outside its transaction: when that call's answer is lost, the key is given up and a retry with it runs the call there again, under a new call id. Give `idempotent` `{ transaction: false }`, which keeps every answer, failures too, or send an id the other program's change is keyed by, so that a second run changes nothing
+main.qwe: ok (3 routes, 1 function, 0 components, in 2 files), 1 warning

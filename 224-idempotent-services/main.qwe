@@ -1,0 +1,21 @@
+// main.qwe: the shop. It bills through the billing service.
+service billing = "billing.qwe" { timeout: "2s", retries: 1 }
+
+use "ui/page.qwe"
+
+db.open("shop.db")   // where idempotent keeps the shop's keys
+
+route GET / = Page(
+    <form method="post" action="/buy" idempotent>
+        <h1>A mug, $12.00</h1>
+        <input name="name" placeholder="Your name" required/>
+        <button>Buy</button>
+    </form>)
+
+route POST /buy with http, db = idempotent({ transaction: false }, () => {
+    let inv = billing.invoice(request.form.name, 1200)
+        ?? reply 503 Page(<p>Billing is busy. <a href="/">Try again</a></p>)
+    Page(<p>Invoice #{inv.id} for {inv.name}: $12.00</p>)
+})
+
+route GET /summary with http = billing.summary() ?? reply 503 "Billing is not answering"

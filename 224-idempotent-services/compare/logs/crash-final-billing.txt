@@ -1,0 +1,12 @@
+quillo: 0 routes listening on http://127.0.0.1:8251
+quillo: database /Users/you/dev/quillo-videos/videos/224-idempotent-services/app/billing.db
+GET / -> 404 (0.0ms)
+--- started again ---
+quillo: 0 routes listening on http://127.0.0.1:8251
+quillo: database /Users/you/dev/quillo-videos/videos/224-idempotent-services/app/billing.db
+GET / -> 404 (0.0ms)
+POST /_quillo/service/summary -> 200 (1.1ms)
+POST /_quillo/service/summary -> 200 (0.3ms)
+POST /_quillo/service/invoice -> 200 (0.5ms)
+POST /_quillo/service/summary -> 200 (0.2ms)
+quillo: stopping once the requests in progress are answered (again to stop now)
