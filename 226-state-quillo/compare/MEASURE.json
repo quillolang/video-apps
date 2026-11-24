@@ -1,0 +1,84 @@
+{
+ "quillo": "quillo 0.8.10 (61997ab, 2026-11-22)",
+ "table": {
+  "+1": {
+   "tab": 1,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 1
+  },
+  "reload": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 1
+  },
+  "2nd tab": {
+   "tab": 0,
+   "address": 0,
+   "visitor": 1,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 1
+  },
+  "browser B": {
+   "tab": 0,
+   "address": 0,
+   "visitor": 0,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 1
+  },
+  "B's +1, seen in tab 1": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 2
+  },
+  "restart": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 0,
+   "saved": 2,
+   "synced": 2
+  },
+  "no secret": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 0,
+   "everyone": 0,
+   "saved": 2,
+   "synced": 2
+  }
+ },
+ "two": {
+  "everyone": [
+   2
+  ],
+  "saved": [
+   6
+  ],
+  "synced": [
+   2
+  ]
+ },
+ "printed": [
+  "                           +1         reload     2nd tab    browser B  B's +1     restart    no secret",
+  "This tab                   1          0          0          0          0          0          0",
+  "The address                1          1          0          0          1          1          1",
+  "This visitor               1          1          1          0          1          1          0",
+  "Everyone, until a restart  1          1          1          1          1          0          0",
+  "Everyone, for good         1          1          1          1          1          2          2",
+  "Kept in sync               1          1          1          1          2          2          2",
+  "",
+  "--instances 2, after 4 +1s on each, the values / showed in 20 loads: everyone 2; saved 6; synced 2"
+ ],
+ "when": "2026-11-24T13:52:41.312Z"
+}
