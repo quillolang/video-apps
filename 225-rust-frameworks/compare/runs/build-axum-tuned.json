@@ -1,0 +1,1 @@
+{"side": "axum-tuned", "cmd": "cargo build --release", "seconds": 27.6, "packages": "69", "deployed_bytes": 3616768, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 16.92 20.41 21.38 }"}

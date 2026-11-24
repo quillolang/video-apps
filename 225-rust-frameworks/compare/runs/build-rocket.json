@@ -1,0 +1,1 @@
+{"side": "rocket", "cmd": "cargo build --release", "seconds": 42.4, "packages": "162", "deployed_bytes": 6660096, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 21.61 22.65 20.19 }"}

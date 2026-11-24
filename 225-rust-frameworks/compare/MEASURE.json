@@ -1,0 +1,380 @@
+{
+ "quillo": "quillo 0.8.10 (61997ab, 2026-11-22)",
+ "machine": "Apple M5, 10 cores, darwin 25.6.0",
+ "sides": {
+  "quillo": {
+   "code": {
+    "lines": 19,
+    "files": [
+     "main.qwe"
+    ]
+   },
+   "build": {
+    "seconds": 0,
+    "packages": "0",
+    "deployed_bytes": 33158892
+   },
+   "idle": 18317312,
+   "start": 10.769082999999966,
+   "load": [
+    {
+     "rps": 45951.85,
+     "p50": "1.35ms",
+     "peak": 18448384
+    },
+    {
+     "rps": 52021.15,
+     "p50": "1.14ms",
+     "peak": 18530304
+    },
+    {
+     "rps": 47447.37,
+     "p50": "1.39ms",
+     "peak": 18415616
+    }
+   ],
+   "rps": 47447.37,
+   "peak": 18448384,
+   "browser": {
+    "total": 1077,
+    "js": 0,
+    "wasm": 0,
+    "in_html": true
+   }
+  },
+  "axum": {
+   "code": {
+    "lines": 64,
+    "files": [
+     "Cargo.toml",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "axum",
+    "cmd": "cargo build --release",
+    "seconds": 22.5,
+    "packages": "69",
+    "deployed_bytes": 3624960,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 16.26 22.30 19.80 }"
+   },
+   "idle": 4096000,
+   "start": 8.307999999999993,
+   "load": [
+    {
+     "rps": 22062.34,
+     "p50": "2.79ms",
+     "peak": 4292608
+    },
+    {
+     "rps": 23908.04,
+     "p50": "2.66ms",
+     "peak": 4308992
+    },
+    {
+     "rps": 23644.64,
+     "p50": "2.68ms",
+     "peak": 4341760
+    }
+   ],
+   "rps": 23644.64,
+   "peak": 4308992,
+   "browser": {
+    "total": 1085,
+    "js": 0,
+    "wasm": 0,
+    "in_html": true
+   }
+  },
+  "axum-tuned": {
+   "code": {
+    "lines": 72,
+    "files": [
+     "Cargo.toml",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "axum-tuned",
+    "cmd": "cargo build --release",
+    "seconds": 27.6,
+    "packages": "69",
+    "deployed_bytes": 3616768,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 16.92 20.41 21.38 }"
+   },
+   "idle": 4194304,
+   "start": 8.746791999999914,
+   "load": [
+    {
+     "rps": 25679.76,
+     "p50": "1.39ms",
+     "peak": 4669440
+    },
+    {
+     "rps": 108046.13,
+     "p50": "522.00us",
+     "peak": 4554752
+    },
+    {
+     "rps": 89983.79,
+     "p50": "633.00us",
+     "peak": 4521984
+    }
+   ],
+   "rps": 89983.79,
+   "peak": 4554752,
+   "browser": {
+    "total": 1085,
+    "js": 0,
+    "wasm": 0,
+    "in_html": true
+   }
+  },
+  "actix": {
+   "code": {
+    "lines": 66,
+    "files": [
+     "Cargo.toml",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "actix",
+    "cmd": "cargo build --release",
+    "seconds": 46.3,
+    "packages": "166",
+    "deployed_bytes": 8183808,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 19.47 22.46 19.99 }"
+   },
+   "idle": 5963776,
+   "start": 8.224457999998776,
+   "load": [
+    {
+     "rps": 21717.59,
+     "p50": "2.77ms",
+     "peak": 6242304
+    },
+    {
+     "rps": 23704.37,
+     "p50": "2.60ms",
+     "peak": 6291456
+    },
+    {
+     "rps": 24017.88,
+     "p50": "2.63ms",
+     "peak": 6291456
+    }
+   ],
+   "rps": 23704.37,
+   "peak": 6291456,
+   "browser": {
+    "total": 1085,
+    "js": 0,
+    "wasm": 0,
+    "in_html": true
+   }
+  },
+  "rocket": {
+   "code": {
+    "lines": 61,
+    "files": [
+     "Cargo.toml",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "rocket",
+    "cmd": "cargo build --release",
+    "seconds": 42.4,
+    "packages": "162",
+    "deployed_bytes": 6660096,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 21.61 22.65 20.19 }"
+   },
+   "idle": 5931008,
+   "start": 4.902249999999185,
+   "load": [
+    {
+     "rps": 23051.35,
+     "p50": "2.75ms",
+     "peak": 6340608
+    },
+    {
+     "rps": 22894.52,
+     "p50": "2.75ms",
+     "peak": 6340608
+    },
+    {
+     "rps": 23236.04,
+     "p50": "2.73ms",
+     "peak": 6291456
+    }
+   ],
+   "rps": 23051.35,
+   "peak": 6340608,
+   "browser": {
+    "total": 1085,
+    "js": 0,
+    "wasm": 0,
+    "in_html": true
+   }
+  },
+  "leptos": {
+   "code": {
+    "lines": 183,
+    "files": [
+     "Cargo.toml",
+     "src/app.rs",
+     "src/lib.rs",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "leptos",
+    "cmd": "cargo leptos build --release",
+    "seconds": 108.7,
+    "packages": "253",
+    "deployed_bytes": 10612736,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 32.82 27.09 22.26 }"
+   },
+   "idle": 4636672,
+   "start": 5.820208000001003,
+   "load": [
+    {
+     "rps": 29189.96,
+     "p50": "2.09ms",
+     "peak": 7815168
+    },
+    {
+     "rps": 22995,
+     "p50": "2.59ms",
+     "peak": 7815168
+    },
+    {
+     "rps": 27236.98,
+     "p50": "2.23ms",
+     "peak": 7847936
+    }
+   ],
+   "rps": 27236.98,
+   "peak": 7815168,
+   "browser": {
+    "total": 530106,
+    "js": 25198,
+    "wasm": 501132,
+    "in_html": true
+   }
+  },
+  "dioxus": {
+   "code": {
+    "lines": 83,
+    "files": [
+     "Cargo.toml",
+     "Dioxus.toml",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "dioxus",
+    "cmd": "dx build --release --platform web",
+    "seconds": 106.2,
+    "packages": "658",
+    "deployed_bytes": 11001856,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 33.68 30.38 24.19 }"
+   },
+   "idle": 11239424,
+   "start": 175.76549999999952,
+   "load": [
+    {
+     "rps": 20616.99,
+     "p50": "2.94ms",
+     "peak": 11468800
+    },
+    {
+     "rps": 16053.48,
+     "p50": "3.67ms",
+     "peak": 11534336
+    },
+    {
+     "rps": 21993.68,
+     "p50": "2.74ms",
+     "peak": 11583488
+    }
+   ],
+   "rps": 20616.99,
+   "peak": 11534336,
+   "browser": {
+    "total": 2579797,
+    "js": 68785,
+    "wasm": 2506115,
+    "in_html": true
+   }
+  },
+  "yew": {
+   "code": {
+    "lines": 144,
+    "files": [
+     "Cargo.toml",
+     "api/Cargo.toml",
+     "api/src/main.rs",
+     "index.html",
+     "src/main.rs"
+    ]
+   },
+   "build": {
+    "side": "yew",
+    "cmd": "trunk build --release && cargo build --release --manifest-path api/Cargo.toml",
+    "seconds": 44.7,
+    "packages": "95+75",
+    "deployed_bytes": 4407296,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "cores": 10,
+    "load": "{ 25.93 28.80 23.92 }"
+   },
+   "idle": 4341760,
+   "start": 4.421291000002384,
+   "load": [
+    {
+     "rps": 33927.85,
+     "p50": "1.88ms",
+     "peak": 4603904
+    },
+    {
+     "rps": 34083.99,
+     "p50": "1.84ms",
+     "peak": 4571136
+    },
+    {
+     "rps": 33430.64,
+     "p50": "1.91ms",
+     "peak": 4620288
+    }
+   ],
+   "rps": 33927.85,
+   "peak": 4603904,
+   "browser": {
+    "total": 338729,
+    "js": 33494,
+    "wasm": 303487,
+    "in_html": false
+   }
+  }
+ },
+ "load": [
+  18.12,
+  19.49,
+  20.69
+ ],
+ "when": "2026-11-24T12:32:57.393Z"
+}

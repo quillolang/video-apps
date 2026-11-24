@@ -1,0 +1,1 @@
+{"side": "leptos", "cmd": "cargo leptos build --release", "seconds": 108.7, "packages": "253", "deployed_bytes": 10612736, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 32.82 27.09 22.26 }"}

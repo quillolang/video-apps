@@ -1,0 +1,1 @@
+{"side": "yew", "cmd": "trunk build --release && cargo build --release --manifest-path api/Cargo.toml", "seconds": 44.7, "packages": "95+75", "deployed_bytes": 4407296, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 25.93 28.80 23.92 }"}

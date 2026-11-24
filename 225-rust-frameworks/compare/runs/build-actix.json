@@ -1,0 +1,1 @@
+{"side": "actix", "cmd": "cargo build --release", "seconds": 46.3, "packages": "166", "deployed_bytes": 8183808, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 19.47 22.46 19.99 }"}

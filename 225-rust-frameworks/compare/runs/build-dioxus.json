@@ -1,0 +1,1 @@
+{"side": "dioxus", "cmd": "dx build --release --platform web", "seconds": 106.2, "packages": "658", "deployed_bytes": 11001856, "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)", "cores": 10, "load": "{ 33.68 30.38 24.19 }"}

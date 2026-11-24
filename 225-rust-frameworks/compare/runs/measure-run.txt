@@ -1,0 +1,42 @@
+code: quillo 18, axum 64, axum-tuned 72, actix 66, rocket 61, leptos 183, dioxus 83, yew 144
+quillo start 56 11 11 10 10 ms | idle 18.3 MB
+axum start 20 8 5 8 8 ms | idle 4.1 MB
+axum-tuned start 17 10 9 5 9 ms | idle 4.2 MB
+actix start 18 8 7 8 10 ms | idle 6.0 MB
+rocket start 21 4 5 5 8 ms | idle 5.9 MB
+leptos start 28 6 6 6 6 ms | idle 4.6 MB
+dioxus start 475 176 178 168 173 ms | idle 11.2 MB
+yew start 16 4 4 10 4 ms | idle 4.3 MB
+quillo round 1 45952 req/s, p50 1.35ms | peak 18.4 MB
+axum round 1 22062 req/s, p50 2.79ms | peak 4.3 MB
+axum-tuned round 1 25680 req/s, p50 1.39ms | peak 4.7 MB
+actix round 1 21718 req/s, p50 2.77ms | peak 6.2 MB
+rocket round 1 23051 req/s, p50 2.75ms | peak 6.3 MB
+leptos round 1 29190 req/s, p50 2.09ms | peak 7.8 MB
+dioxus round 1 20617 req/s, p50 2.94ms | peak 11.5 MB
+yew round 1 33928 req/s, p50 1.88ms | peak 4.6 MB
+quillo round 2 52021 req/s, p50 1.14ms | peak 18.5 MB
+axum round 2 23908 req/s, p50 2.66ms | peak 4.3 MB
+axum-tuned round 2 108046 req/s, p50 522.00us | peak 4.6 MB
+actix round 2 23704 req/s, p50 2.60ms | peak 6.3 MB
+rocket round 2 22895 req/s, p50 2.75ms | peak 6.3 MB
+leptos round 2 22995 req/s, p50 2.59ms | peak 7.8 MB
+dioxus round 2 16053 req/s, p50 3.67ms | peak 11.5 MB
+yew round 2 34084 req/s, p50 1.84ms | peak 4.6 MB
+quillo round 3 47447 req/s, p50 1.39ms | peak 18.4 MB
+axum round 3 23645 req/s, p50 2.68ms | peak 4.3 MB
+axum-tuned round 3 89984 req/s, p50 633.00us | peak 4.5 MB
+actix round 3 24018 req/s, p50 2.63ms | peak 6.3 MB
+rocket round 3 23236 req/s, p50 2.73ms | peak 6.3 MB
+leptos round 3 27237 req/s, p50 2.23ms | peak 7.8 MB
+dioxus round 3 21994 req/s, p50 2.74ms | peak 11.6 MB
+yew round 3 33431 req/s, p50 1.91ms | peak 4.6 MB
+quillo browser {"total":1077,"js":0,"wasm":0,"in_html":true}
+axum browser {"total":1085,"js":0,"wasm":0,"in_html":true}
+axum-tuned browser {"total":1085,"js":0,"wasm":0,"in_html":true}
+actix browser {"total":1085,"js":0,"wasm":0,"in_html":true}
+rocket browser {"total":1085,"js":0,"wasm":0,"in_html":true}
+leptos browser {"total":530106,"js":25198,"wasm":501132,"in_html":true}
+dioxus browser {"total":2579797,"js":68785,"wasm":2506115,"in_html":true}
+yew browser {"total":338729,"js":33494,"wasm":303487,"in_html":false}
+wrote compare/MEASURE.json
