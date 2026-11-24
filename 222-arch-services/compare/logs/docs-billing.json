@@ -1,0 +1,51 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "billing",
+    "version": "0.8.10 (61997ab, 2026-11-22)"
+  },
+  "paths": {},
+  "x-quillo-server-fns": {
+    "invoice": {
+      "contract": "invoice(name: str, cents: int) -> map ! str with db, time",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "name": "cents",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true
+        }
+      ],
+      "returns": {
+        "type": "object"
+      },
+      "error": {
+        "type": "string"
+      },
+      "call": "POST /_quillo/rpc/invoice",
+      "x-quillo-effects": [
+        "db",
+        "time"
+      ]
+    },
+    "summary": {
+      "contract": "summary() -> map with db",
+      "params": [],
+      "returns": {
+        "type": "object"
+      },
+      "call": "POST /_quillo/rpc/summary",
+      "x-quillo-effects": [
+        "db"
+      ]
+    }
+  }
+}

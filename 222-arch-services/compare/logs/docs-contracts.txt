@@ -1,0 +1,2 @@
+      "contract": "invoice(name: str, cents: int) -> map ! str with db, time",
+      "contract": "summary() -> map with db",

@@ -1,0 +1,10 @@
+quillo: 0 routes listening on http://127.0.0.1:8251
+quillo: database /Users/you/dev/quillo-videos/videos/222-arch-services/app/billing.db
+POST /_quillo/service/invoice -> 503 (0.0ms)
+POST /_quillo/service/invoice -> 503 (0.0ms)
+POST /_quillo/service/invoice -> 200 (5003.3ms)
+POST /_quillo/service/invoice -> 503 (0.0ms)
+POST /_quillo/service/invoice -> 200 (5011.9ms)
+POST /_quillo/service/invoice -> 200 (5003.3ms)
+POST /_quillo/service/summary -> 200 (2.2ms)
+quillo: stopping once the requests in progress are answered (again to stop now)

@@ -1,0 +1,6 @@
+quillo: service billing (billing.qwe) on http://127.0.0.1:55953
+[billing] quillo: 0 routes listening on http://127.0.0.1:55953
+[billing] quillo: database /Users/you/dev/quillo-videos/videos/222-arch-services/app/billing.db
+quillo: 3 routes listening on http://127.0.0.1:8250
+quillo: stopping once the requests in progress are answered (again to stop now)
+[billing] quillo: stopping once the requests in progress are answered (again to stop now)

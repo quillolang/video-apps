@@ -1,0 +1,15 @@
+quillo: 3 routes listening on http://127.0.0.1:8250
+GET / -> 200 (0.1ms)
+quillo: service billing: took more than 2 s (its timeout), at http://127.0.0.1:8251; trying again (request 6e16b6d1b498a5b9)
+POST /buy -> 503 (2168.5ms)
+quillo: service billing: took more than 2 s (its timeout), at http://127.0.0.1:8251; trying again (request 3c49ccb8c761fd19)
+POST /buy -> 503 (2138.1ms)
+quillo: http://127.0.0.1:8251 failed 5 times in a row; left alone for 5.0s
+quillo: service billing: took more than 2 s (its timeout), at http://127.0.0.1:8251; trying again (request 729ba94e85e20c12)
+POST /buy -> 503 (2152.9ms)
+POST /buy -> 503 (0.0ms)
+POST /buy -> 503 (0.1ms)
+POST /buy -> 503 (0.7ms)
+quillo: http://127.0.0.1:8251 answers again
+GET /summary -> 200 (6.5ms)
+quillo: stopping once the requests in progress are answered (again to stop now)

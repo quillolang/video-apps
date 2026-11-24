@@ -1,0 +1,208 @@
+{
+ "quillo": "quillo 0.8.10 (61997ab, 2026-11-22)",
+ "node": "v24.11.0",
+ "machine": "Apple M5, 10 cores, darwin 25.6.0",
+ "speed": {
+  "one process": {
+   "median": 0.19716700000003584,
+   "p99": 1.6667919999999867,
+   "per_second": 9707.608200078777,
+   "rounds": [
+    {
+     "median": 0.19716700000003584,
+     "p99": 1.6667919999999867,
+     "per_second": 9682.382887875461
+    },
+    {
+     "median": 0.20174999999994725,
+     "p99": 1.517458999999917,
+     "per_second": 10101.615211569795
+    },
+    {
+     "median": 0.15308300000015151,
+     "p99": 1.6716670000000704,
+     "per_second": 9707.608200078777
+    }
+   ]
+  },
+  "--split": {
+   "median": 0.45499999999992724,
+   "p99": 2.9768340000000535,
+   "per_second": 3751.777010422104,
+   "rounds": [
+    {
+     "median": 0.45499999999992724,
+     "p99": 2.9914590000003045,
+     "per_second": 4078.7890600628707
+    },
+    {
+     "median": 0.4654579999996713,
+     "p99": 2.785624999999527,
+     "per_second": 3751.777010422104
+    },
+    {
+     "median": 0.400749999999789,
+     "p99": 2.9768340000000535,
+     "per_second": 3603.242197329158
+    }
+   ]
+  },
+  "--split --scale billing=3": {
+   "median": 0.4032089999982418,
+   "p99": 2.8985840000004828,
+   "per_second": 2694.22549935678,
+   "rounds": [
+    {
+     "median": 0.4032089999982418,
+     "p99": 3.0389589999995223,
+     "per_second": 2797.2633276338543
+    },
+    {
+     "median": 0.4604589999999007,
+     "p99": 2.8985840000004828,
+     "per_second": 2547.704618263735
+    },
+    {
+     "median": 0.39875000000029104,
+     "p99": 2.750332999999955,
+     "per_second": 2694.22549935678
+    }
+   ]
+  }
+ },
+ "split": {
+  "ada": "Invoice #1 for Ada: $12.00",
+  "grace": "Invoice #2 for Grace: $12.00"
+ },
+ "wire": {
+  "page": "Invoice #1 for Ada: $12.00",
+  "plain": {
+   "status": 401,
+   "body": "{\"error\":\"a service call carries its call id (x-quillo-call)\"}"
+  },
+  "rpc": {
+   "status": 404,
+   "body": "{\"error\":\"no server fn `invoice` (a service's server fns are called by other services, not by pages)\"}"
+  },
+  "unsigned": {
+   "status": 401,
+   "body": "{\"error\":\"not signed with this server's QUILLO_SERVICE_SECRET (or too old)\"}"
+  },
+  "changed": {
+   "status": 401,
+   "body": "{\"error\":\"not signed with this server's QUILLO_SERVICE_SECRET (or too old)\"}"
+  },
+  "again": {
+   "status": 200,
+   "body": "{\"ok\":{\"id\":1,\"name\":\"Ada\",\"cents\":1200}}"
+  },
+  "again2": {
+   "status": 200,
+   "body": "{\"ok\":{\"id\":1,\"name\":\"Ada\",\"cents\":1200}}"
+  },
+  "after": {
+   "served": 1,
+   "invoices": 1
+  }
+ },
+ "down": [
+  {
+   "status": 503,
+   "ms": 150.45874999999796,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 160.7986669999991,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 0.2997089999989839,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 0.09258299999783048,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 0.07204200000342098,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 0.07091600000057952,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  },
+  {
+   "status": 503,
+   "ms": 0.10495799999989686,
+   "body": "<!doctype html><html><head><title>Shop</title><style>body{font:20px system-ui;background:#f6f3ee;margin:0}\nmain{max-width:520px;margin:80px auto;background:#fff;padding:36px;border-radius:14px}\ninput,button{font:inherit;padding:10px 14px}\nbutton{background:#6b4eff;color:#fff;border:0;border-radius:8px}</style></head><body><main><p>Billing is busy. Try again in a moment.</p></main></body></html>"
+  }
+ ],
+ "hanging": {
+  "tries": [
+   {
+    "status": 503,
+    "ms": 2169.1316670000015
+   },
+   {
+    "status": 503,
+    "ms": 2138.5308750000004
+   },
+   {
+    "status": 503,
+    "ms": 2153.1126670000012
+   },
+   {
+    "status": 503,
+    "ms": 9.138417000001937
+   },
+   {
+    "status": 503,
+    "ms": 2.251291000000492
+   },
+   {
+    "status": 503,
+    "ms": 11.688249999999243
+   }
+  ],
+  "after": {
+   "served": 3,
+   "invoices": 3
+  }
+ },
+ "scale": {
+  "pages": [
+   "Invoice #1 for Ada: $12.00",
+   "Invoice #2 for Ada: $12.00",
+   "Invoice #3 for Ada: $12.00",
+   "Invoice #4 for Ada: $12.00",
+   "Invoice #5 for Ada: $12.00",
+   "Invoice #6 for Ada: $12.00",
+   "Invoice #7 for Ada: $12.00"
+  ],
+  "sums": [
+   {
+    "served": 2,
+    "invoices": 7
+   },
+   {
+    "served": 2,
+    "invoices": 7
+   },
+   {
+    "served": 3,
+    "invoices": 7
+   }
+  ]
+ },
+ "load": [
+  26.71,
+  27.22,
+  27.78
+ ],
+ "when": "2026-11-24T07:47:19.542Z"
+}

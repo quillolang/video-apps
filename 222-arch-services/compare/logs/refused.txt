@@ -1,0 +1,14 @@
+$ curl -X POST -d '["Mallory",1]' 127.0.0.1:8251/_quillo/service/invoice
+{"error":"a service call carries its call id (x-quillo-call)"} [401]
+$ node replay.mjs logs/call-1.json --unsigned
+401 {"error":"not signed with this server's QUILLO_SERVICE_SECRET (or too old)"}
+$ node replay.mjs logs/call-1.json --amount 1
+401 {"error":"not signed with this server's QUILLO_SERVICE_SECRET (or too old)"}
+$ node replay.mjs logs/call-1.json 
+200 {"ok":{"id":1,"name":"Ada","cents":1200}}
+$ node replay.mjs logs/call-1.json 
+200 {"ok":{"id":1,"name":"Ada","cents":1200}}
+$ curl 127.0.0.1:8250/summary
+{"served":1,"invoices":1}
+$ curl -X POST -d '["Mallory",1]' 127.0.0.1:8251/_quillo/rpc/invoice
+{"error":"no server fn `invoice` (a service's server fns are called by other services, not by pages)"} [404]

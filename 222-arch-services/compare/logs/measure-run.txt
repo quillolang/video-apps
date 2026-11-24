@@ -1,0 +1,15 @@
+quillo 0.8.10 (61997ab, 2026-11-22) | Apple M5, 10 cores, darwin 25.6.0
+one process round 1 | one at a time: median 0.20 ms, p99 1.67 ms | 50 at a time: 9682 buys/s
+one process round 2 | one at a time: median 0.20 ms, p99 1.52 ms | 50 at a time: 10102 buys/s
+one process round 3 | one at a time: median 0.15 ms, p99 1.67 ms | 50 at a time: 9708 buys/s
+--split round 1 | one at a time: median 0.45 ms, p99 2.99 ms | 50 at a time: 4079 buys/s
+--split round 2 | one at a time: median 0.47 ms, p99 2.79 ms | 50 at a time: 3752 buys/s
+--split round 3 | one at a time: median 0.40 ms, p99 2.98 ms | 50 at a time: 3603 buys/s
+--split --scale billing=3 round 1 | one at a time: median 0.40 ms, p99 3.04 ms | 50 at a time: 2797 buys/s
+--split --scale billing=3 round 2 | one at a time: median 0.46 ms, p99 2.90 ms | 50 at a time: 2548 buys/s
+--split --scale billing=3 round 3 | one at a time: median 0.40 ms, p99 2.75 ms | 50 at a time: 2694 buys/s
+wire: {"page":"Invoice #1 for Ada: $12.00","plain":{"status":401,"body":"{\"error\":\"a service call carries its call id (x-quillo-call)\"}"},"rpc":{"status":404,"body":"{\"error\":\"no server fn `invoice` (a service's server fns are called by other services, not by pages)\"}"},"unsigned":{"status":401,"body":"{\"error\":\"not signed with this server's QUILLO_SERVICE_SECRET (or too old)\"}"},"changed":{"status":401,"body":"{\"error\":\"not signed with this server's QUILLO_SERVICE_SECRET (or too old)\"}"},"again":{"status":200,"body":"{\"ok\":{\"id\":1,\"name\":\"Ada\",\"cents\":1200}}"},"again2":{"status":200,"body":"{\"ok\":{\"id\":1,\"name\":\"Ada\",\"cents\":1200}}"},"after":{"served":1,"invoices":1}}
+down: 503 150.5ms, 503 160.8ms, 503 0.3ms, 503 0.1ms, 503 0.1ms, 503 0.1ms, 503 0.1ms
+hanging: 503 2169ms, 503 2139ms, 503 2153ms, 503 9ms, 503 2ms, 503 12ms | afterwards {"served":3,"invoices":3}
+scale: Invoice #1 for Ada: $12.00 | Invoice #2 for Ada: $12.00 | Invoice #3 for Ada: $12.00 | Invoice #4 for Ada: $12.00 | Invoice #5 for Ada: $12.00 | Invoice #6 for Ada: $12.00 | Invoice #7 for Ada: $12.00 | [{"served":2,"invoices":7},{"served":2,"invoices":7},{"served":3,"invoices":7}]
+wrote compare/MEASURE.json

@@ -1,0 +1,15 @@
+>>> POST /_quillo/service/invoice
+x-quillo-to: billing
+x-quillo-call: a9b49dd9bdffc72a
+x-quillo-caller: main
+x-quillo-deadline: 2000
+x-quillo-service: v=3,kid=,t=1795506416,sig=f416322de799714071901dfa06ba5a2af96d62627c3be0b2bf483536ceec707a
+x-quillo-contract: invoice(name: str, cents: int) -> map ! str
+x-request-id: 23153ae2a28b9432
+["Ada",1200]
+<<< 200
+x-quillo-answer: sig=8a713cbf56896e8952f10a4ac96de8ea73eb7fd4f4c36a89fc1a1974631fcd77
+x-request-id: 23153ae2a28b9432
+x-content-type-options: nosniff
+{"ok":{"id":1,"name":"Ada","cents":1200}}
+

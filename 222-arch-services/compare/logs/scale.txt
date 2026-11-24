@@ -1,0 +1,35 @@
+quillo: service billing (billing.qwe) on http://127.0.0.1:63927
+quillo: service billing (billing.qwe) on http://127.0.0.1:63928
+quillo: service billing (billing.qwe) on http://127.0.0.1:63929
+[billing] quillo: 0 routes listening on http://127.0.0.1:63927
+[billing] quillo: database /Users/you/dev/quillo-videos/videos/222-arch-services/app/billing.db
+[billing] quillo: 0 routes listening on http://127.0.0.1:63929
+[billing] quillo: database /Users/you/dev/quillo-videos/videos/222-arch-services/app/billing.db
+[billing] quillo: 0 routes listening on http://127.0.0.1:63928
+[billing] quillo: database /Users/you/dev/quillo-videos/videos/222-arch-services/app/billing.db
+quillo: 3 routes listening on http://127.0.0.1:8250
+GET / -> 200 (0.1ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.8ms)
+POST /buy -> 200 (1.3ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.6ms)
+POST /buy -> 200 (1.8ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.6ms)
+POST /buy -> 200 (1.3ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.4ms)
+POST /buy -> 200 (0.7ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.4ms)
+POST /buy -> 200 (0.6ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.6ms)
+POST /buy -> 200 (0.9ms)
+[billing] POST /_quillo/service/invoice -> 200 (0.8ms)
+POST /buy -> 200 (0.9ms)
+[billing] POST /_quillo/service/summary -> 200 (0.3ms)
+GET /summary -> 200 (0.8ms)
+[billing] POST /_quillo/service/summary -> 200 (0.2ms)
+GET /summary -> 200 (0.3ms)
+[billing] POST /_quillo/service/summary -> 200 (0.3ms)
+GET /summary -> 200 (0.4ms)
+quillo: stopping once the requests in progress are answered (again to stop now)
+[billing] quillo: stopping once the requests in progress are answered (again to stop now)
+[billing] quillo: stopping once the requests in progress are answered (again to stop now)
+[billing] quillo: stopping once the requests in progress are answered (again to stop now)

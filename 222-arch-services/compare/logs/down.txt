@@ -1,0 +1,14 @@
+quillo: 3 routes listening on http://127.0.0.1:8250
+GET / -> 200 (0.1ms)
+quillo: service billing: unreachable at http://127.0.0.1:8251 (http://127.0.0.1:8251/_quillo/service/invoice: Connection Failed: Connect error: Connection refused (os error 61)); trying again (request 4e38bd1907e7b2b0)
+POST /buy -> 503 (150.2ms)
+quillo: service billing: unreachable at http://127.0.0.1:8251 (http://127.0.0.1:8251/_quillo/service/invoice: Connection Failed: Connect error: Connection refused (os error 61)); trying again (request 04b48dc448c6e43a)
+POST /buy -> 503 (160.5ms)
+quillo: http://127.0.0.1:8251 failed 5 times in a row; left alone for 5.0s
+quillo: service billing: unreachable at http://127.0.0.1:8251 (http://127.0.0.1:8251/_quillo/service/invoice: Connection Failed: Connect error: Connection refused (os error 61)); trying again (request 02ccb6ba69bdb42c)
+POST /buy -> 503 (0.2ms)
+POST /buy -> 503 (0.0ms)
+POST /buy -> 503 (0.0ms)
+POST /buy -> 503 (0.0ms)
+POST /buy -> 503 (0.0ms)
+quillo: stopping once the requests in progress are answered (again to stop now)
