@@ -1,0 +1,16 @@
+
+> npx
+> "cva" react --template react --no-interactive --no-immediate
+
+
+create-vite v9.3.4
+
+│
+◇  Scaffolding project in /Users/you/dev/quillo-videos/videos/227-state-react/compare/react...
+│
+└  Done. Now run:
+
+  cd react
+  npm install
+  npm run dev
+
