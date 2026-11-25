@@ -1,0 +1,22 @@
+// Logged hikes. Server fns: the form and the hike pages call them.
+
+// Saves a hike and gives its id, or says which rule it broke.
+server fn log_hike(trail_id: int, day: str, minutes, note: str) -> int ! str with db {
+    if day == "" { return err("Pick the day you walked it.") }
+    if minutes == null || minutes < 10 || minutes > 1440 { return err("Minutes: from 10 to 1440.") }
+    if len(note) > 200 { return err("A note of 200 letters at most.") }
+    db.one("insert into hikes (trail_id, day, minutes, note) values (?, ?, ?, ?) returning id",
+        trail_id, day, minutes, trim(note)).id
+}
+
+// One hike with its trail's name, or an error value when there's none with that id.
+server fn load_hike(id: int) -> map ! str with db =
+    db.one("select h.*, t.name from hikes h join trails t on t.id = h.trail_id where h.id = ?", id)
+        ?? err("no such hike")
+
+// Every hike, the newest first.
+server fn list_hikes() -> list with db =
+    db.query("select h.*, t.name from hikes h join trails t on t.id = h.trail_id order by h.id desc")
+
+// Takes a hike away; how many went (0 or 1).
+server fn delete_hike(id: int) -> int with db = db.exec("delete from hikes where id = ?", id).changes

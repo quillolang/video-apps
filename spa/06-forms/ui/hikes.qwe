@@ -1,0 +1,66 @@
+// Logging a hike, one hike, and all of them.
+import lib/hikes.qwe use log_hike, load_hike, list_hikes, delete_hike
+import lib/trails.qwe use load_trail
+import ui/trails.qwe use NotFound
+
+// The form, for one trail. Save asks the server; a broken rule's words stay in the form.
+component LogForm(trail_id: int) {
+    state trail = load_trail(trail_id)      // for its name
+    state day = ""
+    state minutes = null
+    state note = ""
+    state problem = null
+    state saving = false                    // true while Save waits for the server
+    <main>
+        <a.back href={`/trails/${trail_id}`}>← {trail == null || is_err(trail) ? "The trail" : trail.name}</a>
+        <h1>Log a hike</h1>
+        <form.log onsubmit={() => {
+            if saving { return }                // a second press while the first one waits
+            saving = true
+            let r = log_hike(trail_id, day, minutes, note)
+            if is_err(r) { problem = r.error; saving = false } else { navigate(`/hikes/${r}`) }
+        }}>
+            <label>Day <input type="date" value={day}/></label>
+            <label>Minutes <input type="number" value={minutes}/></label>
+            <label>Note <textarea value={note}></textarea></label>
+            {problem && <p.problem>{problem}</p>}
+            <button disabled={saving}>{saving ? "Saving…" : "Save"}</button>
+        </form>
+    </main>
+}
+
+fn duration(minutes: int) -> str = minutes < 60 ? `${minutes} min` : `${floor(minutes / 60)} h ${minutes % 60} min`
+
+component HikePage(id: int) {
+    state hike = load_hike(id)
+    state deleting = false
+    {hike == null ? <main><h1>Loading…</h1></main>
+        : is_err(hike) ? <NotFound path={`/hikes/${id}`}/>
+        : <main>
+              <a.back href="/hikes">← All hikes</a>
+              <h1>{hike.name}, {hike.day}</h1>
+              <p.facts>{duration(hike.minutes)}</p>
+              {hike.note != "" && <p.about>{hike.note}</p>}
+              <p><a href={`/trails/${hike.trail_id}`}>The trail</a></p>
+              <button disabled={deleting} onclick={() => {
+                  if deleting { return }
+                  deleting = true
+                  delete_hike(id)
+                  navigate("/hikes")
+              }}>{deleting ? "Deleting…" : "Delete this hike"}</button>
+          </main>}
+}
+
+component HikeList() {
+    state hikes = list_hikes()
+    <main>
+        <h1>Logged hikes</h1>
+        {hikes == null ? <p.facts>Loading hikes…</p>
+            : len(hikes) == 0 ? <p.facts>No hikes yet. Open a trail, and log one.</p>
+            : <ul.trails>{for h in hikes =>
+                <li key={h.id}>
+                    <a href={`/hikes/${h.id}`}>{h.name}</a>{" "}
+                    <span.facts>{h.day} · {duration(h.minutes)}</span>
+                </li>}</ul>}
+    </main>
+}

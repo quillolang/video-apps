@@ -1,0 +1,8 @@
+// The trails, from the database. Server fns: the page's components call them.
+
+// The list: only what the list shows.
+server fn list_trails() -> list with db = db.query("select id, name, level, km, climb from trails order by km")
+
+// One trail, whole, or an error value when there's none with that id.
+server fn load_trail(id: int) -> map ! str with db =
+    db.one("select * from trails where id = ?", id) ?? err("no such trail")

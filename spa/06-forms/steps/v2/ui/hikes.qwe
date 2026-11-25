@@ -1,0 +1,56 @@
+// Logging a hike, one hike, and all of them.
+import lib/hikes.qwe use log_hike, load_hike, list_hikes
+import lib/trails.qwe use load_trail
+import ui/trails.qwe use NotFound
+
+// The form, for one trail. Save asks the server; a broken rule's words stay in the form.
+component LogForm(trail_id: int) {
+    state trail = load_trail(trail_id)      // for its name
+    state day = ""
+    state minutes = null
+    state note = ""
+    state problem = null
+    <main>
+        <a.back href={`/trails/${trail_id}`}>← {trail == null || is_err(trail) ? "The trail" : trail.name}</a>
+        <h1>Log a hike</h1>
+        <form.log onsubmit={() => {
+            let r = log_hike(trail_id, day, minutes, note)
+            if is_err(r) { problem = r.error } else { navigate(`/hikes/${r}`) }
+        }}>
+            <label>Day <input type="date" value={day}/></label>
+            <label>Minutes <input type="number" value={minutes}/></label>
+            <label>Note <textarea value={note}></textarea></label>
+            {problem && <p.problem>{problem}</p>}
+            <button>Save</button>
+        </form>
+    </main>
+}
+
+fn duration(minutes: int) -> str = minutes < 60 ? `${minutes} min` : `${floor(minutes / 60)} h ${minutes % 60} min`
+
+component HikePage(id: int) {
+    state hike = load_hike(id)
+    {hike == null ? <main><h1>Loading…</h1></main>
+        : is_err(hike) ? <NotFound path={`/hikes/${id}`}/>
+        : <main>
+              <a.back href="/hikes">← All hikes</a>
+              <h1>{hike.name}, {hike.day}</h1>
+              <p.facts>{duration(hike.minutes)}</p>
+              {hike.note != "" && <p.about>{hike.note}</p>}
+              <p><a href={`/trails/${hike.trail_id}`}>The trail</a></p>
+          </main>}
+}
+
+component HikeList() {
+    state hikes = list_hikes()
+    <main>
+        <h1>Logged hikes</h1>
+        {hikes == null ? <p.facts>Loading hikes…</p>
+            : len(hikes) == 0 ? <p.facts>No hikes yet. Open a trail, and log one.</p>
+            : <ul.trails>{for h in hikes =>
+                <li key={h.id}>
+                    <a href={`/hikes/${h.id}`}>{h.name}</a>{" "}
+                    <span.facts>{h.day} · {duration(h.minutes)}</span>
+                </li>}</ul>}
+    </main>
+}

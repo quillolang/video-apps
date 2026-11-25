@@ -1,0 +1,149 @@
+// What the guide shows: the header, the trails, one trail with its climb drawn, About, and Not found.
+import lib/trails.qwe use list_trails, load_trail
+view Header(path: str, count: int) =
+    <header>
+        <b>Fernhill Trails</b>
+        <a href="/" class={path == "/" && "here"}>All trails</a>
+        <a href="/plan" class={path == "/plan" && "here"}>My plan · {count}</a>
+        <a href="/hikes" class={path == "/hikes" && "here"}>Hikes</a>
+        <a href="/about" class={path == "/about" && "here"}>About</a>
+    </header>
+
+view Level(level: str) = <span class={`level ${level}`}>{level}</span>
+
+component TrailList() {
+    state trails = list_trails()            // on the server for the first page; after a click, in the browser
+    let q = url().query                     // the filters, from the address: /?level=easy&max=10
+    let shown = sorted((trails ?? []) | filter((t) => fits(t, q)), q.sort)
+    <main>
+        <h1>Trails around Fernhill</h1>
+        <p.filters>
+            <Filter {q} name="level" value={null} label="All levels"/>
+            <Filter {q} name="level" value="easy" label="Easy"/>
+            <Filter {q} name="level" value="medium" label="Medium"/>
+            <Filter {q} name="level" value="hard" label="Hard"/>
+        </p>
+        <p.filters>
+            <Filter {q} name="max" value={null} label="Any length"/>
+            <Filter {q} name="max" value="5" label="Up to 5 km"/>
+            <Filter {q} name="max" value="10" label="Up to 10 km"/>
+        </p>
+        <p.filters>
+            <Filter {q} name="sort" value={null} label="Shortest first"/>
+            <Filter {q} name="sort" value="climb" label="Least climb first"/>
+        </p>
+        {trails == null ? <p.facts>Loading trails…</p> : <div>
+            <p.facts>{len(shown)} of {len(trails)} trails, {order_name(q.sort)} first.</p>
+            <ul.trails>{for t in shown =>
+                <li key={t.id}>
+                    <a href={`/trails/${t.id}`}>{t.name}</a>{" "}
+                    <Level level={t.level}/>{" "}
+                    <span.facts>{t.km} km · {t.climb} m up</span>
+                </li>}</ul>
+        </div>}
+    </main>
+}
+
+// Whether a trail fits the filters in the address; a filter that isn't there lets every trail through.
+fn fits(t: map, q: map) -> bool =
+    (q.level == null || t.level == q.level) && (q.max == null || t.km <= (float(q.max) ?? 0))
+
+// The trails in the order the address asks for: by climb, or as they come (shortest first).
+fn sorted(trails: list, sort) -> list = sort == "climb" ? sort_by(trails, (t) => t.climb) : trails
+
+fn order_name(sort) -> str = sort == "climb" ? "least climb" : "shortest"
+
+// A link to the list with one filter set, or taken off with null, and the others kept.
+fn list_link(q: map, name: str, value) -> str {
+    let query = url_encode(set(q, name, value))
+    query == "" ? "/" : `/?${query}`
+}
+
+view Filter(q: map, name: str, value, label: str) =
+    <a href={list_link(q, name, value)} class={q[name] == value && "here"}>{label}</a>
+
+// The heights as a line: across 600, and up to 110 from the lowest to the highest.
+fn profile_points(profile: str) -> str {
+    let hs = split(profile, ",") | map((h) => int(h) ?? 0)
+    let lo = min(hs)
+    let span = max([max(hs) - lo, 1])
+    let step = 600 / max([len(hs) - 1, 1])
+    join(for [i, h] in enumerate(hs) => `${round(i * step, 1)},${round(120 - (h - lo) * 100 / span, 1)}`, " ")
+}
+
+view Elevation(profile: str) =
+    <svg.profile viewBox="0 0 600 130" preserveAspectRatio="none">
+        <polyline points={profile_points(profile)} fill="none" stroke="#2f5d46" stroke-width="3"/>
+    </svg>
+
+component TrailPage(id: int, plan: list, on_add) {
+    state trail = load_trail(id)            // the same: the server, or the browser after a click
+    {trail == null ? <Waiting/>                       // null: the answer hasn't come yet
+        : is_err(trail) ? <NotFound path={`/trails/${id}`}/>
+        : <main>
+              <a.back href="/">← All trails</a>
+              <h1>{trail.name}</h1>
+              <p>
+                  <Level level={trail.level}/>{" "}
+                  <span.facts>{trail.km} km · {trail.climb} m up · starts at {trail.start}</span>
+              </p>
+              <Elevation profile={trail.profile}/>
+              <p.about>{trail.about}</p>
+              <p.plan>
+                  <button disabled={any(plan, (t) => t.id == id)}
+                      onclick={() => on_add(pick(trail))}>Add to my plan</button>{" "}
+                  <a.button href={`/trails/${id}/log`}>Log a hike</a>{" "}
+                  <PlanLine {plan}/>
+              </p>
+          </main>}
+}
+
+// What the plan keeps of a trail.
+fn pick(t: map) -> map = { id: t.id, name: t.name, km: t.km }
+
+view PlanLine(plan: list) =
+    <span.facts>{len(plan) == 0 ? "Your plan is empty." : `In your plan: ${names(plan)}`}</span>
+
+fn names(trails: list) -> str = join(trails | map((t) => t.name), ", ")
+
+// The weekend's trails, with a link to each.
+view PlanPage(plan: list, on_remove) =
+    <main>
+        <h1>My plan</h1>
+        {len(plan) == 0
+            ? <p.facts>Nothing planned yet. Pick trails from <a href="/">the list</a>.</p>
+            : <div>
+                <p.facts>{len(plan)} trail{len(plan) == 1 ? "" : "s"}, {total_km(plan)} km in all.</p>
+                <ul.trails>{for t in plan =>
+                    <li key={t.id}>
+                        <a href={`/trails/${t.id}`}>{t.name}</a>{" "}
+                        <span.facts>{t.km} km</span>{" "}
+                        <button onclick={() => on_remove(t)}>Remove</button>
+                    </li>}</ul>
+            </div>}
+    </main>
+
+fn total_km(trails: list) = round(sum(trails | map((t) => t.km)), 1)
+
+// While a trail loads: its page's shape, with nothing in it yet.
+view Waiting() =
+    <main>
+        <a.back href="/">← All trails</a>
+        <h1>Loading…</h1>
+        <p.facts>&nbsp;</p>
+        <div.profile.blank></div>
+    </main>
+
+view NotFound(path: str) =
+    <main>
+        <h1>Nothing here</h1>
+        <p.about>There's no page at <code>{path}</code>.</p>
+        <p><a.back href="/">← All trails</a></p>
+    </main>
+
+view About() =
+    <main>
+        <h1>About Fernhill Trails</h1>
+        <p.about>Six walks around Fernhill, from a flat loop round the millpond to the beacon on the hill.</p>
+        <p.facts>Made by the town's walking club. Found a fallen tree or a missing sign? Tell us at the library.</p>
+    </main>
