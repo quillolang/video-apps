@@ -1,0 +1,16 @@
+
+> npx
+> "cva" svelte --template svelte --no-interactive --no-immediate
+
+
+create-vite v9.3.4
+
+│
+◇  Scaffolding project in /Users/you/dev/quillo-videos/videos/229-state-svelte/compare/svelte...
+│
+└  Done. Now run:
+
+  cd svelte
+  npm install
+  npm run dev
+
