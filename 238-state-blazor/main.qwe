@@ -1,0 +1,63 @@
+// main.qwe: six kinds of state on one page, each with a +1.
+db.open("state.db")
+db.exec("create table if not exists counts (name text primary key, n int not null)")
+db.exec("insert or ignore into counts (name, n) values ('saved', 0), ('synced', 0)")
+
+let everyone = 0   // one value for the whole server, until it restarts
+
+use "style.qwe"
+
+server fn synced() -> int with db = db.one("select n from counts where name = 'synced'").n
+server fn add_synced() -> int with db {
+    db.exec("update counts set n = n + 1 where name = 'synced'")
+    synced()
+}
+
+component TabCount() {
+    state n = 0
+    <button #tab onclick={() => { n += 1 }}>This tab: {n}</button>
+}
+
+component SyncedCount() {
+    state n = live(synced)
+    <button #synced onclick={() => { n = add_synced() }}>Kept in sync: {n}</button>
+}
+
+view Post(path: str, addr: int, id: str, label: str, n) =
+    <form method="post" action={path}>
+        <input type="hidden" name="addr" value={addr}/>
+        <button id={id}>{label}: {n}</button>
+    </form>
+
+route GET / {
+    let addr = int(url().query.n ?? "0") ?? 0
+    let saved = db.one("select n from counts where name = 'saved'").n
+    <html>
+        <head><title>Where state lives</title><style>{css}</style></head>
+        <body>
+            <h1>Where state lives</h1>
+            <TabCount/>
+            <a id="address" href={`/?n=${addr + 1}`}>The address: {addr}</a>
+            <Post path="/visitor" addr={addr} id="visitor" label="This visitor" n={session().n ?? 0}/>
+            <Post path="/everyone" addr={addr} id="everyone"
+                label="Everyone, until a restart" n={everyone}/>
+            <Post path="/saved" addr={addr} id="saved" label="Everyone, for good" n={saved}/>
+            <SyncedCount/>
+        </body>
+    </html>
+}
+
+route POST /visitor { form: { addr: int } } {
+    set_session({ ...session(), n: (session().n ?? 0) + 1 })
+    redirect(`/?n=${addr}`)
+}
+
+route POST /everyone { form: { addr: int } } {
+    everyone += 1
+    redirect(`/?n=${addr}`)
+}
+
+route POST /saved { form: { addr: int } } with db {
+    db.exec("update counts set n = n + 1 where name = 'saved'")
+    redirect(`/?n=${addr}`)
+}

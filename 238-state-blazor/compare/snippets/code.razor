@@ -1,0 +1,34 @@
+@code {
+    // This tab: fields of this component, which lives in this tab's circuit, on the server.
+    int tab, visitor, everyone, saved, synced;
+
+    [SupplyParameterFromQuery] public int N { get; set; } // the address: ?n=
+
+    protected override void OnInitialized()
+    {
+        everyone = Everyone.Value;
+        saved = Counts.Read("saved");
+        synced = Counts.Read("synced");
+        Counts.SyncedChanged += OnSynced;
+    }
+
+    // This visitor: kept in the browser's local storage, encrypted by the server's Data Protection keys.
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        try { var stored = await Storage.GetAsync<int>("visitor"); visitor = stored.Success ? stored.Value : 0; }
+        catch (System.Security.Cryptography.CryptographicException) { visitor = 0; } // sealed with other keys
+        StateHasChanged();
+    }
+
+    async Task AddVisitor()
+    {
+        visitor++;
+        await Storage.SetAsync("visitor", visitor);
+    }
+
+    // Kept in sync: every open page's component hears the event, and redraws.
+    void OnSynced(int n) => InvokeAsync(() => { synced = n; StateHasChanged(); });
+
+    public void Dispose() => Counts.SyncedChanged -= OnSynced;
+}

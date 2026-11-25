@@ -1,0 +1,16 @@
+@page "/"
+@rendermode InteractiveServer
+@implements IDisposable
+@inject Everyone Everyone
+@inject Counts Counts
+@inject ProtectedLocalStorage Storage
+
+<PageTitle>Where state lives</PageTitle>
+
+<h1>Where state lives</h1>
+<button id="tab" @onclick="() => tab++">This tab: @tab</button>
+<a id="address" href="?n=@(N + 1)">The address: @N</a>
+<button id="visitor" @onclick="AddVisitor">This visitor: @visitor</button>
+<button id="everyone" @onclick="() => everyone = Everyone.Add()">Everyone, until a restart: @everyone</button>
+<button id="saved" @onclick='() => saved = Counts.Add("saved")'>Everyone, for good: @saved</button>
+<button id="synced" @onclick='() => Counts.Add("synced")'>Kept in sync: @synced</button>
