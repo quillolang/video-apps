@@ -1,0 +1,212 @@
+{
+ "quillo": "quillo 0.8.10 (61997ab, 2026-11-22)",
+ "vue": "3.5.46",
+ "node": "v24.11.0",
+ "sides": {
+  "quillo": {
+   "table": {
+    "+1": {
+     "tab": 1,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "reload": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "2nd tab": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "browser B": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 0,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "B's +1": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 2
+    },
+    "restart": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    },
+    "new secret": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 0,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    }
+   },
+   "two": {
+    "everyone": [
+     2
+    ],
+    "saved": [
+     4
+    ],
+    "synced": [
+     0
+    ]
+   },
+   "sync": {
+    "idle_30s": {
+     "requests": 0,
+     "frames": 0
+    },
+    "waits": [
+     40,
+     43,
+     36,
+     15,
+     23
+    ],
+    "median": 36,
+    "two": {
+     "seen": 12,
+     "tries": 12
+    }
+   }
+  },
+  "vue": {
+   "table": {
+    "+1": {
+     "tab": 1,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "reload": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "2nd tab": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "browser B": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 0,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "B's +1": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 2
+    },
+    "restart": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 0,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    },
+    "new secret": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 0,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    }
+   },
+   "two": {
+    "everyone": [
+     2
+    ],
+    "saved": [
+     4
+    ],
+    "synced": [
+     0
+    ]
+   },
+   "sync": {
+    "idle_30s": {
+     "requests": 0,
+     "frames": 0
+    },
+    "waits": [
+     65,
+     56,
+     32,
+     27,
+     31
+    ],
+    "median": 32,
+    "two": {
+     "seen": 6,
+     "tries": 12
+    }
+   }
+  }
+ },
+ "printed": {
+  "quillo": [
+   "Quillo                     +1         reload     2nd tab    browser B  B's +1     restart    new secret",
+   "This tab                   1          0          0          0          0          0          0",
+   "The address                1          1          0          0          1          1          1",
+   "This visitor               1          1          1          0          1          1          0",
+   "Everyone, until a restart  1          1          1          1          1          0          0",
+   "Everyone, for good         1          1          1          1          1          2          2",
+   "Kept in sync               1          1          1          1          2          2          2",
+   "Quillo, --instances 2: 4 +1s each, then 20 reads: everyone 2; saved 4",
+   "kept in sync: tab A saw B's +1 after 40, 43, 36, 15, 23 ms (median 36); idle for 30 s it made 0 HTTP requests and 0 WebSocket messages",
+   "kept in sync with 2 processes: tab A saw B's +1 within 3 s in 12 of 12 tries"
+  ],
+  "vue": [
+   "Vue + Express              +1         reload     2nd tab    browser B  B's +1     restart    new secret",
+   "This tab                   1          0          0          0          0          0          0",
+   "The address                1          1          0          0          1          1          1",
+   "This visitor               1          1          1          0          1          0          0",
+   "Everyone, until a restart  1          1          1          1          1          0          0",
+   "Everyone, for good         1          1          1          1          1          2          2",
+   "Kept in sync               1          1          1          1          2          2          2",
+   "Vue + Express, Node cluster: 4 +1s each, then 20 reads: everyone 2; saved 4",
+   "kept in sync: tab A saw B's +1 after 65, 56, 32, 27, 31 ms (median 32); idle for 30 s it made 0 HTTP requests and 0 WebSocket messages",
+   "kept in sync with 2 processes: tab A saw B's +1 within 3 s in 6 of 12 tries"
+  ]
+ },
+ "when": "2026-11-25T07:15:33.626Z"
+}

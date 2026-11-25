@@ -4,7 +4,7 @@ import session from 'express-session'
 import { DatabaseSync } from 'node:sqlite'
 import path from 'node:path'
 
-const db = new DatabaseSync('state.db')
+const db = new DatabaseSync('state.db', { timeout: 5000 }) // wait up to 5 s for a locked database
 db.exec('create table if not exists counts (name text primary key, n int not null)')
 db.exec("insert or ignore into counts (name, n) values ('saved', 0), ('synced', 0)")
 const read = (name) => db.prepare('select n from counts where name = ?').get(name).n

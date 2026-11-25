@@ -1,0 +1,24 @@
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'vue@0.0.0',
+npm warn EBADENGINE   required: { node: '^22.18.0 || >=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+
+added 185 packages, and audited 186 packages in 9s
+
+57 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'vue@0.0.0',
+npm warn EBADENGINE   required: { node: '^22.18.0 || >=24.12.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+
+added 75 packages, removed 2 packages, and audited 259 packages in 1s
+
+93 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
