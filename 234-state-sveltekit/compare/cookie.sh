@@ -7,8 +7,9 @@ here=$(cd "$(dirname "$0")" && pwd); video=$(dirname "$here")
 W=$(mktemp -d); mkdir -p "$W/k" "$W/q"; cp "$video/app/main.qwe" "$video/app/style.qwe" "$W/q/"
 # Both servers stop however the script ends.
 trap 'kill "$(cat "$W/kpid" 2>/dev/null)" "$(cat "$W/qpid" 2>/dev/null)" 2>/dev/null; sleep 1; rm -rf "${W:?}"' EXIT
-(cd "$W/k" && PORT=8306 HOST=127.0.0.1 ORIGIN=http://127.0.0.1:8306 STATE_DB="$W/k/state.db" node --no-warnings "$here/sveltekit/build/index.js" > /dev/null 2>&1 & echo $! > "$W/kpid")
-(cd "$W/q" && QUILLO_SECRET=$(openssl rand -hex 32) "$video/app/.quillo/bin/quillo" run main.qwe --port 8307 > /dev/null 2>&1 & echo $! > "$W/qpid")
+# Each server in a subshell that becomes it (exec), so $! is the server's own pid.
+(cd "$W/k" && PORT=8306 HOST=127.0.0.1 ORIGIN=http://127.0.0.1:8306 STATE_DB="$W/k/state.db" exec node --no-warnings "$here/sveltekit/build/index.js") > /dev/null 2>&1 & echo $! > "$W/kpid"
+(cd "$W/q" && QUILLO_SECRET=$(openssl rand -hex 32) exec "$video/app/.quillo/bin/quillo" run main.qwe --port 8307) > /dev/null 2>&1 & echo $! > "$W/qpid"
 for i in $(seq 1 100); do curl -s -o /dev/null 127.0.0.1:8306/ && curl -s -o /dev/null 127.0.0.1:8307/ && break; sleep 0.1; done
 # The visitor form's address, as the page gives it (a form with JavaScript off posts there).
 A=$(curl -s 127.0.0.1:8306/ | grep -o 'action="[^"]*addVisitorOne"' | sed 's/action="//; s/"$//')
