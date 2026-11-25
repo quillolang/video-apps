@@ -1,0 +1,11 @@
+quillo total 165119 bytes; JavaScript 160385
+rails total 159314 bytes; JavaScript 155550
+laravel total 267119 bytes; JavaScript 262216
+sveltekit total 140520 bytes; JavaScript 135068
+nuxt total 208482 bytes; JavaScript 206338
+nextjs total 486045 bytes; JavaScript 468317
+solid total 62500 bytes; JavaScript 61804
+angular total 230484 bytes; JavaScript 229386
+svelte total 38517 bytes; JavaScript 37748
+vue total 92889 bytes; JavaScript 92149
+react total 293765 bytes; JavaScript 292993

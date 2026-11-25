@@ -1,0 +1,10 @@
+<% content_for :title, "Where state lives" %>
+<%= turbo_stream_from "counts" %>
+
+<h1>Where state lives</h1>
+<button id="tab" data-turbo-permanent data-controller="tab" data-action="tab#add">This tab: 0</button>
+<%= link_to "The address: #{@n}", root_path(n: @n + 1), id: "address" %>
+<%= button_to "This visitor: #{@visitor}", visitor_path(n: @n), id: "visitor" %>
+<%= button_to "Everyone, until a restart: #{@everyone}", everyone_path(n: @n), id: "everyone" %>
+<%= button_to "Everyone, for good: #{@saved}", saved_path(n: @n), id: "saved" %>
+<%= button_to "Kept in sync: #{@synced}", synced_path(n: @n), id: "synced" %>

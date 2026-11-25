@@ -1,0 +1,8 @@
+Migrating to CreateCounts (20261125161154)
+== 20261125161154 CreateCounts: migrating =====================================
+-- create_table(:counts)
+   -> 0.0022s
+-- execute("insert into counts (name, n) values ('saved', 0), ('synced', 0)")
+   -> 0.0001s
+== 20261125161154 CreateCounts: migrated (0.0040s) ============================
+
