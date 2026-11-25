@@ -1,0 +1,1 @@
+src/App.jsx:21:58: warning react-hooks(exhaustive-deps): React Hook useEffect has a missing dependency: 'speed' help: Either include it or remove the dependency array.

@@ -1,0 +1,2 @@
+<button onclick={() => { joining = !joining }}>{joining ? "I have an account" : "I'm new here"}</button>
+<input placeholder={joining ? "Work email" : "Your email"} aria-label="Email"/>
