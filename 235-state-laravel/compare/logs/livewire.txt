@@ -1,0 +1,33 @@
+./composer.json has been updated
+Running composer update livewire/livewire
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 1 install, 0 updates, 0 removals
+  - Locking livewire/livewire (v4.4.10)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Downloading livewire/livewire (v4.4.10)
+  - Installing livewire/livewire (v4.4.10): Extracting archive
+Generating optimized autoload files
+> Illuminate\Foundation\ComposerScripts::postAutoloadDump
+> @php artisan package:discover --ansi
+
+ INFO Discovering packages. 
+
+ laravel/pail .. DONE
+ laravel/pao .. DONE
+ laravel/tinker .. DONE
+ livewire/livewire .. DONE
+ nesbot/carbon .. DONE
+ nunomaduro/collision .. DONE
+ nunomaduro/termwind .. DONE
+
+81 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+> @php artisan vendor:publish --tag=laravel-assets --ansi --force
+
+ INFO No publishable resources for tag [laravel-assets]. 
+
+No security vulnerability advisories found.
+Using version ^4.4 for livewire/livewire

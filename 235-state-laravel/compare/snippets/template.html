@@ -1,0 +1,14 @@
+<div>
+    <h1>Where state lives</h1>
+    <button id="tab" wire:click="addTab">This tab: {{ $tab }}</button>
+    <button id="address" wire:click="addAddress">The address: {{ $n }}</button>
+    <button id="visitor" wire:click="addVisitor">This visitor: {{ $this->visitor }}</button>
+    <button id="everyone" wire:click="addEveryone">Everyone, until a restart: {{ $this->everyone }}</button>
+    <button id="saved" wire:click="addSaved">Everyone, for good: {{ $this->saved }}</button>
+    {{-- Kept in sync: an island that asks the server again every 2 seconds (wire:poll's default). --}}
+    @island
+        <div wire:poll>
+            <button id="synced" wire:click="addSynced">Kept in sync: {{ $this->synced }}</button>
+        </div>
+    @endisland
+</div>

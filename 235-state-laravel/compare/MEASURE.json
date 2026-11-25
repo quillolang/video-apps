@@ -1,0 +1,248 @@
+{
+ "quillo": "quillo 0.8.10 (61997ab, 2026-11-22)",
+ "laravel": "Laravel Framework 13.44.1",
+ "livewire": "v4.4.10",
+ "php": "8.5.12",
+ "node": "v24.11.0",
+ "sides": {
+  "quillo": {
+   "table": {
+    "+1": {
+     "tab": 1,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "reload": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "2nd tab": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "browser B": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 0,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "B's +1": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 2
+    },
+    "restart": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    },
+    "new secret": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 0,
+     "everyone": 0,
+     "saved": 2,
+     "synced": 2
+    }
+   },
+   "two": {
+    "everyone": [
+     2
+    ],
+    "saved": [
+     4
+    ],
+    "synced": [
+     0
+    ]
+   },
+   "sync": {
+    "idle_30s": {
+     "requests": 0,
+     "frames": 0,
+     "chunks": 0,
+     "bytes": 0
+    },
+    "waits": [
+     41,
+     37,
+     23,
+     25,
+     36
+    ],
+    "median": 36,
+    "two": {
+     "seen": 12,
+     "tries": 12,
+     "waits": [
+      44,
+      26,
+      22,
+      57,
+      23,
+      28,
+      51,
+      27,
+      25,
+      50,
+      26,
+      55
+     ],
+     "median": 28
+    }
+   }
+  },
+  "laravel": {
+   "table": {
+    "+1": {
+     "tab": 1,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "reload": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "2nd tab": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "browser B": {
+     "tab": 0,
+     "address": 0,
+     "visitor": 0,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 1
+    },
+    "B's +1": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 1,
+     "saved": 1,
+     "synced": 2
+    },
+    "restart": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 1,
+     "everyone": 2,
+     "saved": 2,
+     "synced": 2
+    },
+    "new secret": {
+     "tab": 0,
+     "address": 1,
+     "visitor": 0,
+     "everyone": 2,
+     "saved": 2,
+     "synced": 2
+    }
+   },
+   "two": {
+    "everyone": [
+     4
+    ],
+    "saved": [
+     4
+    ],
+    "synced": [
+     0
+    ]
+   },
+   "sync": {
+    "idle_30s": {
+     "requests": 15,
+     "frames": 0,
+     "chunks": 15,
+     "bytes": 13020
+    },
+    "waits": [
+     484,
+     1989,
+     1761,
+     1507,
+     1290
+    ],
+    "median": 1507,
+    "two": {
+     "seen": 12,
+     "tries": 12,
+     "waits": [
+      1956,
+      1081,
+      1112,
+      1080,
+      1102,
+      1098,
+      1123,
+      1119,
+      1143,
+      1144,
+      1121,
+      1128
+     ],
+     "median": 1121
+    }
+   }
+  }
+ },
+ "printed": {
+  "quillo": [
+   "Quillo                     +1         reload     2nd tab    browser B  B's +1     restart    new secret",
+   "This tab                   1          0          0          0          0          0          0",
+   "The address                1          1          0          0          1          1          1",
+   "This visitor               1          1          1          0          1          1          0",
+   "Everyone, until a restart  1          1          1          1          1          0          0",
+   "Everyone, for good         1          1          1          1          1          2          2",
+   "Kept in sync               1          1          1          1          2          2          2",
+   "Quillo, --instances 2: 4 +1s each, then 20 reads: everyone 2; saved 4",
+   "kept in sync: tab A saw B's +1 after 41, 37, 23, 25, 36 ms (median 36); idle for 30 s it made 0 HTTP requests and 0 WebSocket messages, and received 0 chunks (0 bytes) on open streams",
+   "kept in sync with 2 processes: tab A saw B's +1 within 3 s in 12 of 12 tries (median of those 28 ms)"
+  ],
+  "laravel": [
+   "Laravel + Livewire         +1         reload     2nd tab    browser B  B's +1     restart    new secret",
+   "This tab                   1          0          0          0          0          0          0",
+   "The address                1          1          0          0          1          1          1",
+   "This visitor               1          1          1          0          1          1          0",
+   "Everyone, until a restart  1          1          1          1          1          2          2",
+   "Everyone, for good         1          1          1          1          1          2          2",
+   "Kept in sync               1          1          1          1          2          2          2",
+   "Laravel, 2 PHP workers: 4 +1s each, then 20 reads: everyone 4; saved 4",
+   "kept in sync: tab A saw B's +1 after 484, 1989, 1761, 1507, 1290 ms (median 1507); idle for 30 s it made 15 HTTP requests and 0 WebSocket messages, and received 15 chunks (13020 bytes) on open streams",
+   "kept in sync with 2 processes: tab A saw B's +1 within 3 s in 12 of 12 tries (median of those 1121 ms)"
+  ]
+ },
+ "when": "2026-11-25T16:05:31.135Z"
+}
