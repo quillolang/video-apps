@@ -1,0 +1,131 @@
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular-devkit/architect@0.2203.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular-devkit/core@22.3.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular-devkit/schematics@22.3.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/build@22.3.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/cli@22.3.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/common@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/compiler@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/compiler-cli@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/core@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/forms@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/platform-browser@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@angular/router@22.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.3 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@inquirer/confirm@6.4.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@inquirer/prompts@8.8.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@inquirer/type@4.3.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@schematics/angular@22.3.0',
+npm warn EBADENGINE   required: {
+npm warn EBADENGINE     node: '^22.22.3 || ^24.15.0 || >=26.0.0',
+npm warn EBADENGINE     npm: '^6.11.0 || ^7.5.6 || >=8.0.0',
+npm warn EBADENGINE     yarn: '>= 1.13.0'
+npm warn EBADENGINE   },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'hosted-git-info@10.1.1',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'npm-package-arg@14.0.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'proc-log@7.0.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'validate-npm-package-name@8.0.0',
+npm warn EBADENGINE   required: { node: '^22.22.2 || ^24.15.0 || >=26.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.11.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+
+added 214 packages, removed 2 packages, and audited 462 packages in 2s
+
+134 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
