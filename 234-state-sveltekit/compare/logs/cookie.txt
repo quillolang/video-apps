@@ -1,0 +1,6 @@
+$ curl -si -d '' -H 'Accept: text/html' -H 'Origin: http://127.0.0.1:8306' '127.0.0.1:8306/?/remote=q5s0im/addVisitorOne' | grep -io 'set-cookie: visitor=[^;]*'
+set-cookie: visitor=fb603da6-b6a5-4011-9235-d2ac0badc025
+$ curl -s -H 'Cookie: visitor=999' 127.0.0.1:8306/ | grep -o 'This visitor: [0-9]*'
+This visitor: 0
+$ curl -s -H 'Cookie: __Host-quillo_session=n=999' 127.0.0.1:8307/ | grep -o 'This visitor: [0-9]*'
+This visitor: 0
