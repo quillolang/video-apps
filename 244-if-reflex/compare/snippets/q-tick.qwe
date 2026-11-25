@@ -1,0 +1,12 @@
+state running = false
+state speed = 100
+state ticks = 0
+// ...
+if running { every(speed, () => { ticks += 1 }) }
+// ...
+<button onclick={() => { running = !running }}>{running ? "Stop" : "Start"}</button>
+<button onclick={() => { speed = speed / 2 }}>Faster</button>
+<p class="out">{ticks} ticks</p>
+{if running {
+    <input placeholder="A note, while it runs" aria-label="Note"/>
+}}

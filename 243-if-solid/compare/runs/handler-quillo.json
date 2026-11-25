@@ -1,0 +1,22 @@
+{
+ "name": "handler-quillo",
+ "url": "http://127.0.0.1:8153/",
+ "when": "2026-11-25T06:36:08.596Z",
+ "if0": "UNREAD +1 unreadRead all All read",
+ "if1": "UNREAD +1 unreadRead all 1 new message",
+ "if3": "UNREAD +1 unreadRead all 3 new messages",
+ "ifRead": "UNREAD +1 unreadRead all All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 10,
+ "noteCount": 1,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 10,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": []
+}

@@ -1,0 +1,21 @@
+{
+ "name": "nocleanup-svelte",
+ "url": "http://127.0.0.1:5262/",
+ "when": "2026-11-25T05:57:53.568Z",
+ "if0": "UNREAD +1 unread Read all All read",
+ "if1": "UNREAD +1 unread Read all 1 new message",
+ "if3": "UNREAD +1 unread Read all 3 new messages",
+ "ifRead": "UNREAD +1 unread Read all All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 30,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 30,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": []
+}

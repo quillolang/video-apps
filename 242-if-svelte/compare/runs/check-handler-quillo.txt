@@ -1,0 +1,1 @@
+main.qwe: ok (2 routes, 0 functions, 1 component)

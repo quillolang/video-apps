@@ -1,0 +1,162 @@
+$ dx build --release --platform web --debug-symbols false
+  0.01s  INFO Building project...
+  2.78s  INFO Compiled [  1/175]: cfg_if
+  2.80s  INFO Compiled [  2/175]: unicode_ident
+  2.94s  INFO Compiled [  3/175]: pin_project_lite
+  2.95s  INFO Compiled [  4/175]: futures_core
+  2.97s  INFO Compiled [  5/175]: unicode_ident
+  3.13s  INFO Compiled [  6/175]: futures_sink
+  3.28s  INFO Compiled [  7/175]: build-script-build
+  3.45s  INFO Compiled [  8/175]: build-script-build
+  3.57s  INFO Compiled [  9/175]: build-script-build
+  3.60s  INFO Compiled [ 10/175]: futures_task
+  3.71s  INFO Compiled [ 11/175]: futures_io
+  3.86s  INFO Compiled [ 14/175]: build-script-build
+  3.90s  INFO Compiled [ 15/175]: build-script-build
+  3.90s  INFO Compiled [ 16/175]: slab
+  4.18s  INFO Compiled [ 18/175]: bumpalo
+  4.68s  INFO Compiled [ 21/175]: build-script-build
+  4.73s  INFO Compiled [ 23/175]: wasm_bindgen_shared
+  4.94s  INFO Compiled [ 25/175]: once_cell
+  4.98s  INFO Compiled [ 26/175]: version_check
+  5.11s  INFO Compiled [ 27/175]: scopeguard
+  5.13s  INFO Compiled [ 28/175]: build-script-build
+  5.53s  INFO Compiled [ 29/175]: build-script-build
+  5.68s  INFO Compiled [ 31/175]: smallvec
+  6.05s  INFO Compiled [ 32/175]: build-script-build
+  6.37s  INFO Compiled [ 34/175]: dioxus_core_types
+  6.78s  INFO Compiled [ 35/175]: lock_api
+  6.86s  INFO Compiled [ 36/175]: build-script-build
+  6.94s  INFO Compiled [ 37/175]: unicode_xid
+  6.95s  INFO Compiled [ 38/175]: parking_lot_core
+  6.96s  INFO Compiled [ 39/175]: konst_macro_rules
+  7.04s  INFO Compiled [ 40/175]: rustversion
+  8.04s  INFO Compiled [ 43/175]: memchr
+  8.15s  INFO Compiled [ 44/175]: rustc_hash
+  8.30s  INFO Compiled [ 45/175]: wasm_bindgen_shared
+  8.47s  INFO Compiled [ 46/175]: longest_increasing_subsequence
+  8.51s  INFO Compiled [ 47/175]: build-script-build
+  8.69s  INFO Compiled [ 48/175]: quote
+  8.92s  INFO Compiled [ 49/175]: futures_channel
+  9.03s  INFO Compiled [ 51/175]: proc_macro2
+  9.13s  INFO Compiled [ 52/175]: ident_case
+  9.25s  INFO Compiled [ 53/175]: konst
+  9.32s  INFO Compiled [ 54/175]: fnv
+  9.50s  INFO Compiled [ 55/175]: lazy_js_bundle
+  9.86s  INFO Compiled [ 56/175]: build-script-build
+ 10.60s  INFO Compiled [ 57/175]: build-script-build
+ 10.85s  INFO Compiled [ 58/175]: autocfg
+ 11.26s  INFO Compiled [ 61/175]: build-script-build
+ 11.58s  INFO Compiled [ 62/175]: unicode_segmentation
+ 11.62s  INFO Compiled [ 63/175]: anyhow
+ 11.77s  INFO Compiled [ 64/175]: tracing_core
+ 12.02s  INFO Compiled [ 65/175]: build-script-build
+ 12.39s  INFO Compiled [ 68/175]: build-script-build
+ 12.45s  INFO Compiled [ 69/175]: build-script-build
+ 12.81s  INFO Compiled [ 71/175]: const_format_proc_macros
+ 12.93s  INFO Compiled [ 72/175]: convert_case
+ 13.11s  INFO Compiled [ 74/175]: parking_lot
+ 13.13s  INFO Compiled [ 75/175]: lazy_static
+ 13.83s  INFO Compiled [ 76/175]: zmij
+ 13.85s  INFO Compiled [ 77/175]: itoa
+ 14.64s  INFO Compiled [ 78/175]: bitflags
+ 15.15s  INFO Compiled [ 79/175]: build-script-build
+ 15.54s  INFO Compiled [ 80/175]: build-script-build
+ 15.72s  INFO Compiled [ 81/175]: const_format
+ 15.87s  INFO Compiled [ 82/175]: rustc_hash
+ 16.24s  INFO Compiled [ 83/175]: thread_local
+ 16.44s  INFO Compiled [ 84/175]: sharded_slab
+ 16.73s  INFO Compiled [ 85/175]: num_traits
+ 17.85s  INFO Compiled [ 86/175]: serde_core
+ 17.85s  INFO Compiled [ 87/175]: sledgehammer_utils
+ 18.77s  INFO Compiled [ 90/175]: build-script-build
+ 18.86s  INFO Compiled [ 91/175]: dunce
+ 19.21s  INFO Compiled [ 92/175]: keyboard_types
+ 19.99s  INFO Compiled [ 93/175]: bytes
+ 19.99s  INFO Compiled [ 94/175]: euclid
+ 20.42s  INFO Compiled [ 96/175]: send_wrapper
+ 20.59s  INFO Compiled [ 97/175]: dioxus_config_macros
+ 21.08s  INFO Compiled [ 98/175]: dioxus_config_macro
+ 24.02s  INFO Compiled [ 99/175]: serde_core
+ 25.41s  INFO Compiled [100/175]: winnow
+ 26.79s  INFO Compiled [101/175]: serde_json
+ 28.72s  INFO Compiled [102/175]: regex_syntax
+ 29.05s  INFO Compiled [103/175]: matchers
+ 29.11s  INFO Compiled [104/175]: proc_macro2_diagnostics
+ 30.02s  INFO Compiled [105/175]: macro_string
+ 30.90s  INFO Compiled [106/175]: winnow
+ 31.42s  INFO Compiled [107/175]: syn
+ 32.60s  INFO Compiled [108/175]: syn
+ 35.36s  INFO Compiled [109/175]: dioxus_rsx
+ 35.79s  INFO Compiled [110/175]: const_serialize_macro
+ 36.17s  INFO Compiled [111/175]: warnings_macro
+ 36.47s  INFO Compiled [112/175]: futures_macro
+ 36.48s  INFO Compiled [113/175]: tracing_attributes
+ 37.17s  INFO Compiled [114/175]: const_serialize_macro
+ 37.29s  INFO Compiled [115/175]: const_serialize
+ 38.38s  INFO Compiled [116/175]: const_serialize
+ 38.83s  INFO Compiled [117/175]: tracing
+ 39.27s  INFO Compiled [118/175]: thiserror_impl
+ 39.87s  INFO Compiled [119/175]: thiserror
+ 39.96s  INFO Compiled [120/175]: pin_project_internal
+ 40.55s  INFO Compiled [121/175]: generational_box
+ 40.86s  INFO Compiled [122/175]: pin_project
+ 41.50s  INFO Compiled [123/175]: dioxus_html_internal_macro
+ 41.55s  INFO Compiled [124/175]: warnings
+ 42.77s  INFO Compiled [125/175]: async_trait
+ 43.03s  INFO Compiled [126/175]: darling_core
+ 43.21s  INFO Compiled [127/175]: dioxus_core_macro
+ 43.70s  INFO Compiled [128/175]: darling_macro
+ 44.22s  INFO Compiled [129/175]: dioxus_stores_macro
+ 44.35s  INFO Compiled [130/175]: darling
+ 45.13s  INFO Compiled [131/175]: sledgehammer_bindgen_macro
+ 46.54s  INFO Compiled [132/175]: regex_automata
+ 47.05s  INFO Compiled [133/175]: serde_derive
+ 48.18s  INFO Compiled [134/175]: enumset_derive
+ 50.00s  INFO Compiled [135/175]: tracing_subscriber
+ 50.14s  INFO Compiled [136/175]: wasm_bindgen_macro_support
+ 50.20s  INFO Compiled [137/175]: serde
+ 50.20s  INFO Compiled [138/175]: futures_util
+ 50.58s  INFO Compiled [139/175]: wasm_bindgen_macro
+ 50.87s  INFO Compiled [140/175]: enumset
+ 50.92s  INFO Compiled [141/175]: serde
+ 50.96s  INFO Compiled [142/175]: subsecond_types
+ 51.20s  INFO Compiled [143/175]: const_serialize
+ 51.95s  INFO Compiled [144/175]: const_serialize
+ 53.29s  INFO Compiled [145/175]: slotmap
+ 54.35s  INFO Compiled [146/175]: manganis_core
+ 57.13s  INFO Compiled [147/175]: manganis_macro
+ 57.95s  INFO Compiled [148/175]: dioxus_cli_config
+ 58.23s  INFO Compiled [149/175]: wasm_bindgen
+ 58.45s  INFO Compiled [150/175]: sledgehammer_bindgen
+ 59.16s  INFO Compiled [151/175]: tracing_wasm
+ 59.30s  INFO Compiled [152/175]: dioxus_logger
+ 61.58s  INFO Compiled [153/175]: manganis
+ 63.02s  INFO Compiled [154/175]: manganis_core
+ 91.40s  INFO Compiled [155/175]: wasm_bindgen_futures
+ 92.04s  INFO Compiled [156/175]: gloo_timers
+ 93.21s  INFO Compiled [157/175]: serde_wasm_bindgen
+ 94.45s  INFO Compiled [158/175]: js_sys
+106.04s  INFO Compiled [159/175]: dioxus_asset_resolver
+107.02s  INFO Compiled [160/175]: subsecond
+107.35s  INFO Compiled [161/175]: dioxus_interpreter_js
+107.46s  INFO Compiled [162/175]: web_sys
+109.74s  INFO Compiled [163/175]: wasm_streams
+110.39s  INFO Compiled [164/175]: dioxus_devtools_types
+110.57s  INFO Compiled [165/175]: dioxus_history
+112.27s  INFO Compiled [166/175]: dioxus_signals
+112.97s  INFO Compiled [167/175]: dioxus_core
+113.38s  INFO Compiled [168/175]: dioxus_devtools
+113.53s  INFO Compiled [169/175]: dioxus_hooks
+113.95s  INFO Compiled [170/175]: dioxus_stores
+115.89s  INFO Compiled [171/175]: dioxus_html
+117.04s  INFO Compiled [172/175]: dioxus_document
+119.01s  INFO Compiled [173/175]: dioxus
+119.31s  INFO Compiled [174/175]: dioxus_web
+121.47s  INFO Compiled [175/175]: inbox
+121.55s  INFO Bundling app...
+121.63s  INFO Running wasm-bindgen...
+125.58s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v248/usefuture-dioxus/dx/inbox/release/web/public/wasm/inbox_bg.wasm
+125.59s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/248-if-dioxus/compare/build/usefuture-dioxus/assets/page.css
+125.65s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v248/usefuture-dioxus/dx/inbox/release/web/public/wasm/inbox.js
+125.66s  INFO Client build completed successfully! 🚀 path="/Users/you/dev/quillo-videos/.cache/rust-target/v248/usefuture-dioxus/dx/inbox/release/web/public"

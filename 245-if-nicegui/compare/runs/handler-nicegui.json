@@ -1,0 +1,22 @@
+{
+ "name": "handler-nicegui",
+ "url": "http://127.0.0.1:8172/",
+ "when": "2026-11-25T06:16:23.245Z",
+ "if0": "UNREAD +1 UNREAD READ ALL All read",
+ "if1": "UNREAD +1 UNREAD READ ALL 1 new message",
+ "if3": "UNREAD +1 UNREAD READ ALL 3 new messages",
+ "ifRead": "UNREAD +1 UNREAD READ ALL All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 10,
+ "noteCount": 1,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 10,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": []
+}

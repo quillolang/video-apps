@@ -1,0 +1,12 @@
+[package]
+name = "inbox"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dioxus = { version = "0.7.1", features = [] }
+gloo-timers = { version = "0.3", features = ["futures"] }
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]

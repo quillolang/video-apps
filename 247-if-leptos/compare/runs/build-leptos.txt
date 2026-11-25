@@ -1,0 +1,8 @@
+$ trunk build --release --dist /Users/you/dev/quillo-videos/videos/247-if-leptos/compare/.build/leptos
+2026-11-25T06:36:44.039277Z  INFO 🚀 Starting trunk 0.22.2
+2026-11-25T06:36:44.216651Z  INFO 📦 starting build
+2026-11-25T06:36:44.217889Z  INFO node packages []
+   Compiling inbox v0.1.0 (/Users/you/dev/quillo-videos/videos/247-if-leptos/compare/leptos)
+    Finished `release` profile [optimized] target(s) in 1.50s
+2026-11-25T06:36:46.693363Z  INFO applying new distribution
+2026-11-25T06:36:46.694711Z  INFO ✅ success

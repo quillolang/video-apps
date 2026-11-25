@@ -1,0 +1,54 @@
+// Quillo's reactive if: in the markup, as a statement, in a list, and a branch that stays while it holds.
+component Inbox() {
+    state unread = 0
+    state running = false
+    state speed = 100
+    state ticks = 0
+    state todos = [
+        { id: 1, text: "Milk", done: true },
+        { id: 2, text: "Bread", done: false },
+        { id: 3, text: "Eggs", done: false }
+    ]
+    state show_done = false
+    state joining = false
+    if running { every(speed, () => { ticks += 1 }) }
+    <main>
+        <h1>Quillo</h1>
+        <section class="box box-if">
+            <h2>Unread</h2>
+            <button onclick={() => { unread += 1 }}>+1 unread</button>
+            <button onclick={() => { unread = 0 }}>Read all</button>
+            <p class="out">{if unread == 0 {
+                <span>All read</span>
+            } else if unread == 1 {
+                <span>1 new message</span>
+            } else {
+                <strong>{unread} new messages</strong>
+            }}</p>
+        </section>
+        <section class="box box-timer">
+            <h2>Ticker</h2>
+            <button onclick={() => { running = !running }}>{running ? "Stop" : "Start"}</button>
+            <button onclick={() => { speed = speed / 2 }}>Faster</button>
+            <p class="out">{ticks} ticks</p>
+            {if running {
+                <input placeholder="A note, while it runs" aria-label="Note"/>
+            }}
+        </section>
+        <section class="box box-list">
+            <h2>Shopping</h2>
+            <label><input type="checkbox" checked={show_done}/> Show done</label>
+            <ul>{for t in todos {
+                if show_done || !t.done { <li key={t.id}>{t.text}</li> }
+            }}</ul>
+        </section>
+        <section class="box box-one">
+            <h2>Log in or sign up</h2>
+            <button onclick={() => { joining = !joining }}>{joining ? "I have an account" : "I'm new here"}</button>
+            <input placeholder={joining ? "Work email" : "Your email"} aria-label="Email"/>
+        </section>
+    </main>
+}
+
+route GET /page.css = files("public", "page.css")
+route GET / = <html><head><title>Quillo</title><link rel="stylesheet" href="/page.css"/></head><body><Inbox/></body></html>

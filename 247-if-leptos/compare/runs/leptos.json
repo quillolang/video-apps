@@ -1,0 +1,24 @@
+{
+ "name": "leptos",
+ "url": "http://127.0.0.1:5275/",
+ "when": "2026-11-25T06:36:48.112Z",
+ "if0": "UNREAD +1 unreadRead all All read",
+ "if1": "UNREAD +1 unreadRead all 1 new message",
+ "if3": "UNREAD +1 unreadRead all 3 new messages",
+ "ifRead": "UNREAD +1 unreadRead all All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 20,
+ "noteCount": 1,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 0,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": [
+  "The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information"
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "name": "usefuture-dioxus",
+ "url": "http://127.0.0.1:5274/",
+ "when": "2026-11-25T06:23:34.976Z",
+ "if0": "UNREAD +1 unreadRead all All read",
+ "if1": "UNREAD +1 unreadRead all 1 new message",
+ "if3": "UNREAD +1 unreadRead all 3 new messages",
+ "ifRead": "UNREAD +1 unreadRead all All read",
+ "t0": 0,
+ "perSecond": 0,
+ "perSecondFaster": 0,
+ "noteCount": 1,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 0,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": []
+}

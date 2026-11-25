@@ -1,0 +1,24 @@
+{
+ "name": "oncleanup-solid-dev",
+ "url": "http://127.0.0.1:5363/",
+ "when": "2026-11-25T05:58:23.255Z",
+ "if0": "UNREAD +1 unreadRead all All read",
+ "if1": "UNREAD +1 unreadRead all 1 new message",
+ "if3": "UNREAD +1 unreadRead all 3 new messages",
+ "ifRead": "UNREAD +1 unreadRead all All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 30,
+ "noteValue": "buy milk",
+ "noteFocused": true,
+ "afterStop": 30,
+ "noteGone": true,
+ "list": "SHOPPING Show done Bread Eggs",
+ "listAll": "SHOPPING Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": [
+  "[NO_OWNER_CLEANUP] onCleanup called outside a reactive context will never be run\n[NO_OWNER_CLEANUP] what it means and how to fix it: https://docs.solidjs.com/reference/solid-js/diagnostics/no-owner-cleanup\n[NO_OWNER_CLEANUP] agent repair guide: node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md#no_owner_cleanup — https://github.com/solidjs/solid/blob/next/packages/solid/skills/reactivity-diagnostics/SKILL.md#no_owner_cleanup",
+  "[NO_OWNER_CLEANUP] onCleanup called outside a reactive context will never be run"
+ ]
+}

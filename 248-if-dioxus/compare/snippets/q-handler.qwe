@@ -1,0 +1,4 @@
+<button onclick={() => {
+    running = !running
+    if running { every(speed, () => { ticks += 1 }) }
+}}>{running ? "Stop" : "Start"}</button>

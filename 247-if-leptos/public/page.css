@@ -1,0 +1,11 @@
+/* The one stylesheet both apps use. */
+body { margin: 0; background: #f4f1ea; font: 17px/1.4 system-ui, sans-serif; color: #1d2433; }
+main { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 18px; max-width: 760px; margin: 0 auto; }
+h1 { grid-column: 1 / -1; margin: 0; font-size: 24px; }
+.box { background: #fff; border-radius: 12px; padding: 12px 14px; box-shadow: 0 1px 3px #0002; min-height: 150px; }
+.box h2 { margin: 0 0 10px; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; }
+button { font: inherit; font-size: 15px; padding: 5px 10px; margin: 0 6px 6px 0; border: 1px solid #c9ced6; border-radius: 8px; background: #fafafa; cursor: pointer; }
+input:not([type]) { font: inherit; padding: 6px 8px; border: 1px solid #c9ced6; border-radius: 8px; width: 90%; margin-top: 4px; }
+.out { margin: 6px 0 0; font-size: 20px; }
+ul { margin: 6px 0 0; padding-left: 22px; font-size: 19px; }
+label { font-size: 16px; }

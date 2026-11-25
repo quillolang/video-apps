@@ -1,0 +1,21 @@
+{
+ "name": "streamlit",
+ "url": "http://127.0.0.1:8163/",
+ "when": "2026-11-25T06:36:30.929Z",
+ "if0": "Unread +1 unread Read all All read",
+ "if1": "Unread +1 unread Read all 1 new message",
+ "if3": "Unread +1 unread Read all 3 new messages",
+ "ifRead": "Unread +1 unread Read all All read",
+ "t0": 0,
+ "perSecond": 10,
+ "perSecondFaster": 20,
+ "noteCount": 0,
+ "noteError": "locator.click: Timeout 5000ms exceeded.",
+ "afterStop": 0,
+ "noteGone": true,
+ "list": "Shopping Show done Bread Eggs",
+ "listAll": "Shopping Show done Milk Bread Eggs",
+ "oneValue": "ana@mail.com",
+ "onePlaceholder": "Work email",
+ "console": []
+}

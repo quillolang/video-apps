@@ -1,0 +1,7 @@
+{#if unread === 0}
+  <span>All read</span>
+{:else if unread === 1}
+  <span>1 new message</span>
+{:else}
+  <strong>{unread} new messages</strong>
+{/if}
