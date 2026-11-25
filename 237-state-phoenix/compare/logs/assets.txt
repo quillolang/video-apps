@@ -1,0 +1,5 @@
+
+  ../priv/static/assets/js/app.js  149.6kb
+
+⚡ Done in 14ms
+Check your digested files at "priv/static"

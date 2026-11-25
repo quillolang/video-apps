@@ -1,0 +1,131 @@
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> plug_crypto
+Compiling 5 files (.ex)
+Generated plug_crypto app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> elixir_make
+Compiling 8 files (.ex)
+Generated elixir_make app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> esbuild
+Compiling 4 files (.ex)
+Generated esbuild app
+==> state_phoenix
+===> Analyzing applications...
+===> Compiling telemetry
+==> telemetry_metrics
+Compiling 7 files (.ex)
+Generated telemetry_metrics app
+==> state_phoenix
+===> Analyzing applications...
+===> Compiling telemetry_poller
+==> thousand_island
+Compiling 18 files (.ex)
+Generated thousand_island app
+==> ecto
+Compiling 56 files (.ex)
+Generated ecto app
+==> db_connection
+Compiling 18 files (.ex)
+Generated db_connection app
+==> ecto_sql
+Compiling 25 files (.ex)
+Generated ecto_sql app
+==> phoenix_html
+Compiling 6 files (.ex)
+Generated phoenix_html app
+==> phoenix_template
+Compiling 4 files (.ex)
+Generated phoenix_template app
+==> phoenix_pubsub
+Compiling 13 files (.ex)
+Generated phoenix_pubsub app
+==> dns_cluster
+Compiling 1 file (.ex)
+     warning: comparison between distinct types found:
+
+         net_state.started != :no
+
+     given types:
+
+         dynamic(not :no) != :no
+
+     where "net_state" was given the types:
+
+         # type: dynamic()
+         # from: lib/dns_cluster.ex:207:8
+         net_state
+
+         # type: dynamic(not false and not nil)
+         # from: lib/dns_cluster.ex:207:8
+         net_state
+
+         # type: dynamic(%{..., started: term()})
+         # from: lib/dns_cluster.ex:210:25
+         net_state.started == :no
+
+         # type: dynamic(%{..., started: not :no})
+         # from: lib/dns_cluster.ex:220:25
+         net_state.started == :no
+
+     While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+     type warning found at:
+     │
+ 221 │           (!release? and net_state.started != :no and net_state[:name_domain] != :longnames) ->
+     │                                            ~
+     │
+     └─ lib/dns_cluster.ex:221:44: DNSCluster.warn_on_invalid_dist/0
+
+Generated dns_cluster app
+==> plug
+Compiling 1 file (.erl)
+Compiling 42 files (.ex)
+Generated plug app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.5) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.5) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.5) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.5) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.5) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.5) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> phoenix_ecto
+Compiling 7 files (.ex)
+Generated phoenix_ecto app
+==> cc_precompiler
+Compiling 3 files (.ex)
+Generated cc_precompiler app
+==> exqlite
+Compiling 12 files (.ex)
+Generated exqlite app
+==> ecto_sqlite3
+Compiling 5 files (.ex)
+Generated ecto_sqlite3 app
+==> websock
+Compiling 1 file (.ex)
+Generated websock app
+==> bandit
+Compiling 54 files (.ex)
+Generated bandit app
+==> websock_adapter
+Compiling 5 files (.ex)
+Generated websock_adapter app
+==> phoenix
+Compiling 75 files (.ex)
+Generated phoenix app
+==> phoenix_live_view
+Compiling 55 files (.ex)
+Generated phoenix_live_view app
+==> state_phoenix
+Compiling 15 files (.ex)
+Generated state_phoenix app

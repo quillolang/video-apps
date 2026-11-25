@@ -1,0 +1,56 @@
+* creating phoenix/lib/state_phoenix/application.ex
+* creating phoenix/lib/state_phoenix.ex
+* creating phoenix/lib/state_phoenix_web/controllers/error_json.ex
+* creating phoenix/lib/state_phoenix_web/endpoint.ex
+* creating phoenix/lib/state_phoenix_web/router.ex
+* creating phoenix/lib/state_phoenix_web/telemetry.ex
+* creating phoenix/lib/state_phoenix_web.ex
+* creating phoenix/mix.exs
+* creating phoenix/README.md
+* creating phoenix/.formatter.exs
+* creating phoenix/.gitignore
+* creating phoenix/test/support/conn_case.ex
+* creating phoenix/test/test_helper.exs
+* creating phoenix/test/state_phoenix_web/controllers/error_json_test.exs
+* creating phoenix/lib/state_phoenix/repo.ex
+* creating phoenix/priv/repo/migrations/.formatter.exs
+* creating phoenix/priv/repo/seeds.exs
+* creating phoenix/test/support/data_case.ex
+* creating phoenix/lib/state_phoenix_web/controllers/error_html.ex
+* creating phoenix/test/state_phoenix_web/controllers/error_html_test.exs
+* creating phoenix/lib/state_phoenix_web/components/core_components.ex
+* creating phoenix/lib/state_phoenix_web/controllers/page_controller.ex
+* creating phoenix/lib/state_phoenix_web/controllers/page_html.ex
+* creating phoenix/lib/state_phoenix_web/controllers/page_html/home.html.heex
+* creating phoenix/test/state_phoenix_web/controllers/page_controller_test.exs
+* creating phoenix/lib/state_phoenix_web/components/layouts/root.html.heex
+* creating phoenix/lib/state_phoenix_web/components/layouts.ex
+* creating phoenix/priv/static/images/logo.svg
+* creating phoenix/priv/static/robots.txt
+* creating phoenix/priv/static/favicon.ico
+* creating phoenix/assets/js/app.js
+* creating phoenix/assets/vendor/topbar.js
+* creating phoenix/assets/tsconfig.json
+* creating phoenix/priv/static/assets/css/app.css
+* creating phoenix/priv/static/assets/default.css
+* initializing git repository
+* running mix deps.get
+* running mix assets.setup
+* running mix deps.compile
+
+We are almost there! The following steps are missing:
+
+    $ cd phoenix
+
+Then configure your database in config/dev.exs and run:
+
+    $ mix ecto.create
+
+Start your Phoenix app with:
+
+    $ mix phx.server
+
+You can also run your app inside IEx (Interactive Elixir) as:
+
+    $ iex -S mix phx.server
+

@@ -1,0 +1,12 @@
+defmodule StatePhoenixWeb.ErrorJSONTest do
+  use StatePhoenixWeb.ConnCase, async: true
+
+  test "renders 404" do
+    assert StatePhoenixWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+  end
+
+  test "renders 500" do
+    assert StatePhoenixWeb.ErrorJSON.render("500.json", %{}) ==
+             %{errors: %{detail: "Internal Server Error"}}
+  end
+end

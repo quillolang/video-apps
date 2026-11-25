@@ -1,0 +1,25 @@
+{
+ "sides": {
+  "quillo": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 1,
+   "saved": 1,
+   "synced": 0
+  },
+  "phoenix": {
+   "tab": 0,
+   "address": 1,
+   "visitor": 1,
+   "everyone": 0,
+   "saved": 0,
+   "synced": 0
+  }
+ },
+ "printed": [
+  "Quillo     This tab: 0 · The address: 1 · This visitor: 1 · Everyone, until a restart: 1 · Everyone, for good: 1 · Kept in sync: 0",
+  "Phoenix    This tab: 0 · The address: 1 · This visitor: 1 · Everyone, until a restart: 0 · Everyone, for good: 0 · Kept in sync: 0"
+ ],
+ "when": "2026-11-25T16:41:59.094Z"
+}
