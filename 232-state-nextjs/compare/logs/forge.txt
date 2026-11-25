@@ -1,0 +1,4 @@
+$ curl -s -H 'Cookie: visitor=999' 127.0.0.1:8290/ | sed 's/<!-- -->//g' | grep -o 'This visitor: [0-9]*'
+This visitor: 999
+$ curl -s -H 'Cookie: __Host-quillo_session=n=999' 127.0.0.1:8289/ | grep -o 'This visitor: [0-9]*'
+This visitor: 0

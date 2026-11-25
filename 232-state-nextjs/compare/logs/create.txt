@@ -1,0 +1,32 @@
+Creating a new Next.js app in /Users/you/dev/quillo-videos/videos/232-state-nextjs/compare/nextjs.
+
+Using npm.
+
+Initializing project with template: app 
+
+
+Installing dependencies:
+- next
+- react
+- react-dom
+
+Installing devDependencies:
+- eslint
+- eslint-config-next
+
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 393 packages, and audited 394 packages in 27s
+
+166 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Generating route types...
+✓ Types generated successfully
+
+Initialized a git repository.
+
+Success! Created nextjs at /Users/you/dev/quillo-videos/videos/232-state-nextjs/compare/nextjs
+

@@ -1,0 +1,11 @@
+Quillo                     +1         reload     2nd tab    browser B  B's +1     restart    new secret
+This tab                   1          0          0          0          0          0          0
+The address                1          1          0          0          1          1          1
+This visitor               1          1          1          0          1          1          0
+Everyone, until a restart  1          1          1          1          1          0          0
+Everyone, for good         1          1          1          1          1          2          2
+Kept in sync               1          1          1          1          2          2          2
+Quillo, --instances 2: 4 +1s each, then 20 reads: everyone 2; saved 4
+kept in sync: tab A saw B's +1 after 49, 37, 14, 15, 24 ms (median 24); idle for 30 s it made 0 HTTP requests and 0 WebSocket messages
+kept in sync with 2 processes: tab A saw B's +1 within 3 s in 12 of 12 tries
+
