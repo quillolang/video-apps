@@ -39,16 +39,17 @@ view Elevation(profile: str) =
 
 component TrailPage(id: int) {
     state trail = load_trail(id)            // the same: the server, or the browser after a click
-    <main>
-        <a.back href="/">← All trails</a>
-        <h1>{trail.name}</h1>
-        <p>
-            <Level level={trail.level}/>{" "}
-            <span.facts>{trail.km} km · {trail.climb} m up · starts at {trail.start}</span>
-        </p>
-        <Elevation profile={trail.profile}/>
-        <p.about>{trail.about}</p>
-    </main>
+    {trail == null ? <NotFound path={`/trails/${id}`}/>      // as in lesson 2: null, no such trail
+        : <main>
+              <a.back href="/">← All trails</a>
+              <h1>{trail.name}</h1>
+              <p>
+                  <Level level={trail.level}/>{" "}
+                  <span.facts>{trail.km} km · {trail.climb} m up · starts at {trail.start}</span>
+              </p>
+              <Elevation profile={trail.profile}/>
+              <p.about>{trail.about}</p>
+          </main>}
 }
 
 view NotFound(path: str) =
