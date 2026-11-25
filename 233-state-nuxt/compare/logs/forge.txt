@@ -1,0 +1,6 @@
+$ curl -si -X POST 127.0.0.1:8294/api/visitor | grep -i set-cookie | cut -c1-58
+set-cookie: h3=Fe26.2**5c8f132118f48ee06098fd0314688a4f9d0
+$ curl -s -H 'Cookie: h3=n=999' 127.0.0.1:8294/ | grep -o 'This visitor: [0-9]*'
+This visitor: 0
+$ curl -s -H 'Cookie: __Host-quillo_session=n=999' 127.0.0.1:8295/ | grep -o 'This visitor: [0-9]*'
+This visitor: 0

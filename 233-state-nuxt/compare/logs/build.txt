@@ -1,0 +1,17 @@
+Building Nuxt for production...
+● Loading Nuxt config
+● Nuxt 4.7.0 (with Nitro 2.14.0, Vite 8.3.8 and Vue 3.5.46)
+● Setting up modules
+● Preparing app
+● Deploy target: node-server
+● Generating types
+● Building
+● Bundling client
+● Bundling server
+● Bundling nitro
+◆ Client (vite) built in 197ms · 219.53 kB (81.60 kB gzip)
+  Server (vite) built in 80ms · 110.47 kB
+  Nitro (rollup) built in 1.11s · 1.29 MB
+◆ Build complete in 2.25s
+  config 149ms · modules 13ms · app 242ms · types 84ms · build 1.76s
+◆ You can preview this build using npx nuxt preview
