@@ -1,0 +1,38 @@
+{
+ "name": "leptos",
+ "url": "http://localhost:5196/",
+ "when": "2026-11-25T03:49:11.499Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": "DETAILS Hide details Ships in 2 days.",
+  "details:hidden": "DETAILS Show details",
+  "status:start": "STATUS LoadingErrorReady Loading…",
+  "status:Error": "STATUS LoadingErrorReady Couldn't load",
+  "status:Ready": "STATUS LoadingErrorReady 3 messages",
+  "status:Loading": "STATUS LoadingErrorReady Loading…",
+  "zero:start": "UNREAD +1 unreadRead all Inbox",
+  "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+  "zero:read": "UNREAD +1 unreadRead all Inbox",
+  "switch:typed": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email",
+   "aria": "Your email"
+  },
+  "switch:switched": {
+   "value": "",
+   "placeholder": "Work email",
+   "aria": "Work email",
+   "text": "LOG IN OR SIGN UP I have an account"
+  },
+  "switch:back": {
+   "value": "",
+   "placeholder": "Your email"
+  },
+  "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 0+1"
+ },
+ "console": [
+  "warning: The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information"
+ ]
+}

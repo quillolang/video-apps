@@ -1,0 +1,11 @@
+{
+ "name": "zero-nicegui",
+ "url": "http://127.0.0.1:5315/",
+ "when": "2026-11-25T04:21:49.351Z",
+ "steps": {
+  "zero:start": "UNREAD +1 UNREAD READ ALL Inbox",
+  "zero:one": "UNREAD +1 UNREAD READ ALL Inbox 1 new",
+  "zero:read": "UNREAD +1 UNREAD READ ALL Inbox"
+ },
+ "console": []
+}

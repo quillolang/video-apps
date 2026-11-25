@@ -1,0 +1,9 @@
+let label = if open() { "Hide details" } else { "Show details" };
+// ...
+section { class: "box box-details",
+    h2 { "Details" }
+    button { onclick: move |_| open.toggle(), "{label}" }
+    if open() {
+        p { class: "out", "Ships in 2 days." }
+    }
+}

@@ -1,0 +1,5 @@
+match status() {
+    "loading" => rsx! { em { "Loading…" } },
+    "error" => rsx! { strong { "Couldn't load" } },
+    _ => rsx! { span { "3 messages" } },
+}

@@ -1,0 +1,4 @@
+"Inbox"
+<Show when=move || { unread.get() > 0 }>
+    <span class="badge">{unread} " new"</span>
+</Show>

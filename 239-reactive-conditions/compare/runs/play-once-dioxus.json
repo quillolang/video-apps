@@ -1,0 +1,11 @@
+{
+ "name": "once-dioxus",
+ "url": "http://127.0.0.1:5237/",
+ "when": "2026-11-25T04:02:30.460Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": "DETAILS Hide details Ships in 2 days.",
+  "details:hidden": "DETAILS Show details"
+ },
+ "console": []
+}

@@ -1,0 +1,11 @@
+{
+ "name": "zero-react",
+ "url": "http://127.0.0.1:5212/",
+ "when": "2026-11-25T03:51:50.362Z",
+ "steps": {
+  "zero:start": "UNREAD +1 unreadRead all Inbox0",
+  "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+  "zero:read": "UNREAD +1 unreadRead all Inbox0"
+ },
+ "console": []
+}

@@ -1,0 +1,32 @@
+{
+ "name": "reflex",
+ "url": "http://127.0.0.1:5305/",
+ "when": "2026-11-25T04:29:46.615Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": "DETAILS Hide details Ships in 2 days.",
+  "details:hidden": "DETAILS Show details",
+  "zero:start": "UNREAD +1 unreadRead all Inbox",
+  "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+  "zero:read": "UNREAD +1 unreadRead all Inbox",
+  "switch:typed": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email",
+   "aria": "Your email"
+  },
+  "switch:switched": {
+   "value": "ana@mail.com",
+   "placeholder": "Work email",
+   "aria": "Work email",
+   "text": "LOG IN OR SIGN UP I have an account"
+  },
+  "switch:back": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email"
+  },
+  "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 2+1"
+ },
+ "console": []
+}

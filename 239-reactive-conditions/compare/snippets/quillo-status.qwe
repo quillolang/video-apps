@@ -1,0 +1,5 @@
+<p class="out">{match status {
+    "loading" => <em>Loading…</em>
+    "error" => <strong>Couldn't load</strong>
+    _ => <span>3 messages</span>
+}}</p>

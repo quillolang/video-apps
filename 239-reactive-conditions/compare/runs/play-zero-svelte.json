@@ -1,0 +1,11 @@
+{
+ "name": "zero-svelte",
+ "url": "http://127.0.0.1:5216/",
+ "when": "2026-11-25T03:52:07.851Z",
+ "steps": {
+  "zero:start": "UNREAD +1 unread Read all Inbox",
+  "zero:one": "UNREAD +1 unread Read all Inbox1 new",
+  "zero:read": "UNREAD +1 unread Read all Inbox"
+ },
+ "console": []
+}

@@ -1,0 +1,11 @@
+{
+ "name": "zero-vue",
+ "url": "http://127.0.0.1:5214/",
+ "when": "2026-11-25T03:51:59.336Z",
+ "steps": {
+  "zero:start": "UNREAD +1 unreadRead all Inbox",
+  "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+  "zero:read": "UNREAD +1 unreadRead all Inbox"
+ },
+ "console": []
+}

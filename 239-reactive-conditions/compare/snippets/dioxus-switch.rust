@@ -1,0 +1,5 @@
+if joining() {
+    input { placeholder: "Work email", aria_label: "Work email" }
+} else {
+    input { placeholder: "Your email", aria_label: "Your email" }
+}

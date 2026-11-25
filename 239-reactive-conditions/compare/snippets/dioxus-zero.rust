@@ -1,0 +1,4 @@
+"Inbox"
+if unread() > 0 {
+    span { class: "badge", "{unread} new" }
+}

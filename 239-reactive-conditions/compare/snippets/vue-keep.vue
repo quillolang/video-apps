@@ -1,0 +1,1 @@
+<ClickCounter v-if="shown" />

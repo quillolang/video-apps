@@ -1,0 +1,11 @@
+{
+ "name": "keep-vue",
+ "url": "http://127.0.0.1:5242/",
+ "when": "2026-11-25T04:02:55.291Z",
+ "steps": {
+  "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 2+1"
+ },
+ "console": []
+}

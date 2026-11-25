@@ -1,0 +1,17 @@
+{
+ "name": "once-react",
+ "url": "http://127.0.0.1:5226/",
+ "when": "2026-11-25T03:54:49.372Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": {
+   "error": "locator.screenshot: Timeout 30000ms exceeded."
+  },
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": [
+  "pageerror: Minified React error #310; visit https://react.dev/errors/310 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+ ]
+}

@@ -1,0 +1,3 @@
+{#if shown}
+  <Counter />
+{/if}

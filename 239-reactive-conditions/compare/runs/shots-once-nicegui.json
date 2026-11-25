@@ -1,0 +1,13 @@
+{
+ "name": "once-nicegui",
+ "url": "http://127.0.0.1:5321/",
+ "when": "2026-11-25T04:24:45.106Z",
+ "steps": {
+  "details:start": "DETAILS SHOW DETAILS",
+  "details:shown": "DETAILS SHOW DETAILS Ships in 2 days.",
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": []
+}

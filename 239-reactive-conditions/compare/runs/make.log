@@ -1,0 +1,84 @@
+zero-react: lint 0 build 0 check -
+  dev {"zero:start":"UNREAD +1 unreadRead all Inbox0","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox0"}
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox0","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox0"}
+zero-vue: lint 0 build 0 check -
+  dev {"zero:start":"UNREAD +1 unreadRead all Inbox","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox"}
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox"}
+zero-svelte: lint - build 0 check -
+  dev {"zero:start":"UNREAD +1 unread Read all Inbox","zero:one":"UNREAD +1 unread Read all Inbox1 new","zero:read":"UNREAD +1 unread Read all Inbox"}
+  prod {"zero:start":"UNREAD +1 unread Read all Inbox","zero:one":"UNREAD +1 unread Read all Inbox1 new","zero:read":"UNREAD +1 unread Read all Inbox"}
+zero-solid: lint 0 build 0 check -
+  dev {"zero:start":"UNREAD +1 unreadRead all Inbox0","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox0"}
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox0","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox0"}
+zero-reflex: lint - build - check -
+  dev -
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox"}
+zero-nicegui: lint - build - check -
+  dev -
+  prod {"zero:start":"UNREAD +1 UNREAD READ ALL Inbox","zero:one":"UNREAD +1 UNREAD READ ALL Inbox 1 new","zero:read":"UNREAD +1 UNREAD READ ALL Inbox"}
+zero-streamlit: lint - build - check -
+  dev -
+  prod {"zero:start":"Unread +1 unread Read all Inbox","zero:one":"Unread +1 unread Read all Inbox 1 new","zero:read":"Unread +1 unread Read all Inbox"}
+zero-leptos: lint - build 1 check -
+  dev -
+  prod -
+zero-dioxus: lint - build 1 check -
+  dev -
+  prod -
+zero-quillo: lint - build - check 0
+  dev -
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox0 new","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox0 new"}
+zeroshow-solid: lint 0 build 0 check -
+  dev {"zero:start":"UNREAD +1 unreadRead all Inbox","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox"}
+  prod {"zero:start":"UNREAD +1 unreadRead all Inbox","zero:one":"UNREAD +1 unreadRead all Inbox1 new","zero:read":"UNREAD +1 unreadRead all Inbox"}
+once-react: lint 1 build 0 check -
+  dev {"details:start":"DETAILS Show details","details:shown":{"error":"locator.screenshot: Timeout 30000ms exceeded."},"details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+  prod {"details:start":"DETAILS Show details","details:shown":{"error":"locator.screenshot: Timeout 30000ms exceeded."},"details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-vue: lint 0 build 0 check -
+  dev {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-svelte: lint - build 0 check -
+  dev {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-solid: lint 0 build 0 check -
+  dev {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-reflex: lint - build - check -
+  dev -
+  prod -
+once-nicegui: lint - build - check -
+  dev -
+  prod {"details:start":"DETAILS SHOW DETAILS","details:shown":"DETAILS SHOW DETAILS Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-streamlit: lint - build - check -
+  dev -
+  prod {"details:start":"Details Show details","details:shown":"Details Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-leptos: lint - build 0 check -
+  dev -
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Show details Ships in 2 days.","details:hidden":{"error":"locator.click: Timeout 30000ms exceeded."}}
+once-dioxus: lint - build 0 check -
+  dev -
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Hide details Ships in 2 days.","details:hidden":"DETAILS Show details"}
+once-quillo: lint - build - check 0
+  dev -
+  prod {"details:start":"DETAILS Show details","details:shown":"DETAILS Hide details Ships in 2 days.","details:hidden":"DETAILS Show details"}
+keep-react: lint 0 build 0 check -
+  dev {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+keep-vue: lint 0 build 0 check -
+  dev {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+keep-svelte: lint - build 0 check -
+  dev {"keep:clicked":"COUNTER Hide counter Clicked 2 +1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2 +1"}
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2 +1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2 +1"}
+keep-solid: lint 0 build 0 check -
+  dev {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+keep-leptos: lint - build 0 check -
+  dev -
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+keep-dioxus: lint - build 0 check -
+  dev -
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}
+keep-quillo: lint - build - check 0
+  dev -
+  prod {"keep:clicked":"COUNTER Hide counter Clicked 2+1","keep:hidden":"COUNTER Show counter","keep:back":"COUNTER Hide counter Clicked 2+1"}

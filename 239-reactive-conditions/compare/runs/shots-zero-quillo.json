@@ -1,0 +1,11 @@
+{
+ "name": "zero-quillo",
+ "url": "http://127.0.0.1:5313/",
+ "when": "2026-11-25T04:21:34.595Z",
+ "steps": {
+  "zero:start": "UNREAD +1 unreadRead all Inbox0 new",
+  "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+  "zero:read": "UNREAD +1 unreadRead all Inbox0 new"
+ },
+ "console": []
+}

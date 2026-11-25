@@ -1,0 +1,32 @@
+{
+ "name": "streamlit",
+ "url": "http://127.0.0.1:5307/",
+ "when": "2026-11-25T04:30:10.016Z",
+ "steps": {
+  "details:start": "Details Show details",
+  "details:shown": "Details Hide details Ships in 2 days.",
+  "details:hidden": "Details Show details",
+  "zero:start": "Unread +1 unread Read all Inbox",
+  "zero:one": "Unread +1 unread Read all Inbox 1 new",
+  "zero:read": "Unread +1 unread Read all Inbox",
+  "switch:typed": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email",
+   "aria": "Your email"
+  },
+  "switch:switched": {
+   "value": "",
+   "placeholder": "Work email",
+   "aria": "Work email",
+   "text": "Log in or sign up I have an account"
+  },
+  "switch:back": {
+   "value": "",
+   "placeholder": "Your email"
+  },
+  "keep:clicked": "Counter Hide counter Clicked 2 +1",
+  "keep:hidden": "Counter Show counter",
+  "keep:back": "Counter Hide counter Clicked 2 +1"
+ },
+ "console": []
+}

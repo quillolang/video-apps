@@ -1,0 +1,3 @@
+{joining
+  ? <input placeholder="Work email" aria-label="Work email" />
+  : <input placeholder="Your email" aria-label="Your email" />}

@@ -1,0 +1,2 @@
+if ss.shown:
+    counter()

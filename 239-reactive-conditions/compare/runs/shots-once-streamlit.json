@@ -1,0 +1,13 @@
+{
+ "name": "once-streamlit",
+ "url": "http://127.0.0.1:5322/",
+ "when": "2026-11-25T04:25:19.420Z",
+ "steps": {
+  "details:start": "Details Show details",
+  "details:shown": "Details Show details Ships in 2 days.",
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": []
+}

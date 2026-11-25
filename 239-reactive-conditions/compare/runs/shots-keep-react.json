@@ -1,0 +1,11 @@
+{
+ "name": "keep-react",
+ "url": "http://127.0.0.1:5325/",
+ "when": "2026-11-25T04:27:03.367Z",
+ "steps": {
+  "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 2+1"
+ },
+ "console": []
+}

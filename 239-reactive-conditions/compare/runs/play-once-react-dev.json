@@ -1,0 +1,19 @@
+{
+ "name": "once-react-dev",
+ "url": "http://127.0.0.1:5225/",
+ "when": "2026-11-25T03:53:45.981Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": {
+   "error": "locator.screenshot: Timeout 30000ms exceeded."
+  },
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": [
+  "error: React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks\n\n   Previous render            Next render\n   ------------------------------------------------------\n%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n App 1. useState                   useState\n2. useState                   useState\n3. useState                   useState\n4. useState                   useState\n5. useState                   useState\n6. undefined                  useEffect\n",
+  "pageerror: Rendered more hooks than during the previous render.",
+  "warning: %s\n\n%s\n An error occurred in the <App> component. Consider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries."
+ ]
+}

@@ -1,0 +1,168 @@
+$ dx build --release --platform web --debug-symbols false
+  0.00s  INFO Building project...
+  0.68s  INFO Compiled [  1/175]: cfg_if
+  0.70s  INFO Compiled [  2/175]: pin_project_lite
+  0.70s  INFO Compiled [  3/175]: unicode_ident
+  0.70s  INFO Compiled [  4/175]: unicode_ident
+  0.71s  INFO Compiled [  5/175]: futures_core
+  0.74s  INFO Compiled [  6/175]: futures_sink
+  0.77s  INFO Compiled [  7/175]: bumpalo
+  0.78s  INFO Compiled [  8/175]: futures_task
+  0.79s  INFO Compiled [  9/175]: futures_io
+  0.82s  INFO Compiled [ 10/175]: slab
+  0.88s  INFO Compiled [ 11/175]: once_cell
+  0.90s  INFO Compiled [ 12/175]: version_check
+  1.00s  INFO Compiled [ 13/175]: build-script-build
+  1.00s  INFO Compiled [ 14/175]: build-script-build
+  1.00s  INFO Compiled [ 15/175]: build-script-build
+  1.00s  INFO Compiled [ 16/175]: build-script-build
+  1.00s  INFO Compiled [ 17/175]: build-script-build
+  1.00s  INFO Compiled [ 18/175]: build-script-build
+  1.01s  INFO Compiled [ 19/175]: build-script-build
+  1.04s  INFO Compiled [ 20/175]: build-script-build
+  1.04s  INFO Compiled [ 21/175]: memchr
+  1.21s  INFO Compiled [ 22/175]: tracing_core
+  1.27s  INFO Compiled [ 23/175]: smallvec
+  1.29s  INFO Compiled [ 24/175]: scopeguard
+  1.36s  INFO Compiled [ 25/175]: lock_api
+  1.41s  INFO Compiled [ 27/175]: build-script-build
+  1.42s  INFO Compiled [ 28/175]: dioxus_core_types
+  1.47s  INFO Compiled [ 29/175]: konst_macro_rules
+  1.50s  INFO Compiled [ 30/175]: unicode_xid
+  1.50s  INFO Compiled [ 31/175]: build-script-build
+  1.60s  INFO Compiled [ 32/175]: konst
+  1.88s  INFO Compiled [ 34/175]: rustversion
+  2.19s  INFO Compiled [ 36/175]: futures_channel
+  2.22s  INFO Compiled [ 37/175]: rustc_hash
+  2.24s  INFO Compiled [ 38/175]: longest_increasing_subsequence
+  2.30s  INFO Compiled [ 39/175]: lazy_js_bundle
+  2.33s  INFO Compiled [ 40/175]: ident_case
+  2.45s  INFO Compiled [ 42/175]: unicode_segmentation
+  2.46s  INFO Compiled [ 43/175]: fnv
+  2.52s  INFO Compiled [ 44/175]: build-script-build
+  2.54s  INFO Compiled [ 45/175]: convert_case
+  2.62s  INFO Compiled [ 46/175]: build-script-build
+  2.63s  INFO Compiled [ 47/175]: autocfg
+  2.69s  INFO Compiled [ 48/175]: build-script-build
+  2.89s  INFO Compiled [ 51/175]: wasm_bindgen_shared
+  2.97s  INFO Compiled [ 52/175]: build-script-build
+  3.00s  INFO Compiled [ 53/175]: wasm_bindgen_shared
+  3.07s  INFO Compiled [ 54/175]: build-script-build
+  3.44s  INFO Compiled [ 56/175]: proc_macro2
+  3.51s  INFO Compiled [ 57/175]: quote
+  4.33s  INFO Compiled [ 61/175]: parking_lot_core
+  4.57s  INFO Compiled [ 62/175]: serde_core
+  4.62s  INFO Compiled [ 64/175]: parking_lot
+  4.84s  INFO Compiled [ 65/175]: anyhow
+  4.88s  INFO Compiled [ 66/175]: const_format_proc_macros
+  4.99s  INFO Compiled [ 67/175]: build-script-build
+  5.02s  INFO Compiled [ 68/175]: syn
+  5.06s  INFO Compiled [ 69/175]: syn
+  5.32s  INFO Compiled [ 71/175]: futures_macro
+  5.73s  INFO Compiled [ 73/175]: tracing_attributes
+  5.81s  INFO Compiled [ 74/175]: darling_core
+  6.07s  INFO Compiled [ 76/175]: thiserror_impl
+  6.09s  INFO Compiled [ 77/175]: serde_derive
+  6.13s  INFO Compiled [ 78/175]: const_serialize_macro
+  6.19s  INFO Compiled [ 79/175]: pin_project_internal
+  6.24s  INFO Compiled [ 80/175]: warnings_macro
+  6.34s  INFO Compiled [ 82/175]: darling_macro
+  6.45s  INFO Compiled [ 83/175]: const_serialize_macro
+  6.51s  INFO Compiled [ 84/175]: proc_macro2_diagnostics
+  6.57s  INFO Compiled [ 85/175]: wasm_bindgen_macro_support
+  6.68s  INFO Compiled [ 86/175]: wasm_bindgen_macro
+  6.79s  INFO Compiled [ 87/175]: const_format
+  7.18s  INFO Compiled [ 89/175]: serde_core
+  7.24s  INFO Compiled [ 90/175]: build-script-build
+  7.79s  INFO Compiled [ 91/175]: tracing
+  7.92s  INFO Compiled [ 92/175]: generational_box
+  8.08s  INFO Compiled [ 93/175]: thiserror
+  8.12s  INFO Compiled [ 94/175]: futures_util
+  8.50s  INFO Compiled [ 95/175]: regex_syntax
+  8.50s  INFO Compiled [ 96/175]: dioxus_rsx
+  8.59s  INFO Compiled [ 97/175]: zmij
+  8.60s  INFO Compiled [ 98/175]: serde
+  8.62s  INFO Compiled [ 99/175]: serde
+  8.64s  INFO Compiled [100/175]: subsecond_types
+  8.65s  INFO Compiled [101/175]: lazy_static
+  8.71s  INFO Compiled [102/175]: itoa
+  8.75s  INFO Compiled [103/175]: matchers
+  8.78s  INFO Compiled [104/175]: bitflags
+  8.82s  INFO Compiled [105/175]: slotmap
+  8.82s  INFO Compiled [106/175]: pin_project
+  8.96s  INFO Compiled [107/175]: sharded_slab
+  9.09s  INFO Compiled [108/175]: keyboard_types
+  9.18s  INFO Compiled [109/175]: darling
+  9.25s  INFO Compiled [110/175]: dioxus_core_macro
+  9.35s  INFO Compiled [111/175]: dioxus_html_internal_macro
+  9.50s  INFO Compiled [112/175]: sledgehammer_bindgen_macro
+  9.56s  INFO Compiled [113/175]: enumset_derive
+  9.58s  INFO Compiled [114/175]: build-script-build
+  9.65s  INFO Compiled [116/175]: build-script-build
+  9.67s  INFO Compiled [117/175]: async_trait
+  9.70s  INFO Compiled [118/175]: rustc_hash
+  9.73s  INFO Compiled [119/175]: thread_local
+  9.86s  INFO Compiled [120/175]: num_traits
+ 10.00s  INFO Compiled [121/175]: bytes
+ 10.12s  INFO Compiled [122/175]: euclid
+ 10.21s  INFO Compiled [123/175]: sledgehammer_utils
+ 10.33s  INFO Compiled [125/175]: winnow
+ 10.47s  INFO Compiled [126/175]: wasm_bindgen
+ 10.68s  INFO Compiled [127/175]: const_serialize
+ 10.71s  INFO Compiled [128/175]: const_serialize
+ 10.74s  INFO Compiled [129/175]: dioxus_cli_config
+ 10.87s  INFO Compiled [130/175]: regex_automata
+ 11.00s  INFO Compiled [131/175]: warnings
+ 11.08s  INFO Compiled [132/175]: macro_string
+ 11.14s  INFO Compiled [133/175]: tracing_subscriber
+ 11.16s  INFO Compiled [134/175]: build-script-build
+ 11.16s  INFO Compiled [135/175]: dunce
+ 11.18s  INFO Compiled [136/175]: serde_json
+ 11.43s  INFO Compiled [137/175]: tracing_wasm
+ 11.45s  INFO Compiled [138/175]: enumset
+ 11.48s  INFO Compiled [139/175]: send_wrapper
+ 11.51s  INFO Compiled [140/175]: dioxus_logger
+ 11.60s  INFO Compiled [141/175]: dioxus_config_macro
+ 11.62s  INFO Compiled [142/175]: dioxus_config_macros
+ 11.66s  INFO Compiled [143/175]: dioxus_stores_macro
+ 11.83s  INFO Compiled [145/175]: winnow
+ 12.45s  INFO Compiled [147/175]: const_serialize
+ 12.51s  INFO Compiled [148/175]: const_serialize
+ 12.69s  INFO Compiled [149/175]: manganis_core
+ 12.77s  INFO Compiled [150/175]: sledgehammer_bindgen
+ 12.86s  INFO Compiled [151/175]: manganis_core
+ 12.99s  INFO Compiled [152/175]: manganis_macro
+ 13.06s  INFO Compiled [153/175]: wasm_bindgen_futures
+ 13.15s  INFO Compiled [155/175]: gloo_timers
+ 13.22s  INFO Compiled [156/175]: serde_wasm_bindgen
+ 13.49s  INFO Compiled [157/175]: manganis
+ 13.49s  INFO Compiled [158/175]: js_sys
+ 15.72s  INFO Compiled [159/175]: dioxus_asset_resolver
+ 15.82s  INFO Compiled [160/175]: subsecond
+ 15.94s  INFO Compiled [161/175]: dioxus_interpreter_js
+ 15.98s  INFO Compiled [162/175]: web_sys
+ 16.32s  INFO Compiled [163/175]: wasm_streams
+ 16.45s  INFO Compiled [164/175]: dioxus_devtools_types
+ 16.49s  INFO Compiled [165/175]: dioxus_history
+ 16.64s  INFO Compiled [166/175]: dioxus_signals
+ 16.73s  INFO Compiled [167/175]: dioxus_core
+ 16.81s  INFO Compiled [168/175]: dioxus_devtools
+ 16.83s  INFO Compiled [169/175]: dioxus_hooks
+ 17.28s  INFO Compiled [170/175]: dioxus_stores
+ 17.99s  INFO Compiled [171/175]: dioxus_html
+ 18.57s  INFO Compiled [172/175]: dioxus_document
+ 18.92s  INFO Compiled [173/175]: dioxus_web
+ 19.15s  INFO Compiled [174/175]: dioxus
+ 19.29s  INFO  [1m[91merror[E0308][0m[1m: mismatched types[0m
+  [1m[94m--> [0msrc/main.rs:58:24
+   [1m[94m|[0m
+[1m[94m58[0m [1m[94m|[0m                     if unread() {
+   [1m[94m|[0m                        [1m[91m^^^^^^^^[0m [1m[91mexpected `bool`, found integer[0m
+
+
+ 19.30s  INFO  [1mFor more information about this error, try `rustc --explain E0308`.[0m
+
+ 19.30s  WARN error: could not compile `inbox` (bin "inbox") due to 1 previous error 
+ 19.30s  WARN Caused by: 
+
+[31mERROR[0m [33mdx build[0m: cargo build finished with errors for target: inbox [wasm32-unknown-unknown]

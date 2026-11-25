@@ -1,0 +1,227 @@
+{
+ "_": "Each round: the edits ([file, from, to]) that make one app's version of the mistake. make.mjs applies them to a copy.",
+ "zero": {
+  "react": [
+   [
+    "src/App.jsx",
+    "{unread > 0 && <span",
+    "{unread && <span"
+   ]
+  ],
+  "vue": [
+   [
+    "src/App.vue",
+    "v-if=\"unread > 0\"",
+    "v-if=\"unread\""
+   ]
+  ],
+  "svelte": [
+   [
+    "src/App.svelte",
+    "{#if unread > 0}",
+    "{#if unread}"
+   ]
+  ],
+  "solid": [
+   [
+    "src/App.jsx",
+    "<Show when={unread() > 0}><span class=\"badge\">{unread()} new</span></Show>",
+    "{unread() && <span class=\"badge\">{unread()} new</span>}"
+   ]
+  ],
+  "reflex": [
+   [
+    "inbox/inbox.py",
+    "rx.cond(State.unread > 0,",
+    "rx.cond(State.unread,"
+   ]
+  ],
+  "nicegui": [
+   [
+    "main.py",
+    ".bind_visibility_from(state, 'unread', backward=lambda n: n > 0)",
+    ".bind_visibility_from(state, 'unread')"
+   ]
+  ],
+  "streamlit": [
+   [
+    "app.py",
+    "if ss.unread > 0 else",
+    "if ss.unread else"
+   ]
+  ],
+  "leptos": [
+   [
+    "src/main.rs",
+    "<Show when=move || { unread.get() > 0 }>",
+    "<Show when=move || unread.get()>"
+   ]
+  ],
+  "dioxus": [
+   [
+    "src/main.rs",
+    "if unread() > 0 {",
+    "if unread() {"
+   ]
+  ],
+  "quillo": [
+   [
+    "main.qwe",
+    "{unread != 0 && <span",
+    "{unread && <span"
+   ]
+  ]
+ },
+ "zeroshow": {
+  "solid": [
+   [
+    "src/App.jsx",
+    "<Show when={unread() > 0}>",
+    "<Show when={unread()}>"
+   ]
+  ]
+ },
+ "once": {
+  "react": [
+   [
+    "src/App.jsx",
+    "import { useState } from 'react'",
+    "import { useState, useEffect } from 'react'"
+   ],
+   [
+    "src/App.jsx",
+    "  const label = open ? 'Hide details' : 'Show details'\n",
+    "  const label = open ? 'Hide details' : 'Show details'\n  if (open) {\n    useEffect(() => { document.title = 'Details open' })\n  }\n"
+   ]
+  ],
+  "vue": [
+   [
+    "src/App.vue",
+    "import { ref, computed } from 'vue'",
+    "import { ref } from 'vue'"
+   ],
+   [
+    "src/App.vue",
+    "const label = computed(() => (open.value ? 'Hide details' : 'Show details'))",
+    "const label = open.value ? 'Hide details' : 'Show details'"
+   ]
+  ],
+  "svelte": [
+   [
+    "src/App.svelte",
+    "let label = $derived(open ? 'Hide details' : 'Show details')",
+    "let label = open ? 'Hide details' : 'Show details'"
+   ]
+  ],
+  "solid": [
+   [
+    "src/App.jsx",
+    "const label = () => (open() ? 'Hide details' : 'Show details');",
+    "const label = open() ? 'Hide details' : 'Show details';"
+   ],
+   [
+    "src/App.jsx",
+    "{label()}",
+    "{label}"
+   ]
+  ],
+  "reflex": [
+   [
+    "inbox/inbox.py",
+    "rx.el.button(rx.cond(State.open, \"Hide details\", \"Show details\"), on_click=State.flip_open)",
+    "rx.el.button(\"Hide details\" if State.open else \"Show details\", on_click=State.flip_open)"
+   ]
+  ],
+  "nicegui": [
+   [
+    "main.py",
+    "ui.button(on_click=lambda: flip('open')).bind_text_from(\n                state, 'open', backward=lambda o: 'Hide details' if o else 'Show details')",
+    "ui.button('Hide details' if state['open'] else 'Show details', on_click=lambda: flip('open'))"
+   ]
+  ],
+  "streamlit": [
+   [
+    "app.py",
+    "    st.button(label, key=\"btn-open\", on_click=flip, args=(\"open\",))",
+    "    if st.button(label, key=\"btn-open\"):\n        flip(\"open\")"
+   ]
+  ],
+  "leptos": [
+   [
+    "src/main.rs",
+    "let label = move || if open.get() { \"Hide details\" } else { \"Show details\" };",
+    "let label = if open.get() { \"Hide details\" } else { \"Show details\" };"
+   ]
+  ],
+  "dioxus": [
+   [
+    "src/main.rs",
+    "    let label = if open() { \"Hide details\" } else { \"Show details\" };\n",
+    "    let label = if open() { \"Hide details\" } else { \"Show details\" };\n    if open() {\n        use_effect(|| { document::eval(\"document.title = 'Details open'\"); });\n    }\n"
+   ]
+  ],
+  "quillo": [
+   [
+    "main.qwe",
+    "    let label = open ? \"Hide details\" : \"Show details\"\n",
+    "    state label = \"Show details\"\n    label = open ? \"Hide details\" : \"Show details\"\n"
+   ]
+  ]
+ },
+ "keep": {
+  "react": [
+   [
+    "src/App.jsx",
+    "import { useState } from 'react'",
+    "import { useState, Activity } from 'react'"
+   ],
+   [
+    "src/App.jsx",
+    "{shown && <Counter />}",
+    "<Activity mode={shown ? 'visible' : 'hidden'}><Counter /></Activity>"
+   ]
+  ],
+  "vue": [
+   [
+    "src/App.vue",
+    "<ClickCounter v-if=\"shown\" />",
+    "<ClickCounter v-show=\"shown\" />"
+   ]
+  ],
+  "svelte": [
+   [
+    "src/App.svelte",
+    "{#if shown}\n      <Counter />\n    {/if}",
+    "<div hidden={!shown}><Counter /></div>"
+   ]
+  ],
+  "solid": [
+   [
+    "src/App.jsx",
+    "<Show when={shown()}>\n          <Counter />\n        </Show>",
+    "<div hidden={!shown()}><Counter /></div>"
+   ]
+  ],
+  "leptos": [
+   [
+    "src/main.rs",
+    "<Show when=move || shown.get()>\n                    <Counter/>\n                </Show>",
+    "<div hidden=move || !shown.get()><Counter/></div>"
+   ]
+  ],
+  "dioxus": [
+   [
+    "src/main.rs",
+    "if shown() {\n                    Counter {}\n                }",
+    "div { hidden: !shown(), Counter {} }"
+   ]
+  ],
+  "quillo": [
+   [
+    "main.qwe",
+    "{shown && <Counter/>}",
+    "<div hidden={!shown}><Counter/></div>"
+   ]
+  ]
+ }
+}

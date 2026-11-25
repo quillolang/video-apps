@@ -1,0 +1,36 @@
+{
+ "name": "streamlit",
+ "url": "http://localhost:8133/",
+ "when": "2026-11-25T03:43:17.701Z",
+ "steps": {
+  "details:start": "Details Show details",
+  "details:shown": "Details Hide details Ships in 2 days.",
+  "details:hidden": "Details Show details",
+  "status:start": "Status Loading Error Ready Loading…",
+  "status:Error": "Status Loading Error Ready Couldn't load",
+  "status:Ready": "Status Loading Error Ready 3 messages",
+  "status:Loading": "Status Loading Error Ready Loading…",
+  "zero:start": "Unread +1 unread Read all Inbox",
+  "zero:one": "Unread +1 unread Read all Inbox 1 new",
+  "zero:read": "Unread +1 unread Read all Inbox",
+  "switch:typed": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email",
+   "aria": "Your email"
+  },
+  "switch:switched": {
+   "value": "",
+   "placeholder": "Work email",
+   "aria": "Work email",
+   "text": "Log in or sign up I have an account"
+  },
+  "switch:back": {
+   "value": "",
+   "placeholder": "Your email"
+  },
+  "keep:clicked": "Counter Hide counter Clicked 2 +1",
+  "keep:hidden": "Counter Show counter",
+  "keep:back": "Counter Hide counter Clicked 2 +1"
+ },
+ "console": []
+}

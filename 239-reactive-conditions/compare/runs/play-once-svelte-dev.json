@@ -1,0 +1,13 @@
+{
+ "name": "once-svelte-dev",
+ "url": "http://127.0.0.1:5229/",
+ "when": "2026-11-25T03:57:02.295Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": "DETAILS Show details Ships in 2 days.",
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": []
+}

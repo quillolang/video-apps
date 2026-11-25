@@ -1,0 +1,15 @@
+{
+ "name": "once-solid-dev",
+ "url": "http://127.0.0.1:5231/",
+ "when": "2026-11-25T03:58:10.268Z",
+ "steps": {
+  "details:start": "DETAILS Show details",
+  "details:shown": "DETAILS Show details Ships in 2 days.",
+  "details:hidden": {
+   "error": "locator.click: Timeout 30000ms exceeded."
+  }
+ },
+ "console": [
+  "warning: [STRICT_READ_UNTRACKED] Reactive value \"open\" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function).\n  in <App>\n  at http://127.0.0.1:5231/virtual:solid-ssr-entry-client.tsx:6:14\n[STRICT_READ_UNTRACKED] what it means and how to fix it: https://docs.solidjs.com/reference/solid-js/diagnostics/strict-read-untracked\n[STRICT_READ_UNTRACKED] agent repair guide: node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md#strict_read_untracked — https://github.com/solidjs/solid/blob/next/packages/solid/skills/reactivity-diagnostics/SKILL.md#strict_read_untracked"
+ ]
+}

@@ -1,0 +1,36 @@
+{
+ "name": "nicegui",
+ "url": "http://localhost:8132/",
+ "when": "2026-11-25T03:41:52.317Z",
+ "steps": {
+  "details:start": "DETAILS SHOW DETAILS",
+  "details:shown": "DETAILS HIDE DETAILS Ships in 2 days.",
+  "details:hidden": "DETAILS SHOW DETAILS",
+  "status:start": "STATUS LOADING ERROR READY Loading…",
+  "status:Error": "STATUS LOADING ERROR READY Couldn't load",
+  "status:Ready": "STATUS LOADING ERROR READY 3 messages",
+  "status:Loading": "STATUS LOADING ERROR READY Loading…",
+  "zero:start": "UNREAD +1 UNREAD READ ALL Inbox",
+  "zero:one": "UNREAD +1 UNREAD READ ALL Inbox 1 new",
+  "zero:read": "UNREAD +1 UNREAD READ ALL Inbox",
+  "switch:typed": {
+   "value": "ana@mail.com",
+   "placeholder": "Your email",
+   "aria": "Your email"
+  },
+  "switch:switched": {
+   "value": "",
+   "placeholder": "Work email",
+   "aria": "Work email",
+   "text": "LOG IN OR SIGN UP I HAVE AN ACCOUNT"
+  },
+  "switch:back": {
+   "value": "",
+   "placeholder": "Your email"
+  },
+  "keep:clicked": "COUNTER HIDE COUNTER Clicked 2 +1",
+  "keep:hidden": "COUNTER SHOW COUNTER",
+  "keep:back": "COUNTER HIDE COUNTER Clicked 2 +1"
+ },
+ "console": []
+}

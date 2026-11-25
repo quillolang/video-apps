@@ -1,0 +1,993 @@
+{
+ "zero-react": {
+  "round": "zero",
+  "app": "react",
+  "edits": [
+   [
+    "src/App.jsx",
+    "{unread > 0 && <span",
+    "{unread && <span"
+   ]
+  ],
+  "when": "2026-11-25T03:51:45.306Z",
+  "lint": {
+   "cmd": "npx oxlint src/App.jsx src/main.jsx",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 16 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css    0.96 kB │ gzip:  0.47 kB\ndist/assets/index-DLXuxz0i.js   221.53 kB │ gzip: 69.13 kB\n\n✓ built in 65ms"
+  },
+  "dev": {
+   "name": "zero-react-dev",
+   "url": "http://127.0.0.1:5211/",
+   "when": "2026-11-25T03:51:46.635Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox0",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox0"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "zero-react",
+   "url": "http://127.0.0.1:5212/",
+   "when": "2026-11-25T03:51:50.362Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox0",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox0"
+   },
+   "console": []
+  }
+ },
+ "zero-vue": {
+  "round": "zero",
+  "app": "vue",
+  "edits": [
+   [
+    "src/App.vue",
+    "v-if=\"unread > 0\"",
+    "v-if=\"unread\""
+   ]
+  ],
+  "when": "2026-11-25T03:51:54.130Z",
+  "lint": {
+   "cmd": "npx eslint src",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 12 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-DZV9F-n1.js   65.32 kB │ gzip: 25.68 kB\n\n✓ built in 47ms"
+  },
+  "dev": {
+   "name": "zero-vue-dev",
+   "url": "http://127.0.0.1:5213/",
+   "when": "2026-11-25T03:51:55.650Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "zero-vue",
+   "url": "http://127.0.0.1:5214/",
+   "when": "2026-11-25T03:51:59.336Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox"
+   },
+   "console": []
+  }
+ },
+ "zero-svelte": {
+  "round": "zero",
+  "app": "svelte",
+  "edits": [
+   [
+    "src/App.svelte",
+    "{#if unread > 0}",
+    "{#if unread}"
+   ]
+  ],
+  "when": "2026-11-25T03:52:03.080Z",
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 114 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-C4n5RabG.js   41.49 kB │ gzip: 16.16 kB\n\n✓ built in 53ms"
+  },
+  "dev": {
+   "name": "zero-svelte-dev",
+   "url": "http://127.0.0.1:5215/",
+   "when": "2026-11-25T03:52:04.221Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unread Read all Inbox",
+    "zero:one": "UNREAD +1 unread Read all Inbox1 new",
+    "zero:read": "UNREAD +1 unread Read all Inbox"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "zero-svelte",
+   "url": "http://127.0.0.1:5216/",
+   "when": "2026-11-25T03:52:07.851Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unread Read all Inbox",
+    "zero:one": "UNREAD +1 unread Read all Inbox1 new",
+    "zero:read": "UNREAD +1 unread Read all Inbox"
+   },
+   "console": []
+  }
+ },
+ "zero-solid": {
+  "round": "zero",
+  "app": "solid",
+  "edits": [
+   [
+    "src/App.jsx",
+    "<Show when={unread() > 0}><span class=\"badge\">{unread()} new</span></Show>",
+    "{unread() && <span class=\"badge\">{unread()} new</span>}"
+   ]
+  ],
+  "when": "2026-11-25T03:52:11.593Z",
+  "lint": {
+   "cmd": "npx oxlint -c oxlint.config.js src/App.jsx",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 52 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/client/assets/virtual_solid-ssr-entry-client-6uN4VVA_.js   36.73 kB │ gzip: 14.93 kB\n\n✓ built in 49ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.11 kB │ gzip: 2.85 kB\n\n✓ built in 7ms"
+  },
+  "dev": {
+   "name": "zero-solid-dev",
+   "url": "http://127.0.0.1:5217/",
+   "when": "2026-11-25T03:52:13.433Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox0",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox0"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "zero-solid",
+   "url": "http://127.0.0.1:5218/",
+   "when": "2026-11-25T03:52:17.143Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox0",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox0"
+   },
+   "console": []
+  }
+ },
+ "zero-reflex": {
+  "round": "zero",
+  "app": "reflex",
+  "edits": [
+   [
+    "inbox/inbox.py",
+    "rx.cond(State.unread > 0,",
+    "rx.cond(State.unread,"
+   ]
+  ],
+  "when": "2026-11-25T03:52:20.912Z",
+  "prod": {
+   "name": "zero-reflex",
+   "url": "http://127.0.0.1:5219/",
+   "when": "2026-11-25T03:52:24.029Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox"
+   },
+   "console": []
+  },
+  "server": "───────────────────────────── Starting Reflex App ──────────────────────────────\nCompiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 14/13 0:00:00\nCreating Production Build:  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 4/4 0:00:00\n───────────────────────────────── App Running ──────────────────────────────────\nApp running at: http://127.0.0.1:5219/\n",
+  "serverExit": null
+ },
+ "zero-nicegui": {
+  "round": "zero",
+  "app": "nicegui",
+  "edits": [
+   [
+    "main.py",
+    ".bind_visibility_from(state, 'unread', backward=lambda n: n > 0)",
+    ".bind_visibility_from(state, 'unread')"
+   ]
+  ],
+  "when": "2026-11-25T03:52:28.739Z",
+  "prod": {
+   "name": "zero-nicegui",
+   "url": "http://127.0.0.1:5220/",
+   "when": "2026-11-25T03:52:30.274Z",
+   "steps": {
+    "zero:start": "UNREAD +1 UNREAD READ ALL Inbox",
+    "zero:one": "UNREAD +1 UNREAD READ ALL Inbox 1 new",
+    "zero:read": "UNREAD +1 UNREAD READ ALL Inbox"
+   },
+   "console": []
+  },
+  "server": "NiceGUI ready to go on http://127.0.0.1:5220\n"
+ },
+ "zero-streamlit": {
+  "round": "zero",
+  "app": "streamlit",
+  "edits": [
+   [
+    "app.py",
+    "if ss.unread > 0 else",
+    "if ss.unread else"
+   ]
+  ],
+  "when": "2026-11-25T03:52:34.403Z",
+  "prod": {
+   "name": "zero-streamlit",
+   "url": "http://127.0.0.1:5221/",
+   "when": "2026-11-25T03:52:35.455Z",
+   "steps": {
+    "zero:start": "Unread +1 unread Read all Inbox",
+    "zero:one": "Unread +1 unread Read all Inbox 1 new",
+    "zero:read": "Unread +1 unread Read all Inbox"
+   },
+   "console": []
+  },
+  "server": "2026-11-25 11:52:35.168 Uvicorn server started on 127.0.0.1:5221\n\n  You can now view your Streamlit app in your browser.\n\n  URL: http://127.0.0.1:5221\n\n  For better performance, install the Watchdog module:\n\n  $ xcode-select --install\n  $ pip install watchdog\n            \n"
+ },
+ "zero-leptos": {
+  "round": "zero",
+  "app": "leptos",
+  "edits": [
+   [
+    "src/main.rs",
+    "<Show when=move || { unread.get() > 0 }>",
+    "<Show when=move || unread.get()>"
+   ]
+  ],
+  "when": "2026-11-25T03:52:41.284Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh leptos /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/zero-leptos zero-leptos",
+   "code": 1,
+   "out": "zero-leptos: build failed (1), see /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/runs/build-zero-leptos.txt",
+   "log": "$ trunk build --release --dist /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.build/zero-leptos\n2026-11-25T03:52:41.341567Z  INFO 🚀 Starting trunk 0.22.2\n2026-11-25T03:52:41.566643Z  INFO 📦 starting build\n2026-11-25T03:52:41.567125Z  INFO node packages []\n   Compiling proc-macro2 v1.0.107\n   Compiling quote v1.0.47\n   Compiling unicode-ident v1.0.27\n   Compiling version_check v0.9.5\n   Compiling memchr v2.8.3\n   Compiling semver v1.0.28\n   Compiling pin-project-lite v0.2.18\n   Compiling wasm-bindgen-shared v0.2.130\n   Compiling thiserror v2.0.21\n   Compiling futures-core v0.3.34\n   Compiling rustversion v1.0.23\n   Compiling serde_core v1.0.229\n   Compiling futures-sink v0.3.34\n   Compiling rustc_version v0.4.1\n   Compiling futures-channel v0.3.34\n   Compiling bumpalo v3.20.4\n   Compiling slab v0.4.12\n   Compiling futures-io v0.3.34\n   Compiling futures-task v0.3.34\n   Compiling serde v1.0.229\n   Compiling cfg-if v1.0.5\n   Compiling stable_deref_trait v1.2.1\n   Compiling unicode-segmentation v1.13.3\n   Compiling proc-macro2-diagnostics v0.11.0\n   Compiling libc v0.2.191\n   Compiling convert_case v0.11.0\n   Compiling writeable v0.6.4\n   Compiling utf_types v1.0.0\n   Compiling litemap v0.8.3\n   Compiling generic-array v0.14.7\n   Compiling unicode-xid v0.2.6\n   Compiling utf8_iter v1.1.0\n   Compiling zmij v1.0.23\n   Compiling icu_normalizer_data v2.4.0\n   Compiling or_poisoned v0.1.0\n   Compiling paste v1.0.15\n   Compiling icu_properties_data v2.4.0\n   Compiling smallvec v1.16.6\n   Compiling syn v3.0.10\n   Compiling wasm-bindgen v0.2.130\n   Compiling syn v2.0.119\n   Compiling const_format_proc_macros v0.2.37\n   Compiling proc-macro-utils v0.10.0\n   Compiling slotmap v1.1.1\n   Compiling throw_error v0.3.1\n   Compiling event-listener v5.4.2\n   Compiling camino v1.2.6\n   Compiling serde_json v1.0.154\n   Compiling itoa v1.0.19\n   Compiling hashbrown v0.17.2\n   Compiling equivalent v1.0.3\n   Compiling typenum v1.20.1\n   Compiling konst_macro_rules v0.2.19\n   Compiling anyhow v1.0.105\n   Compiling rstml v0.13.1\n   Compiling konst v0.2.20\n   Compiling event-listener-strategy v0.5.4\n   Compiling indexmap v2.14.2\n   Compiling reactive_graph v0.2.16\n   Compiling server_fn_macro v0.8.12\n   Compiling send_wrapper v0.6.0\n   Compiling async-lock v3.5.0\n   Compiling const_format v0.2.37\n   Compiling rustc-hash v2.1.3\n   Compiling synstructure v0.14.0\n   Compiling wasm-bindgen-macro-support v0.2.130\n   Compiling xxhash-rust v0.8.21\n   Compiling percent-encoding v2.3.2\n   Compiling either v1.19.0\n   Compiling guardian v1.3.0\n   Compiling thiserror v1.0.69\n   Compiling itertools v0.14.0\n   Compiling block-buffer v0.10.4\n   Compiling crypto-common v0.1.7\n   Compiling manyhow-macros v0.14.1\n   Compiling reactive_stores_macro v0.4.4\n   Compiling thiserror-impl v1.0.69\n   Compiling tachys v0.2.19\n   Compiling bytes v1.12.2\n   Compiling serde_derive v1.0.229\n   Compiling thiserror-impl v2.0.21\n   Compiling futures-macro v0.3.34\n   Compiling zerofrom-derive v0.1.8\n   Compiling yoke-derive v0.8.4\n   Compiling zerovec-derive v0.11.7\n   Compiling displaydoc v0.2.7\n   Compiling derive-where v1.7.0\n   Compiling pin-project-internal v1.2.0\n   Compiling futures-util v0.3.34\n   Compiling quote-use-macros v0.9.0\n   Compiling prettyplease v0.3.0\n   Compiling zerofrom v0.1.8\n   Compiling getrandom v0.4.3\n   Compiling winnow v1.0.5\n   Compiling quote-use v0.9.0\n   Compiling pin-project v1.2.0\n   Compiling toml_parser v1.1.7+spec-1.1.0\n   Compiling yoke v0.8.4\n   Compiling wasm-bindgen-macro v0.2.130\n   Compiling futures-executor v0.3.34\n   Compiling futures v0.3.34\n   Compiling http v1.5.0\n   Compiling manyhow v0.14.1\n   Compiling async-trait v0.1.92\n   Compiling digest v0.10.7\n   Compiling form_urlencoded v1.2.3\n   Compiling either_of v0.1.9\n   Compiling hydration_context v0.3.2\n   Compiling zerovec v0.11.9\n   Compiling zerotrie v0.2.5\n   Compiling oco_ref v0.2.1\n   Compiling js-sys v0.3.107\n   Compiling cpufeatures v0.2.17\n   Compiling server_fn v0.8.13\n   Compiling aho-corasick v1.1.5\n   Compiling const_str_slice_concat v0.1.0\n   Compiling interpolator v0.5.0\n   Compiling serde_spanned v1.1.3\n   Compiling html-escape v0.2.15\n   Compiling same-file v1.0.6\n   Compiling next_tuple v0.1.0\n   Compiling collection_literals v1.0.3\n   Compiling regex-syntax v0.8.12\n   Compiling erased v0.1.2\n   Compiling drain_filter_polyfill v0.1.3\n   Compiling toml_datetime v1.1.3+spec-1.1.0\n   Compiling toml v1.2.3+spec-1.1.0\n   Compiling convert_case v0.6.0\n   Compiling tinystr v0.8.5\n   Compiling icu_locale_core v2.4.0\n   Compiling potential_utf v0.1.6\n   Compiling icu_collections v2.4.0\n   Compiling regex-automata v0.4.19\n   Compiling attribute-derive-macro v0.11.0\n   Compiling walkdir v2.5.1\n   Compiling icu_provider v2.4.0\n   Compiling icu_properties v2.4.0\n   Compiling icu_normalizer v2.4.0\n   Compiling sha2 v0.10.9\n   Compiling serde_qs v0.15.0\n   Compiling server_fn_macro_default v0.8.6\n   Compiling idna_adapter v1.2.2\n   Compiling idna v1.1.0\n   Compiling typed-builder-macro v0.23.2\n   Compiling leptos_macro v0.8.20\n   Compiling url v2.5.9\n   Compiling pathdiff v0.2.3\n   Compiling base64 v0.22.1\n   Compiling base16 v0.2.1\n   Compiling const-str v1.1.0\n   Compiling wasm_split_macros v0.2.2\n   Compiling wasm-bindgen-futures v0.4.80\n   Compiling web-sys v0.3.107\n   Compiling any_spawner v0.3.0\n   Compiling typed-builder v0.23.2\n   Compiling leptos_hot_reload v0.8.7\n   Compiling config v0.15.27\n   Compiling regex v1.13.2\n   Compiling uuid v1.29.3\n   Compiling attribute-derive v0.11.0\n   Compiling codee v0.3.5\n   Compiling convert_case_extras v0.2.0\n   Compiling leptos v0.8.23\n   Compiling async-once-cell v0.5.4\n   Compiling wasm_split_helpers v0.2.3\n   Compiling leptos_config v0.8.10\n   Compiling console_error_panic_hook v0.1.7\n   Compiling gloo-utils v0.2.0\n   Compiling gloo-net v0.6.0\n   Compiling wasm-streams v0.5.0\n   Compiling reactive_stores v0.4.4\n   Compiling leptos_dom v0.8.8\n   Compiling leptos_server v0.8.8\n   Compiling inbox v0.1.0 (/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/zero-leptos)\nerror[E0308]: mismatched types\n  --> src/main.rs:56:40\n   |\n56 |                     <Show when=move || unread.get()>\n   |                                        ^^^^^^^^^^^^ expected `bool`, found integer\n\nFor more information about this error, try `rustc --explain E0308`.\nerror: could not compile `inbox` (bin \"inbox\") due to 1 previous error\n2026-11-25T03:53:10.184041Z ERROR ❌ error\nerror from build pipeline\n\nCaused by:\n    0: HTML build pipeline failed (1 errors), showing first\n    1: error from asset pipeline\n    2: running cargo build\n    3: error during cargo build execution\n    4: cargo call to executable 'cargo' with args: '[\"build\", \"--target=wasm32-unknown-unknown\", \"--manifest-path\", \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/zero-leptos/Cargo.toml\", \"--release\"]' returned a bad status: exit status: 101\n2026-11-25T03:53:10.184883Z ERROR error from build pipeline\n2026-11-25T03:53:10.184904Z  INFO   1: HTML build pipeline failed (1 errors), showing first\n2026-11-25T03:53:10.184907Z  INFO   2: error from asset pipeline\n2026-11-25T03:53:10.184910Z  INFO   3: running cargo build\n2026-11-25T03:53:10.184912Z  INFO   4: error during cargo build execution\n2026-11-25T03:53:10.184914Z  INFO   5: cargo call to executable 'cargo' with args: '[\"build\", \"--target=wasm32-unknown-unknown\", \"--manifest-path\", \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/zero-leptos/Cargo.toml\", \"--release\"]' returned a bad status: exit status: 101\n"
+  }
+ },
+ "zero-dioxus": {
+  "round": "zero",
+  "app": "dioxus",
+  "edits": [
+   [
+    "src/main.rs",
+    "if unread() > 0 {",
+    "if unread() {"
+   ]
+  ],
+  "when": "2026-11-25T03:53:11.010Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh dioxus /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/zero-dioxus zero-dioxus",
+   "code": 1,
+   "out": "zero-dioxus: build failed (1), see /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/runs/build-zero-dioxus.txt",
+   "log": "$ dx build --release --platform web --debug-symbols false\n  0.00s  INFO Building project...\n  0.68s  INFO Compiled [  1/175]: cfg_if\n  0.70s  INFO Compiled [  2/175]: pin_project_lite\n  0.70s  INFO Compiled [  3/175]: unicode_ident\n  0.70s  INFO Compiled [  4/175]: unicode_ident\n  0.71s  INFO Compiled [  5/175]: futures_core\n  0.74s  INFO Compiled [  6/175]: futures_sink\n  0.77s  INFO Compiled [  7/175]: bumpalo\n  0.78s  INFO Compiled [  8/175]: futures_task\n  0.79s  INFO Compiled [  9/175]: futures_io\n  0.82s  INFO Compiled [ 10/175]: slab\n  0.88s  INFO Compiled [ 11/175]: once_cell\n  0.90s  INFO Compiled [ 12/175]: version_check\n  1.00s  INFO Compiled [ 13/175]: build-script-build\n  1.00s  INFO Compiled [ 14/175]: build-script-build\n  1.00s  INFO Compiled [ 15/175]: build-script-build\n  1.00s  INFO Compiled [ 16/175]: build-script-build\n  1.00s  INFO Compiled [ 17/175]: build-script-build\n  1.00s  INFO Compiled [ 18/175]: build-script-build\n  1.01s  INFO Compiled [ 19/175]: build-script-build\n  1.04s  INFO Compiled [ 20/175]: build-script-build\n  1.04s  INFO Compiled [ 21/175]: memchr\n  1.21s  INFO Compiled [ 22/175]: tracing_core\n  1.27s  INFO Compiled [ 23/175]: smallvec\n  1.29s  INFO Compiled [ 24/175]: scopeguard\n  1.36s  INFO Compiled [ 25/175]: lock_api\n  1.41s  INFO Compiled [ 27/175]: build-script-build\n  1.42s  INFO Compiled [ 28/175]: dioxus_core_types\n  1.47s  INFO Compiled [ 29/175]: konst_macro_rules\n  1.50s  INFO Compiled [ 30/175]: unicode_xid\n  1.50s  INFO Compiled [ 31/175]: build-script-build\n  1.60s  INFO Compiled [ 32/175]: konst\n  1.88s  INFO Compiled [ 34/175]: rustversion\n  2.19s  INFO Compiled [ 36/175]: futures_channel\n  2.22s  INFO Compiled [ 37/175]: rustc_hash\n  2.24s  INFO Compiled [ 38/175]: longest_increasing_subsequence\n  2.30s  INFO Compiled [ 39/175]: lazy_js_bundle\n  2.33s  INFO Compiled [ 40/175]: ident_case\n  2.45s  INFO Compiled [ 42/175]: unicode_segmentation\n  2.46s  INFO Compiled [ 43/175]: fnv\n  2.52s  INFO Compiled [ 44/175]: build-script-build\n  2.54s  INFO Compiled [ 45/175]: convert_case\n  2.62s  INFO Compiled [ 46/175]: build-script-build\n  2.63s  INFO Compiled [ 47/175]: autocfg\n  2.69s  INFO Compiled [ 48/175]: build-script-build\n  2.89s  INFO Compiled [ 51/175]: wasm_bindgen_shared\n  2.97s  INFO Compiled [ 52/175]: build-script-build\n  3.00s  INFO Compiled [ 53/175]: wasm_bindgen_shared\n  3.07s  INFO Compiled [ 54/175]: build-script-build\n  3.44s  INFO Compiled [ 56/175]: proc_macro2\n  3.51s  INFO Compiled [ 57/175]: quote\n  4.33s  INFO Compiled [ 61/175]: parking_lot_core\n  4.57s  INFO Compiled [ 62/175]: serde_core\n  4.62s  INFO Compiled [ 64/175]: parking_lot\n  4.84s  INFO Compiled [ 65/175]: anyhow\n  4.88s  INFO Compiled [ 66/175]: const_format_proc_macros\n  4.99s  INFO Compiled [ 67/175]: build-script-build\n  5.02s  INFO Compiled [ 68/175]: syn\n  5.06s  INFO Compiled [ 69/175]: syn\n  5.32s  INFO Compiled [ 71/175]: futures_macro\n  5.73s  INFO Compiled [ 73/175]: tracing_attributes\n  5.81s  INFO Compiled [ 74/175]: darling_core\n  6.07s  INFO Compiled [ 76/175]: thiserror_impl\n  6.09s  INFO Compiled [ 77/175]: serde_derive\n  6.13s  INFO Compiled [ 78/175]: const_serialize_macro\n  6.19s  INFO Compiled [ 79/175]: pin_project_internal\n  6.24s  INFO Compiled [ 80/175]: warnings_macro\n  6.34s  INFO Compiled [ 82/175]: darling_macro\n  6.45s  INFO Compiled [ 83/175]: const_serialize_macro\n  6.51s  INFO Compiled [ 84/175]: proc_macro2_diagnostics\n  6.57s  INFO Compiled [ 85/175]: wasm_bindgen_macro_support\n  6.68s  INFO Compiled [ 86/175]: wasm_bindgen_macro\n  6.79s  INFO Compiled [ 87/175]: const_format\n  7.18s  INFO Compiled [ 89/175]: serde_core\n  7.24s  INFO Compiled [ 90/175]: build-script-build\n  7.79s  INFO Compiled [ 91/175]: tracing\n  7.92s  INFO Compiled [ 92/175]: generational_box\n  8.08s  INFO Compiled [ 93/175]: thiserror\n  8.12s  INFO Compiled [ 94/175]: futures_util\n  8.50s  INFO Compiled [ 95/175]: regex_syntax\n  8.50s  INFO Compiled [ 96/175]: dioxus_rsx\n  8.59s  INFO Compiled [ 97/175]: zmij\n  8.60s  INFO Compiled [ 98/175]: serde\n  8.62s  INFO Compiled [ 99/175]: serde\n  8.64s  INFO Compiled [100/175]: subsecond_types\n  8.65s  INFO Compiled [101/175]: lazy_static\n  8.71s  INFO Compiled [102/175]: itoa\n  8.75s  INFO Compiled [103/175]: matchers\n  8.78s  INFO Compiled [104/175]: bitflags\n  8.82s  INFO Compiled [105/175]: slotmap\n  8.82s  INFO Compiled [106/175]: pin_project\n  8.96s  INFO Compiled [107/175]: sharded_slab\n  9.09s  INFO Compiled [108/175]: keyboard_types\n  9.18s  INFO Compiled [109/175]: darling\n  9.25s  INFO Compiled [110/175]: dioxus_core_macro\n  9.35s  INFO Compiled [111/175]: dioxus_html_internal_macro\n  9.50s  INFO Compiled [112/175]: sledgehammer_bindgen_macro\n  9.56s  INFO Compiled [113/175]: enumset_derive\n  9.58s  INFO Compiled [114/175]: build-script-build\n  9.65s  INFO Compiled [116/175]: build-script-build\n  9.67s  INFO Compiled [117/175]: async_trait\n  9.70s  INFO Compiled [118/175]: rustc_hash\n  9.73s  INFO Compiled [119/175]: thread_local\n  9.86s  INFO Compiled [120/175]: num_traits\n 10.00s  INFO Compiled [121/175]: bytes\n 10.12s  INFO Compiled [122/175]: euclid\n 10.21s  INFO Compiled [123/175]: sledgehammer_utils\n 10.33s  INFO Compiled [125/175]: winnow\n 10.47s  INFO Compiled [126/175]: wasm_bindgen\n 10.68s  INFO Compiled [127/175]: const_serialize\n 10.71s  INFO Compiled [128/175]: const_serialize\n 10.74s  INFO Compiled [129/175]: dioxus_cli_config\n 10.87s  INFO Compiled [130/175]: regex_automata\n 11.00s  INFO Compiled [131/175]: warnings\n 11.08s  INFO Compiled [132/175]: macro_string\n 11.14s  INFO Compiled [133/175]: tracing_subscriber\n 11.16s  INFO Compiled [134/175]: build-script-build\n 11.16s  INFO Compiled [135/175]: dunce\n 11.18s  INFO Compiled [136/175]: serde_json\n 11.43s  INFO Compiled [137/175]: tracing_wasm\n 11.45s  INFO Compiled [138/175]: enumset\n 11.48s  INFO Compiled [139/175]: send_wrapper\n 11.51s  INFO Compiled [140/175]: dioxus_logger\n 11.60s  INFO Compiled [141/175]: dioxus_config_macro\n 11.62s  INFO Compiled [142/175]: dioxus_config_macros\n 11.66s  INFO Compiled [143/175]: dioxus_stores_macro\n 11.83s  INFO Compiled [145/175]: winnow\n 12.45s  INFO Compiled [147/175]: const_serialize\n 12.51s  INFO Compiled [148/175]: const_serialize\n 12.69s  INFO Compiled [149/175]: manganis_core\n 12.77s  INFO Compiled [150/175]: sledgehammer_bindgen\n 12.86s  INFO Compiled [151/175]: manganis_core\n 12.99s  INFO Compiled [152/175]: manganis_macro\n 13.06s  INFO Compiled [153/175]: wasm_bindgen_futures\n 13.15s  INFO Compiled [155/175]: gloo_timers\n 13.22s  INFO Compiled [156/175]: serde_wasm_bindgen\n 13.49s  INFO Compiled [157/175]: manganis\n 13.49s  INFO Compiled [158/175]: js_sys\n 15.72s  INFO Compiled [159/175]: dioxus_asset_resolver\n 15.82s  INFO Compiled [160/175]: subsecond\n 15.94s  INFO Compiled [161/175]: dioxus_interpreter_js\n 15.98s  INFO Compiled [162/175]: web_sys\n 16.32s  INFO Compiled [163/175]: wasm_streams\n 16.45s  INFO Compiled [164/175]: dioxus_devtools_types\n 16.49s  INFO Compiled [165/175]: dioxus_history\n 16.64s  INFO Compiled [166/175]: dioxus_signals\n 16.73s  INFO Compiled [167/175]: dioxus_core\n 16.81s  INFO Compiled [168/175]: dioxus_devtools\n 16.83s  INFO Compiled [169/175]: dioxus_hooks\n 17.28s  INFO Compiled [170/175]: dioxus_stores\n 17.99s  INFO Compiled [171/175]: dioxus_html\n 18.57s  INFO Compiled [172/175]: dioxus_document\n 18.92s  INFO Compiled [173/175]: dioxus_web\n 19.15s  INFO Compiled [174/175]: dioxus\n 19.29s  INFO  \u001b[1m\u001b[91merror[E0308]\u001b[0m\u001b[1m: mismatched types\u001b[0m\n  \u001b[1m\u001b[94m--> \u001b[0msrc/main.rs:58:24\n   \u001b[1m\u001b[94m|\u001b[0m\n\u001b[1m\u001b[94m58\u001b[0m \u001b[1m\u001b[94m|\u001b[0m                     if unread() {\n   \u001b[1m\u001b[94m|\u001b[0m                        \u001b[1m\u001b[91m^^^^^^^^\u001b[0m \u001b[1m\u001b[91mexpected `bool`, found integer\u001b[0m\n\n\n 19.30s  INFO  \u001b[1mFor more information about this error, try `rustc --explain E0308`.\u001b[0m\n\n 19.30s  WARN error: could not compile `inbox` (bin \"inbox\") due to 1 previous error \n 19.30s  WARN Caused by: \n\n\u001b[31mERROR\u001b[0m \u001b[33mdx build\u001b[0m: cargo build finished with errors for target: inbox [wasm32-unknown-unknown]\n"
+  }
+ },
+ "zero-quillo": {
+  "round": "zero",
+  "app": "quillo",
+  "edits": [
+   [
+    "main.qwe",
+    "{unread != 0 && <span",
+    "{unread && <span"
+   ]
+  ],
+  "when": "2026-11-25T04:04:35.998Z",
+  "check": {
+   "cmd": "/Users/you/dev/quillo-videos/videos/239-reactive-conditions/app/.quillo/bin/quillo check main.qwe",
+   "code": 0,
+   "out": "main.qwe: ok (2 routes, 0 functions, 2 components)"
+  },
+  "prod": {
+   "name": "zero-quillo",
+   "url": "http://127.0.0.1:5211/",
+   "when": "2026-11-25T04:04:36.258Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox0 new",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox0 new"
+   },
+   "console": []
+  },
+  "server": "quillo: 2 routes listening on http://127.0.0.1:5211\nGET / -> 200 (1.5ms)\n"
+ },
+ "zeroshow-solid": {
+  "round": "zeroshow",
+  "app": "solid",
+  "edits": [
+   [
+    "src/App.jsx",
+    "<Show when={unread() > 0}>",
+    "<Show when={unread()}>"
+   ]
+  ],
+  "when": "2026-11-25T03:53:35.948Z",
+  "lint": {
+   "cmd": "npx oxlint -c oxlint.config.js src/App.jsx",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 52 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BtjnsO8O.js   36.74 kB │ gzip: 14.92 kB\n\n✓ built in 62ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.11 kB │ gzip: 2.84 kB\n\n✓ built in 7ms"
+  },
+  "dev": {
+   "name": "zeroshow-solid-dev",
+   "url": "http://127.0.0.1:5223/",
+   "when": "2026-11-25T03:53:37.450Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "zeroshow-solid",
+   "url": "http://127.0.0.1:5224/",
+   "when": "2026-11-25T03:53:41.095Z",
+   "steps": {
+    "zero:start": "UNREAD +1 unreadRead all Inbox",
+    "zero:one": "UNREAD +1 unreadRead all Inbox1 new",
+    "zero:read": "UNREAD +1 unreadRead all Inbox"
+   },
+   "console": []
+  }
+ },
+ "once-react": {
+  "round": "once",
+  "app": "react",
+  "edits": [
+   [
+    "src/App.jsx",
+    "import { useState } from 'react'",
+    "import { useState, useEffect } from 'react'"
+   ],
+   [
+    "src/App.jsx",
+    "  const label = open ? 'Hide details' : 'Show details'\n",
+    "  const label = open ? 'Hide details' : 'Show details'\n  if (open) {\n    useEffect(() => { document.title = 'Details open' })\n  }\n"
+   ]
+  ],
+  "when": "2026-11-25T03:53:44.832Z",
+  "lint": {
+   "cmd": "npx oxlint src/App.jsx src/main.jsx",
+   "code": 1,
+   "out": "src/App.jsx:22:5: error react-hooks(rules-of-hooks): React Hook \"useEffect\" is called conditionally. React Hooks must be called in the exact same order in every component render. help: Move the Hook call before the condition, or call it unconditionally and branch inside the Hook/effect instead."
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 16 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css    0.96 kB │ gzip:  0.47 kB\ndist/assets/index-yo_h67TV.js   221.59 kB │ gzip: 69.17 kB\n\n✓ built in 62ms"
+  },
+  "dev": {
+   "name": "once-react-dev",
+   "url": "http://127.0.0.1:5225/",
+   "when": "2026-11-25T03:53:45.981Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": {
+     "error": "locator.screenshot: Timeout 30000ms exceeded."
+    },
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": [
+    "error: React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks\n\n   Previous render            Next render\n   ------------------------------------------------------\n%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n App 1. useState                   useState\n2. useState                   useState\n3. useState                   useState\n4. useState                   useState\n5. useState                   useState\n6. undefined                  useEffect\n",
+    "pageerror: Rendered more hooks than during the previous render.",
+    "warning: %s\n\n%s\n An error occurred in the <App> component. Consider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries."
+   ]
+  },
+  "prod": {
+   "name": "once-react",
+   "url": "http://127.0.0.1:5226/",
+   "when": "2026-11-25T03:54:49.372Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": {
+     "error": "locator.screenshot: Timeout 30000ms exceeded."
+    },
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": [
+    "pageerror: Minified React error #310; visit https://react.dev/errors/310 for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+   ]
+  }
+ },
+ "once-vue": {
+  "round": "once",
+  "app": "vue",
+  "edits": [
+   [
+    "src/App.vue",
+    "import { ref, computed } from 'vue'",
+    "import { ref } from 'vue'"
+   ],
+   [
+    "src/App.vue",
+    "const label = computed(() => (open.value ? 'Hide details' : 'Show details'))",
+    "const label = open.value ? 'Hide details' : 'Show details'"
+   ]
+  ],
+  "when": "2026-11-25T03:55:52.803Z",
+  "lint": {
+   "cmd": "npx eslint src",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 12 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-BSoBll-P.js   65.31 kB │ gzip: 25.68 kB\n\n✓ built in 52ms"
+  },
+  "dev": {
+   "name": "once-vue-dev",
+   "url": "http://127.0.0.1:5227/",
+   "when": "2026-11-25T03:55:54.507Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "once-vue",
+   "url": "http://127.0.0.1:5228/",
+   "when": "2026-11-25T03:56:27.534Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  }
+ },
+ "once-svelte": {
+  "round": "once",
+  "app": "svelte",
+  "edits": [
+   [
+    "src/App.svelte",
+    "let label = $derived(open ? 'Hide details' : 'Show details')",
+    "let label = open ? 'Hide details' : 'Show details'"
+   ]
+  ],
+  "when": "2026-11-25T03:57:01.037Z",
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 114 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-rjyXMh0A.js   41.44 kB │ gzip: 16.16 kB\n\n✓ built in 62ms\n11:57:01 AM [vite-plugin-svelte] src/App.svelte:9:14 This reference only captures the initial value of `open`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally\n 7:   let joining = $state(false)\n 8:   let shown = $state(true)\n 9:   let label = open ? 'Hide details' : 'Show details'\n                      ^\n10: </script>\n11:"
+  },
+  "dev": {
+   "name": "once-svelte-dev",
+   "url": "http://127.0.0.1:5229/",
+   "when": "2026-11-25T03:57:02.295Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "once-svelte",
+   "url": "http://127.0.0.1:5230/",
+   "when": "2026-11-25T03:57:35.253Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  }
+ },
+ "once-solid": {
+  "round": "once",
+  "app": "solid",
+  "edits": [
+   [
+    "src/App.jsx",
+    "const label = () => (open() ? 'Hide details' : 'Show details');",
+    "const label = open() ? 'Hide details' : 'Show details';"
+   ],
+   [
+    "src/App.jsx",
+    "{label()}",
+    "{label}"
+   ]
+  ],
+  "when": "2026-11-25T03:58:08.777Z",
+  "lint": {
+   "cmd": "npx oxlint -c oxlint.config.js src/App.jsx",
+   "code": 0,
+   "out": "src/App.jsx:20:17: warning solid(reactivity): The reactive variable 'open' should be used within JSX, a tracked scope (like createEffect), or inside an event handler function, or else changes will be ignored."
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 52 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/client/assets/virtual_solid-ssr-entry-client-D13345yD.js   36.73 kB │ gzip: 14.93 kB\n\n✓ built in 49ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.11 kB │ gzip: 2.85 kB\n\n✓ built in 7ms"
+  },
+  "dev": {
+   "name": "once-solid-dev",
+   "url": "http://127.0.0.1:5231/",
+   "when": "2026-11-25T03:58:10.268Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": [
+    "warning: [STRICT_READ_UNTRACKED] Reactive value \"open\" read directly in <App> will not update. Move it into a tracking scope (JSX, a memo, or an effect's compute function).\n  in <App>\n  at http://127.0.0.1:5231/virtual:solid-ssr-entry-client.tsx:6:14\n[STRICT_READ_UNTRACKED] what it means and how to fix it: https://docs.solidjs.com/reference/solid-js/diagnostics/strict-read-untracked\n[STRICT_READ_UNTRACKED] agent repair guide: node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md#strict_read_untracked — https://github.com/solidjs/solid/blob/next/packages/solid/skills/reactivity-diagnostics/SKILL.md#strict_read_untracked"
+   ]
+  },
+  "prod": {
+   "name": "once-solid",
+   "url": "http://127.0.0.1:5232/",
+   "when": "2026-11-25T03:58:43.278Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  }
+ },
+ "once-reflex": {
+  "round": "once",
+  "app": "reflex",
+  "edits": [
+   [
+    "inbox/inbox.py",
+    "rx.el.button(rx.cond(State.open, \"Hide details\", \"Show details\"), on_click=State.flip_open)",
+    "rx.el.button(\"Hide details\" if State.open else \"Show details\", on_click=State.flip_open)"
+   ]
+  ],
+  "when": "2026-11-25T03:59:16.370Z",
+  "server": "───────────────────────────── Starting Reflex App ──────────────────────────────\nTraceback (most recent call last):\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/utils/prerequisites.py\", line 427, in compile_or_validate_app\n    get_compiled_app(\n    ~~~~~~~~~~~~~~~~^\n        check_if_schema_up_to_date=check_if_schema_up_to_date,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        prerender_routes=prerender_routes,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        trigger=trigger,\n        ^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/utils/prerequisites.py\", line 336, in get_compiled_app\n    app._compile(\n    ~~~~~~~~~~~~^\n        prerender_routes=prerender_routes,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n        trigger=trigger,\n        ^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/app.py\", line 2144, in _compile\n    compiler.compile_app(\n    ~~~~~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<3 lines>...\n        compile_initial_state=compile_initial_state,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/compiler/compiler.py\", line 1342, in compile_app\n    compile_ctx.compile(\n    ~~~~~~~~~~~~~~~~~~~^\n        evaluate_progress=lambda: progress.advance(task),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        render_progress=lambda: progress.advance(task),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex_base/plugins/compiler.py\", line 724, in compile\n    page_ctx = self.hooks.eval_page(\n        page_fn,\n    ...<2 lines>...\n        **kwargs,\n    )\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex_base/plugins/compiler.py\", line 268, in eval_page\n    result = hook_impl(page_fn, page=page, **kwargs)\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/compiler/plugins/builtin.py\", line 44, in eval_page\n    component = compiler.into_component(page_fn)\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex/compiler/compiler.py\", line 970, in into_component\n    component_called = component()\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/once-reflex/inbox/inbox.py\", line 57, in index\n    rx.el.button(\"Hide details\" if State.open else \"Show details\", on_click=State.flip_open),\n                                   ^^^^^^^^^^\n  File \"/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.venv/lib/python3.13/site-packages/reflex_base/vars/base.py\", line 1715, in __bool__\n    raise VarTypeError(msg)\nreflex_base.utils.exceptions.VarTypeError: Cannot convert Var 'inbox.inbox.State.open' to bool for use with `if`, `and`, `or`, and `not`. Instead use `rx.cond` and bitwise operators `&` (and), `|` (or), `~` (invert).\nHappened while evaluating page 'index'\n",
+  "serverExit": 1
+ },
+ "once-nicegui": {
+  "round": "once",
+  "app": "nicegui",
+  "edits": [
+   [
+    "main.py",
+    "ui.button(on_click=lambda: flip('open')).bind_text_from(\n                state, 'open', backward=lambda o: 'Hide details' if o else 'Show details')",
+    "ui.button('Hide details' if state['open'] else 'Show details', on_click=lambda: flip('open'))"
+   ]
+  ],
+  "when": "2026-11-25T03:59:19.287Z",
+  "prod": {
+   "name": "once-nicegui",
+   "url": "http://127.0.0.1:5234/",
+   "when": "2026-11-25T03:59:21.274Z",
+   "steps": {
+    "details:start": "DETAILS SHOW DETAILS",
+    "details:shown": "DETAILS SHOW DETAILS Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  },
+  "server": "NiceGUI ready to go on http://127.0.0.1:5234\n"
+ },
+ "once-streamlit": {
+  "round": "once",
+  "app": "streamlit",
+  "edits": [
+   [
+    "app.py",
+    "    st.button(label, key=\"btn-open\", on_click=flip, args=(\"open\",))",
+    "    if st.button(label, key=\"btn-open\"):\n        flip(\"open\")"
+   ]
+  ],
+  "when": "2026-11-25T03:59:55.180Z",
+  "prod": {
+   "name": "once-streamlit",
+   "url": "http://127.0.0.1:5235/",
+   "when": "2026-11-25T03:59:56.692Z",
+   "steps": {
+    "details:start": "Details Show details",
+    "details:shown": "Details Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  },
+  "server": "2026-11-25 11:59:56.067 Uvicorn server started on 127.0.0.1:5235\n\n  You can now view your Streamlit app in your browser.\n\n  URL: http://127.0.0.1:5235\n\n  For better performance, install the Watchdog module:\n\n  $ xcode-select --install\n  $ pip install watchdog\n            \n"
+ },
+ "once-leptos": {
+  "round": "once",
+  "app": "leptos",
+  "edits": [
+   [
+    "src/main.rs",
+    "let label = move || if open.get() { \"Hide details\" } else { \"Show details\" };",
+    "let label = if open.get() { \"Hide details\" } else { \"Show details\" };"
+   ]
+  ],
+  "when": "2026-11-25T04:00:31.867Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh leptos /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/once-leptos once-leptos",
+   "code": 0,
+   "out": "once-leptos: built in .build/once-leptos",
+   "log": "$ trunk build --release --dist /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.build/once-leptos\n2026-11-25T04:00:31.914337Z  INFO 🚀 Starting trunk 0.22.2\n2026-11-25T04:00:32.088693Z  INFO 📦 starting build\n2026-11-25T04:00:32.089197Z  INFO node packages []\n    Blocking waiting for file lock on package cache\n    Blocking waiting for file lock on package cache\n    Blocking waiting for file lock on package cache\n   Compiling proc-macro2 v1.0.107\n   Compiling quote v1.0.47\n   Compiling unicode-ident v1.0.27\n   Compiling version_check v0.9.5\n   Compiling memchr v2.8.3\n   Compiling wasm-bindgen-shared v0.2.130\n   Compiling pin-project-lite v0.2.18\n   Compiling semver v1.0.28\n   Compiling thiserror v2.0.21\n   Compiling futures-core v0.3.34\n   Compiling rustversion v1.0.23\n   Compiling serde_core v1.0.229\n   Compiling rustc_version v0.4.1\n   Compiling futures-sink v0.3.34\n   Compiling futures-channel v0.3.34\n   Compiling bumpalo v3.20.4\n   Compiling slab v0.4.12\n   Compiling futures-io v0.3.34\n   Compiling futures-task v0.3.34\n   Compiling serde v1.0.229\n   Compiling stable_deref_trait v1.2.1\n   Compiling cfg-if v1.0.5\n   Compiling unicode-segmentation v1.13.3\n   Compiling proc-macro2-diagnostics v0.11.0\n   Compiling libc v0.2.191\n   Compiling writeable v0.6.4\n   Compiling convert_case v0.11.0\n   Compiling utf_types v1.0.0\n   Compiling litemap v0.8.3\n   Compiling utf8_iter v1.1.0\n   Compiling generic-array v0.14.7\n   Compiling or_poisoned v0.1.0\n   Compiling zmij v1.0.23\n   Compiling smallvec v1.16.6\n   Compiling paste v1.0.15\n   Compiling icu_normalizer_data v2.4.0\n   Compiling icu_properties_data v2.4.0\n   Compiling unicode-xid v0.2.6\n   Compiling syn v3.0.10\n   Compiling wasm-bindgen v0.2.130\n   Compiling syn v2.0.119\n   Compiling synstructure v0.14.0\n   Compiling wasm-bindgen-macro-support v0.2.130\n   Compiling serde_derive v1.0.229\n   Compiling thiserror-impl v2.0.21\n   Compiling futures-macro v0.3.34\n   Compiling zerofrom-derive v0.1.8\n   Compiling yoke-derive v0.8.4\n   Compiling futures-util v0.3.34\n   Compiling zerovec-derive v0.11.7\n   Compiling displaydoc v0.2.7\n   Compiling zerofrom v0.1.8\n   Compiling const_format_proc_macros v0.2.37\n   Compiling proc-macro-utils v0.10.0\n   Compiling wasm-bindgen-macro v0.2.130\n   Compiling slotmap v1.1.1\n   Compiling throw_error v0.3.1\n   Compiling event-listener v5.4.2\n   Compiling serde_json v1.0.154\n   Compiling hashbrown v0.17.2\n   Compiling itoa v1.0.19\n   Compiling konst_macro_rules v0.2.19\n   Compiling equivalent v1.0.3\n   Compiling anyhow v1.0.105\n   Compiling typenum v1.20.1\n   Compiling rstml v0.13.1\n   Compiling camino v1.2.6\n   Compiling indexmap v2.14.2\n   Compiling konst v0.2.20\n   Compiling event-listener-strategy v0.5.4\n   Compiling server_fn_macro v0.8.12\n   Compiling reactive_graph v0.2.16\n   Compiling send_wrapper v0.6.0\n   Compiling futures-executor v0.3.34\n   Compiling async-lock v3.5.0\n   Compiling futures v0.3.34\n   Compiling const_format v0.2.37\n   Compiling derive-where v1.7.0\n   Compiling xxhash-rust v0.8.21\n   Compiling rustc-hash v2.1.3\n   Compiling percent-encoding v2.3.2\n   Compiling either v1.19.0\n   Compiling guardian v1.3.0\n   Compiling thiserror v1.0.69\n   Compiling hydration_context v0.3.2\n   Compiling yoke v0.8.4\n   Compiling itertools v0.14.0\n   Compiling block-buffer v0.10.4\n   Compiling crypto-common v0.1.7\n   Compiling manyhow-macros v0.14.1\n   Compiling quote-use-macros v0.9.0\n   Compiling reactive_stores_macro v0.4.4\n   Compiling thiserror-impl v1.0.69\n   Compiling pin-project-internal v1.2.0\n   Compiling tachys v0.2.19\n   Compiling bytes v1.12.2\n   Compiling winnow v1.0.5\n   Compiling getrandom v0.4.3\n   Compiling prettyplease v0.3.0\n   Compiling http v1.5.0\n   Compiling toml_parser v1.1.7+spec-1.1.0\n   Compiling pin-project v1.2.0\n   Compiling zerovec v0.11.9\n   Compiling zerotrie v0.2.5\n   Compiling quote-use v0.9.0\n   Compiling manyhow v0.14.1\n   Compiling digest v0.10.7\n   Compiling oco_ref v0.2.1\n   Compiling form_urlencoded v1.2.3\n   Compiling either_of v0.1.9\n   Compiling js-sys v0.3.107\n   Compiling tinystr v0.8.5\n   Compiling icu_locale_core v2.4.0\n   Compiling potential_utf v0.1.6\n   Compiling icu_collections v2.4.0\n   Compiling cpufeatures v0.2.17\n   Compiling async-trait v0.1.92\n   Compiling icu_provider v2.4.0\n   Compiling server_fn v0.8.13\n   Compiling icu_properties v2.4.0\n   Compiling icu_normalizer v2.4.0\n   Compiling aho-corasick v1.1.5\n   Compiling serde_spanned v1.1.3\n   Compiling collection_literals v1.0.3\n   Compiling same-file v1.0.6\n   Compiling idna_adapter v1.2.2\n   Compiling idna v1.1.0\n   Compiling next_tuple v0.1.0\n   Compiling erased v0.1.2\n   Compiling regex-syntax v0.8.12\n   Compiling drain_filter_polyfill v0.1.3\n   Compiling const_str_slice_concat v0.1.0\n   Compiling toml_datetime v1.1.3+spec-1.1.0\n   Compiling interpolator v0.5.0\n   Compiling html-escape v0.2.15\n   Compiling attribute-derive-macro v0.11.0\n   Compiling convert_case v0.6.0\n   Compiling toml v1.2.3+spec-1.1.0\n   Compiling url v2.5.9\n   Compiling walkdir v2.5.1\n   Compiling wasm-bindgen-futures v0.4.80\n   Compiling web-sys v0.3.107\n   Compiling any_spawner v0.3.0\n   Compiling regex-automata v0.4.19\n   Compiling sha2 v0.10.9\n   Compiling server_fn_macro_default v0.8.6\n   Compiling serde_qs v0.15.0\n   Compiling typed-builder-macro v0.23.2\n   Compiling leptos_macro v0.8.20\n   Compiling pathdiff v0.2.3\n   Compiling base64 v0.22.1\n   Compiling base16 v0.2.1\n   Compiling const-str v1.1.0\n   Compiling wasm_split_macros v0.2.2\n   Compiling leptos_hot_reload v0.8.7\n   Compiling config v0.15.27\n   Compiling typed-builder v0.23.2\n   Compiling regex v1.13.2\n   Compiling uuid v1.29.3\n   Compiling attribute-derive v0.11.0\n   Compiling codee v0.3.5\n   Compiling convert_case_extras v0.2.0\n   Compiling leptos v0.8.23\n   Compiling async-once-cell v0.5.4\n   Compiling wasm_split_helpers v0.2.3\n   Compiling leptos_config v0.8.10\n   Compiling console_error_panic_hook v0.1.7\n   Compiling gloo-utils v0.2.0\n   Compiling gloo-net v0.6.0\n   Compiling wasm-streams v0.5.0\n   Compiling reactive_stores v0.4.4\n   Compiling leptos_server v0.8.8\n   Compiling leptos_dom v0.8.8\n   Compiling inbox v0.1.0 (/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/once-leptos)\n    Finished `release` profile [optimized] target(s) in 56.66s\n2026-11-25T04:01:29.543778Z  INFO applying new distribution\n2026-11-25T04:01:29.545788Z  INFO ✅ success\n"
+  },
+  "prod": {
+   "name": "once-leptos",
+   "url": "http://127.0.0.1:5236/",
+   "when": "2026-11-25T04:01:30.557Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": [
+    "warning: The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information"
+   ]
+  }
+ },
+ "once-dioxus": {
+  "round": "once",
+  "app": "dioxus",
+  "edits": [
+   [
+    "src/main.rs",
+    "    let label = if open() { \"Hide details\" } else { \"Show details\" };\n",
+    "    let label = if open() { \"Hide details\" } else { \"Show details\" };\n    if open() {\n        use_effect(|| { document::eval(\"document.title = 'Details open'\"); });\n    }\n"
+   ]
+  ],
+  "when": "2026-11-25T04:02:04.022Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh dioxus /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/once-dioxus once-dioxus",
+   "code": 0,
+   "out": "once-dioxus: built in .build/once-dioxus",
+   "log": "$ dx build --release --platform web --debug-symbols false\n  0.00s  INFO Building project...\n  1.17s  INFO Compiled [  1/175]: unicode_ident\n  1.18s  INFO Compiled [  2/175]: cfg_if\n  1.22s  INFO Compiled [  3/175]: pin_project_lite\n  1.25s  INFO Compiled [  4/175]: unicode_ident\n  1.28s  INFO Compiled [  5/175]: bumpalo\n  1.31s  INFO Compiled [  6/175]: futures_core\n  1.35s  INFO Compiled [  7/175]: build-script-build\n  1.35s  INFO Compiled [  8/175]: build-script-build\n  1.37s  INFO Compiled [  9/175]: build-script-build\n  1.38s  INFO Compiled [ 10/175]: build-script-build\n  1.38s  INFO Compiled [ 11/175]: futures_sink\n  1.41s  INFO Compiled [ 12/175]: futures_io\n  1.41s  INFO Compiled [ 13/175]: futures_task\n  1.41s  INFO Compiled [ 14/175]: slab\n  1.44s  INFO Compiled [ 15/175]: build-script-build\n  1.56s  INFO Compiled [ 16/175]: once_cell\n  1.58s  INFO Compiled [ 17/175]: version_check\n  1.62s  INFO Compiled [ 18/175]: build-script-build\n  1.70s  INFO Compiled [ 19/175]: memchr\n  1.84s  INFO Compiled [ 22/175]: build-script-build\n  1.91s  INFO Compiled [ 23/175]: build-script-build\n  1.94s  INFO Compiled [ 24/175]: wasm_bindgen_shared\n  2.08s  INFO Compiled [ 25/175]: tracing_core\n  2.12s  INFO Compiled [ 27/175]: smallvec\n  2.14s  INFO Compiled [ 28/175]: wasm_bindgen_shared\n  2.14s  INFO Compiled [ 29/175]: scopeguard\n  2.20s  INFO Compiled [ 30/175]: unicode_xid\n  2.23s  INFO Compiled [ 31/175]: build-script-build\n  2.23s  INFO Compiled [ 32/175]: lock_api\n  2.25s  INFO Compiled [ 33/175]: konst_macro_rules\n  2.28s  INFO Compiled [ 34/175]: dioxus_core_types\n  2.38s  INFO Compiled [ 35/175]: futures_channel\n  2.41s  INFO Compiled [ 36/175]: build-script-build\n  2.43s  INFO Compiled [ 37/175]: konst\n  2.43s  INFO Compiled [ 38/175]: rustc_hash\n  2.49s  INFO Compiled [ 39/175]: longest_increasing_subsequence\n  2.55s  INFO Compiled [ 40/175]: ident_case\n  2.56s  INFO Compiled [ 41/175]: lazy_js_bundle\n  2.60s  INFO Compiled [ 42/175]: fnv\n  2.76s  INFO Compiled [ 44/175]: build-script-build\n  2.79s  INFO Compiled [ 45/175]: unicode_segmentation\n  3.06s  INFO Compiled [ 47/175]: convert_case\n  3.08s  INFO Compiled [ 48/175]: autocfg\n  3.18s  INFO Compiled [ 49/175]: proc_macro2\n  3.18s  INFO Compiled [ 50/175]: quote\n  3.27s  INFO Compiled [ 51/175]: rustversion\n  3.28s  INFO Compiled [ 52/175]: build-script-build\n  3.84s  INFO Compiled [ 55/175]: const_format_proc_macros\n  4.28s  INFO Compiled [ 57/175]: build-script-build\n  4.55s  INFO Compiled [ 59/175]: parking_lot_core\n  4.84s  INFO Compiled [ 60/175]: serde_core\n  5.07s  INFO Compiled [ 62/175]: build-script-build\n  5.08s  INFO Compiled [ 63/175]: build-script-build\n  5.10s  INFO Compiled [ 64/175]: parking_lot\n  5.70s  INFO Compiled [ 66/175]: build-script-build\n  6.38s  INFO Compiled [ 68/175]: syn\n  6.40s  INFO Compiled [ 69/175]: anyhow\n  6.40s  INFO Compiled [ 70/175]: syn\n  6.57s  INFO Compiled [ 71/175]: const_format\n  6.95s  INFO Compiled [ 73/175]: futures_macro\n  7.36s  INFO Compiled [ 75/175]: tracing_attributes\n  7.53s  INFO Compiled [ 76/175]: thiserror_impl\n  7.53s  INFO Compiled [ 77/175]: warnings_macro\n  7.54s  INFO Compiled [ 78/175]: pin_project_internal\n  7.82s  INFO Compiled [ 80/175]: const_serialize_macro\n  8.21s  INFO Compiled [ 82/175]: const_serialize_macro\n  8.22s  INFO Compiled [ 83/175]: proc_macro2_diagnostics\n  8.43s  INFO Compiled [ 85/175]: build-script-build\n  8.54s  INFO Compiled [ 86/175]: serde_derive\n  9.16s  INFO Compiled [ 87/175]: wasm_bindgen_macro_support\n  9.36s  INFO Compiled [ 88/175]: tracing\n  9.44s  INFO Compiled [ 89/175]: darling_core\n  9.48s  INFO Compiled [ 90/175]: thiserror\n  9.52s  INFO Compiled [ 91/175]: wasm_bindgen_macro\n  9.67s  INFO Compiled [ 92/175]: generational_box\n  9.77s  INFO Compiled [ 93/175]: darling_macro\n  9.85s  INFO Compiled [ 94/175]: pin_project\n  9.88s  INFO Compiled [ 95/175]: serde_core\n 10.43s  INFO Compiled [ 97/175]: dioxus_rsx\n 10.46s  INFO Compiled [ 98/175]: futures_util\n 10.65s  INFO Compiled [ 99/175]: zmij\n 10.79s  INFO Compiled [100/175]: num_traits\n 10.84s  INFO Compiled [101/175]: itoa\n 10.85s  INFO Compiled [102/175]: lazy_static\n 10.95s  INFO Compiled [103/175]: serde\n 11.01s  INFO Compiled [104/175]: serde\n 11.14s  INFO Compiled [105/175]: subsecond_types\n 11.15s  INFO Compiled [106/175]: bitflags\n 11.31s  INFO Compiled [107/175]: sharded_slab\n 11.43s  INFO Compiled [108/175]: darling\n 11.46s  INFO Compiled [109/175]: matchers\n 11.51s  INFO Compiled [110/175]: slotmap\n 11.83s  INFO Compiled [111/175]: warnings\n 11.90s  INFO Compiled [112/175]: keyboard_types\n 12.07s  INFO Compiled [113/175]: euclid\n 12.27s  INFO Compiled [114/175]: dioxus_html_internal_macro\n 12.28s  INFO Compiled [115/175]: const_serialize\n 12.31s  INFO Compiled [116/175]: wasm_bindgen\n 12.43s  INFO Compiled [117/175]: regex_syntax\n 12.44s  INFO Compiled [118/175]: dioxus_cli_config\n 12.46s  INFO Compiled [119/175]: enumset_derive\n 12.46s  INFO Compiled [120/175]: const_serialize\n 12.58s  INFO Compiled [121/175]: build-script-build\n 12.61s  INFO Compiled [122/175]: build-script-build\n 12.61s  INFO Compiled [123/175]: dioxus_core_macro\n 12.83s  INFO Compiled [124/175]: thread_local\n 12.85s  INFO Compiled [125/175]: const_serialize\n 12.88s  INFO Compiled [126/175]: rustc_hash\n 13.06s  INFO Compiled [127/175]: sledgehammer_utils\n 13.24s  INFO Compiled [128/175]: enumset\n 13.33s  INFO Compiled [129/175]: async_trait\n 13.52s  INFO Compiled [131/175]: serde_json\n 13.59s  INFO Compiled [132/175]: bytes\n 13.62s  INFO Compiled [133/175]: sledgehammer_bindgen_macro\n 13.65s  INFO Compiled [134/175]: macro_string\n 13.69s  INFO Compiled [135/175]: dunce\n 13.69s  INFO Compiled [136/175]: build-script-build\n 13.77s  INFO Compiled [137/175]: const_serialize\n 13.93s  INFO Compiled [139/175]: send_wrapper\n 13.98s  INFO Compiled [140/175]: dioxus_config_macros\n 14.06s  INFO Compiled [141/175]: dioxus_config_macro\n 14.17s  INFO Compiled [142/175]: dioxus_stores_macro\n 14.22s  INFO Compiled [143/175]: sledgehammer_bindgen\n 14.29s  INFO Compiled [144/175]: winnow\n 14.55s  INFO Compiled [146/175]: regex_automata\n 14.79s  INFO Compiled [147/175]: tracing_subscriber\n 14.89s  INFO Compiled [148/175]: manganis_core\n 15.17s  INFO Compiled [149/175]: tracing_wasm\n 15.25s  INFO Compiled [150/175]: dioxus_logger\n 15.35s  INFO Compiled [151/175]: winnow\n 15.43s  INFO Compiled [152/175]: manganis_macro\n 15.79s  INFO Compiled [153/175]: manganis_core\n 15.97s  INFO Compiled [154/175]: manganis\n 17.39s  INFO Compiled [155/175]: wasm_bindgen_futures\n 17.53s  INFO Compiled [156/175]: gloo_timers\n 17.63s  INFO Compiled [157/175]: serde_wasm_bindgen\n 17.98s  INFO Compiled [158/175]: js_sys\n 20.52s  INFO Compiled [159/175]: dioxus_asset_resolver\n 20.67s  INFO Compiled [160/175]: subsecond\n 20.85s  INFO Compiled [161/175]: dioxus_interpreter_js\n 20.90s  INFO Compiled [162/175]: web_sys\n 21.37s  INFO Compiled [163/175]: wasm_streams\n 21.53s  INFO Compiled [164/175]: dioxus_devtools_types\n 21.59s  INFO Compiled [165/175]: dioxus_history\n 21.86s  INFO Compiled [166/175]: dioxus_signals\n 21.88s  INFO Compiled [167/175]: dioxus_core\n 21.99s  INFO Compiled [168/175]: dioxus_devtools\n 22.02s  INFO Compiled [169/175]: dioxus_hooks\n 22.44s  INFO Compiled [170/175]: dioxus_stores\n 23.15s  INFO Compiled [171/175]: dioxus_html\n 23.80s  INFO Compiled [172/175]: dioxus_document\n 24.19s  INFO Compiled [173/175]: dioxus_web\n 24.51s  INFO Compiled [174/175]: dioxus\n 24.81s  INFO Compiled [175/175]: inbox\n 24.83s  INFO Bundling app...\n 24.89s  INFO Running wasm-bindgen...\n 25.53s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v239/once-dioxus/dx/inbox/release/web/public/wasm/inbox_bg.wasm\n 25.54s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/once-dioxus/assets/page.css\n 25.55s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v239/once-dioxus/dx/inbox/release/web/public/wasm/inbox.js\n 25.55s  INFO Client build completed successfully! 🚀 path=\"/Users/you/dev/quillo-videos/.cache/rust-target/v239/once-dioxus/dx/inbox/release/web/public\"\n"
+  },
+  "prod": {
+   "name": "once-dioxus",
+   "url": "http://127.0.0.1:5237/",
+   "when": "2026-11-25T04:02:30.460Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Hide details Ships in 2 days.",
+    "details:hidden": "DETAILS Show details"
+   },
+   "console": []
+  }
+ },
+ "once-quillo": {
+  "round": "once",
+  "app": "quillo",
+  "edits": [
+   [
+    "main.qwe",
+    "    let label = open ? \"Hide details\" : \"Show details\"\n",
+    "    state label = \"Show details\"\n    label = open ? \"Hide details\" : \"Show details\"\n"
+   ]
+  ],
+  "when": "2026-11-25T04:04:46.498Z",
+  "check": {
+   "cmd": "/Users/you/dev/quillo-videos/videos/239-reactive-conditions/app/.quillo/bin/quillo check main.qwe",
+   "code": 0,
+   "out": "main.qwe: ok (2 routes, 0 functions, 2 components), 1 warning\nmain.qwe:17: warning: `label = ...` runs once, as <Page> starts: it does not follow `open` when that changes; for a value that follows it, write `let label = ...` in place of the state"
+  },
+  "prod": {
+   "name": "once-quillo",
+   "url": "http://127.0.0.1:5211/",
+   "when": "2026-11-25T04:04:46.786Z",
+   "steps": {
+    "details:start": "DETAILS Show details",
+    "details:shown": "DETAILS Show details Ships in 2 days.",
+    "details:hidden": {
+     "error": "locator.click: Timeout 30000ms exceeded."
+    }
+   },
+   "console": []
+  },
+  "server": "main.qwe:17: warning: `label = ...` runs once, as <Page> starts: it does not follow `open` when that changes; for a value that follows it, write `let label = ...` in place of the state\nquillo: 2 routes listening on http://127.0.0.1:5211\nGET / -> 200 (1.7ms)\n"
+ },
+ "keep-react": {
+  "round": "keep",
+  "app": "react",
+  "edits": [
+   [
+    "src/App.jsx",
+    "import { useState } from 'react'",
+    "import { useState, Activity } from 'react'"
+   ],
+   [
+    "src/App.jsx",
+    "{shown && <Counter />}",
+    "<Activity mode={shown ? 'visible' : 'hidden'}><Counter /></Activity>"
+   ]
+  ],
+  "when": "2026-11-25T04:02:38.463Z",
+  "lint": {
+   "cmd": "npx oxlint src/App.jsx src/main.jsx",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 16 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css    0.96 kB │ gzip:  0.47 kB\ndist/assets/index-DAHZaAXs.js   221.59 kB │ gzip: 69.16 kB\n\n✓ built in 63ms"
+  },
+  "dev": {
+   "name": "keep-react-dev",
+   "url": "http://127.0.0.1:5239/",
+   "when": "2026-11-25T04:02:39.708Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "keep-react",
+   "url": "http://127.0.0.1:5240/",
+   "when": "2026-11-25T04:02:44.328Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  }
+ },
+ "keep-vue": {
+  "round": "keep",
+  "app": "vue",
+  "edits": [
+   [
+    "src/App.vue",
+    "<ClickCounter v-if=\"shown\" />",
+    "<ClickCounter v-show=\"shown\" />"
+   ]
+  ],
+  "when": "2026-11-25T04:02:49.063Z",
+  "lint": {
+   "cmd": "npx eslint src",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 12 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.42 kB │ gzip:  0.28 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-OSXYmHyW.js   65.99 kB │ gzip: 25.95 kB\n\n✓ built in 51ms"
+  },
+  "dev": {
+   "name": "keep-vue-dev",
+   "url": "http://127.0.0.1:5241/",
+   "when": "2026-11-25T04:02:50.683Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "keep-vue",
+   "url": "http://127.0.0.1:5242/",
+   "when": "2026-11-25T04:02:55.291Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  }
+ },
+ "keep-svelte": {
+  "round": "keep",
+  "app": "svelte",
+  "edits": [
+   [
+    "src/App.svelte",
+    "{#if shown}\n      <Counter />\n    {/if}",
+    "<div hidden={!shown}><Counter /></div>"
+   ]
+  ],
+  "when": "2026-11-25T04:02:59.994Z",
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 114 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                  0.45 kB │ gzip:  0.29 kB\ndist/assets/index-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/assets/index-DYCRAqzK.js   42.59 kB │ gzip: 16.59 kB\n\n✓ built in 67ms"
+  },
+  "dev": {
+   "name": "keep-svelte-dev",
+   "url": "http://127.0.0.1:5243/",
+   "when": "2026-11-25T04:03:01.140Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2 +1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2 +1"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "keep-svelte",
+   "url": "http://127.0.0.1:5244/",
+   "when": "2026-11-25T04:03:05.748Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2 +1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2 +1"
+   },
+   "console": []
+  }
+ },
+ "keep-solid": {
+  "round": "keep",
+  "app": "solid",
+  "edits": [
+   [
+    "src/App.jsx",
+    "<Show when={shown()}>\n          <Counter />\n        </Show>",
+    "<div hidden={!shown()}><Counter /></div>"
+   ]
+  ],
+  "when": "2026-11-25T04:03:10.493Z",
+  "lint": {
+   "cmd": "npx oxlint -c oxlint.config.js src/App.jsx",
+   "code": 0,
+   "out": ""
+  },
+  "build": {
+   "cmd": "npx vite build",
+   "code": 0,
+   "out": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 52 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/client/.vite/manifest.json                                  0.30 kB │ gzip:  0.16 kB\ndist/client/assets/virtual_solid-ssr-entry-client-BO-RM3AN.css   0.96 kB │ gzip:  0.47 kB\ndist/client/assets/virtual_solid-ssr-entry-client-Bnx61RpK.js   37.20 kB │ gzip: 15.12 kB\n\n✓ built in 66ms\nvite v8.3.8 building ssr environment for production...\ntransforming...\n✓ 6 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/server/server.js  8.11 kB │ gzip: 2.84 kB\n\n✓ built in 10ms"
+  },
+  "dev": {
+   "name": "keep-solid-dev",
+   "url": "http://127.0.0.1:5245/",
+   "when": "2026-11-25T04:03:11.928Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  },
+  "prod": {
+   "name": "keep-solid",
+   "url": "http://127.0.0.1:5246/",
+   "when": "2026-11-25T04:03:16.541Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  }
+ },
+ "keep-leptos": {
+  "round": "keep",
+  "app": "leptos",
+  "edits": [
+   [
+    "src/main.rs",
+    "<Show when=move || shown.get()>\n                    <Counter/>\n                </Show>",
+    "<div hidden=move || !shown.get()><Counter/></div>"
+   ]
+  ],
+  "when": "2026-11-25T04:03:21.266Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh leptos /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/keep-leptos keep-leptos",
+   "code": 0,
+   "out": "keep-leptos: built in .build/keep-leptos",
+   "log": "$ trunk build --release --dist /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.build/keep-leptos\n2026-11-25T04:03:21.322666Z  INFO 🚀 Starting trunk 0.22.2\n2026-11-25T04:03:21.462319Z  INFO 📦 starting build\n2026-11-25T04:03:21.462750Z  INFO node packages []\n   Compiling proc-macro2 v1.0.107\n   Compiling quote v1.0.47\n   Compiling unicode-ident v1.0.27\n   Compiling version_check v0.9.5\n   Compiling memchr v2.8.3\n   Compiling semver v1.0.28\n   Compiling pin-project-lite v0.2.18\n   Compiling wasm-bindgen-shared v0.2.130\n   Compiling thiserror v2.0.21\n   Compiling serde_core v1.0.229\n   Compiling futures-core v0.3.34\n   Compiling rustc_version v0.4.1\n   Compiling rustversion v1.0.23\n   Compiling futures-sink v0.3.34\n   Compiling bumpalo v3.20.4\n   Compiling futures-channel v0.3.34\n   Compiling slab v0.4.12\n   Compiling futures-io v0.3.34\n   Compiling futures-task v0.3.34\n   Compiling serde v1.0.229\n   Compiling stable_deref_trait v1.2.1\n   Compiling cfg-if v1.0.5\n   Compiling unicode-segmentation v1.13.3\n   Compiling proc-macro2-diagnostics v0.11.0\n   Compiling litemap v0.8.3\n   Compiling libc v0.2.191\n   Compiling writeable v0.6.4\n   Compiling utf_types v1.0.0\n   Compiling convert_case v0.11.0\n   Compiling utf8_iter v1.1.0\n   Compiling generic-array v0.14.7\n   Compiling icu_properties_data v2.4.0\n   Compiling smallvec v1.16.6\n   Compiling unicode-xid v0.2.6\n   Compiling zmij v1.0.23\n   Compiling or_poisoned v0.1.0\n   Compiling paste v1.0.15\n   Compiling icu_normalizer_data v2.4.0\n   Compiling syn v3.0.10\n   Compiling syn v2.0.119\n   Compiling wasm-bindgen v0.2.130\n   Compiling const_format_proc_macros v0.2.37\n   Compiling proc-macro-utils v0.10.0\n   Compiling slotmap v1.1.1\n   Compiling throw_error v0.3.1\n   Compiling event-listener v5.4.2\n   Compiling konst_macro_rules v0.2.19\n   Compiling anyhow v1.0.105\n   Compiling serde_json v1.0.154\n   Compiling rstml v0.13.1\n   Compiling camino v1.2.6\n   Compiling itoa v1.0.19\n   Compiling hashbrown v0.17.2\n   Compiling equivalent v1.0.3\n   Compiling typenum v1.20.1\n   Compiling event-listener-strategy v0.5.4\n   Compiling konst v0.2.20\n   Compiling indexmap v2.14.2\n   Compiling reactive_graph v0.2.16\n   Compiling server_fn_macro v0.8.12\n   Compiling send_wrapper v0.6.0\n   Compiling const_format v0.2.37\n   Compiling async-lock v3.5.0\n   Compiling guardian v1.3.0\n   Compiling either v1.19.0\n   Compiling thiserror v1.0.69\n   Compiling xxhash-rust v0.8.21\n   Compiling rustc-hash v2.1.3\n   Compiling percent-encoding v2.3.2\n   Compiling itertools v0.14.0\n   Compiling crypto-common v0.1.7\n   Compiling block-buffer v0.10.4\n   Compiling synstructure v0.14.0\n   Compiling wasm-bindgen-macro-support v0.2.130\n   Compiling manyhow-macros v0.14.1\n   Compiling tachys v0.2.19\n   Compiling bytes v1.12.2\n   Compiling prettyplease v0.3.0\n   Compiling getrandom v0.4.3\n   Compiling reactive_stores_macro v0.4.4\n   Compiling thiserror-impl v1.0.69\n   Compiling winnow v1.0.5\n   Compiling http v1.5.0\n   Compiling thiserror-impl v2.0.21\n   Compiling serde_derive v1.0.229\n   Compiling futures-macro v0.3.34\n   Compiling zerofrom-derive v0.1.8\n   Compiling yoke-derive v0.8.4\n   Compiling zerovec-derive v0.11.7\n   Compiling displaydoc v0.2.7\n   Compiling futures-util v0.3.34\n   Compiling derive-where v1.7.0\n   Compiling quote-use-macros v0.9.0\n   Compiling zerofrom v0.1.8\n   Compiling pin-project-internal v1.2.0\n   Compiling quote-use v0.9.0\n   Compiling toml_parser v1.1.7+spec-1.1.0\n   Compiling pin-project v1.2.0\n   Compiling async-trait v0.1.92\n   Compiling manyhow v0.14.1\n   Compiling futures-executor v0.3.34\n   Compiling wasm-bindgen-macro v0.2.130\n   Compiling yoke v0.8.4\n   Compiling futures v0.3.34\n   Compiling digest v0.10.7\n   Compiling form_urlencoded v1.2.3\n   Compiling either_of v0.1.9\n   Compiling hydration_context v0.3.2\n   Compiling oco_ref v0.2.1\n   Compiling cpufeatures v0.2.17\n   Compiling server_fn v0.8.13\n   Compiling aho-corasick v1.1.5\n   Compiling drain_filter_polyfill v0.1.3\n   Compiling toml_datetime v1.1.3+spec-1.1.0\n   Compiling zerovec v0.11.9\n   Compiling zerotrie v0.2.5\n   Compiling const_str_slice_concat v0.1.0\n   Compiling html-escape v0.2.15\n   Compiling js-sys v0.3.107\n   Compiling serde_spanned v1.1.3\n   Compiling interpolator v0.5.0\n   Compiling same-file v1.0.6\n   Compiling next_tuple v0.1.0\n   Compiling regex-syntax v0.8.12\n   Compiling collection_literals v1.0.3\n   Compiling erased v0.1.2\n   Compiling attribute-derive-macro v0.11.0\n   Compiling walkdir v2.5.1\n   Compiling toml v1.2.3+spec-1.1.0\n   Compiling convert_case v0.6.0\n   Compiling regex-automata v0.4.19\n   Compiling tinystr v0.8.5\n   Compiling potential_utf v0.1.6\n   Compiling icu_collections v2.4.0\n   Compiling icu_locale_core v2.4.0\n   Compiling sha2 v0.10.9\n   Compiling serde_qs v0.15.0\n   Compiling icu_provider v2.4.0\n   Compiling server_fn_macro_default v0.8.6\n   Compiling icu_properties v2.4.0\n   Compiling icu_normalizer v2.4.0\n   Compiling typed-builder-macro v0.23.2\n   Compiling leptos_macro v0.8.20\n   Compiling idna_adapter v1.2.2\n   Compiling idna v1.1.0\n   Compiling const-str v1.1.0\n   Compiling url v2.5.9\n   Compiling pathdiff v0.2.3\n   Compiling base64 v0.22.1\n   Compiling base16 v0.2.1\n   Compiling wasm_split_macros v0.2.2\n   Compiling leptos_hot_reload v0.8.7\n   Compiling typed-builder v0.23.2\n   Compiling config v0.15.27\n   Compiling web-sys v0.3.107\n   Compiling wasm-bindgen-futures v0.4.80\n   Compiling any_spawner v0.3.0\n   Compiling regex v1.13.2\n   Compiling uuid v1.29.3\n   Compiling attribute-derive v0.11.0\n   Compiling codee v0.3.5\n   Compiling convert_case_extras v0.2.0\n   Compiling leptos v0.8.23\n   Compiling async-once-cell v0.5.4\n   Compiling wasm_split_helpers v0.2.3\n   Compiling leptos_config v0.8.10\n   Compiling console_error_panic_hook v0.1.7\n   Compiling gloo-utils v0.2.0\n   Compiling gloo-net v0.6.0\n   Compiling wasm-streams v0.5.0\n   Compiling reactive_stores v0.4.4\n   Compiling leptos_dom v0.8.8\n   Compiling leptos_server v0.8.8\n   Compiling inbox v0.1.0 (/Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/keep-leptos)\n    Finished `release` profile [optimized] target(s) in 28.71s\n2026-11-25T04:03:50.670489Z  INFO applying new distribution\n2026-11-25T04:03:50.671062Z  INFO ✅ success\n"
+  },
+  "prod": {
+   "name": "keep-leptos",
+   "url": "http://127.0.0.1:5247/",
+   "when": "2026-11-25T04:03:51.473Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": [
+    "warning: The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information"
+   ]
+  }
+ },
+ "keep-dioxus": {
+  "round": "keep",
+  "app": "dioxus",
+  "edits": [
+   [
+    "src/main.rs",
+    "if shown() {\n                    Counter {}\n                }",
+    "div { hidden: !shown(), Counter {} }"
+   ]
+  ],
+  "when": "2026-11-25T04:03:56.197Z",
+  "build": {
+   "cmd": "sh /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build-rust.sh dioxus /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/keep-dioxus keep-dioxus",
+   "code": 0,
+   "out": "keep-dioxus: built in .build/keep-dioxus",
+   "log": "$ dx build --release --platform web --debug-symbols false\n  0.00s  INFO Building project...\n  0.70s  INFO Compiled [  1/175]: cfg_if\n  0.70s  INFO Compiled [  2/175]: unicode_ident\n  0.71s  INFO Compiled [  3/175]: pin_project_lite\n  0.73s  INFO Compiled [  4/175]: unicode_ident\n  0.74s  INFO Compiled [  5/175]: futures_core\n  0.78s  INFO Compiled [  6/175]: futures_sink\n  0.78s  INFO Compiled [  7/175]: bumpalo\n  0.81s  INFO Compiled [  8/175]: futures_task\n  0.82s  INFO Compiled [  9/175]: slab\n  0.87s  INFO Compiled [ 10/175]: futures_io\n  0.92s  INFO Compiled [ 11/175]: once_cell\n  0.95s  INFO Compiled [ 12/175]: version_check\n  1.02s  INFO Compiled [ 13/175]: build-script-build\n  1.02s  INFO Compiled [ 14/175]: build-script-build\n  1.02s  INFO Compiled [ 15/175]: build-script-build\n  1.02s  INFO Compiled [ 16/175]: build-script-build\n  1.02s  INFO Compiled [ 17/175]: build-script-build\n  1.02s  INFO Compiled [ 18/175]: build-script-build\n  1.05s  INFO Compiled [ 19/175]: build-script-build\n  1.09s  INFO Compiled [ 20/175]: build-script-build\n  1.10s  INFO Compiled [ 21/175]: memchr\n  1.33s  INFO Compiled [ 24/175]: smallvec\n  1.33s  INFO Compiled [ 25/175]: tracing_core\n  1.36s  INFO Compiled [ 28/175]: scopeguard\n  1.43s  INFO Compiled [ 29/175]: build-script-build\n  1.46s  INFO Compiled [ 31/175]: wasm_bindgen_shared\n  1.47s  INFO Compiled [ 32/175]: lock_api\n  1.54s  INFO Compiled [ 33/175]: dioxus_core_types\n  1.56s  INFO Compiled [ 35/175]: quote\n  1.57s  INFO Compiled [ 36/175]: proc_macro2\n  1.61s  INFO Compiled [ 37/175]: build-script-build\n  1.68s  INFO Compiled [ 39/175]: unicode_xid\n  1.68s  INFO Compiled [ 40/175]: konst_macro_rules\n  1.69s  INFO Compiled [ 41/175]: wasm_bindgen_shared\n  1.76s  INFO Compiled [ 42/175]: rustversion\n  1.89s  INFO Compiled [ 45/175]: konst\n  1.91s  INFO Compiled [ 46/175]: futures_channel\n  1.94s  INFO Compiled [ 47/175]: rustc_hash\n  1.95s  INFO Compiled [ 48/175]: longest_increasing_subsequence\n  2.02s  INFO Compiled [ 50/175]: parking_lot_core\n  2.05s  INFO Compiled [ 51/175]: lazy_js_bundle\n  2.07s  INFO Compiled [ 52/175]: fnv\n  2.10s  INFO Compiled [ 53/175]: ident_case\n  2.12s  INFO Compiled [ 54/175]: const_format_proc_macros\n  2.20s  INFO Compiled [ 56/175]: build-script-build\n  2.30s  INFO Compiled [ 57/175]: build-script-build\n  2.32s  INFO Compiled [ 58/175]: unicode_segmentation\n  2.33s  INFO Compiled [ 59/175]: anyhow\n  2.37s  INFO Compiled [ 60/175]: autocfg\n  2.43s  INFO Compiled [ 61/175]: parking_lot\n  2.44s  INFO Compiled [ 62/175]: convert_case\n  2.46s  INFO Compiled [ 63/175]: build-script-build\n  2.51s  INFO Compiled [ 64/175]: build-script-build\n  2.55s  INFO Compiled [ 65/175]: build-script-build\n  2.56s  INFO Compiled [ 66/175]: build-script-build\n  2.72s  INFO Compiled [ 67/175]: serde_core\n  2.94s  INFO Compiled [ 69/175]: const_format\n  3.03s  INFO Compiled [ 71/175]: build-script-build\n  3.14s  INFO Compiled [ 73/175]: bitflags\n  3.42s  INFO Compiled [ 77/175]: proc_macro2_diagnostics\n  3.64s  INFO Compiled [ 79/175]: zmij\n  3.70s  INFO Compiled [ 80/175]: num_traits\n  3.77s  INFO Compiled [ 81/175]: lazy_static\n  3.82s  INFO Compiled [ 82/175]: itoa\n  4.09s  INFO Compiled [ 83/175]: dioxus_rsx\n  4.16s  INFO Compiled [ 84/175]: serde_core\n  4.17s  INFO Compiled [ 85/175]: syn\n  4.19s  INFO Compiled [ 86/175]: sharded_slab\n  4.21s  INFO Compiled [ 87/175]: syn\n  4.42s  INFO Compiled [ 88/175]: const_serialize_macro\n  4.62s  INFO Compiled [ 89/175]: euclid\n  4.73s  INFO Compiled [ 90/175]: darling_core\n  4.78s  INFO Compiled [ 91/175]: keyboard_types\n  4.83s  INFO Compiled [ 92/175]: futures_macro\n  4.94s  INFO Compiled [ 93/175]: warnings_macro\n  4.95s  INFO Compiled [ 94/175]: tracing_attributes\n  5.14s  INFO Compiled [ 95/175]: darling_macro\n  5.27s  INFO Compiled [ 96/175]: serde_json\n  5.36s  INFO Compiled [ 97/175]: pin_project_internal\n  5.39s  INFO Compiled [ 98/175]: const_serialize_macro\n  5.46s  INFO Compiled [ 99/175]: thiserror_impl\n  5.73s  INFO Compiled [100/175]: tracing\n  5.80s  INFO Compiled [101/175]: regex_syntax\n  5.84s  INFO Compiled [102/175]: matchers\n  5.85s  INFO Compiled [103/175]: serde_derive\n  5.91s  INFO Compiled [104/175]: generational_box\n  6.01s  INFO Compiled [105/175]: darling\n  6.39s  INFO Compiled [106/175]: pin_project\n  6.39s  INFO Compiled [107/175]: wasm_bindgen_macro_support\n  6.43s  INFO Compiled [108/175]: futures_util\n  6.46s  INFO Compiled [109/175]: enumset_derive\n  6.53s  INFO Compiled [110/175]: wasm_bindgen_macro\n  6.73s  INFO Compiled [111/175]: async_trait\n  6.79s  INFO Compiled [112/175]: const_serialize\n  6.81s  INFO Compiled [113/175]: const_serialize\n  6.85s  INFO Compiled [114/175]: dioxus_html_internal_macro\n  6.93s  INFO Compiled [115/175]: build-script-build\n  7.00s  INFO Compiled [116/175]: build-script-build\n  7.09s  INFO Compiled [117/175]: thread_local\n  7.12s  INFO Compiled [118/175]: thiserror\n  7.28s  INFO Compiled [119/175]: sledgehammer_bindgen_macro\n  7.31s  INFO Compiled [120/175]: rustc_hash\n  7.32s  INFO Compiled [121/175]: dioxus_core_macro\n  7.44s  INFO Compiled [122/175]: sledgehammer_utils\n  7.50s  INFO Compiled [123/175]: bytes\n  7.55s  INFO Compiled [124/175]: regex_automata\n  7.66s  INFO Compiled [125/175]: macro_string\n  7.75s  INFO Compiled [126/175]: build-script-build\n  7.75s  INFO Compiled [127/175]: serde\n  7.78s  INFO Compiled [128/175]: dunce\n  7.80s  INFO Compiled [129/175]: winnow\n  7.81s  INFO Compiled [130/175]: serde\n  7.83s  INFO Compiled [131/175]: subsecond_types\n  8.09s  INFO Compiled [132/175]: slotmap\n  8.58s  INFO Compiled [133/175]: tracing_subscriber\n  8.62s  INFO Compiled [134/175]: winnow\n  8.65s  INFO Compiled [135/175]: send_wrapper\n  8.73s  INFO Compiled [136/175]: dioxus_config_macro\n  8.76s  INFO Compiled [137/175]: dioxus_config_macros\n  8.79s  INFO Compiled [138/175]: dioxus_stores_macro\n  8.86s  INFO Compiled [139/175]: warnings\n  9.30s  INFO Compiled [140/175]: enumset\n 10.14s  INFO Compiled [143/175]: dioxus_cli_config\n 10.16s  INFO Compiled [144/175]: wasm_bindgen\n 10.30s  INFO Compiled [145/175]: const_serialize\n 10.43s  INFO Compiled [147/175]: const_serialize\n 10.58s  INFO Compiled [148/175]: tracing_wasm\n 10.65s  INFO Compiled [149/175]: dioxus_logger\n 10.75s  INFO Compiled [150/175]: manganis_core\n 10.76s  INFO Compiled [151/175]: sledgehammer_bindgen\n 10.95s  INFO Compiled [152/175]: manganis_core\n 11.30s  INFO Compiled [153/175]: manganis_macro\n 11.75s  INFO Compiled [154/175]: manganis\n 14.35s  INFO Compiled [155/175]: wasm_bindgen_futures\n 14.52s  INFO Compiled [156/175]: gloo_timers\n 14.59s  INFO Compiled [157/175]: serde_wasm_bindgen\n 15.08s  INFO Compiled [158/175]: js_sys\n 18.77s  INFO Compiled [159/175]: dioxus_asset_resolver\n 18.91s  INFO Compiled [160/175]: subsecond\n 19.12s  INFO Compiled [161/175]: dioxus_interpreter_js\n 19.18s  INFO Compiled [162/175]: web_sys\n 19.63s  INFO Compiled [163/175]: wasm_streams\n 19.79s  INFO Compiled [164/175]: dioxus_history\n 19.80s  INFO Compiled [165/175]: dioxus_devtools_types\n 20.20s  INFO Compiled [166/175]: dioxus_signals\n 20.23s  INFO Compiled [167/175]: dioxus_core\n 20.31s  INFO Compiled [168/175]: dioxus_devtools\n 20.38s  INFO Compiled [169/175]: dioxus_hooks\n 20.86s  INFO Compiled [170/175]: dioxus_stores\n 21.88s  INFO Compiled [171/175]: dioxus_html\n 22.50s  INFO Compiled [172/175]: dioxus_document\n 23.13s  INFO Compiled [173/175]: dioxus_web\n 23.16s  INFO Compiled [174/175]: dioxus\n 23.66s  INFO Compiled [175/175]: inbox\n 23.68s  INFO Bundling app...\n 23.76s  INFO Running wasm-bindgen...\n 24.92s  INFO Copying asset (1/3): /Users/you/dev/quillo-videos/.cache/rust-target/v239/keep-dioxus/dx/inbox/release/web/public/wasm/inbox_bg.wasm\n 24.93s  INFO Copying asset (2/3): /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/build/keep-dioxus/assets/page.css\n 24.96s  INFO Copying asset (3/3): /Users/you/dev/quillo-videos/.cache/rust-target/v239/keep-dioxus/dx/inbox/release/web/public/wasm/inbox.js\n 24.96s  INFO Client build completed successfully! 🚀 path=\"/Users/you/dev/quillo-videos/.cache/rust-target/v239/keep-dioxus/dx/inbox/release/web/public\"\n"
+  },
+  "prod": {
+   "name": "keep-dioxus",
+   "url": "http://127.0.0.1:5248/",
+   "when": "2026-11-25T04:04:22.232Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  }
+ },
+ "keep-quillo": {
+  "round": "keep",
+  "app": "quillo",
+  "edits": [
+   [
+    "main.qwe",
+    "{shown && <Counter/>}",
+    "<div hidden={!shown}><Counter/></div>"
+   ]
+  ],
+  "when": "2026-11-25T04:04:27.014Z",
+  "check": {
+   "cmd": "/Users/you/dev/quillo-videos/videos/239-reactive-conditions/app/.quillo/bin/quillo check main.qwe",
+   "code": 0,
+   "out": "main.qwe: ok (2 routes, 0 functions, 2 components)"
+  },
+  "prod": {
+   "name": "keep-quillo",
+   "url": "http://127.0.0.1:5249/",
+   "when": "2026-11-25T04:04:27.795Z",
+   "steps": {
+    "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+    "keep:hidden": "COUNTER Show counter",
+    "keep:back": "COUNTER Hide counter Clicked 2+1"
+   },
+   "console": []
+  },
+  "server": "quillo: 2 routes listening on http://127.0.0.1:5249\nGET / -> 200 (2.9ms)\n"
+ }
+}

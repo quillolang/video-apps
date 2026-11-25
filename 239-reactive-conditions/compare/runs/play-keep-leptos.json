@@ -1,0 +1,13 @@
+{
+ "name": "keep-leptos",
+ "url": "http://127.0.0.1:5247/",
+ "when": "2026-11-25T04:03:51.473Z",
+ "steps": {
+  "keep:clicked": "COUNTER Hide counter Clicked 2+1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 2+1"
+ },
+ "console": [
+  "warning: The `integrity` attribute is currently ignored for preload destinations that do not support subresource integrity. See https://crbug.com/981419 for more information"
+ ]
+}

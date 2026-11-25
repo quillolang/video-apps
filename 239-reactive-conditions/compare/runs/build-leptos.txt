@@ -1,0 +1,7 @@
+$ trunk build --release --dist /Users/you/dev/quillo-videos/videos/239-reactive-conditions/compare/.build/leptos
+2026-11-25T04:28:56.279512Z  INFO 🚀 Starting trunk 0.22.2
+2026-11-25T04:28:56.368571Z  INFO 📦 starting build
+2026-11-25T04:28:56.369099Z  INFO node packages []
+    Finished `release` profile [optimized] target(s) in 0.11s
+2026-11-25T04:28:56.872546Z  INFO applying new distribution
+2026-11-25T04:28:56.873141Z  INFO ✅ success

@@ -1,0 +1,11 @@
+{
+ "name": "keep-svelte",
+ "url": "http://127.0.0.1:5244/",
+ "when": "2026-11-25T04:03:05.748Z",
+ "steps": {
+  "keep:clicked": "COUNTER Hide counter Clicked 2 +1",
+  "keep:hidden": "COUNTER Show counter",
+  "keep:back": "COUNTER Hide counter Clicked 2 +1"
+ },
+ "console": []
+}

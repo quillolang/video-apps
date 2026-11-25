@@ -1,0 +1,57 @@
+// One page, five small boxes, each a condition: the same page in every framework in this video.
+component Counter() {
+    state n = 0
+    <div class="panel">
+        <span class="count">Clicked {n}</span>
+        <button onclick={() => { n += 1 }}>+1</button>
+    </div>
+}
+
+component Page() {
+    state open = false
+    state status = "loading"
+    state unread = 0
+    state joining = false
+    state shown = true
+    let label = open ? "Hide details" : "Show details"
+    <main>
+        <h1>Quillo</h1>
+        <section class="box box-details">
+            <h2>Details</h2>
+            <button onclick={() => { open = !open }}>{label}</button>
+            {open && <p class="out">Ships in 2 days.</p>}
+        </section>
+        <section class="box box-status">
+            <h2>Status</h2>
+            <button onclick={() => { status = "loading" }}>Loading</button>
+            <button onclick={() => { status = "error" }}>Error</button>
+            <button onclick={() => { status = "ready" }}>Ready</button>
+            <p class="out">{match status {
+                "loading" => <em>Loading…</em>
+                "error" => <strong>Couldn't load</strong>
+                _ => <span>3 messages</span>
+            }}</p>
+        </section>
+        <section class="box box-zero">
+            <h2>Unread</h2>
+            <button onclick={() => { unread += 1 }}>+1 unread</button>
+            <button onclick={() => { unread = 0 }}>Read all</button>
+            <p class="out">Inbox{unread != 0 && <span class="badge">{unread} new</span>}</p>
+        </section>
+        <section class="box box-switch wide">
+            <h2>Log in or sign up</h2>
+            <button onclick={() => { joining = !joining }}>{joining ? "I have an account" : "I'm new here"}</button>
+            {joining
+                ? <input placeholder="Work email" aria-label="Work email"/>
+                : <input placeholder="Your email" aria-label="Your email"/>}
+        </section>
+        <section class="box box-keep">
+            <h2>Counter</h2>
+            <button onclick={() => { shown = !shown }}>{shown ? "Hide counter" : "Show counter"}</button>
+            {shown && <Counter/>}
+        </section>
+    </main>
+}
+
+route GET /page.css = files("public", "page.css")
+route GET / = <html><head><title>Quillo</title><link rel="stylesheet" href="/page.css"/></head><body><Page/></body></html>

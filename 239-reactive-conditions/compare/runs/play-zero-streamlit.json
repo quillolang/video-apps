@@ -1,0 +1,11 @@
+{
+ "name": "zero-streamlit",
+ "url": "http://127.0.0.1:5221/",
+ "when": "2026-11-25T03:52:35.455Z",
+ "steps": {
+  "zero:start": "Unread +1 unread Read all Inbox",
+  "zero:one": "Unread +1 unread Read all Inbox 1 new",
+  "zero:read": "Unread +1 unread Read all Inbox"
+ },
+ "console": []
+}

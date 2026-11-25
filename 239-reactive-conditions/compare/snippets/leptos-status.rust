@@ -1,0 +1,5 @@
+{move || match status.get() {
+    "loading" => view! { <em>"Loading…"</em> }.into_any(),
+    "error" => view! { <strong>"Couldn't load"</strong> }.into_any(),
+    _ => view! { <span>"3 messages"</span> }.into_any(),
+}}

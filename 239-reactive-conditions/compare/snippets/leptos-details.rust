@@ -1,0 +1,9 @@
+let label = move || if open.get() { "Hide details" } else { "Show details" };
+// ...
+<section class="box box-details">
+    <h2>"Details"</h2>
+    <button on:click=move |_| set_open.update(|o| *o = !*o)>{label}</button>
+    <Show when=move || open.get()>
+        <p class="out">"Ships in 2 days."</p>
+    </Show>
+</section>

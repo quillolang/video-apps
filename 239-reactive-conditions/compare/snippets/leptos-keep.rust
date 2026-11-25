@@ -1,0 +1,3 @@
+<Show when=move || shown.get()>
+    <Counter/>
+</Show>
