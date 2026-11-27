@@ -119,7 +119,8 @@ async function run(name) {
     other_tab_ms: seenB, a_up: ma.up, a_down: ma.down, b_up: mb.up, b_down: mb.down, a_requests: [...ma.requests], b_requests: [...mb.requests],
     input_after: await a.inputValue('input[aria-label="New item"]'),
   };
-  // Median of 20 more adds, for the other tab's delay.
+  // Median of 20 more adds, a second apart, for the other tab's delay. Quillo gathers changes that come
+  // within ~0.1 s of the last into one refresh (its guide, "Live data"), so SPACED=0 measures that window.
   const delays = [];
   for (let i = 0; i < 20; i++) {
     const n = `Item ${i}`;
@@ -129,6 +130,7 @@ async function run(name) {
     const d = await waitFor(async () => (await names(b)).includes(n));
     delays.push(d === null ? null : Date.now() - t);
     await waitFor(async () => (await a.inputValue('input[aria-label="New item"]')) === '');
+    await sleep(Number(process.env.SPACED ?? 1000)); // a person's pace; SPACED=0 adds as fast as it can
   }
   const ok = delays.filter((x) => x !== null).sort((x, y) => x - y);
   out.add.other_tab_median_ms = ok[Math.floor(ok.length / 2)];

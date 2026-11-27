@@ -30,19 +30,20 @@ Both pages have the same markup and the same one-line style.
 | | Datastar 1.0.5 + Go | Quillo 0.8.11 |
 |---|---|---|
 | JavaScript the page runs | 35,673 B (14,130 B gzipped; Go's file server sends it uncompressed) | 175,499 B (50,614 B gzipped; sent gzipped) |
-| Other tab shows a new item, median of 20 | 35 ms | 125 ms |
+| Other tab shows a new item, median of 20 adds a second apart | 38 ms (first add 8 ms) | 37 ms (first add 22 ms) |
+| The same, adds back to back (`SPACED=0`) | 35 ms | 125 ms: Quillo gathers changes within ~0.1 s of the last into one refresh, by design (guide, "Live data"; `LIVE_GATHER`, 100 ms + up to 50 ms) |
 | Bytes for one add, tab 1 up / down, tab 2 down | 45 / 399 / 317 | 10 / 176 / 165 |
 | Requests for one add | `POST /add`; both tabs get HTML on their open stream | `rpc/add`, then each tab `rpc/items` after a live notice |
 | An empty add | "Type something to add" | "Type something to add" |
 | Hide done | no request | no request |
 | Typing "Bre" in tab 1 while tab 2 adds | kept, with focus | kept, with focus |
 | A name `<b>Bold</b> beans` | shown as typed (html/template escapes) | shown as typed |
-| Server down 3 s, then an add | tab 1 and 2 after 3.5 s | 0.3 s and 1.1 s |
-| Server down 20 s, then an add | tab 1 and 2 after 3.5 s | 13.2 s and 11.9 s |
+| Server down 3 s, then an add | tab 1 and 2 after 3.5 s | 0.01 s and 0.8 s |
+| Server down 20 s, then an add | tab 1 and 2 after 3.5 s | 11.1 s and 11.5 s |
 | Non-blank lines | 159 in main.go (23 of them the template) | 41 in main.qwe + 5 of SQL |
 
-Restart times depend on where each client's retry timer is when the server comes back: an earlier run gave
-Datastar 0.01 s / 7.5 s and Quillo 4.7 s / 11.3 s for the two outages. Both always caught up with no reload.
+Restart times depend on where each client's retry timer is when the server comes back: earlier runs gave
+Datastar 0.01 s / 7.5 s and 3.5 s / 3.5 s, Quillo 4.7 s / 11.3 s and 0.3-1.1 s / 11.9-13.2 s, for the two outages. Both always caught up with no reload.
 
 ## Mistakes
 

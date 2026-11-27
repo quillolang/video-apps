@@ -19,42 +19,42 @@
   "js_gzip": 50614,
   "html_bytes": 4133,
   "add": {
-    "other_tab_ms": 8,
+    "other_tab_ms": 22,
     "a_up": 10,
     "a_down": 176,
     "b_up": 2,
     "b_down": 165,
     "a_requests": [
-      "POST /_quillo/rpc/add @34540",
-      "POST /_quillo/rpc/items @34554"
+      "POST /_quillo/rpc/add @53049",
+      "POST /_quillo/rpc/items @53069"
     ],
     "b_requests": [
-      "POST /_quillo/rpc/items @34542"
+      "POST /_quillo/rpc/items @53070"
     ],
     "input_after": "",
-    "other_tab_median_ms": 125,
+    "other_tab_median_ms": 37,
     "other_tab_missed": 0,
     "other_tab_all_ms": [
       44,
-      102,
-      111,
-      145,
-      147,
-      125,
-      121,
-      135,
-      99,
-      133,
-      146,
-      119,
-      120,
-      113,
-      126,
-      145,
-      73,
-      142,
-      106,
-      143
+      27,
+      30,
+      43,
+      46,
+      34,
+      33,
+      32,
+      27,
+      40,
+      37,
+      42,
+      40,
+      35,
+      37,
+      35,
+      39,
+      32,
+      39,
+      41
     ]
   },
   "empty": {
@@ -67,38 +67,42 @@
     ],
     [
       13,
-      false
-    ],
-    [
-      28,
       true
     ],
     [
-      41,
+      25,
       true
     ],
     [
-      55,
+      36,
       true
     ],
     [
-      67,
+      48,
       true
     ],
     [
-      79,
+      61,
       true
     ],
     [
-      93,
+      73,
       true
     ],
     [
-      106,
+      85,
       true
     ],
     [
-      119,
+      96,
+      true
+    ],
+    [
+      108,
+      true
+    ],
+    [
+      121,
       true
     ],
     [
@@ -110,15 +114,15 @@
       true
     ],
     [
-      159,
+      158,
       true
     ],
     [
-      173,
+      171,
       true
     ],
     [
-      185,
+      183,
       true
     ],
     [
@@ -126,95 +130,107 @@
       true
     ],
     [
-      211,
+      208,
       true
     ],
     [
-      225,
+      219,
       true
     ],
     [
-      237,
+      231,
       true
     ],
     [
-      250,
+      244,
       true
     ],
     [
-      264,
+      256,
       true
     ],
     [
-      279,
+      269,
       true
     ],
     [
-      293,
+      281,
       true
     ],
     [
-      306,
+      294,
       true
     ],
     [
-      321,
+      305,
       true
     ],
     [
-      334,
+      317,
       true
     ],
     [
-      347,
+      330,
       true
     ],
     [
-      359,
+      342,
       true
     ],
     [
-      373,
+      354,
       true
     ],
     [
-      385,
+      365,
       true
     ],
     [
-      397,
+      376,
       true
     ],
     [
-      411,
+      389,
       true
     ],
     [
-      424,
+      400,
       true
     ],
     [
-      437,
+      413,
       true
     ],
     [
-      450,
+      425,
       true
     ],
     [
-      464,
+      436,
       true
     ],
     [
-      479,
+      448,
       true
     ],
     [
-      494,
+      461,
       true
     ],
     [
-      508,
+      474,
+      true
+    ],
+    [
+      485,
+      true
+    ],
+    [
+      498,
+      true
+    ],
+    [
+      511,
       true
     ],
     [
@@ -222,11 +238,11 @@
       true
     ],
     [
-      534,
+      536,
       true
     ],
     [
-      547,
+      549,
       true
     ],
     [
@@ -234,7 +250,7 @@
       true
     ],
     [
-      573,
+      574,
       true
     ],
     [
@@ -242,63 +258,67 @@
       true
     ],
     [
-      599,
+      598,
       true
     ],
     [
-      613,
+      611,
       true
     ],
     [
-      627,
+      623,
       true
     ],
     [
-      638,
+      636,
       true
     ],
     [
-      652,
+      648,
       true
     ],
     [
-      666,
+      661,
       true
     ],
     [
-      680,
+      674,
       true
     ],
     [
-      693,
+      687,
       true
     ],
     [
-      708,
+      700,
       true
     ],
     [
-      721,
+      713,
       true
     ],
     [
-      733,
+      726,
       true
     ],
     [
-      746,
+      739,
       true
     ],
     [
-      760,
+      751,
       true
     ],
     [
-      773,
+      764,
       true
     ],
     [
-      788,
+      776,
+      true
+    ],
+    [
+      789,
       true
     ]
   ],
@@ -308,7 +328,7 @@
     "a_ms": 2,
     "a_checked": true
   },
-  "hide_t0": 40007,
+  "hide_t0": 77055,
   "hide": {
     "requests": [],
     "up": 0,
@@ -327,33 +347,36 @@
     {
       "item": "Bread",
       "down_ms": 3000,
-      "up_after_ms": 3110,
-      "a_ms": 291,
-      "b_ms": 1141,
-      "since_stop_a": 3758
+      "up_after_ms": 3113,
+      "a_ms": 10,
+      "b_ms": 819,
+      "since_stop_a": 3501
     },
     {
       "item": "Butter",
       "down_ms": 20000,
-      "up_after_ms": 20109,
-      "a_ms": 13158,
-      "b_ms": 11886,
-      "since_stop_a": 33623
+      "up_after_ms": 20123,
+      "a_ms": 11123,
+      "b_ms": 11474,
+      "since_stop_a": 31623
     }
   ],
   "console_errors": [
-    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=25&s=c33451ee&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "quillo: server fn `items` could not be reached: Failed to fetch",
+    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=25&s=bdbaf573&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=e6d029ba&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=a41d5f13&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=e6d029ba&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=a41d5f13&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=a41d5f13&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
     "quillo: live updates are not reaching this page: the server is not taking them",
-    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=e6d029ba&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=e6d029ba&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    "WebSocket connection to 'ws://127.0.0.1:8191/_quillo/live?since=2&s=a41d5f13&tk=1&t=db%3Aitems' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED"
   ],
   "final_list": [
     "Milk",
@@ -382,5 +405,5 @@
     "Bread",
     "Butter"
   ],
-  "server_log": "quillo: 1 route listening on http://127.0.0.1:8191\nquillo: database /Users/you/dev/quillo-videos/videos/249-datastar/app/list.db\nGET / -> 200 (2.1ms)\nGET / -> 200 (0.1ms)\nPOST /_quillo/rpc/add -> 200 (0.4ms)\nPOST /_quillo/rpc/items -> 200 (0.1ms)\nPOST /_quillo/rpc/items -> 200 (0.2ms)\nPOST /_quillo/rpc/items -> 200 (0.0ms)\nquillo: stopping once the requests in progress are answered (again to stop now)\n"
+  "server_log": "quillo: 1 route listening on http://127.0.0.1:8191\nquillo: database /Users/you/dev/quillo-videos/videos/249-datastar/app/list.db\nGET / -> 200 (6.6ms)\nGET / -> 200 (0.1ms)\nPOST /_quillo/rpc/add -> 200 (1.4ms)\nPOST /_quillo/rpc/items -> 200 (0.9ms)\nPOST /_quillo/rpc/items -> 200 (0.3ms)\nPOST /_quillo/rpc/items -> 200 (0.0ms)\nquillo: stopping once the requests in progress are answered (again to stop now)\n"
 }
