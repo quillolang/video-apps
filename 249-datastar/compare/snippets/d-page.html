@@ -1,0 +1,10 @@
+<main data-signals="{item: '', problem: '', hideDone: false}" data-init="@get('/updates')">
+  <h1>Shopping list</h1>
+  <form data-on:submit="@post('/add')">
+    <input data-bind:item placeholder="Milk, eggs..." aria-label="New item">
+    <button>Add</button>
+  </form>
+  <p class="problem" data-show="$problem != ''" data-text="$problem"></p>
+  <label><input type="checkbox" data-bind:hide-done> Hide done</label>
+  {{template "list" .}}
+</main>

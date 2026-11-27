@@ -1,0 +1,14 @@
+server fn items() -> list with db = db.query("select * from items order by id")
+
+server fn add(name: str) -> null ! str with db {
+    let n = trim(name)
+    if n == "" { return err("Type something to add") }
+    if len(n) > 40 { return err("40 characters at most") }
+    db.exec("insert into items (name) values (?)", n)?
+    null
+}
+
+server fn toggle(id: int) -> null ! str with db {
+    db.exec("update items set done = 1 - done where id = ?", id)?
+    null
+}

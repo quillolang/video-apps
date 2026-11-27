@@ -1,0 +1,47 @@
+// A shared shopping list with Quillo: add, tick off, hide what's done, live in every open tab.
+db.open("list.db")
+db.migrate("migrations")
+
+server fn items() -> list with db = db.query("select * from items order by id")
+
+server fn add(name: str) -> null ! str with db {
+    let n = trim(name)
+    if n == "" { return err("Type something to add") }
+    if len(n) > 40 { return err("40 characters at most") }
+    db.exec("insert into items (name) values (?)", n)?
+    null
+}
+
+server fn toggle(id: int) -> null ! str with db {
+    db.exec("update items set done = 1 - done where id = ?", id)?
+    null
+}
+
+component List() {
+    state list = live(items)
+    state item = ""
+    state problem = null
+    state hide_done = false
+    let all = list ?? []
+    let left = len(filter(all, (i) => i.done == 0))
+    let shown = hide_done ? filter(all, (i) => i.done == 0) : all
+    <main>
+        <h1>Shopping list</h1>
+        <form onsubmit={() => {
+            let r = add(item)
+            if is_err(r) { problem = r.error } else { item = ""; problem = null }
+        }}>
+            <input value={item} placeholder="Milk, eggs..." aria-label="New item"/>
+            <button>Add</button>
+        </form>
+        {problem && <p.problem>{problem}</p>}
+        <label><input type="checkbox" checked={hide_done}/> Hide done</label>
+        <p>{left} left</p>
+        <ul>{for i in shown => <li key={i.id}><label>
+            <input type="checkbox" checked={i.done == 1} onchange={() => { let _ = toggle(i.id) }}/> {i.name}
+        </label></li>}</ul>
+    </main>
+}
+
+route GET / = <html><head><meta charset="utf-8"/><title>Shopping list</title>
+    <style>{css`body { font: 18px system-ui; margin: 24px } li { list-style: none } .problem { color: #c0392b }`}</style></head><body><List/></body></html>

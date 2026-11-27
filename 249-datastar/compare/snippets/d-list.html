@@ -1,0 +1,8 @@
+{{define "list"}}<div id="list">
+  <p>{{.Left}} left</p>
+  <ul>{{range .Items}}
+    <li {{if .Done}}data-show="!$hideDone"{{end}}><label>
+      <input type="checkbox" {{if .Done}}checked{{end}} data-on:change="@post('/toggle?id={{.ID}}')"> {{.Name}}
+    </label></li>{{end}}
+  </ul>
+</div>{{end}}`))

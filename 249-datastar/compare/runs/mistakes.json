@@ -1,0 +1,100 @@
+{
+  "signal": {
+    "what": "a misspelled name in the page",
+    "datastar": {
+      "change": [
+        "data-show=\"$problem != ''\" data-text=\"$problem\"",
+        "data-show=\"$problme != ''\" data-text=\"$problme\""
+      ],
+      "vet": "",
+      "vet_ok": true,
+      "build_ok": true,
+      "build": "",
+      "run": {
+        "page_text": "Shopping list\n Add\n Hide done\n\n0 left",
+        "errors": [],
+        "bold": 0
+      }
+    },
+    "quillo": {
+      "change": [
+        "{problem && <p.problem>{problem}</p>}",
+        "{problme && <p.problem>{problme}</p>}"
+      ],
+      "check": "main.qwe:37: error: unknown name `problme` (did you mean `problem`?)\nquillo: 1 error",
+      "check_ok": false
+    }
+  },
+  "endpoint": {
+    "what": "a misspelled endpoint or function",
+    "datastar": {
+      "change": [
+        "@post('/add')",
+        "@post('/ad')"
+      ],
+      "vet": "",
+      "vet_ok": true,
+      "build_ok": true,
+      "build": "",
+      "run": {
+        "page_text": "Shopping list\n Add\n Hide done\n\n0 left",
+        "errors": [
+          "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "bold": 0
+      }
+    },
+    "quillo": {
+      "change": [
+        "let r = add(item)",
+        "let r = ad(item)"
+      ],
+      "check": "main.qwe:31: error: unknown name `ad` (did you mean `add`?)\nquillo: 1 error",
+      "check_ok": false
+    }
+  },
+  "field": {
+    "what": "the page and the server name a field differently",
+    "datastar": {
+      "change": [
+        "Item string `json:\"item\"`",
+        "Item string `json:\"name\"`"
+      ],
+      "vet": "",
+      "vet_ok": true,
+      "build_ok": true,
+      "build": "",
+      "run": {
+        "page_text": "Shopping list\n Add\n\nType something to add\n\n Hide done\n\n0 left",
+        "errors": [],
+        "bold": 0
+      }
+    },
+    "quillo": {
+      "change": [
+        "let r = add(item)",
+        "let r = add({ name: item })"
+      ],
+      "check": "main.qwe:31: error: argument `name` of `add` must be str, got map\nquillo: 1 error",
+      "check_ok": false
+    }
+  },
+  "escape": {
+    "what": "HTML put together from text",
+    "datastar": {
+      "change": "renderList with fmt.Fprintf",
+      "vet": "",
+      "vet_ok": true,
+      "build_ok": true,
+      "build": "",
+      "run": {
+        "page_text": "Shopping list\n Add\n Hide done\n\n1 left\n\n Bold beans",
+        "errors": [],
+        "bold": 1
+      }
+    },
+    "quillo": {
+      "change": "none needed: {i.name} is escaped; only raw() is not"
+    }
+  }
+}

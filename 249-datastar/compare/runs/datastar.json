@@ -1,0 +1,394 @@
+{
+  "side": "datastar",
+  "url": "http://127.0.0.1:8190/",
+  "scripts": [
+    {
+      "url": "/static/datastar.js",
+      "bytes": 35673,
+      "gzip": 14130,
+      "encoding": null
+    }
+  ],
+  "js_bytes": 35673,
+  "js_gzip": 14130,
+  "html_bytes": 755,
+  "add": {
+    "other_tab_ms": 8,
+    "a_up": 45,
+    "a_down": 399,
+    "b_up": 0,
+    "b_down": 317,
+    "a_requests": [
+      "POST /add @95771"
+    ],
+    "b_requests": [],
+    "input_after": "",
+    "other_tab_median_ms": 35,
+    "other_tab_missed": 0,
+    "other_tab_all_ms": [
+      31,
+      33,
+      35,
+      34,
+      35,
+      27,
+      29,
+      35,
+      33,
+      33,
+      36,
+      34,
+      41,
+      37,
+      41,
+      38,
+      35,
+      34,
+      34,
+      37
+    ]
+  },
+  "empty": {
+    "problem": "Type something to add"
+  },
+  "tick_trace_b": [
+    [
+      0,
+      true
+    ],
+    [
+      13,
+      true
+    ],
+    [
+      26,
+      true
+    ],
+    [
+      37,
+      true
+    ],
+    [
+      48,
+      true
+    ],
+    [
+      61,
+      true
+    ],
+    [
+      73,
+      true
+    ],
+    [
+      86,
+      true
+    ],
+    [
+      97,
+      true
+    ],
+    [
+      110,
+      true
+    ],
+    [
+      122,
+      true
+    ],
+    [
+      134,
+      true
+    ],
+    [
+      147,
+      true
+    ],
+    [
+      159,
+      true
+    ],
+    [
+      172,
+      true
+    ],
+    [
+      185,
+      true
+    ],
+    [
+      197,
+      true
+    ],
+    [
+      209,
+      true
+    ],
+    [
+      221,
+      true
+    ],
+    [
+      234,
+      true
+    ],
+    [
+      246,
+      true
+    ],
+    [
+      259,
+      true
+    ],
+    [
+      271,
+      true
+    ],
+    [
+      282,
+      true
+    ],
+    [
+      293,
+      true
+    ],
+    [
+      306,
+      true
+    ],
+    [
+      318,
+      true
+    ],
+    [
+      331,
+      true
+    ],
+    [
+      343,
+      true
+    ],
+    [
+      355,
+      true
+    ],
+    [
+      368,
+      true
+    ],
+    [
+      381,
+      true
+    ],
+    [
+      394,
+      true
+    ],
+    [
+      406,
+      true
+    ],
+    [
+      419,
+      true
+    ],
+    [
+      431,
+      true
+    ],
+    [
+      444,
+      true
+    ],
+    [
+      456,
+      true
+    ],
+    [
+      469,
+      true
+    ],
+    [
+      480,
+      true
+    ],
+    [
+      493,
+      true
+    ],
+    [
+      505,
+      true
+    ],
+    [
+      516,
+      true
+    ],
+    [
+      529,
+      true
+    ],
+    [
+      541,
+      true
+    ],
+    [
+      552,
+      true
+    ],
+    [
+      564,
+      true
+    ],
+    [
+      577,
+      true
+    ],
+    [
+      589,
+      true
+    ],
+    [
+      600,
+      true
+    ],
+    [
+      612,
+      true
+    ],
+    [
+      625,
+      true
+    ],
+    [
+      638,
+      true
+    ],
+    [
+      648,
+      true
+    ],
+    [
+      660,
+      true
+    ],
+    [
+      673,
+      true
+    ],
+    [
+      685,
+      true
+    ],
+    [
+      698,
+      true
+    ],
+    [
+      710,
+      true
+    ],
+    [
+      723,
+      true
+    ],
+    [
+      735,
+      true
+    ],
+    [
+      748,
+      true
+    ],
+    [
+      760,
+      true
+    ],
+    [
+      773,
+      true
+    ],
+    [
+      785,
+      true
+    ],
+    [
+      798,
+      true
+    ]
+  ],
+  "tick": {
+    "left_before": "21 left",
+    "left_after": "20 left",
+    "a_ms": 2,
+    "a_checked": true
+  },
+  "hide_t0": 99754,
+  "hide": {
+    "requests": [],
+    "up": 0,
+    "down": 0,
+    "milk_visible": false
+  },
+  "typing": {
+    "value": "Bre",
+    "focused": "New item"
+  },
+  "markup": {
+    "text": "<b>Bold</b> beans",
+    "bold_elements": 0
+  },
+  "restart": [
+    {
+      "item": "Bread",
+      "down_ms": 3000,
+      "up_after_ms": 3106,
+      "a_ms": 3546,
+      "b_ms": 3546,
+      "since_stop_a": 6995
+    },
+    {
+      "item": "Butter",
+      "down_ms": 20000,
+      "up_after_ms": 20114,
+      "a_ms": 3496,
+      "b_ms": 3489,
+      "since_stop_a": 23976
+    }
+  ],
+  "console_errors": [
+    "Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING",
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+  ],
+  "final_list": [
+    "Milk",
+    "Item 0",
+    "Item 1",
+    "Item 2",
+    "Item 3",
+    "Item 4",
+    "Item 5",
+    "Item 6",
+    "Item 7",
+    "Item 8",
+    "Item 9",
+    "Item 10",
+    "Item 11",
+    "Item 12",
+    "Item 13",
+    "Item 14",
+    "Item 15",
+    "Item 16",
+    "Item 17",
+    "Item 18",
+    "Item 19",
+    "Eggs",
+    "<b>Bold</b> beans",
+    "Bread",
+    "Butter"
+  ],
+  "server_log": "2026/11/27 14:02:08 listening on http://127.0.0.1:8190\n"
+}
